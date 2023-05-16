@@ -1,6 +1,6 @@
 {
   "name": "iq96_next_webapp",
-  "version": "0.1.0",
+  "version": "0.6.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,14 +9,33 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "11.11.0",
+    "@emotion/styled": "11.11.0",
+    "@mui/icons-material": "5.11.16",
+    "@mui/material": "5.13.0",
+    "@mui/x-date-pickers": "6.4.0",
     "@types/node": "20.1.5",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
+    "firebase": "9.22.0",
     "next": "13.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-leaflet": "4.2.1",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+      "@types/leaflet": "1.9.3",
+      "@types/node": "18.15.11",
+      "@types/react": "18.0.33",
+      "@types/react-dom": "18.0.11",
+      "eslint-config-prettier": "8.8.0",
+      "eslint-plugin-prettier": "4.2.1",
+      "eslint-plugin-promise": "6.1.1",
+      "nodemon": "2.0.22",
+      "ts-node": "10.9.1",
+      "typescript": "4.9.5"
   }
 }
