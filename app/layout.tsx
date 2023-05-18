@@ -1,16 +1,32 @@
-import {Inter} from 'next/font/google';
+import '@styles/globals.css';
 
-const inter = Inter({subsets: ['latin']});
+import HeaderNav from '@components/layout/HeaderNavBar';
+import {ReactNode} from 'react';
+import BottomNav from '@components/layout/BottomNav';
 
 export const metadata = {
   title: 'IQ96 web app',
   description: 'IQ96 web app',
 };
 
-export default function RootLayout({children}: {children: React.ReactNode}) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
-  );
+interface Props {
+  children: ReactNode;
 }
+
+const RootLayout = ({children}: Props) => (
+  <html lang="en">
+    <body>
+      <div className="main">
+        <div className="gradient" />
+      </div>
+
+      <main className="app">
+        <HeaderNav />
+        {children}
+        <BottomNav value={0} />
+      </main>
+    </body>
+  </html>
+);
+
+export default RootLayout;
