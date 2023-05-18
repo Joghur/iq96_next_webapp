@@ -2,7 +2,6 @@ import '@styles/globals.css';
 
 import HeaderNav from '@components/layout/HeaderNavBar';
 import {ReactNode} from 'react';
-import BottomNav from '@components/layout/BottomNav';
 
 interface Props {
   children: ReactNode;
@@ -27,7 +26,6 @@ const RootLayout = ({children}: Props) => (
       <main className="app">
         <HeaderNav />
         {children}
-        <BottomNav />
       </main>
     </body>
   </html>
