@@ -1,12 +1,15 @@
 import '@styles/globals.css';
 
 import HeaderNav from '@components/layout/HeaderNavBar';
+import Head from 'next/head';
 import {ReactNode} from 'react';
 import BottomNav from '@components/layout/BottomNav';
 
 export const metadata = {
   title: 'IQ96 web app',
-  description: 'IQ96 web app',
+  description: 'Web site created by IQ96',
+  name: 'viewport',
+  content: 'width=device-width, initial-scale=1',
 };
 
 interface Props {
@@ -15,10 +18,6 @@ interface Props {
 
 const RootLayout = ({children}: Props) => (
   <html lang="en">
-    <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="icon" href="/favicon.ico" />
-    </head>
     <body>
       <div className="main">
         <div className="gradient" />
