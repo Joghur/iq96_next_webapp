@@ -1,3 +1,5 @@
+'use client';
+
 import {Navbar} from 'flowbite-react';
 
 import Link from 'next/link';
