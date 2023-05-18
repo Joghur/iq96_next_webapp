@@ -1,7 +1,10 @@
 import '@styles/globals.css';
-import Head from 'next/head';
 
 import {ReactNode} from 'react';
+import Head from 'next/head';
+
+import BottomNav from '@components/layout/BottomNav';
+import HeaderNav from '@components/layout/HeaderNavBar';
 
 interface Props {
   children: ReactNode;
@@ -26,10 +29,12 @@ const RootLayout = ({children}: Props) => (
       />
     </Head>
     <body>
-      {/* <div className="main">
+      <div className="main">
         <div className="gradient" />
-      </div> */}
+      </div>
+      <HeaderNav />
       <main className="app">{children}</main>
+      <BottomNav />
     </body>
   </html>
 );
