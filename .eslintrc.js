@@ -7,15 +7,12 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-hooks', 'react', 'import', 'promise', 'prettier'],
   extends: [
-    'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-    'plugin:prettier/recommended',
-    'next',
+    'plugin:@next/next/recommended',
+    // 'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+    // 'plugin:prettier/recommended',
+    // 'next',
   ],
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: false, // Allows for the parsing of JSX
-    },
-  },
+  parserOptions: {},
   rules: {
     '@typescript-eslint/no-use-before-define': ['off'],
     '@typescript-eslint/explicit-function-return-type': 'off',
