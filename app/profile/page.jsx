@@ -1,12 +1,6 @@
-'use client';
-
-import {useRouter} from 'next/navigation';
-
 import Profile from '@components/member/Profile';
 
 const ProfilePage = () => {
-  const router = useRouter();
-
   return (
     <>
       <Profile

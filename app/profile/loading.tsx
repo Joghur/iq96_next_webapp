@@ -1,14 +1,14 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 const Loading = () => {
   return (
-    <div className='w-full flex-center'>
+    <div className="w-full flex-center">
       <Image
-        src='/icons/loader.svg'
+        src="/icons/loader.svg"
         width={50}
         height={50}
-        alt='loader'
-        className='object-contain'
+        alt="loader"
+        className="object-contain"
       />
     </div>
   );

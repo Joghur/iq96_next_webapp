@@ -1,14 +1,9 @@
-'use client';
-
 import {Navbar} from 'flowbite-react';
 
 import Link from 'next/link';
 import Image from 'next/image';
-import {useState} from 'react';
 
 const HeaderNav = () => {
-  const [toggleDropdown, setToggleDropdown] = useState(false);
-
   return (
     <Navbar fluid={true} rounded={true}>
       <div className="">

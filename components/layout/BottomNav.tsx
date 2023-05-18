@@ -2,11 +2,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import React from 'react';
 
-interface Props {
-  value: number;
-  nick?: string;
-  // onChange: (arg0: number) => void;
-}
+// interface Props {
+//   value: number;
+//   nick?: string;
+//   // onChange: (arg0: number) => void;
+// }
 
 const BottomNav: React.FC = () => {
   return (
