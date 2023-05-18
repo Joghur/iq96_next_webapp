@@ -1,6 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import React from 'react';
+import {usePathname} from 'next/navigation';
+import React, {useState} from 'react';
 
 // interface Props {
 //   value: number;
@@ -9,24 +12,36 @@ import React from 'react';
 // }
 
 const BottomNav: React.FC = () => {
+  const pathname = usePathname();
+
   return (
     <nav className="bottom_nav overflow-hidden">
-      <div className="bottom_nav_link_container">
+      <div
+        className={`${
+          pathname === '/'
+            ? 'bottom_nav_link_selected'
+            : 'bottom_nav_link_container'
+        }`}>
         <Link href="/" className="flex flex-col items-center">
           <Image
             src="/images/icons/home.svg"
-            alt="chat"
+            alt="home"
             width={30}
             height={30}
           />
           <span className="text-sm">Hjem</span>
         </Link>
       </div>
-      <div className="bottom_nav_link_container">
-        <Link href="/map" className="flex flex-col items-center">
+      <div
+        className={`${
+          pathname === '/map'
+            ? 'bottom_nav_link_selected'
+            : 'bottom_nav_link_container'
+        }`}>
+        <Link href="/map" className="flex flex-col items-center select-none">
           <Image
             src="/images/icons/map.svg"
-            alt="chat"
+            alt="map"
             width={30}
             height={30}
             className="object-contain text-white"
@@ -34,7 +49,12 @@ const BottomNav: React.FC = () => {
           Kort
         </Link>
       </div>
-      <div className="bottom_nav_link_container">
+      <div
+        className={`${
+          pathname === '/library'
+            ? 'bottom_nav_link_selected'
+            : 'bottom_nav_link_container'
+        }`}>
         <Link href="/library" className="flex flex-col items-center">
           <Image
             src="/images/icons/library.svg"
@@ -46,7 +66,12 @@ const BottomNav: React.FC = () => {
           Bibliothek
         </Link>
       </div>
-      <div className="bottom_nav_link_container">
+      <div
+        className={`${
+          pathname === '/chat'
+            ? 'bottom_nav_link_selected'
+            : 'bottom_nav_link_container'
+        }`}>
         <Link href="/chat" className="flex flex-col items-center">
           <Image
             src="/images/icons/chat.svg"
@@ -58,7 +83,12 @@ const BottomNav: React.FC = () => {
           Chat
         </Link>
       </div>
-      <div className="bottom_nav_link_container">
+      <div
+        className={`${
+          pathname === '/member'
+            ? 'bottom_nav_link_selected'
+            : 'bottom_nav_link_container'
+        }`}>
         <Link href="/member" className="flex flex-col items-center">
           <Image
             src="/images/logo/iqlogo_48.png"

@@ -71,3 +71,6 @@
 .bottom_nav_link_container {
   @apply py-1 px-1 sm:py-4 sm:px-6 rounded-xl hover:text-lime-300 hover:ring-2 hover:bg-slate-700;
 }
+.bottom_nav_link_selected {
+  @apply py-1 px-1 sm:py-4 sm:px-6 rounded-xl text-lime-300 ring-2 bg-slate-700;
+}
