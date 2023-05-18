@@ -7,6 +7,7 @@ import BottomNav from '@components/layout/BottomNav';
 export const metadata = {
   title: 'IQ96 web app',
   description: 'IQ96 web app',
+  content:'width=device-width, initial-scale=1',
 };
 
 interface Props {

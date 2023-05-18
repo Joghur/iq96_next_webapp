@@ -1,7 +1,5 @@
-import React from 'react';
-
 const LibraryPage = () => {
-  return <div>Bibliothekf</div>;
+  return <div>Bibliothek</div>;
 };
 
 export default LibraryPage;
