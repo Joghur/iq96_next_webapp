@@ -23,7 +23,7 @@ const RootLayout = ({children}: Props) => (
       <main className="app">
         <HeaderNav />
         {children}
-        <BottomNav value={0} />
+        <BottomNav />
       </main>
     </body>
   </html>
