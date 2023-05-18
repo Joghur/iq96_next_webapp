@@ -10,51 +10,66 @@ import React from 'react';
 
 const BottomNav: React.FC = () => {
   return (
-    <nav className="bottom_nav">
-      <Link href="/" className="flex flex-col items-center">
-        <Image src="/images/icons/home.svg" alt="chat" width={30} height={30} />
-        <span className="text-sm">Hjem</span>
-      </Link>
-      <Link href="/map" className="flex flex-col items-center">
-        <Image
-          src="/images/icons/map.svg"
-          alt="chat"
-          width={30}
-          height={30}
-          className="object-contain text-white"
-        />
-        Kort
-      </Link>
-      <Link href="/library" className="flex flex-col items-center">
-        <Image
-          src="/images/icons/library.svg"
-          alt="library"
-          width={30}
-          height={30}
-          className="object-contain"
-        />
-        Bibliothek
-      </Link>
-      <Link href="/chat" className="flex flex-col items-center">
-        <Image
-          src="/images/icons/chat.svg"
-          alt="chat"
-          width={30}
-          height={30}
-          className="object-contain"
-        />
-        Chat
-      </Link>
-      <Link href="/member" className="flex flex-col items-center">
-        <Image
-          src="/images/logo/iqlogo_48.png"
-          alt="logo"
-          width={30}
-          height={30}
-          className="object-contain"
-        />
-        IQ96
-      </Link>
+    <nav className="bottom_nav overflow-hidden">
+      <div className="bottom_nav_link_container">
+        <Link href="/" className="flex flex-col items-center">
+          <Image
+            src="/images/icons/home.svg"
+            alt="chat"
+            width={30}
+            height={30}
+          />
+          <span className="text-sm">Hjem</span>
+        </Link>
+      </div>
+      <div className="bottom_nav_link_container">
+        <Link href="/map" className="flex flex-col items-center">
+          <Image
+            src="/images/icons/map.svg"
+            alt="chat"
+            width={30}
+            height={30}
+            className="object-contain text-white"
+          />
+          Kort
+        </Link>
+      </div>
+      <div className="bottom_nav_link_container">
+        <Link href="/library" className="flex flex-col items-center">
+          <Image
+            src="/images/icons/library.svg"
+            alt="library"
+            width={30}
+            height={30}
+            className="object-contain"
+          />
+          Bibliothek
+        </Link>
+      </div>
+      <div className="bottom_nav_link_container">
+        <Link href="/chat" className="flex flex-col items-center">
+          <Image
+            src="/images/icons/chat.svg"
+            alt="chat"
+            width={30}
+            height={30}
+            className="object-contain"
+          />
+          Chat
+        </Link>
+      </div>
+      <div className="bottom_nav_link_container">
+        <Link href="/member" className="flex flex-col items-center">
+          <Image
+            src="/images/logo/iqlogo_48.png"
+            alt="logo"
+            width={30}
+            height={30}
+            className="object-contain"
+          />
+          IQ96
+        </Link>
+      </div>
     </nav>
   );
 };

@@ -1,5 +1,9 @@
 // import 'leaflet/dist/leaflet.css';
 
 export default function Home() {
-  return <p>Hej</p>;
+  return (
+    <div className="app">
+      <p>Hej</p>
+    </div>
+  );
 }
