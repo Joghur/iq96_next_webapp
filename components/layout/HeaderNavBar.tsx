@@ -10,14 +10,14 @@ const HeaderNavbar: React.FC = () => {
             src="/images/logo/iqlogo_180.png"
             alt="logo"
             width={100}
-            height={0}
+            height={100}
             className="object-contain hidden sm:flex"
           />
           <Image
             src="/images/logo/iqlogo_180.png"
             alt="logo"
             width={37}
-            height={0}
+            height={37}
             className="object-contain flex sm:hidden"
           />
           <span className="logo_text pt-5">IQ96</span>

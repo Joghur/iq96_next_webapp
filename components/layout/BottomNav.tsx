@@ -16,90 +16,80 @@ const BottomNav: React.FC = () => {
 
   return (
     <nav className="bottom_nav overflow-hidden">
-      <div
+      <Link
+        href="/"
         className={`${
           pathname === '/'
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
         }`}>
-        <Link href="/" className="flex flex-col items-center">
-          <Image
-            src="/images/icons/home.svg"
-            alt="home"
-            width={30}
-            height={30}
-          />
-          <span className="text-sm">Hjem</span>
-        </Link>
-      </div>
-      <div
+        <Image src="/images/icons/home.svg" alt="home" width={30} height={30} />
+        <span className="text-sm">Hjem</span>
+      </Link>
+      <Link
+        href="/map"
         className={`${
           pathname === '/map'
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
         }`}>
-        <Link href="/map" className="flex flex-col items-center select-none">
-          <Image
-            src="/images/icons/map.svg"
-            alt="map"
-            width={30}
-            height={30}
-            className="object-contain text-white"
-          />
-          Kort
-        </Link>
-      </div>
-      <div
+        <Image
+          src="/images/icons/map.svg"
+          alt="map"
+          width={30}
+          height={30}
+          className="object-contain text-white"
+        />
+        Kort
+      </Link>
+      <Link
+        href="/library"
         className={`${
           pathname === '/library'
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
         }`}>
-        <Link href="/library" className="flex flex-col items-center">
-          <Image
-            src="/images/icons/library.svg"
-            alt="library"
-            width={30}
-            height={30}
-            className="object-contain"
-          />
-          Bibliothek
-        </Link>
-      </div>
-      <div
+        <Image
+          src="/images/icons/library.svg"
+          alt="library"
+          width={30}
+          height={30}
+          className="object-contain"
+        />
+        Bibliothek
+      </Link>
+      <Link
+        href="/chat"
         className={`${
           pathname === '/chat'
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
         }`}>
-        <Link href="/chat" className="flex flex-col items-center">
-          <Image
-            src="/images/icons/chat.svg"
-            alt="chat"
-            width={30}
-            height={30}
-            className="object-contain"
-          />
-          Chat
-        </Link>
-      </div>
-      <div
+        <Image
+          src="/images/icons/chat.svg"
+          alt="chat"
+          width={30}
+          height={30}
+          className="object-contain"
+        />
+        Chat
+      </Link>
+      <Link
+        href="/member"
         className={`${
           pathname === '/member'
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
         }`}>
-        <Link href="/member" className="flex flex-col items-center">
-          <Image
-            src="/images/logo/iqlogo_48.png"
-            alt="logo"
-            width={30}
-            height={30}
-            className="object-contain"
-          />
-          IQ96
-        </Link>
-      </div>
+        <Image
+          src="/images/logo/iqlogo_48.png"
+          alt="logo"
+          width={30}
+          height={30}
+          className="object-contain"
+        />
+        IQ96
+      </Link>
     </nav>
   );
 };
