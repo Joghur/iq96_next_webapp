@@ -1,7 +1,6 @@
 import '@styles/globals.css';
 
 import HeaderNav from '@components/layout/HeaderNavBar';
-import Head from 'next/head';
 import {ReactNode} from 'react';
 import BottomNav from '@components/layout/BottomNav';
 
