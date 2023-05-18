@@ -4,16 +4,6 @@ import HeaderNav from '@components/layout/HeaderNavBar';
 import {ReactNode} from 'react';
 import BottomNav from '@components/layout/BottomNav';
 
-export const metadata = {
-  title: 'IQ96 web app',
-  description: 'Web site created by IQ96',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
-};
-
 interface Props {
   children: ReactNode;
 }
