@@ -1,4 +1,5 @@
 import '@styles/globals.css';
+import Head from 'next/head';
 
 import {ReactNode} from 'react';
 
@@ -18,6 +19,9 @@ export const metadata = {
 
 const RootLayout = ({children}: Props) => (
   <html lang="en">
+    <Head>
+    <meta http-equiv="Access-Control-Allow-Origin" content="http://www.iq96.dk">
+    </Head>
     <body>
       {/* <div className="main">
         <div className="gradient" />
