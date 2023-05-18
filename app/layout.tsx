@@ -1,6 +1,5 @@
 import '@styles/globals.css';
 
-import HeaderNav from '@components/layout/HeaderNavBar';
 import {ReactNode} from 'react';
 
 interface Props {
@@ -20,13 +19,10 @@ export const metadata = {
 const RootLayout = ({children}: Props) => (
   <html lang="en">
     <body>
-      <div className="main">
+      {/* <div className="main">
         <div className="gradient" />
-      </div>
-      <main className="app">
-        <HeaderNav />
-        {children}
-      </main>
+      </div> */}
+      <main className="app">{children}</main>
     </body>
   </html>
 );
