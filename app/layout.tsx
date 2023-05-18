@@ -8,6 +8,11 @@ import BottomNav from '@components/layout/BottomNav';
 export const metadata = {
   title: 'IQ96 web app',
   description: 'Web site created by IQ96',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
 };
 
 interface Props {
@@ -16,9 +21,6 @@ interface Props {
 
 const RootLayout = ({children}: Props) => (
   <html lang="en">
-    <head>
-      <meta content="width=device-width, initial-scale=1" name="viewport" />
-    </head>
     <body>
       <div className="main">
         <div className="gradient" />
