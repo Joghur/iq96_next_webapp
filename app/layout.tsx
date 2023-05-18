@@ -20,7 +20,10 @@ export const metadata = {
 const RootLayout = ({children}: Props) => (
   <html lang="en">
     <Head>
-    <meta http-equiv="Access-Control-Allow-Origin" content="http://www.iq96.dk">
+      <meta
+        http-equiv="Access-Control-Allow-Origin"
+        content="http://www.iq96.dk"
+      />
     </Head>
     <body>
       {/* <div className="main">
