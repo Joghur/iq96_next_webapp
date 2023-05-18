@@ -8,6 +8,16 @@ interface Props {
   children: ReactNode;
 }
 
+export const metadata = {
+  title: 'IQ96 web app',
+  description: 'Web site created by IQ96',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
+};
+
 const RootLayout = ({children}: Props) => (
   <html lang="en">
     <body>
