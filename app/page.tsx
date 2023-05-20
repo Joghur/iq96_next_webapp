@@ -1,5 +1,9 @@
-import Image from "next/image";
+// import 'leaflet/dist/leaflet.css';
 
 export default function Home() {
-  return <main>Hej</main>;
+  return (
+    <div className="app">
+      <p>Hej</p>
+    </div>
+  );
 }
