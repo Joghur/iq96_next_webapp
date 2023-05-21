@@ -5,15 +5,25 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://app.iq96.dk"
-        },
+          "value": "http://www.iq96.dk"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://iq96.dk/app4"
-        },
+          "value": "http://iq96.dk"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://www.iq96.dk/app4"
+          "value": "http://app.iq96.dk"
         }
       ]
     }
