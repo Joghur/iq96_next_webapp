@@ -30,3 +30,5 @@ build/
 # Next.js build output
 .next
 out
+
+service-account-key.json
