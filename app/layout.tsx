@@ -18,8 +18,8 @@ export const metadata = {
 };
 
 const RootLayout = ({children}: Props) => {
-  const error = checkEnvironmentVariables();
-  if (error) throw error;
+  // const error = checkEnvironmentVariables();
+  // if (error) throw error;
 
   return (
     <html lang="en">
