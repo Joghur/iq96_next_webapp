@@ -1,0 +1,21 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://app.iq96.dk"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://iq96.dk/app4"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://www.iq96.dk/app4"
+        }
+      ]
+    }
+  ]
+}
