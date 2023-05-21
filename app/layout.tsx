@@ -23,19 +23,19 @@ const RootLayout = ({children}: Props) => {
 
   return (
     <html lang="en">
-      {/* <Head>
+      <Head>
         <meta
           http-equiv="Access-Control-Allow-Origin"
           content="http://www.iq96.dk"
         />
-      </Head> */}
+      </Head>
       <body>
         <div className="main">
           <div className="gradient" />
         </div>
-        {/* <HeaderNav /> */}
+        <HeaderNav />
         <main className="app">{children}</main>
-        {/* <BottomNav /> */}
+        <BottomNav />
       </body>
     </html>
   );

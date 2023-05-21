@@ -7,5 +7,9 @@ module.exports = {
   theme: {
     extend: {},
   },
+  important: true, // important in prod is must be
   plugins: [require('daisyui')],
+  daisyui: {
+    themes: [],
+  },
 };
