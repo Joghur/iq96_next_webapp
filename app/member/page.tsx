@@ -1,11 +1,12 @@
 'use client';
 
 import {MouseEvent, useContext, useState} from 'react';
+import {useRouter} from 'next/navigation';
+
+import {authContext} from '@lib/store/auth-context';
 import AboutTab from '@components/member/AboutTab';
 import AdminTab from '@components/member/AdminTab';
 import MemberTab from '@components/member/MemberTab';
-import {authContext} from '@lib/store/auth-context';
-import {useRouter} from 'next/navigation';
 
 type MemberTabs = 'member' | 'about' | 'admin';
 
@@ -13,13 +14,6 @@ const MemberPage = () => {
   const {user, loading} = useContext(authContext);
   const [value, setValue] = useState<MemberTabs>('member');
   const router = useRouter();
-
-  const handleChange = (event: MouseEvent<HTMLButtonElement>) => {
-    const {id} = event.target as HTMLButtonElement;
-    console.log('id', id);
-
-    setValue(id as MemberTabs);
-  };
 
   const isSuperAdmin = true; // documentUser?.isSuperAdmin;
 
@@ -31,14 +25,21 @@ const MemberPage = () => {
     router.replace('/');
   }
 
+  const handleChange = (event: MouseEvent<HTMLButtonElement>) => {
+    const {id} = event.target as HTMLButtonElement;
+    console.log('id', id);
+
+    setValue(id as MemberTabs);
+  };
+
   return (
     <div className="flex flex-col items-center">
       <h1 className="pt-10 pb-4 mb-4">Med-lems side</h1>
-      <div className="tabs">
+      <div className="tabs tabs-boxed">
         <button
           id="member"
           onClick={handleChange}
-          className={`tab tab-lg  sm:tab-xs tab-lifted ${
+          className={`tab ${
             value === 'member' ? 'tab-active' : ''
           }`}>
           Med-Lem
@@ -46,7 +47,7 @@ const MemberPage = () => {
         <button
           id="about"
           onClick={handleChange}
-          className={`tab tab-lg  sm:tab-xs tab-lifted ${
+          className={`tab ${
             value === 'about' ? 'tab-active' : ''
           }`}>
           Om
@@ -55,9 +56,7 @@ const MemberPage = () => {
           <button
             id="admin"
             onClick={handleChange}
-            className={`tab tab-lg  sm:tab-xs tab-lifted ${
-              value === 'admin' ? 'tab-active' : ''
-            }`}>
+            className={`tab ${value === 'admin' ? 'tab-active' : ''}`}>
             Admin
           </button>
         )}

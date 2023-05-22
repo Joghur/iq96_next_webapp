@@ -10,6 +10,9 @@ module.exports = {
   important: true, // important in prod is must be
   plugins: [require('daisyui')],
   daisyui: {
-    themes: [],
+    styled: true,
+    themes: true,
+    base: true,
+    utils: true,
   },
 };
