@@ -1,10 +1,18 @@
 const AdminTab = () => {
   return (
     <>
-      <button disabled onClick={() => {}}>
+      <button
+        disabled
+        onClick={() => {
+          console.log('Kopierer');
+        }}>
         Kopier gamle kortdata
       </button>
-      <button disabled onClick={() => {}}>
+      <button
+        disabled
+        onClick={() => {
+          console.log('Sletter');
+        }}>
         Slet gamle kortdata
       </button>
     </>

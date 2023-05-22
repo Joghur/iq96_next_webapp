@@ -2,6 +2,7 @@
 
 import {ReactNode, createContext} from 'react';
 import {
+  User,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
@@ -12,7 +13,7 @@ import {auth} from '@/lib/firebase';
 import React from 'react';
 
 interface AuthContextValues {
-  user: any;
+  user: User | null | undefined;
   loading: boolean;
   emailLoginHandler: (
     email: string | undefined,
