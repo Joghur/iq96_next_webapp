@@ -8,14 +8,12 @@ module.exports = {
   plugins: ['react-hooks', 'react', 'import', 'promise', 'prettier'],
   extends: [
     'plugin:@typescript-eslint/recommended',
-    '@next/eslint-plugin-next',
     'plugin:prettier/recommended',
-    // 'next',
     'prettier',
   ],
   parserOptions: {
     ecmaFeatures: {
-      jsx: true, // Allows for the parsing of JSX
+      jsx: true,
     },
   },
   rules: {

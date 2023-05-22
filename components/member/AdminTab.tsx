@@ -1,6 +1,3 @@
-import React from 'react';
-import {copyMapMarkers, deleteMapMarkers} from '../../utils/hooks/useFirestore';
-
 const AdminTab = () => {
   return (
     <>
