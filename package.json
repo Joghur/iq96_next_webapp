@@ -27,7 +27,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "13.4.2",
+    "@next/eslint-plugin-next": "^13.4.3",
     "@types/leaflet": "1.9.3",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",

@@ -7,9 +7,8 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-hooks', 'react', 'import', 'promise', 'prettier'],
   extends: [
-    'next/core-web-vitals',
     'plugin:@typescript-eslint/recommended',
-    'plugin:@next/next/recommended',
+    '@next/eslint-plugin-next',
     'plugin:prettier/recommended',
     // 'next',
     'prettier',
