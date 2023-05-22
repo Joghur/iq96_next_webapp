@@ -4,7 +4,6 @@ import {ReactNode} from 'react';
 import AuthContextProvider from '@/lib/store/auth-context';
 import BottomNav from '@components/BottomNav';
 import HeaderNavbar from '@components/HeaderNavBar';
-// import SiteContextProvider from '@lib/store/site-context';
 
 export const revalidate = false;
 
@@ -21,11 +20,9 @@ export default function RootLayout({children}: Props) {
           <div className="gradient" />
         </div>
         <AuthContextProvider>
-          {/* <SiteContextProvider> */}
           <HeaderNavbar />
           {children}
           <BottomNav />
-          {/* </SiteContextProvider> */}
         </AuthContextProvider>
       </body>
     </html>
