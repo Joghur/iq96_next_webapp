@@ -1,5 +1,19 @@
+'use client';
+
+import {useRouter} from 'next/navigation';
+import {useContext} from 'react';
+
+import {authContext} from '@lib/store/auth-context';
+
 const MapPage = () => {
-  return <div>Kort</div>;
+  const {user} = useContext(authContext);
+  const router = useRouter();
+
+  if (!user) {
+    router.replace('/');
+  }
+
+  return <div className="flex flex-col items-center pt-10">Kort</div>;
 };
 
 export default MapPage;

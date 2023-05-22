@@ -1,44 +1,33 @@
-import '@styles/globals.css';
+import './globals.css';
 
 import {ReactNode} from 'react';
-import Head from 'next/head';
+import AuthContextProvider from '@/lib/store/auth-context';
+import BottomNav from '@components/BottomNav';
+import HeaderNavbar from '@components/HeaderNavBar';
+// import SiteContextProvider from '@lib/store/site-context';
 
-import BottomNav from '@components/layout/BottomNav';
-import HeaderNav from '@components/layout/HeaderNavBar';
-import {checkEnvironmentVariables} from '@utils/helpers.server';
+export const revalidate = false;
 
 interface Props {
   children: ReactNode;
 }
 
-export const metadata = {
-  title: 'IQ96 web app',
-  description: 'Web site created by IQ96',
-  charset: 'utf-8',
-};
-
-const RootLayout = ({children}: Props) => {
-  // const error = checkEnvironmentVariables();
-  // if (error) throw error;
-
+export default function RootLayout({children}: Props) {
   return (
     <html lang="en">
-      <Head>
-        <meta
-          http-equiv="Access-Control-Allow-Origin"
-          content="http://www.iq96.dk"
-        />
-      </Head>
+      <head />
       <body>
         <div className="main">
           <div className="gradient" />
         </div>
-        <HeaderNav />
-        <main className="app">{children}</main>
-        <BottomNav />
+        <AuthContextProvider>
+          {/* <SiteContextProvider> */}
+          <HeaderNavbar />
+          {children}
+          <BottomNav />
+          {/* </SiteContextProvider> */}
+        </AuthContextProvider>
       </body>
     </html>
   );
-};
-
-export default RootLayout;
+}
