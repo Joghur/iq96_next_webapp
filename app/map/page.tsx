@@ -6,8 +6,12 @@ import {useContext} from 'react';
 import {authContext} from '@lib/store/auth-context';
 
 const MapPage = () => {
-  const {user} = useContext(authContext);
+  const {user, loading} = useContext(authContext);
   const router = useRouter();
+
+  if (loading) {
+    return <h6>Loading...</h6>;
+  }
 
   if (!user) {
     router.replace('/');
