@@ -7,19 +7,24 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-hooks', 'react', 'import', 'promise', 'prettier'],
   extends: [
-    'plugin:@next/next/recommended',
-    // 'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-    // 'plugin:prettier/recommended',
-    // 'next',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'prettier',
   ],
-  parserOptions: {},
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
   rules: {
-    // '@typescript-eslint/no-use-before-define': ['off'],
-    // '@typescript-eslint/explicit-function-return-type': 'off',
-    // '@typescript-eslint/explicit-module-boundary-types': 'off',
-    // '@typescript-eslint/no-unused-vars': ['error'],
-    // 'react-hooks/rules-of-hooks': 'error',
-    // 'react-hooks/exhaustive-deps': 'off',
+    '@typescript-eslint/no-use-before-define': ['off'],
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-empty-function': 'warn',
+    '@typescript-eslint/no-unused-vars': ['warn'],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'off',
+    'prefer-const': 'error',
   },
   overrides: [
     {

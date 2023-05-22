@@ -3,15 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import {usePathname} from 'next/navigation';
-import React, {useState} from 'react';
 
-// interface Props {
-//   value: number;
-//   nick?: string;
-//   // onChange: (arg0: number) => void;
-// }
-
-const BottomNav: React.FC = () => {
+const BottomNav = () => {
   const pathname = usePathname();
 
   return (
@@ -95,28 +88,3 @@ const BottomNav: React.FC = () => {
 };
 
 export default BottomNav;
-
-// export default function BottomNav({value}: Props) {
-//   return (
-//     <>
-//       <div>BottomNav</div>
-//     </>
-// <Box sx={{pb: 7}} ref={ref}>
-//   <Paper
-//     sx={{position: 'fixed', bottom: 0, left: 0, right: 0}}
-//     elevation={3}>
-//     <BottomNavigation
-//       showLabels
-//       value={value}
-//       onChange={(_, newValue) => {
-//         onChange(newValue);
-//       }}>
-//       <BottomNavigationAction label="IQ96" icon={<HomeIcon />} />
-//       <BottomNavigationAction label="Kort" icon={<MapIcon />} />
-//       <BottomNavigationAction label="Chat" icon={<ChatIcon />} />
-//       <BottomNavigationAction label={nick} icon={<PersonIcon />} />
-//     </BottomNavigation>
-//   </Paper>
-// </Box>
-// );
-// }

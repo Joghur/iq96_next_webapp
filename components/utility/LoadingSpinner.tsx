@@ -1,10 +1,12 @@
+'use client';
+
 import Image from 'next/image';
 
-const Loading = () => {
+const LoadingSpinner = () => {
   return (
-    <div className="w-full flex-center">
+    <div>
       <Image
-        src="/icons/loader.svg"
+        src="/images/icons/loader.svg"
         width={50}
         height={50}
         alt="loader"
@@ -14,4 +16,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default LoadingSpinner;

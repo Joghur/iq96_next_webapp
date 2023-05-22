@@ -1,47 +1,73 @@
-// import {connectToDB} from '@utils/database';
-// import Settings from '@models/settings';
-import ProfilePage from './profile/page';
-import {useEffect, useState} from 'react';
+'use client';
 
-// const makeVersion = async () => {
-//   try {
-//     await connectToDB();
-//     const newSettings = new Settings({version: '0.6.2'});
-//     await newSettings.save();
-//     return true;
-//   } catch (error) {
-//     console.log(error);
-//     return false;
-//   }
-// };
+import {MouseEvent, useContext, useState} from 'react';
+import AboutTab from '@components/member/AboutTab';
+import AdminTab from '@components/member/AdminTab';
+import MemberTab from '@components/member/MemberTab';
+import {authContext} from '@lib/store/auth-context';
+import {useRouter} from 'next/navigation';
 
-// const getVersion = async () => {
-//   try {
-//     await connectToDB();
-//     return Settings.find({}).populate('version');
-//   } catch (error) {
-//     console.log(error);
-//     return false;
-//   }
-// };
+type MemberTabs = 'member' | 'about' | 'admin';
 
 const MemberPage = () => {
-  // const [settings, setSettings] = useState<any>(null);
+  const {user, loading} = useContext(authContext);
+  const [value, setValue] = useState<MemberTabs>('member');
+  const router = useRouter();
 
-  // const doDb = async () => {
-  //   setSettings(getVersion());
-  //   makeVersion();
-  // };
+  const handleChange = (event: MouseEvent<HTMLButtonElement>) => {
+    const {id} = event.target as HTMLButtonElement;
+    console.log('id', id);
 
-  // useEffect(() => {
-  //   doDb();
-  // }, []);
+    setValue(id as MemberTabs);
+  };
+
+  const isSuperAdmin = true; // documentUser?.isSuperAdmin;
+
+  if (loading) {
+    return <h6>Loading...</h6>;
+  }
+
+  if (!user) {
+    router.replace('/');
+  }
 
   return (
-    <>
-      <p>Med-lems side</p>
-      <ProfilePage />
-    </>
+    <div className="flex flex-col items-center">
+      <h1 className="pt-10 pb-4 mb-4">Med-lems side</h1>
+      <div className="tabs">
+        <button
+          id="member"
+          onClick={handleChange}
+          className={`tab tab-lg  sm:tab-xs tab-lifted ${
+            value === 'member' ? 'tab-active' : ''
+          }`}>
+          Med-Lem
+        </button>
+        <button
+          id="about"
+          onClick={handleChange}
+          className={`tab tab-lg  sm:tab-xs tab-lifted ${
+            value === 'about' ? 'tab-active' : ''
+          }`}>
+          Om
+        </button>
+        {isSuperAdmin && (
+          <button
+            id="admin"
+            onClick={handleChange}
+            className={`tab tab-lg  sm:tab-xs tab-lifted ${
+              value === 'admin' ? 'tab-active' : ''
+            }`}>
+            Admin
+          </button>
+        )}
+      </div>
+      <div className="pt-6">
+        {value === 'member' && <MemberTab />}
+        {value === 'about' && <AboutTab />}
+        {value === 'admin' && <AdminTab />}
+      </div>
+    </div>
   );
 };
 
