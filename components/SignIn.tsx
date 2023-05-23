@@ -38,8 +38,8 @@ function SignIn() {
     handleStart();
   }, []);
 
-  const handleStart = async () => {
-    const startEmail: string | null = await getLocalStorage(LOCALSTORAGE_EMAIL);
+  const handleStart = () => {
+    const startEmail: string | null = getLocalStorage(LOCALSTORAGE_EMAIL);
 
     setEmail(startEmail || '');
     setPassword('');

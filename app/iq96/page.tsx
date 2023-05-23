@@ -2,17 +2,18 @@
 
 import {MouseEvent, useContext, useState} from 'react';
 import {useRouter} from 'next/navigation';
+import Link from 'next/link';
 
 import {authContext} from '@lib/store/auth-context';
 import AboutTab from '@components/member/AboutTab';
 import AdminTab from '@components/member/AdminTab';
 import MemberTab from '@components/member/MemberTab';
 
-type MemberTabs = 'member' | 'about' | 'admin';
+type MemberTabs = 'iq96' | 'about' | 'admin';
 
 const MemberPage = () => {
   const {user, loading} = useContext(authContext);
-  const [value, setValue] = useState<MemberTabs>('member');
+  const [value, setValue] = useState<MemberTabs>('iq96');
   const router = useRouter();
 
   const isSuperAdmin = true; // documentUser?.isSuperAdmin;
@@ -34,35 +35,32 @@ const MemberPage = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="pt-10 pb-4 mb-4">Med-lems side</h1>
-      <div className="tabs tabs-boxed">
-        <button
-          id="member"
-          onClick={handleChange}
-          className={`tab ${
-            value === 'member' ? 'tab-active' : ''
-          }`}>
-          Med-Lem
-        </button>
-        <button
-          id="about"
-          onClick={handleChange}
-          className={`tab ${
-            value === 'about' ? 'tab-active' : ''
-          }`}>
-          Om
-        </button>
-        {isSuperAdmin && (
+      <div className="pt-10 pb-4">
+        <div className="tabs tabs-boxed">
           <button
-            id="admin"
+            id="iq96"
             onClick={handleChange}
-            className={`tab ${value === 'admin' ? 'tab-active' : ''}`}>
-            Admin
+            className={`tab ${value === 'iq96' ? 'tab-active' : ''}`}>
+            Med-Lem
           </button>
-        )}
+          <button
+            id="about"
+            onClick={handleChange}
+            className={`tab ${value === 'about' ? 'tab-active' : ''}`}>
+            Om
+          </button>
+          {isSuperAdmin && (
+            <button
+              id="admin"
+              onClick={handleChange}
+              className={`tab ${value === 'admin' ? 'tab-active' : ''}`}>
+              Admin
+            </button>
+          )}
+        </div>
       </div>
       <div className="pt-6">
-        {value === 'member' && <MemberTab />}
+        {value === 'iq96' && <MemberTab />}
         {value === 'about' && <AboutTab />}
         {value === 'admin' && <AdminTab />}
       </div>

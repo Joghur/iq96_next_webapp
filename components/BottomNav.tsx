@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import {usePathname} from 'next/navigation';
+import {FaUserNinja, FaHome, FaMapMarkerAlt} from 'react-icons/fa';
+import {MdPhotoLibrary, MdChatBubbleOutline} from 'react-icons/md';
 
 const BottomNav = () => {
   const pathname = usePathname();
@@ -16,8 +17,8 @@ const BottomNav = () => {
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
         }`}>
-        <Image src="/images/icons/home.svg" alt="home" width={30} height={30} />
-        <span className="text-sm">Hjem</span>
+        <FaHome />
+        Hjem
       </Link>
       <Link
         href="/map"
@@ -26,13 +27,7 @@ const BottomNav = () => {
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
         }`}>
-        <Image
-          src="/images/icons/map.svg"
-          alt="map"
-          width={30}
-          height={30}
-          className="object-contain text-white"
-        />
+        <FaMapMarkerAlt />
         Kort
       </Link>
       <Link
@@ -42,13 +37,7 @@ const BottomNav = () => {
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
         }`}>
-        <Image
-          src="/images/icons/library.svg"
-          alt="library"
-          width={30}
-          height={30}
-          className="object-contain"
-        />
+        <MdPhotoLibrary />
         Bibliothek
       </Link>
       <Link
@@ -58,29 +47,17 @@ const BottomNav = () => {
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
         }`}>
-        <Image
-          src="/images/icons/chat.svg"
-          alt="chat"
-          width={30}
-          height={30}
-          className="object-contain"
-        />
+        <MdChatBubbleOutline />
         Chat
       </Link>
       <Link
-        href="/member"
+        href="/iq96"
         className={`${
-          pathname === '/member'
+          pathname === '/iq96'
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
         }`}>
-        <Image
-          src="/images/logo/iqlogo_48.png"
-          alt="logo"
-          width={30}
-          height={30}
-          className="object-contain"
-        />
+        <FaUserNinja />
         IQ96
       </Link>
     </nav>
