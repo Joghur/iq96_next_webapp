@@ -13,15 +13,17 @@ export const LOCALSTORAGE_THEME = `${LOCALSTORAGE_PREFIX}-theme`;
 const ThemeSelector = () => {
   const [currentTheme, setCurrentTheme] = useState<Themes>('light');
 
-  useEffect(() => {
-    const savedTheme: Themes | null = getLocalStorage(LOCALSTORAGE_THEME);
+  const handleStart = async () => {
+    const savedTheme: Themes | null = await getLocalStorage(LOCALSTORAGE_THEME);
     if (savedTheme) {
       setCurrentTheme(savedTheme);
-      document.documentElement.classList.add(savedTheme);
+      document.querySelector('html')?.setAttribute('data-theme', savedTheme);
     }
-  }, []);
+  };
 
-  useEffect(() => {}, [currentTheme]);
+  useEffect(() => {
+    handleStart();
+  }, []);
 
   const handleThemeChange = (theme: Themes) => {
     if (document?.querySelector('html')) {

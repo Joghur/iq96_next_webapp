@@ -1,12 +1,26 @@
 'use client';
 
-import {useContext} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {authContext} from '@/lib/store/auth-context';
 
 import SignIn from '@/components/SignIn';
+import {getLocalStorage} from '@lib/localStorage';
+import {Themes} from '@lib/constants';
+import {LOCALSTORAGE_THEME} from '@components/utility/ThemeSelector';
 
 export default function Home() {
   const {user, loading} = useContext(authContext);
+
+  const handleStart = () => {
+    const savedTheme: Themes | null = getLocalStorage(LOCALSTORAGE_THEME);
+    if (savedTheme) {
+      document.querySelector('html')?.setAttribute('data-theme', savedTheme);
+    }
+  };
+
+  useEffect(() => {
+    handleStart();
+  }, []);
 
   if (loading) {
     return <h6>Loading...</h6>;
