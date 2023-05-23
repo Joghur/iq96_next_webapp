@@ -6,14 +6,14 @@ import {useContext} from 'react';
 import {authContext} from '@lib/store/auth-context';
 
 const ChatPage = () => {
-  const {user, loading} = useContext(authContext);
+  const {authUser, loading} = useContext(authContext);
   const router = useRouter();
 
   if (loading) {
     return <h6>Loading...</h6>;
   }
 
-  if (!user) {
+  if (!authUser) {
     router.replace('/');
   }
 

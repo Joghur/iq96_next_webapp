@@ -1,6 +1,5 @@
 'use client';
 
-import {Themes} from '@lib/constants';
 import {
   LOCALSTORAGE_PREFIX,
   getLocalStorage,
@@ -9,6 +8,40 @@ import {
 import {useState, useEffect} from 'react';
 
 export const LOCALSTORAGE_THEME = `${LOCALSTORAGE_PREFIX}-theme`;
+
+const themes = [
+  'light',
+  'dark',
+  'cupcake',
+  'bumblebee',
+  'emerald',
+  'corporate',
+  'synthwave',
+  'retro',
+  'cyberpunk',
+  'valentine',
+  'halloween',
+  'garden',
+  'forest',
+  'aqua',
+  'lofi',
+  'pastel',
+  'fantasy',
+  'wireframe',
+  'black',
+  'luxury',
+  'dracula',
+  'cmyk',
+  'autumn',
+  'business',
+  'acid',
+  'lemonade',
+  'night',
+  'coffee',
+  'winter',
+] as const;
+
+export type Themes = (typeof themes)[number];
 
 const ThemeSelector = () => {
   const [currentTheme, setCurrentTheme] = useState<Themes>('light');
@@ -40,9 +73,12 @@ const ThemeSelector = () => {
         id="themeSelector"
         value={currentTheme}
         onChange={e => handleThemeChange(e.target.value as Themes)}
-        className="p-2 m-2">
-        <option value="dark">Mørkt</option>
-        <option value="light">Lyst</option>
+        className="p-2 m-2 rounded-lg">
+        {themes.map((o, index) => (
+          <option value={o} key={index}>
+            {o}
+          </option>
+        ))}
       </select>
     </div>
   );

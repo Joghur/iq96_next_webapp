@@ -7,13 +7,37 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
+import {
+  getFirestore,
+  DocumentData,
+  doc,
+  collection,
+  query,
+  where,
+} from 'firebase/firestore';
 import {useAuthState} from 'react-firebase-hooks/auth';
+import {useDocument, useDocumentOnce} from 'react-firebase-hooks/firestore';
 
-import {auth} from '@/lib/firebase';
-import React from 'react';
+import {app, auth, db} from '@/lib/firebase';
+import {useDocumentUser} from '@lib/hooks/useFirestore';
+
+export interface DocumentUser {
+  id: string;
+  uid: string;
+  email: string;
+  avatar: string;
+  isAdmin: boolean;
+  isBoard: boolean;
+  isSuperAdmin: boolean;
+  locationId: string;
+  name: string;
+  nick: string;
+  title: string;
+}
 
 interface AuthContextValues {
-  user: User | null | undefined;
+  authUser: User | null | undefined;
+  documentUser: DocumentUser | DocumentData | null | undefined;
   loading: boolean;
   emailLoginHandler: (
     email: string | undefined,
@@ -24,7 +48,8 @@ interface AuthContextValues {
 }
 
 export const authContext = createContext<AuthContextValues>({
-  user: null,
+  authUser: null,
+  documentUser: null,
   loading: false,
   emailLoginHandler: async () => {},
   logout: () => {},
@@ -38,7 +63,9 @@ interface AuthContextProviderProps {
 export default function AuthContextProvider({
   children,
 }: AuthContextProviderProps) {
-  const [user, loading, error] = useAuthState(auth);
+  // const [authUser, loading, error] = useAuthState(auth);
+
+  const [authUser, documentUser, loading] = useDocumentUser();
 
   const emailLoginHandler = async (email?: string, password?: string) => {
     if (!email || !password) {
@@ -47,7 +74,7 @@ export default function AuthContextProvider({
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
-      console.log('Logout error: ', error);
+      console.log('Logout error: ', err);
       alert('Der er skete en fejl under login!');
     }
   };
@@ -66,7 +93,8 @@ export default function AuthContextProvider({
   };
 
   const values = {
-    user,
+    authUser,
+    documentUser,
     loading,
     emailLoginHandler,
     logout,
@@ -75,3 +103,11 @@ export default function AuthContextProvider({
 
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
 }
+
+// Whole collection
+// const [documentUsers, loadingCol, errorCol] = useCollection(
+//   collection(getFirestore(app), 'users'),
+//   {
+//     snapshotListenOptions: {includeMetadataChanges: true},
+//   },
+// );

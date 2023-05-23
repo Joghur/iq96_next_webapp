@@ -1,10 +1,12 @@
 import './globals.css';
 
 import {ReactNode} from 'react';
-import AuthContextProvider from '@/lib/store/auth-context';
+import {Metadata} from 'next';
+
 import BottomNav from '@components/BottomNav';
 import HeaderNavbar from '@components/HeaderNavBar';
-import {Metadata} from 'next';
+import AuthContextProvider from '@/lib/store/auth-context';
+// import SiteContextProvider from '@/lib/store/site-context';
 
 export const revalidate = false;
 
@@ -22,9 +24,11 @@ export default function RootLayout({children}: Props) {
     <html lang="en">
       <body>
         <AuthContextProvider>
+          {/* <SiteContextProvider> */}
           <HeaderNavbar />
           {children}
           <BottomNav />
+          {/* </SiteContextProvider> */}
         </AuthContextProvider>
       </body>
     </html>

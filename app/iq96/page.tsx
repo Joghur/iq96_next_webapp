@@ -2,7 +2,6 @@
 
 import {MouseEvent, useContext, useState} from 'react';
 import {useRouter} from 'next/navigation';
-import Link from 'next/link';
 
 import {authContext} from '@lib/store/auth-context';
 import AboutTab from '@components/member/AboutTab';
@@ -12,7 +11,7 @@ import MemberTab from '@components/member/MemberTab';
 type MemberTabs = 'iq96' | 'about' | 'admin';
 
 const MemberPage = () => {
-  const {user, loading} = useContext(authContext);
+  const {authUser, loading} = useContext(authContext);
   const [value, setValue] = useState<MemberTabs>('iq96');
   const router = useRouter();
 
@@ -22,7 +21,7 @@ const MemberPage = () => {
     return <h6>Loading...</h6>;
   }
 
-  if (!user) {
+  if (!authUser) {
     router.replace('/');
   }
 

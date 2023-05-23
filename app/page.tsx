@@ -1,15 +1,14 @@
 'use client';
 
-import {useContext, useEffect, useState} from 'react';
-import {authContext} from '@/lib/store/auth-context';
+import {useContext, useEffect} from 'react';
 
 import SignIn from '@/components/SignIn';
+import {LOCALSTORAGE_THEME, Themes} from '@components/utility/ThemeSelector';
+import {authContext} from '@/lib/store/auth-context';
 import {getLocalStorage} from '@lib/localStorage';
-import {Themes} from '@lib/constants';
-import {LOCALSTORAGE_THEME} from '@components/utility/ThemeSelector';
 
 export default function Home() {
-  const {user, loading} = useContext(authContext);
+  const {authUser, documentUser, loading} = useContext(authContext);
 
   const handleStart = () => {
     const savedTheme: Themes | null = getLocalStorage(LOCALSTORAGE_THEME);
@@ -20,13 +19,13 @@ export default function Home() {
 
   useEffect(() => {
     handleStart();
-  }, []);
+  }, [handleStart]);
 
   if (loading) {
     return <h6>Loading...</h6>;
   }
 
-  if (!user) {
+  if (!authUser) {
     return <SignIn />;
   }
 
