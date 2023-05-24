@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 'use client';
 
 import { ReactNode, createContext } from 'react';
@@ -54,8 +55,6 @@ interface AuthContextProviderProps {
 export default function AuthContextProvider({
   children,
 }: AuthContextProviderProps) {
-  // const [authUser, loading, error] = useAuthState(auth);
-
   const [authUser, documentUser, loading] = useDocumentUser();
 
   const emailLoginHandler = async (email?: string, password?: string) => {

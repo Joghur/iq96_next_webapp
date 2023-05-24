@@ -1,14 +1,14 @@
 'use client';
 
-import {useContext} from 'react';
+import { useContext } from 'react';
 
-import {authContext} from '@/lib/store/auth-context';
-import {useRouter} from 'next/navigation';
+import { authContext } from '@/lib/store/auth-context';
+import { useRouter } from 'next/navigation';
 import DynamicText from '@components/utility/DynamicText';
 import ThemeSelector from '@components/utility/ThemeSelector';
 
 const MemberTab = () => {
-  const {logout, authUser, documentUser, loading} = useContext(authContext);
+  const { logout, authUser, documentUser, loading } = useContext(authContext);
   const router = useRouter();
 
   if (loading) {

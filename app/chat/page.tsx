@@ -16,8 +16,14 @@ const ChatPage = () => {
   if (!authUser) {
     router.replace('/');
   }
-
-  return <div className="flex flex-col items-center pt-10">Chat</div>;
+  return (
+    <div className="flex flex-col items-center">
+      <div className="py-10">
+        <p className="text-5xl">Chat</p>
+      </div>
+      <p className="">Kommer snart ...</p>
+    </div>
+  );
 };
 
 export default ChatPage;

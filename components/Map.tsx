@@ -132,7 +132,13 @@ const MapPage = () => {
   const router = useRouter();
 
   if (loading || markerLoading) {
-    return <h6>Loading...</h6>;
+    return (
+      <div className="flex flex-col items-center">
+        <div className="py-10">
+          <p className="">Loading...</p>
+        </div>
+      </div>
+    );
   }
 
   if (!authUser) {
