@@ -1,9 +1,12 @@
 'use client';
 
 import 'leaflet/dist/leaflet.css';
+import './leaflet-override.css';
 
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
+import { FaUserNinja, FaHome, FaMapMarkerAlt } from 'react-icons/fa';
+import { MdPhotoLibrary, MdMyLocation } from 'react-icons/md';
 
 import { authContext } from '@lib/store/auth-context';
 
@@ -19,6 +22,7 @@ import {
 } from 'react-leaflet';
 import L, { Icon, LatLngExpression } from 'leaflet';
 import { useFirestore } from '@lib/hooks/useFirestore';
+import SelectComponent from '@components/utility/SelectComponent';
 
 interface Coordinate {
   latitude: number;
@@ -45,41 +49,40 @@ const handleDocType = (docType: string, madeBy: string) => {
   }
 };
 
-// const FlyToSelector = ({markers}: {markers: MarkerData[]}) => {
-//   const map = useMap();
-//   const [center, setCenter] = useState([
-//     markers[0].location.latitude,
-//     markers[0].location.longitude,
-//   ]);
+const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
+  const map = useMap();
+  const [center, setCenter] = useState([
+    markers[0].location.latitude,
+    markers[0].location.longitude,
+  ]);
 
-//   const handleSelectChange = (event: SelectChangeEvent<string>) => {
-//     const value = event.target.value;
-//     const selectedMarker = markers.filter(
-//       (d: MarkerData) => d.title === value,
-//     )[0];
-//     setCenter([
-//       selectedMarker.location.latitude,
-//       selectedMarker.location.longitude,
-//     ]);
-//   };
+  const handleSelectChange = (event: string) => {
+    const selectedMarker = markers.filter(
+      (d: MarkerData) => d.title === event,
+    )[0];
+    setCenter([
+      selectedMarker.location.latitude,
+      selectedMarker.location.longitude,
+    ]);
+  };
 
-//   useEffect(() => {
-//     const latlng = L.latLng(center[0], center[1]);
-//     map.flyTo(latlng, 18, {
-//       duration: 2,
-//     });
-//   }, [center[0]]);
+  useEffect(() => {
+    const latlng = L.latLng(center[0], center[1]);
+    map.flyTo(latlng, 18, {
+      duration: 2,
+    });
+  }, [center[0]]);
 
-//   const selectValues = markers.map(s => ({
-//     value: s.title,
-//     label: s.nick,
-//     colour: s.madeBy === 'app' ? 'red' : 'black',
-//   }));
+  const selectValues = markers.map(s => ({
+    value: s.title,
+    label: s.nick,
+    colour: s.madeBy === 'app' ? 'red' : 'black',
+  }));
 
-//   return (
-//     <SelectComponent onChange={handleSelectChange} options={selectValues} />
-//   );
-// };
+  return (
+    <SelectComponent onChange={handleSelectChange} options={selectValues} />
+  );
+};
 
 function UserMapButton() {
   const map = useMapEvents({
@@ -93,8 +96,8 @@ function UserMapButton() {
   };
 
   return (
-    <button className="btn z-999" onClick={handleFlyToUserLocation}>
-      Du
+    <button className="btn" onClick={handleFlyToUserLocation}>
+      <MdMyLocation />
     </button>
   );
 }
@@ -187,21 +190,11 @@ const MapPage = () => {
   return (
     <>
       {userPosition && (
-        <div className="flex-1 relative z-0">
+        <div className="relative">
           <MapContainer
             center={userPosition}
             zoom={20}
-            // style={{
-            //   width: '100%',
-            //   height: '100%',
-            // }}
-            style={{ height: `100vh`, width: '100wh', zIndex: -1 }}
-            // style={{height: `${vh}vh`, width: '100wh', zIndex: -1}}
-          >
-            <div className="flex flex-row">
-              <UserMapButton />
-              {/* {markers && <FlyToSelector markers={markers} />} */}
-            </div>
+            style={{ height: `100vh`, width: '100wh', zIndex: 0 }}>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -222,6 +215,12 @@ const MapPage = () => {
                 {documentUser?.nick}
               </Tooltip>
             </Marker>
+            <div className="absolute top-[50vh] right-2 shadow-xl">
+              <UserMapButton />
+            </div>
+            <div className="absolute top-2 right-2 shadow-xl">
+              {markers && <FlyToSelector markers={markers} />}
+            </div>
             {markers &&
               markers.map((marker, index) => (
                 <Marker
@@ -348,9 +347,9 @@ const MapPage = () => {
                       )}
                     </div>
                   </Popup> */}
-                  {/* <Tooltip direction="bottom" offset={[0, 20]} opacity={1}>
+                  <Tooltip direction="bottom" offset={[0, 20]} opacity={1}>
                     {marker.nick}
-                  </Tooltip> */}
+                  </Tooltip>
                 </Marker>
               ))}
           </MapContainer>
