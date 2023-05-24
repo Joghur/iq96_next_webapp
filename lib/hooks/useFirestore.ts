@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {useState, useEffect} from 'react';
-import {initializeApp} from 'firebase/app';
-import {User, getAuth, onAuthStateChanged} from 'firebase/auth';
+import { useState, useEffect } from 'react';
+import { initializeApp } from 'firebase/app';
+import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
   collection,
   getFirestore,
@@ -53,7 +53,7 @@ export const useFirestore = <T extends DocumentData>(
 
   const updatingDoc = async (id: string, document: T) => {
     const docRef = doc(collectionRef, id);
-    await updateDoc(docRef, {...document});
+    await updateDoc(docRef, { ...document });
   };
 
   const deletingDoc = async (id: string) => {
@@ -75,7 +75,7 @@ export const useFirestore = <T extends DocumentData>(
     const unsubscribe = onSnapshot(queryRef, snapshot => {
       const docs: T[] = [];
       snapshot.forEach(doc => {
-        docs.push({id: doc.id, ...doc.data()});
+        docs.push({ id: doc.id, ...doc.data() });
       });
       setDocs(docs as T[]);
       setLoading(false);
@@ -83,7 +83,7 @@ export const useFirestore = <T extends DocumentData>(
     return unsubscribe;
   }, [db, collectionName]);
 
-  return {docs, loading, addingDoc, updatingDoc, deletingDoc};
+  return { docs, loading, addingDoc, updatingDoc, deletingDoc };
 };
 
 export const useFirestoreMax4Days = (
@@ -102,7 +102,7 @@ export const useFirestoreMax4Days = (
 
   const updatingDoc = async (id: string, document: DocumentData) => {
     const docRef = doc(collectionRef, id);
-    await updateDoc(docRef, {...document});
+    await updateDoc(docRef, { ...document });
   };
 
   const deletingDoc = async (id: string) => {
@@ -131,7 +131,7 @@ export const useFirestoreMax4Days = (
     const unsubscribe = onSnapshot(collectionRef, snapshot => {
       const docs: DocumentData[] = [];
       snapshot.forEach(doc => {
-        docs.push({id: doc.id, ...doc.data()});
+        docs.push({ id: doc.id, ...doc.data() });
       });
       setDocs(docs);
       setLoading(false);
@@ -139,7 +139,7 @@ export const useFirestoreMax4Days = (
     return unsubscribe;
   }, [db, collectionName, days]);
 
-  return {docs, loading, addingDoc, updatingDoc, deletingDoc};
+  return { docs, loading, addingDoc, updatingDoc, deletingDoc };
 };
 
 export const useAuth = () => {
@@ -154,7 +154,7 @@ export const useAuth = () => {
     return unsubscribe;
   }, []);
 
-  return {authUser, loading};
+  return { authUser, loading };
 };
 
 export const copyMapMarkers = () => {
@@ -215,7 +215,7 @@ export const useDocumentUser = (): [
   const [documentUser, setDocumentUser] = useState<DocumentUser | null>(null);
   const [loading, setLoading] = useState(true);
   const db = getFirestore(app);
-  const {authUser: _authUser, loading: _loading} = useAuth();
+  const { authUser: _authUser, loading: _loading } = useAuth();
 
   useEffect(() => {
     if (!_loading && _authUser) {
@@ -229,7 +229,7 @@ export const useDocumentUser = (): [
         .then(querySnapshot => {
           if (!querySnapshot.empty) {
             const docData = querySnapshot.docs[0].data() as DocumentUser;
-            setDocumentUser({...docData, id: querySnapshot.docs[0].id});
+            setDocumentUser({ ...docData, id: querySnapshot.docs[0].id });
             setLoading(false);
           }
         })
