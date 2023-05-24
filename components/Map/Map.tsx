@@ -1,16 +1,12 @@
 'use client';
 
-import 'leaflet/dist/leaflet.css';
-import './leaflet-override.css';
-
 import { useRouter } from 'next/navigation';
-import { useContext } from 'react';
-import { FaUserNinja, FaHome, FaMapMarkerAlt } from 'react-icons/fa';
-import { MdPhotoLibrary, MdMyLocation } from 'react-icons/md';
+import { ChangeEvent, useContext } from 'react';
+import { MdMyLocation, MdEdit, MdDelete } from 'react-icons/md';
 
 import { authContext } from '@lib/store/auth-context';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   MapContainer,
   Marker,
@@ -23,6 +19,7 @@ import {
 import L, { Icon, LatLngExpression } from 'leaflet';
 import { useFirestore } from '@lib/hooks/useFirestore';
 import SelectComponent from '@components/utility/SelectComponent';
+import DynamicText from '@components/utility/DynamicText';
 
 interface Coordinate {
   latitude: number;
@@ -39,7 +36,20 @@ interface MarkerData {
   type: string;
 }
 
-const handleDocType = (docType: string, madeBy: string) => {
+type MarkerType =
+  | 'bar'
+  | 'bus'
+  | 'cafe'
+  | 'hotel'
+  | 'museum'
+  | 'music'
+  | 'question'
+  | 'restaurant'
+  | 'sightseeing'
+  | 'tour'
+  | 'train';
+
+const handleDocType = (docType: MarkerType, madeBy: string) => {
   switch (madeBy) {
     case 'app':
       return `${docType}_red`;
@@ -114,7 +124,7 @@ const MapPage = () => {
     LatLngExpression | undefined
   >(undefined);
   const [showEdit, setShowEdit] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const [currentMarker, setCurrentMarker] = useState<MarkerData | undefined>(
     undefined,
   );
@@ -153,7 +163,7 @@ const MapPage = () => {
   };
 
   const handleOpenDeleteModal = (marker: MarkerData) => {
-    setShowDeleteModal(true);
+    setShowDelete(true);
     setCurrentMarker(marker);
   };
 
@@ -161,12 +171,13 @@ const MapPage = () => {
     if (currentMarker?.id) {
       deletingDoc(currentMarker.id);
     }
-    setShowDeleteModal(false);
+    setShowDelete(false);
     setCurrentMarker(undefined);
   };
 
-  const handleChangeMarker = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeMarker = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { id, value } = event.target;
+    console.log(' id, value ', id, value);
     setCurrentMarker(old => {
       if (old) {
         return {
@@ -215,7 +226,7 @@ const MapPage = () => {
                 {documentUser?.nick}
               </Tooltip>
             </Marker>
-            <div className="absolute top-[50vh] right-2 shadow-xl">
+            <div className="absolute top-[50vh] right-2 shadow-xl text-blue-400 z-1000">
               <UserMapButton />
             </div>
             <div className="absolute top-2 right-2 shadow-xl">
@@ -232,7 +243,7 @@ const MapPage = () => {
                   icon={
                     new Icon({
                       iconUrl: `/images/markers/${handleDocType(
-                        marker.type,
+                        marker.type as MarkerType,
                         marker.madeBy,
                       )}.png`,
                       iconSize: [25, 25],
@@ -240,142 +251,136 @@ const MapPage = () => {
                       popupAnchor: [0, -10],
                     })
                   }>
-                  {/* <Popup>
+                  <Popup
+                    closeOnClick={false} // Do not remove
+                    closeButton={true}
+                    className="z-1000">
                     <div>
-                      {!showEdit && (
-                        <>
-                          <Stack spacing={2}>
-                            <DynamicText desktop="h5" mobile="h6">
-                              {marker.title}
-                            </DynamicText>
-                          </Stack>
+                      {!showEdit && !showDelete && (
+                        <div>
+                          <DynamicText>{marker.title}</DynamicText>
                           <DynamicText>{marker.description}</DynamicText>
-                          <Stack
-                            direction="row"
-                            spacing={3}
-                            justifyContent="flex-end">
-                            <EditIcon
+                          <div className="stack_row gap-3">
+                            <MdEdit
                               fontSize="small"
                               onClick={() => handleOpenEditMarker(marker)}
                             />
                             {documentUser?.nick === 'Redacteur' && (
-                              <DeleteIcon
+                              <MdDelete
                                 fontSize="small"
                                 onClick={() => handleOpenDeleteModal(marker)}
                               />
                             )}
-                          </Stack>
-                        </>
+                          </div>
+                        </div>
+                      )}
+                      {showDelete && canEdit && currentMarker && (
+                        <div>
+                          <p className="text-lg">
+                            Er du sikker på du vil slette markør?
+                          </p>
+                          <p>
+                            <p>Denne handling kan ikke ændres.</p>
+                          </p>
+                          <div className="stack_row justify-between">
+                            <button
+                              onClick={() => setShowDelete(false)}
+                              className="btn btn-error btn-sm">
+                              Fortryd
+                            </button>
+                            <button
+                              onClick={handleDeleteMarker}
+                              className="btn btn-success btn-sm">
+                              Slet
+                            </button>
+                          </div>
+                        </div>
                       )}
                       {showEdit && canEdit && currentMarker && (
-                        <Typography>
-                          <Typography>
-                            <Stack spacing={1} sx={{pt: 2}}>
-                              <>
-                                <Stack>
-                                  <BoldText variant="subtitle1">Titel</BoldText>
-                                  <TextField
-                                    id="title"
-                                    type="text"
-                                    value={currentMarker?.title}
-                                    onChange={handleChangeMarker}
-                                    placeholder={
-                                      currentMarker?.title || 'Titel'
-                                    }
-                                    size="small"
-                                  />
-                                </Stack>
-                                <Stack>
-                                  <BoldText variant="subtitle1">Nick</BoldText>
-                                  <TextField
-                                    id="nick"
-                                    type="text"
-                                    value={currentMarker?.nick}
-                                    onChange={handleChangeMarker}
-                                    placeholder={currentMarker?.nick || 'Nick'}
-                                    size="small"
-                                  />
-                                </Stack>
-                                <Stack>
-                                  <BoldText variant="subtitle1">Type</BoldText>
-                                  <TextField
-                                    id="madeBy"
-                                    type="text"
-                                    value={currentMarker?.madeBy}
-                                    onChange={handleChangeMarker}
-                                    placeholder={
-                                      currentMarker?.madeBy ||
-                                      'Type: app eller user'
-                                    }
-                                    size="small"
-                                  />
-                                </Stack>
-                                <Stack>
-                                  <BoldText variant="subtitle1">
-                                    Beskrivelse
-                                  </BoldText>
-                                  <TextField
-                                    id="description"
-                                    type="text"
-                                    value={currentMarker?.description}
-                                    multiline
-                                    onChange={handleChangeMarker}
-                                    placeholder={
-                                      currentMarker?.description ||
-                                      'Beskrivelse'
-                                    }
-                                    size="small"
-                                  />
-                                </Stack>
-                              </>
-                            </Stack>
-                          </Typography>
-                          <Stack direction="row" justifyContent="space-between">
-                            <Button
-                              variant="outlined"
+                        <div>
+                          <div className="pt-5">
+                            <label
+                              htmlFor="password"
+                              className="block green_gradient font-medium mb-2">
+                              Titel
+                            </label>
+                            <textarea
+                              id="title"
+                              value={currentMarker?.title}
+                              onChange={handleChangeMarker}
+                              placeholder={currentMarker?.title || 'Titel'}
+                              className="textarea textarea-bordered text-white"
+                            />
+                          </div>
+                          <div className="pt-5">
+                            <label
+                              htmlFor="password"
+                              className="block green_gradient font-medium mb-2">
+                              Nick
+                            </label>
+                            <textarea
+                              id="nick"
+                              value={currentMarker?.nick}
+                              onChange={handleChangeMarker}
+                              placeholder={currentMarker?.title || 'Nick'}
+                              className="textarea textarea-bordered text-white"
+                            />
+                          </div>
+                          <div className="pt-5">
+                            <label
+                              htmlFor="password"
+                              className="block green_gradient font-medium mb-2">
+                              Type
+                            </label>
+                            <textarea
+                              id="madeBy"
+                              value={currentMarker?.madeBy}
+                              onChange={handleChangeMarker}
+                              placeholder={
+                                currentMarker?.madeBy || 'Type: app eller user'
+                              }
+                              className="textarea textarea-bordered text-white"
+                            />
+                          </div>
+                          <div className="pt-5">
+                            <label
+                              htmlFor="password"
+                              className="block green_gradient font-medium mb-2">
+                              Beskrivelse
+                            </label>
+                            <textarea
+                              id="description"
+                              value={currentMarker?.description}
+                              onChange={handleChangeMarker}
+                              placeholder={
+                                currentMarker?.description || 'Beskrivelse'
+                              }
+                              className="textarea textarea-bordered text-white"
+                            />
+                          </div>
+                          <div className="stack_row justify-between pt-5">
+                            <button
                               onClick={() => setShowEdit(false)}
-                              color={'error'}>
+                              color={'error'}
+                              className="btn btn-error btn-sm">
                               Fortryd
-                            </Button>
-                            <Button
-                              variant="outlined"
-                              onClick={handleSubmitMarker}>
+                            </button>
+                            <button
+                              onClick={handleSubmitMarker}
+                              className="btn btn-info btn-sm">
                               Ændr
-                            </Button>
-                          </Stack>
-                        </Typography>
+                            </button>
+                          </div>
+                        </div>
                       )}
                     </div>
-                  </Popup> */}
+                  </Popup>
                   <Tooltip direction="bottom" offset={[0, 20]} opacity={1}>
                     {marker.nick}
                   </Tooltip>
                 </Marker>
               ))}
           </MapContainer>
-          {/* {showDeleteModal && (
-            <>
-              <Dialog
-                open={showDeleteModal}
-                onClose={() => setShowDeleteModal(false)}>
-                <DialogTitle>Er du sikker på du vil slette markør?</DialogTitle>
-                <DialogContent>
-                  <p>Denne handling kan ikke ændres.</p>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={() => setShowDeleteModal(false)}>
-                    Fortryd
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleDeleteMarker}>
-                    Slet
-                  </Button>
-                </DialogActions>
-              </Dialog>
-            </>
-          )} */}
         </div>
       )}
     </>
