@@ -1,4 +1,6 @@
 import './globals.css';
+import 'leaflet/dist/leaflet.css';
+import './leaflet-override.css';
 
 import { ReactNode } from 'react';
 import { Metadata } from 'next';
