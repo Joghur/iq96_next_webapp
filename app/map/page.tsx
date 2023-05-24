@@ -1,23 +1,12 @@
-'use client';
+import dynamic from 'next/dynamic';
 
-import {useRouter} from 'next/navigation';
-import {useContext} from 'react';
-
-import {authContext} from '@lib/store/auth-context';
-
-const MapPage = () => {
-  const {user, loading} = useContext(authContext);
-  const router = useRouter();
-
-  if (loading) {
-    return <h6>Loading...</h6>;
-  }
-
-  if (!user) {
-    router.replace('/');
-  }
-
-  return <div className="flex flex-col items-center pt-10">Kort</div>;
-};
+// https://stackoverflow.com/questions/57704196/leaflet-with-next-js
+function MapPage() {
+  const Map = dynamic(() => import('@components/Map'), {
+    loading: () => <p>Henter....</p>,
+    ssr: false, // This line is important. It's what prevents server-side render
+  });
+  return <Map />;
+}
 
 export default MapPage;

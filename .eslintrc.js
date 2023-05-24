@@ -20,7 +20,6 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ['off'],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-empty-function': 'warn',
     '@typescript-eslint/no-unused-vars': ['warn'],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'off',
