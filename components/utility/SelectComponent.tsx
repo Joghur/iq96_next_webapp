@@ -47,7 +47,10 @@ const SelectComponent: React.FC<Props> = ({ options, onChange }) => {
       className="select select-bordered"
       onChange={e => onChange(e.target.value)}>
       {options.map((option, index) => (
-        <option key={index} value={option.value}>
+        <option
+          key={index}
+          value={option.value}
+          className="hover:bg-pink-200 focus:bg-pink-200">
           {option.label}
         </option>
       ))}

@@ -10,3 +10,7 @@
 .leaflet-bottom {
   z-index: 0 !important;
 }
+
+.red_option_color {
+  color: #ccc;
+}

@@ -226,7 +226,7 @@ const MapPage = () => {
                 {documentUser?.nick}
               </Tooltip>
             </Marker>
-            <div className="absolute top-[50vh] right-2 shadow-xl text-blue-400 z-1000">
+            <div className="absolute top-[50vh] right-2 shadow-xl z-1000">
               <UserMapButton />
             </div>
             <div className="absolute top-2 right-2 shadow-xl">
