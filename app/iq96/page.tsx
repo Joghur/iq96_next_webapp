@@ -1,9 +1,9 @@
 'use client';
 
-import {MouseEvent, useContext, useState} from 'react';
-import {useRouter} from 'next/navigation';
+import { MouseEvent, useContext, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-import {authContext} from '@lib/store/auth-context';
+import { authContext } from '@lib/store/auth-context';
 import AboutTab from '@components/member/AboutTab';
 import AdminTab from '@components/member/AdminTab';
 import MemberTab from '@components/member/MemberTab';
@@ -11,7 +11,7 @@ import MemberTab from '@components/member/MemberTab';
 type MemberTabs = 'iq96' | 'about' | 'admin';
 
 const MemberPage = () => {
-  const {authUser, loading} = useContext(authContext);
+  const { authUser, loading } = useContext(authContext);
   const [value, setValue] = useState<MemberTabs>('iq96');
   const router = useRouter();
 
@@ -26,7 +26,7 @@ const MemberPage = () => {
   }
 
   const handleChange = (event: MouseEvent<HTMLButtonElement>) => {
-    const {id} = event.target as HTMLButtonElement;
+    const { id } = event.target as HTMLButtonElement;
     console.log('id', id);
 
     setValue(id as MemberTabs);

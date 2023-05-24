@@ -1,25 +1,16 @@
 'use client';
 
-import {ReactNode, createContext} from 'react';
+import { ReactNode, createContext } from 'react';
 import {
   User,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import {
-  getFirestore,
-  DocumentData,
-  doc,
-  collection,
-  query,
-  where,
-} from 'firebase/firestore';
-import {useAuthState} from 'react-firebase-hooks/auth';
-import {useDocument, useDocumentOnce} from 'react-firebase-hooks/firestore';
+import { DocumentData } from 'firebase/firestore';
 
-import {app, auth, db} from '@/lib/firebase';
-import {useDocumentUser} from '@lib/hooks/useFirestore';
+import { auth } from '@/lib/firebase';
+import { useDocumentUser } from '@lib/hooks/useFirestore';
 
 export interface DocumentUser {
   id: string;

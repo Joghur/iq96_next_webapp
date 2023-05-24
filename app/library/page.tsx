@@ -1,12 +1,12 @@
 'use client';
 
-import {useRouter} from 'next/navigation';
-import {useContext} from 'react';
+import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
 
-import {authContext} from '@lib/store/auth-context';
+import { authContext } from '@lib/store/auth-context';
 
 const LibraryPage = () => {
-  const {authUser, loading} = useContext(authContext);
+  const { authUser, loading } = useContext(authContext);
   const router = useRouter();
 
   if (loading) {

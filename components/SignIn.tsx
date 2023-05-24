@@ -1,9 +1,9 @@
 'use client';
 
-import {useContext, useEffect, useState} from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import {authContext} from '@/lib/store/auth-context';
+import { authContext } from '@/lib/store/auth-context';
 import {
   LOCALSTORAGE_PREFIX,
   getLocalStorage,
@@ -13,7 +13,7 @@ import {
 export const LOCALSTORAGE_EMAIL = `${LOCALSTORAGE_PREFIX}-email`;
 
 function SignIn() {
-  const {emailLoginHandler, resetPassword} = useContext(authContext);
+  const { emailLoginHandler, resetPassword } = useContext(authContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [reset, setReset] = useState(false);

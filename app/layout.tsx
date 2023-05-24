@@ -1,7 +1,7 @@
 import './globals.css';
 
-import {ReactNode} from 'react';
-import {Metadata} from 'next';
+import { ReactNode } from 'react';
+import { Metadata } from 'next';
 
 import BottomNav from '@components/BottomNav';
 import HeaderNavbar from '@components/HeaderNavBar';
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description: 'Web app created by IQ96',
 };
 
-export default function RootLayout({children}: Props) {
+export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body>

@@ -5,7 +5,7 @@ import {
   getLocalStorage,
   setLocalStorage,
 } from '@lib/localStorage';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 export const LOCALSTORAGE_THEME = `${LOCALSTORAGE_PREFIX}-theme`;
 
