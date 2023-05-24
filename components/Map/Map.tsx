@@ -20,7 +20,7 @@ import L, { Icon, LatLngExpression } from 'leaflet';
 import { useFirestore } from '@lib/hooks/useFirestore';
 import SelectComponent, {
   FlyToSelector,
-} from '@components/utility/SelectComponent';
+} from '@components/Map/SelectComponent';
 import DynamicText from '@components/utility/DynamicText';
 
 interface Coordinate {
@@ -212,152 +212,155 @@ const MapPage = () => {
             </div>
             {sortedMarkers &&
               sortedMarkers.map((marker, index) => (
-                <Marker
-                  key={index}
-                  position={[
-                    marker.location.latitude,
-                    marker.location.longitude,
-                  ]}
-                  icon={
-                    new Icon({
-                      iconUrl: `/images/markers/${handleDocType(
-                        marker.type as MarkerType,
-                        marker.madeBy,
-                      )}.png`,
-                      iconSize: [25, 25],
-                      iconAnchor: [18, 18],
-                      popupAnchor: [0, -10],
-                    })
-                  }>
-                  <Popup
-                    closeOnClick={false} // Do not remove
-                    closeOnEscapeKey={true} // Do not remove
-                    closeButton={true}
-                    className="z-1000">
-                    <div>
-                      {!showEdit && !showDelete && (
-                        <div>
-                          <DynamicText>{marker.title}</DynamicText>
-                          <DynamicText>{marker.description}</DynamicText>
-                          <div className="stack_row gap-3 justify-center items-center">
-                            {documentUser?.nick === 'Redacteur' && (
+                <div className='ring-3'>
+                  <Marker
+                    key={index}
+                    position={[
+                      marker.location.latitude,
+                      marker.location.longitude,
+                    ]}
+                    icon={
+                      new Icon({
+                        iconUrl: `/images/markers/${handleDocType(
+                          marker.type as MarkerType,
+                          marker.madeBy,
+                        )}.png`,
+                        iconSize: [35, 35],
+                        iconAnchor: [18, 18],
+                        popupAnchor: [0, -10],
+                      })
+                    }>
+                    <Popup
+                      closeOnClick={false} // Do not remove
+                      closeOnEscapeKey={true} // Do not remove
+                      closeButton={true}
+                      className="z-1000">
+                      <div>
+                        {!showEdit && !showDelete && (
+                          <div>
+                            <DynamicText>{marker.title}</DynamicText>
+                            <DynamicText>{marker.description}</DynamicText>
+                            <div className="stack_row gap-3 justify-center items-center">
+                              {documentUser?.nick === 'Redacteur' && (
+                                <button
+                                  onClick={() => handleOpenDeleteModal(marker)}
+                                  className="btn btn-xs btn-error">
+                                  <MdDelete />
+                                </button>
+                              )}
                               <button
-                                onClick={() => handleOpenDeleteModal(marker)}
-                                className="btn btn-xs btn-error">
-                                <MdDelete />
+                                onClick={() => handleOpenEditMarker(marker)}
+                                className="btn btn-sm btn-warning">
+                                <MdEdit />
                               </button>
-                            )}
-                            <button
-                              onClick={() => handleOpenEditMarker(marker)}
-                              className="btn btn-sm btn-warning">
-                              <MdEdit />
-                            </button>
+                            </div>
                           </div>
-                        </div>
-                      )}
-                      {showDelete && canEdit && currentMarker && (
-                        <div>
-                          <p className="text-lg">
-                            Er du sikker på du vil slette markør?
-                          </p>
-                          <p>Denne handling kan ikke ændres.</p>
-                          <div className="stack_row justify-between">
-                            <button
-                              onClick={() => setShowDelete(false)}
-                              className="btn btn-sm btn-error btn-outline">
-                              Fortryd
-                            </button>
-                            <button
-                              onClick={handleDeleteMarker}
-                              className="btn btn-success btn-sm">
-                              Slet
-                            </button>
+                        )}
+                        {showDelete && canEdit && currentMarker && (
+                          <div>
+                            <p className="text-lg">
+                              Er du sikker på du vil slette markør?
+                            </p>
+                            <p>Denne handling kan ikke ændres.</p>
+                            <div className="stack_row justify-between">
+                              <button
+                                onClick={() => setShowDelete(false)}
+                                className="btn btn-sm btn-error btn-outline">
+                                Fortryd
+                              </button>
+                              <button
+                                onClick={handleDeleteMarker}
+                                className="btn btn-success btn-sm">
+                                Slet
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      )}
-                      {showEdit && canEdit && currentMarker && (
-                        <div>
-                          <div className="pt-5">
-                            <label
-                              htmlFor="password"
-                              className="block green_gradient font-medium mb-2">
-                              Titel
-                            </label>
-                            <textarea
-                              id="title"
-                              value={currentMarker?.title}
-                              onChange={handleChangeMarker}
-                              placeholder={currentMarker?.title || 'Titel'}
-                              className="textarea textarea-bordered text-white"
-                            />
+                        )}
+                        {showEdit && canEdit && currentMarker && (
+                          <div>
+                            <div className="pt-5">
+                              <label
+                                htmlFor="password"
+                                className="block green_gradient font-medium mb-2">
+                                Titel
+                              </label>
+                              <textarea
+                                id="title"
+                                value={currentMarker?.title}
+                                onChange={handleChangeMarker}
+                                placeholder={currentMarker?.title || 'Titel'}
+                                className="textarea textarea-bordered text-white"
+                              />
+                            </div>
+                            <div className="pt-5">
+                              <label
+                                htmlFor="password"
+                                className="block green_gradient font-medium mb-2">
+                                Nick
+                              </label>
+                              <textarea
+                                id="nick"
+                                value={currentMarker?.nick}
+                                onChange={handleChangeMarker}
+                                placeholder={currentMarker?.title || 'Nick'}
+                                className="textarea textarea-bordered text-white"
+                              />
+                            </div>
+                            <div className="pt-5">
+                              <label
+                                htmlFor="password"
+                                className="block green_gradient font-medium mb-2">
+                                Type
+                              </label>
+                              <textarea
+                                id="madeBy"
+                                value={currentMarker?.madeBy}
+                                onChange={handleChangeMarker}
+                                placeholder={
+                                  currentMarker?.madeBy ||
+                                  'Type: app eller user'
+                                }
+                                className="textarea textarea-bordered text-white"
+                              />
+                            </div>
+                            <div className="pt-5">
+                              <label
+                                htmlFor="password"
+                                className="block green_gradient font-medium mb-2">
+                                Beskrivelse
+                              </label>
+                              <textarea
+                                id="description"
+                                value={currentMarker?.description}
+                                onChange={handleChangeMarker}
+                                placeholder={
+                                  currentMarker?.description || 'Beskrivelse'
+                                }
+                                className="textarea textarea-bordered text-white"
+                              />
+                            </div>
+                            <div className="stack_row justify-between pt-5">
+                              <button
+                                onClick={() => setShowEdit(false)}
+                                color={'error'}
+                                className="btn btn-sm btn-error btn-outline">
+                                Fortryd
+                              </button>
+                              <button
+                                onClick={handleSubmitMarker}
+                                className="btn btn-info btn-sm">
+                                Ændr
+                              </button>
+                            </div>
                           </div>
-                          <div className="pt-5">
-                            <label
-                              htmlFor="password"
-                              className="block green_gradient font-medium mb-2">
-                              Nick
-                            </label>
-                            <textarea
-                              id="nick"
-                              value={currentMarker?.nick}
-                              onChange={handleChangeMarker}
-                              placeholder={currentMarker?.title || 'Nick'}
-                              className="textarea textarea-bordered text-white"
-                            />
-                          </div>
-                          <div className="pt-5">
-                            <label
-                              htmlFor="password"
-                              className="block green_gradient font-medium mb-2">
-                              Type
-                            </label>
-                            <textarea
-                              id="madeBy"
-                              value={currentMarker?.madeBy}
-                              onChange={handleChangeMarker}
-                              placeholder={
-                                currentMarker?.madeBy || 'Type: app eller user'
-                              }
-                              className="textarea textarea-bordered text-white"
-                            />
-                          </div>
-                          <div className="pt-5">
-                            <label
-                              htmlFor="password"
-                              className="block green_gradient font-medium mb-2">
-                              Beskrivelse
-                            </label>
-                            <textarea
-                              id="description"
-                              value={currentMarker?.description}
-                              onChange={handleChangeMarker}
-                              placeholder={
-                                currentMarker?.description || 'Beskrivelse'
-                              }
-                              className="textarea textarea-bordered text-white"
-                            />
-                          </div>
-                          <div className="stack_row justify-between pt-5">
-                            <button
-                              onClick={() => setShowEdit(false)}
-                              color={'error'}
-                              className="btn btn-sm btn-error btn-outline">
-                              Fortryd
-                            </button>
-                            <button
-                              onClick={handleSubmitMarker}
-                              className="btn btn-info btn-sm">
-                              Ændr
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </Popup>
-                  <Tooltip direction="bottom" offset={[0, 20]} opacity={1}>
-                    {marker.nick}
-                  </Tooltip>
-                </Marker>
+                        )}
+                      </div>
+                    </Popup>
+                    <Tooltip direction="bottom" offset={[0, 20]} opacity={1}>
+                      {marker.nick}
+                    </Tooltip>
+                  </Marker>
+                </div>
               ))}
           </MapContainer>
         </div>

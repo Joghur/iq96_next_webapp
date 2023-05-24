@@ -16,26 +16,28 @@ const MemberTab = () => {
   }
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex-grow">
-        <DynamicText>
-          <strong>{documentUser?.name}</strong>
-        </DynamicText>
-        <DynamicText>{documentUser?.nick}</DynamicText>
-        {documentUser?.nick !== documentUser?.title && (
-          <DynamicText>{documentUser?.title}</DynamicText>
-        )}
-        <DynamicText>{authUser?.email}</DynamicText>
+    <div className="px-5">
+      <div className="flex flex-col gap-3">
+        <div className="flex-grow">
+          <DynamicText>
+            <strong>{documentUser?.name}</strong>
+          </DynamicText>
+          <DynamicText>{documentUser?.nick}</DynamicText>
+          {documentUser?.nick !== documentUser?.title && (
+            <DynamicText>{documentUser?.title}</DynamicText>
+          )}
+          <DynamicText>{authUser?.email}</DynamicText>
+        </div>
+        <ThemeSelector />
+        <button
+          onClick={() => {
+            logout();
+            router.replace('/');
+          }}
+          className="btn btn-error btn-xs">
+          Log ud
+        </button>
       </div>
-      <ThemeSelector />
-      <button
-        onClick={() => {
-          logout();
-          router.replace('/');
-        }}
-        className="btn btn-error btn-xs">
-        Log ud
-      </button>
     </div>
   );
 };
