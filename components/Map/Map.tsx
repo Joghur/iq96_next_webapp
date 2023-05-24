@@ -253,6 +253,7 @@ const MapPage = () => {
                   }>
                   <Popup
                     closeOnClick={false} // Do not remove
+                    closeOnEscapeKey={true} // Do not remove
                     closeButton={true}
                     className="z-1000">
                     <div>
@@ -260,17 +261,19 @@ const MapPage = () => {
                         <div>
                           <DynamicText>{marker.title}</DynamicText>
                           <DynamicText>{marker.description}</DynamicText>
-                          <div className="stack_row gap-3">
-                            <MdEdit
-                              fontSize="small"
-                              onClick={() => handleOpenEditMarker(marker)}
-                            />
+                          <div className="stack_row gap-3 justify-center items-center">
                             {documentUser?.nick === 'Redacteur' && (
-                              <MdDelete
-                                fontSize="small"
+                              <button
                                 onClick={() => handleOpenDeleteModal(marker)}
-                              />
+                                className="btn btn-xs btn-error">
+                                <MdDelete />
+                              </button>
                             )}
+                            <button
+                              onClick={() => handleOpenEditMarker(marker)}
+                              className="btn btn-sm btn-warning">
+                              <MdEdit />
+                            </button>
                           </div>
                         </div>
                       )}
@@ -279,13 +282,11 @@ const MapPage = () => {
                           <p className="text-lg">
                             Er du sikker på du vil slette markør?
                           </p>
-                          <p>
-                            <p>Denne handling kan ikke ændres.</p>
-                          </p>
+                          <p>Denne handling kan ikke ændres.</p>
                           <div className="stack_row justify-between">
                             <button
                               onClick={() => setShowDelete(false)}
-                              className="btn btn-error btn-sm">
+                              className="btn btn-sm btn-error btn-outline">
                               Fortryd
                             </button>
                             <button
@@ -362,7 +363,7 @@ const MapPage = () => {
                             <button
                               onClick={() => setShowEdit(false)}
                               color={'error'}
-                              className="btn btn-error btn-sm">
+                              className="btn btn-sm btn-error btn-outline">
                               Fortryd
                             </button>
                             <button
