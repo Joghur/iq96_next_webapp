@@ -18,7 +18,9 @@ import {
 } from 'react-leaflet';
 import L, { Icon, LatLngExpression } from 'leaflet';
 import { useFirestore } from '@lib/hooks/useFirestore';
-import SelectComponent from '@components/utility/SelectComponent';
+import SelectComponent, {
+  FlyToSelector,
+} from '@components/utility/SelectComponent';
 import DynamicText from '@components/utility/DynamicText';
 
 interface Coordinate {
@@ -26,7 +28,7 @@ interface Coordinate {
   longitude: number;
 }
 
-interface MarkerData {
+export interface MarkerData {
   id: string;
   location: Coordinate;
   description: string;
@@ -59,41 +61,6 @@ const handleDocType = (docType: MarkerType, madeBy: string) => {
   }
 };
 
-const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
-  const map = useMap();
-  const [center, setCenter] = useState([
-    markers[0].location.latitude,
-    markers[0].location.longitude,
-  ]);
-
-  const handleSelectChange = (event: string) => {
-    const selectedMarker = markers.filter(
-      (d: MarkerData) => d.title === event,
-    )[0];
-    setCenter([
-      selectedMarker.location.latitude,
-      selectedMarker.location.longitude,
-    ]);
-  };
-
-  useEffect(() => {
-    const latlng = L.latLng(center[0], center[1]);
-    map.flyTo(latlng, 18, {
-      duration: 2,
-    });
-  }, [center[0]]);
-
-  const selectValues = markers.map(s => ({
-    value: s.title,
-    label: s.nick,
-    colour: s.madeBy === 'app' ? 'red' : 'black',
-  }));
-
-  return (
-    <SelectComponent onChange={handleSelectChange} options={selectValues} />
-  );
-};
-
 function UserMapButton() {
   const map = useMapEvents({
     locationfound: location => {
@@ -120,6 +87,7 @@ const MapPage = () => {
     updatingDoc,
     deletingDoc,
   } = useFirestore<MarkerData>('map', 'type');
+  const router = useRouter();
   const [userPosition, setUserPosition] = useState<
     LatLngExpression | undefined
   >(undefined);
@@ -141,8 +109,6 @@ const MapPage = () => {
       error => console.error(error),
     );
   }, []);
-
-  const router = useRouter();
 
   if (loading || markerLoading) {
     return (
@@ -198,6 +164,18 @@ const MapPage = () => {
 
   const canEdit = documentUser?.isSuperAdmin || false;
 
+  function compare1(a: any, b: any) {
+    if (a.nick < b.nick) {
+      return -1;
+    }
+    if (a.nick > b.nick) {
+      return 1;
+    }
+    return 0;
+  }
+
+  const sortedMarkers = markers?.sort(compare1);
+
   return (
     <>
       {userPosition && (
@@ -226,14 +204,14 @@ const MapPage = () => {
                 {documentUser?.nick}
               </Tooltip>
             </Marker>
-            <div className="absolute top-[50vh] right-2 shadow-xl text-blue-400 z-1000">
+            <div className="absolute top-[50vh] right-2 shadow-xl z-1000">
               <UserMapButton />
             </div>
             <div className="absolute top-2 right-2 shadow-xl">
-              {markers && <FlyToSelector markers={markers} />}
+              {sortedMarkers && <FlyToSelector markers={sortedMarkers} />}
             </div>
-            {markers &&
-              markers.map((marker, index) => (
+            {sortedMarkers &&
+              sortedMarkers.map((marker, index) => (
                 <Marker
                   key={index}
                   position={[
