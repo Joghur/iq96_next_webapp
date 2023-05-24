@@ -1,61 +1,93 @@
-import React, { useState } from 'react';
+import { MarkerData } from '@components/Map/Map';
+import L from 'leaflet';
+import React, { useEffect, useState } from 'react';
+import { useMap } from 'react-leaflet';
 
-interface Option {
-  value: string;
-  label: string;
-  colour: string;
-}
+export const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
+  const map = useMap();
+  const [center, setCenter] = useState([
+    markers[0].location.latitude,
+    markers[0].location.longitude,
+  ]);
 
-interface Props {
-  options: Option[];
-  onChange: (event: string) => void;
-}
-
-// export default function SelectComponent({options, onChange}: Props) {
-
-//   return (
-//     <Select
-//       variant="standard"
-//       value={selectedOption?.value ?? ''}
-//       onChange={handleOptionChange}
-//       sx={{zIndex: 9998, backgroundColor: 'lightgray', p: 1}}>
-//       {options.map(option => (
-//         <MenuItem
-//           key={option.value}
-//           value={option.value}
-//           sx={{color: option.colour}}>
-//           {option.label}
-//         </MenuItem>
-//       ))}
-//     </Select>
-//   );
-// }
-
-const SelectComponent: React.FC<Props> = ({ options, onChange }) => {
-  const [selectedOption, setSelectedOption] = useState<Option | null>(
-    options[0],
-  );
-
-  const handleOptionChange = (event: string) => {
-    const selectedOption = options.find(option => option.value === event);
-    setSelectedOption(selectedOption || null);
-    onChange(event);
+  const handleSelectChange = (event: string) => {
+    const selectedMarker = markers.filter(
+      (d: MarkerData) => d.title === event,
+    )[0];
+    setCenter([
+      selectedMarker.location.latitude,
+      selectedMarker.location.longitude,
+    ]);
   };
+
+  useEffect(() => {
+    const latlng = L.latLng(center[0], center[1]);
+    map.flyTo(latlng, 18, {
+      duration: 2,
+    });
+  }, [center[0]]);
+
+  const appMarkers = markers?.filter(o => o.madeBy === 'app');
+  const userMarkers = markers?.filter(o => o.madeBy === 'user');
+  const restaurantMarkers = userMarkers?.filter(o => o.type === 'restaurant');
+  const barMarkers = userMarkers?.filter(o => o.type === 'bar');
+  const restMarkers = userMarkers?.filter(
+    o => o.type !== 'bar' && o.type !== 'restaurant',
+  );
 
   return (
     <select
       className="select select-bordered"
-      onChange={e => onChange(e.target.value)}>
-      {options.map((option, index) => (
-        <option
-          key={index}
-          value={option.value}
-          className="hover:bg-pink-200 focus:bg-pink-200">
-          {option.label}
-        </option>
+      onChange={e => handleSelectChange(e.target.value)}>
+      <option key={'iq-places'} disabled>
+        IQ96 steder
+      </option>
+      {appMarkers.map((option, index) => (
+        <>
+          <option key={`iq96-${index}`} value={option.title}>
+            {option.nick}
+          </option>
+        </>
       ))}
+      <option key={'empty2'} disabled></option>
+      <option key={'bars'} disabled>
+        Barer
+      </option>
+      {barMarkers.map((option, index) => (
+        <>
+          <option key={`bars-${index}`} value={option.title}>
+            {option.nick}
+          </option>
+        </>
+      ))}
+      <option key={'empty1'} disabled></option>
+      <option key={'restaurants'} disabled>
+        Restauranter
+      </option>
+      {restaurantMarkers.map((option, index) => (
+        <>
+          <option key={`restaurants-${index}`} value={option.title}>
+            {option.nick}
+          </option>
+        </>
+      ))}
+      {restMarkers && (
+        <>
+          <option key={'empty3'} disabled></option>
+          <option key={'other'} disabled>
+            Andre steder
+          </option>
+          {restMarkers.map((option, index) => (
+            <>
+              <option key={`other-${index}`} value={option.title}>
+                {option.nick}
+              </option>
+            </>
+          ))}
+        </>
+      )}
     </select>
   );
 };
 
-export default SelectComponent;
+export default FlyToSelector;
