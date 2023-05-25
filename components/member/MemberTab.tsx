@@ -6,13 +6,14 @@ import { useRouter } from 'next/navigation';
 import DynamicText from '@components/utility/DynamicText';
 import ThemeSelector from '@components/utility/ThemeSelector';
 import { authContext } from '@lib/store/auth-context';
+import LoadingSpinner from '@components/utility/LoadingSpinner';
 
 const MemberTab = () => {
   const { logout, authUser, documentUser, loading } = useContext(authContext);
   const router = useRouter();
 
   if (loading) {
-    return <h6>Loading...</h6>;
+    return <LoadingSpinner />;
   }
 
   return (

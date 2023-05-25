@@ -4,13 +4,14 @@ import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 
 import { authContext } from '@lib/store/auth-context';
+import LoadingSpinner from '@components/utility/LoadingSpinner';
 
 const LibraryPage = () => {
   const { authUser, loading } = useContext(authContext);
   const router = useRouter();
 
   if (loading) {
-    return <h6>Loading...</h6>;
+    return <LoadingSpinner />;
   }
 
   if (!authUser) {

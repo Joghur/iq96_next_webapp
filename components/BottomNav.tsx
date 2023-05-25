@@ -12,7 +12,7 @@ const BottomNav = () => {
     <nav className="bottom_nav overflow-hidden">
       <Link
         href="/"
-        className={`${
+        className={`dynamic_text ${
           pathname === '/'
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
@@ -22,7 +22,7 @@ const BottomNav = () => {
       </Link>
       <Link
         href="/kort"
-        className={`${
+        className={`dynamic_text ${
           pathname === '/kort'
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
@@ -32,7 +32,7 @@ const BottomNav = () => {
       </Link>
       <Link
         href="/bibliothek"
-        className={`${
+        className={`dynamic_text ${
           pathname === '/bibliothek'
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
@@ -42,7 +42,7 @@ const BottomNav = () => {
       </Link>
       <Link
         href="/chat"
-        className={`${
+        className={`dynamic_text ${
           pathname === '/chat'
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
@@ -52,7 +52,7 @@ const BottomNav = () => {
       </Link>
       <Link
         href="/iq96"
-        className={`${
+        className={`dynamic_text ${
           pathname === '/iq96'
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'

@@ -40,7 +40,7 @@ export const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
       className="select select-bordered md:select-lg select-xs w-full max-w-xs"
       value={'IQ96 steder'}
       onChange={e => handleSelectChange(e.target.value)}>
-      <option key={'iq-places'} disabled>
+      <option key={'iq-places'} disabled className="dynamic_text">
         IQ96 steder
       </option>
       {appMarkers.length > 0 &&

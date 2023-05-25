@@ -7,7 +7,7 @@ const AboutTab = () => {
       <DynamicText>
         <strong>{`IQ96 web app v${packageJson.version}`}</strong>
       </DynamicText>
-      <ul className="flex flex-col gap-2 pt-2">
+      <ul className="flex flex-col gap-2 pt-2 dynamic_text">
         <li>
           0.6.3 - Kortet virker nogenlunde som før. Listen af steder er nu
           ordnet så det er lettere at finde IQ96 begivenheder

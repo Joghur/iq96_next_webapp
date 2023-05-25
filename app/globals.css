@@ -64,6 +64,10 @@
   @apply flex flex-row;
 }
 
+.dynamic_text {
+  @apply text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl;
+}
+
 /* Nav Component */
 .logo_text {
   @apply hidden sm:flex self-center whitespace-nowrap font-semibold text-3xl orange_gradient tracking-wide dark:text-white;
