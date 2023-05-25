@@ -32,3 +32,4 @@ build/
 out
 
 service-account-key.json
+google_mail_client_secret.json

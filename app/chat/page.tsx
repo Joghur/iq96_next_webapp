@@ -10,7 +10,7 @@ const ChatPage = () => {
   const router = useRouter();
 
   if (loading) {
-    return <h6>Loading...</h6>;
+    return <h6>Henter...</h6>;
   }
 
   if (!authUser) {
@@ -18,7 +18,7 @@ const ChatPage = () => {
   }
   return (
     <div className="flex flex-col items-center">
-      <div className="py-10">
+      <div className="py-16">
         <p className="text-5xl">Chat</p>
       </div>
       <p className="">Kommer snart ...</p>

@@ -37,49 +37,59 @@ export const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
 
   return (
     <select
-      className="select select-bordered"
+      className="select select-bordered md:select-lg select-xs w-full max-w-xs"
+      value={'IQ96 steder'}
       onChange={e => handleSelectChange(e.target.value)}>
       <option key={'iq-places'} disabled>
         IQ96 steder
       </option>
-      {appMarkers.map((option, index) => (
+      {appMarkers.length > 0 &&
+        appMarkers.map((option, index) => (
+          <>
+            <option key={`iq96-${index}`} value={option.title}>
+              {option.nick}
+            </option>
+          </>
+        ))}
+      {barMarkers.length > 0 && (
         <>
-          <option key={`iq96-${index}`} value={option.title}>
-            {option.nick}
+          <option key={'empty1'} disabled></option>
+          <option key={'bars'} disabled>
+            Barer
           </option>
+          {barMarkers.map((option, index) => (
+            <>
+              <option key={`bars-${index}`} value={option.title}>
+                {option.nick}
+              </option>
+            </>
+          ))}
         </>
-      ))}
-      <option key={'empty2'} disabled></option>
-      <option key={'bars'} disabled>
-        Barer
-      </option>
-      {barMarkers.map((option, index) => (
+      )}
+      {restaurantMarkers.length > 0 && (
         <>
-          <option key={`bars-${index}`} value={option.title}>
-            {option.nick}
+          <option key={'empty2'} disabled></option>
+          <option key={'restaurants'} disabled>
+            Restauranter
           </option>
+          {restaurantMarkers.map((option, index) => (
+            <>
+              <option key={`restaurants-${index}`} value={option.title}>
+                {option.nick}
+              </option>
+            </>
+          ))}
         </>
-      ))}
-      <option key={'empty1'} disabled></option>
-      <option key={'restaurants'} disabled>
-        Restauranter
-      </option>
-      {restaurantMarkers.map((option, index) => (
-        <>
-          <option key={`restaurants-${index}`} value={option.title}>
-            {option.nick}
-          </option>
-        </>
-      ))}
-      {restMarkers && (
+      )}
+      {restMarkers.length > 0 && (
         <>
           <option key={'empty3'} disabled></option>
-          <option key={'other'} disabled>
+          <option key={'others'} disabled>
             Andre steder
           </option>
           {restMarkers.map((option, index) => (
             <>
-              <option key={`other-${index}`} value={option.title}>
+              <option key={`others-${index}`} value={option.title}>
                 {option.nick}
               </option>
             </>
