@@ -19,7 +19,7 @@ const LibraryPage = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="py-10">
+      <div className="py-16">
         <p className="text-5xl">Bibliothek</p>
       </div>
       <p className="">Kommer snart ...</p>

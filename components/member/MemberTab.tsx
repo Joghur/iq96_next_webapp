@@ -1,11 +1,11 @@
 'use client';
 
 import { useContext } from 'react';
-
-import { authContext } from '@/lib/store/auth-context';
 import { useRouter } from 'next/navigation';
+
 import DynamicText from '@components/utility/DynamicText';
 import ThemeSelector from '@components/utility/ThemeSelector';
+import { authContext } from '@lib/store/auth-context';
 
 const MemberTab = () => {
   const { logout, authUser, documentUser, loading } = useContext(authContext);

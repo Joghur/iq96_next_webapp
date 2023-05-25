@@ -34,7 +34,7 @@ const MemberPage = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="pt-10 pb-4">
+      <div className="pt-16 pb-4">
         <div className="tabs tabs-boxed">
           <button
             id="iq96"

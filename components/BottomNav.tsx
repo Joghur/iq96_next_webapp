@@ -21,9 +21,9 @@ const BottomNav = () => {
         Hjem
       </Link>
       <Link
-        href="/map"
+        href="/kort"
         className={`${
-          pathname === '/map'
+          pathname === '/kort'
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
         }`}>
@@ -31,9 +31,9 @@ const BottomNav = () => {
         Kort
       </Link>
       <Link
-        href="/library"
+        href="/bibliothek"
         className={`${
-          pathname === '/library'
+          pathname === '/bibliothek'
             ? 'bottom_nav_link_selected'
             : 'bottom_nav_link_container'
         }`}>
