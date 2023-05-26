@@ -1,4 +1,4 @@
-import { MarkerData } from '@components/Map/Map';
+import { MarkerData } from '@components/map/Map';
 import L from 'leaflet';
 import React, { useEffect, useState } from 'react';
 import { useMap } from 'react-leaflet';

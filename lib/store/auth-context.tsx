@@ -11,25 +11,11 @@ import {
 import { DocumentData } from 'firebase/firestore';
 
 import { auth } from '@/lib/firebase';
-import { useDocumentUser } from '@lib/hooks/useFirestore';
-
-export interface DocumentUser {
-  id: string;
-  uid: string;
-  email: string;
-  avatar: string;
-  isAdmin: boolean;
-  isBoard: boolean;
-  isSuperAdmin: boolean;
-  locationId: string;
-  name: string;
-  nick: string;
-  title: string;
-}
+import { DocumentUser, useDocumentUser } from '@lib/hooks/useFirestore';
 
 interface AuthContextValues {
   authUser: User | null | undefined;
-  documentUser: DocumentUser | DocumentData | null | undefined;
+  documentUser: DocumentUser | null | undefined;
   loading: boolean;
   emailLoginHandler: (
     email: string | undefined,
