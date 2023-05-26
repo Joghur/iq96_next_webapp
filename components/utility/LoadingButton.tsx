@@ -1,8 +1,10 @@
 'use client';
 
-import Image from 'next/image';
+interface Props {
+  text?: string;
+}
 
-const LoadingButton = () => {
+const LoadingButton = ({ text = 'Henter...' }: Props) => {
   return (
     <div>
       <button
@@ -16,7 +18,7 @@ const LoadingButton = () => {
             className="fill-blue-100"
             d="M16.9497 7.05015c-2.7336-2.73367-7.16578-2.73367-9.89945.0-.39052.39052-1.02369.39052-1.41421.0-.39053-.39053-.39053-1.02369.0-1.41422 3.51472-3.51472 9.21316-3.51472 12.72796.0C18.7545 6.02646 18.7545 6.65962 18.364 7.05015c-.390599999999999.39052-1.0237.39052-1.4143.0z"></path>
         </svg>
-        <span>Henter...</span>
+        <span className="dynamic_text">{text}</span>
       </button>
     </div>
   );

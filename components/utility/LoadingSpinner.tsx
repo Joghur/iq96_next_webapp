@@ -80,7 +80,7 @@ const LoadingSpinner = ({ text = 'Henter...' }: Props) => {
               stroke-linejoin="round"
               stroke-width="24"></line>
           </svg>
-          <span className="text-xs font-medium text-gray-500">{text}</span>
+          <span className="dynamic_text font-medium text-gray-500">{text}</span>
         </div>
       </div>
     </div>
