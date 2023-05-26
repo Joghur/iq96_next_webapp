@@ -2,11 +2,12 @@
 
 import { useContext, useEffect } from 'react';
 
-import SignIn from '@/components/SignIn';
-import { LOCALSTORAGE_THEME, Themes } from '@components/utility/ThemeSelector';
+import LoadingSpinner from '@components/utility/LoadingSpinner';
+import EventsPage from '@components/home/EventsPage';
+import SignIn from '@components/auth/SignIn';
+import { Themes, LOCALSTORAGE_THEME } from '@components/utility/ThemeSelector';
 import { authContext } from '@/lib/store/auth-context';
 import { getLocalStorage } from '@lib/localStorage';
-import LoadingSpinner from '@components/utility/LoadingSpinner';
 
 export default function Home() {
   const { authUser, documentUser, loading } = useContext(authContext);
@@ -32,7 +33,9 @@ export default function Home() {
 
   return (
     <>
-      <main className="container px-6 pt-10 mx-auto"></main>
+      <main className="container px-6 py-16 mx-auto">
+        <EventsPage documentUser={documentUser} />
+      </main>
     </>
   );
 }

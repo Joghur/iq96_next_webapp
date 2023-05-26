@@ -9,7 +9,7 @@ import {
   getLocalStorage,
   setLocalStorage,
 } from '@lib/localStorage';
-import DynamicText from './utility/DynamicText';
+import DynamicText from '@components/utility/DynamicText';
 
 export const LOCALSTORAGE_EMAIL = `${LOCALSTORAGE_PREFIX}-email`;
 

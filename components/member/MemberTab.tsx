@@ -4,9 +4,9 @@ import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 
 import DynamicText from '@components/utility/DynamicText';
-import ThemeSelector from '@components/utility/ThemeSelector';
 import { authContext } from '@lib/store/auth-context';
 import LoadingSpinner from '@components/utility/LoadingSpinner';
+import ThemeSelector from '@components/utility/ThemeSelector';
 
 const MemberTab = () => {
   const { logout, authUser, documentUser, loading } = useContext(authContext);
@@ -35,7 +35,7 @@ const MemberTab = () => {
             logout();
             router.replace('/');
           }}
-          className="btn btn-error btn-xs">
+          className="btn btn-error btn-xs mt-16">
           Log ud
         </button>
       </div>

@@ -16,7 +16,6 @@ const themes = [
   'bumblebee',
   'emerald',
   'corporate',
-  'synthwave',
   'retro',
   'cyberpunk',
   'valentine',
@@ -30,7 +29,6 @@ const themes = [
   'wireframe',
   'black',
   'luxury',
-  'dracula',
   'cmyk',
   'autumn',
   'business',
@@ -68,12 +66,14 @@ const ThemeSelector = () => {
 
   return (
     <div>
-      <label htmlFor="themeSelector">Vælg farve tema:</label>
+      <label htmlFor="themeSelector" className="dynamic_text">
+        Vælg farve tema:
+      </label>
       <select
         id="themeSelector"
         value={currentTheme}
         onChange={e => handleThemeChange(e.target.value as Themes)}
-        className="p-2 m-2 rounded-lg">
+        className="select select-bordered md:select-lg select-xs w-full max-w-xs ">
         {themes.map((o, index) => (
           <option value={o} key={index}>
             {o}

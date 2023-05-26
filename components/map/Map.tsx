@@ -20,7 +20,7 @@ import L, { Icon, LatLngExpression } from 'leaflet';
 import { useFirestore } from '@lib/hooks/useFirestore';
 import SelectComponent, {
   FlyToSelector,
-} from '@components/Map/SelectComponent';
+} from '@components/map/SelectComponent';
 import DynamicText from '@components/utility/DynamicText';
 import LoadingSpinner from '@components/utility/LoadingSpinner';
 
