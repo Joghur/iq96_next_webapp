@@ -22,6 +22,7 @@ import SelectComponent, {
   FlyToSelector,
 } from '@components/Map/SelectComponent';
 import DynamicText from '@components/utility/DynamicText';
+import LoadingSpinner from '@components/utility/LoadingSpinner';
 
 interface Coordinate {
   latitude: number;
@@ -119,13 +120,7 @@ const MapPage = () => {
   }, [authUser]);
 
   if (loading) {
-    return (
-      <div className="flex flex-col items-center">
-        <div className="py-10">
-          <p>Henter...</p>
-        </div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (!authUser) {
@@ -133,13 +128,7 @@ const MapPage = () => {
   }
 
   if (markerLoading) {
-    return (
-      <div className="flex flex-col items-center">
-        <div className="py-10">
-          <p>Henter Markører...</p>
-        </div>
-      </div>
-    );
+    return <LoadingSpinner text={'Henter markører...'} />;
   }
 
   const handleOpenEditMarker = (marker: MarkerData) => {
@@ -162,7 +151,7 @@ const MapPage = () => {
 
   const handleChangeMarker = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { id, value } = event.target;
-    console.log(' id, value ', id, value);
+
     setCurrentMarker(old => {
       if (old) {
         return {

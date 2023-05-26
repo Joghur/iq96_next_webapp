@@ -9,6 +9,7 @@ import {
   getLocalStorage,
   setLocalStorage,
 } from '@lib/localStorage';
+import DynamicText from './utility/DynamicText';
 
 export const LOCALSTORAGE_EMAIL = `${LOCALSTORAGE_PREFIX}-email`;
 
@@ -84,10 +85,10 @@ function SignIn() {
 
   return (
     <main className="container max-w-2xl px-6 mx-auto">
-      <h1 className="mb-3 sm:text-xl blue_gradient font-bold text-center">
+      <p className="pt-16 mb-3 sm:text-xl blue_gradient font-bold text-center dynamic_text">
         Velkommen til IQ96's webapp
-      </h1>
-      <p className="mb-6 text-md text-center">Log ind for at forsætte</p>
+      </p>
+      <p className="mb-6 text-center dynamic_text">Log ind for at forsætte</p>
 
       <div className="flex flex-col overflow-hidden shadow-md shadow-slate-500 bg-slate-800 rounded-2xl">
         <div className="h-42">
@@ -104,13 +105,13 @@ function SignIn() {
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block orange_gradient font-medium mb-2">
+              className="block orange_gradient font-medium mb-2 dynamic_text">
               Email
             </label>
             <input
               type="email"
               id="email"
-              className="border border-gray-300 rounded px-4 py-2 w-full"
+              className="border border-gray-300 rounded px-4 py-2 w-full dynamic_text"
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
@@ -120,13 +121,13 @@ function SignIn() {
             <div className="mb-6">
               <label
                 htmlFor="password"
-                className="block orange_gradient font-medium mb-2">
+                className="block orange_gradient font-medium mb-2 dynamic_text">
                 Password
               </label>
               <input
                 type="password"
                 id="password"
-                className="border border-gray-300 rounded px-4 py-2 w-full"
+                className="border border-gray-300 rounded px-4 py-2 w-full dynamic_text"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 required
@@ -143,7 +144,7 @@ function SignIn() {
               }
               setLocalStorage(LOCALSTORAGE_EMAIL, email);
             }}
-            className="flex items-center gap-2 p-4 mx-auto mt-6 font-medium text-white bg-gray-700 rounded-lg">
+            className="flex items-center gap-2 p-4 mx-auto mt-6 font-medium text-white bg-gray-700 rounded-lg dynamic_text">
             <Image
               src="/images/logo/iqlogo_180.png"
               alt="logo"
@@ -161,7 +162,7 @@ function SignIn() {
               setReset(() => true);
               setShowResetInfo(() => true);
             }}
-            className="orange_gradient">
+            className="orange_gradient dynamic_text">
             Reset kodeord
           </button>
         </div>
@@ -169,15 +170,25 @@ function SignIn() {
       {showResetInfo && (
         <div className="flex flex-col gap-2 items-center pt-4">
           <ul className="list-decimal">
-            <li>Indtast din email ovenover og tryk Reset</li>
-            <li>Gå til din email indboks </li>
             <li>
-              Find reset mailen. Den kommer fra
-              noreply@iq96-20418.firebaseapp.com
+              <DynamicText>
+                Indtast din email ovenover og tryk Reset
+              </DynamicText>
             </li>
             <li>
-              Tryk på linket i mail -{'>'} vælg nyt kodeord -{'>'} kom tilbage
-              hertil, og tast nyt kodeord ind
+              <DynamicText>Gå til din email indboks</DynamicText>
+            </li>
+            <li>
+              <DynamicText>
+                Find reset mailen. Den kommer fra
+                noreply@iq96-20418.firebaseapp.com
+              </DynamicText>
+            </li>
+            <li>
+              <DynamicText>
+                Tryk på linket i mail -{'>'} vælg nyt kodeord -{'>'} kom tilbage
+                hertil, og tast nyt kodeord ind
+              </DynamicText>
             </li>
           </ul>
         </div>

@@ -6,6 +6,7 @@ import SignIn from '@/components/SignIn';
 import { LOCALSTORAGE_THEME, Themes } from '@components/utility/ThemeSelector';
 import { authContext } from '@/lib/store/auth-context';
 import { getLocalStorage } from '@lib/localStorage';
+import LoadingSpinner from '@components/utility/LoadingSpinner';
 
 export default function Home() {
   const { authUser, documentUser, loading } = useContext(authContext);
@@ -22,7 +23,7 @@ export default function Home() {
   }, [handleStart]);
 
   if (loading) {
-    return <h6>Loading...</h6>;
+    return <LoadingSpinner />;
   }
 
   if (!authUser) {

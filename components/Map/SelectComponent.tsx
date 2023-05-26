@@ -6,9 +6,10 @@ import { useMap } from 'react-leaflet';
 export const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
   const map = useMap();
   const [center, setCenter] = useState([
-    markers[0].location.latitude,
-    markers[0].location.longitude,
+    markers[0].location.latitude || 0,
+    markers[0].location.longitude || 0,
   ]);
+  const [selection, setSelection] = useState('IQ96 steder');
 
   const handleSelectChange = (event: string) => {
     const selectedMarker = markers.filter(
@@ -18,6 +19,7 @@ export const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
       selectedMarker.location.latitude,
       selectedMarker.location.longitude,
     ]);
+    setSelection(() => event);
   };
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
   return (
     <select
       className="select select-bordered md:select-lg select-xs w-full max-w-xs"
-      value={'IQ96 steder'}
+      value={selection}
       onChange={e => handleSelectChange(e.target.value)}>
       <option key={'iq-places'} disabled>
         IQ96 steder

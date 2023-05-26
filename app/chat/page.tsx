@@ -4,13 +4,14 @@ import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 
 import { authContext } from '@lib/store/auth-context';
+import LoadingSpinner from '@components/utility/LoadingSpinner';
 
 const ChatPage = () => {
   const { authUser, loading } = useContext(authContext);
   const router = useRouter();
 
   if (loading) {
-    return <h6>Henter...</h6>;
+    return <LoadingSpinner />;
   }
 
   if (!authUser) {
