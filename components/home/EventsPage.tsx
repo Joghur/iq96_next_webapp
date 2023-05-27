@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { User } from 'firebase/auth';
 import { MdEdit } from 'react-icons/md';
 
+import HeaderTitle from '@components/layout/HeaderTitle';
 import LoadingSpinner from '@components/utility/LoadingSpinner';
 import { handleType } from '@lib/convertEventType';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
@@ -71,60 +72,81 @@ const EventsPage = ({ documentUser }: Props) => {
     documentUser?.isSuperAdmin;
 
   return (
-    <div className="flex flex-col items-center">
-      <p className="text-xl sm:text-5xl py-10">Begivenheder</p>
-      <div className="py-16">
-        {events.map(event => {
-          return (
-            <div className="paper m-5 py-7 px-10 sm:px-15">
-              <div className="stack gap-2">
-                <div className="stack_row justify-between">
-                  <p className="dynamic_text font-black">
-                    {event?.type === 'tour'
-                      ? `${handleType(event?.type)} de ${event.city}`
-                      : handleType(event?.type)}
-                  </p>
-                  {canEdit && event.id && (
-                    <button onClick={e => handleUpdate(e, event.id)}>
-                      <MdEdit />
-                    </button>
+    <div>
+      <HeaderTitle title={'Begivenheder'} />
+      <div className="">
+        {!events && (
+          <div className="container px-6 pt-16 mx-auto">
+            <p className="dynamic_text">
+              Der er ingen events på dette tidspunkt
+            </p>
+          </div>
+        )}
+        {events &&
+          events.map(event => {
+            return (
+              <div className="paper m-5 py-7 px-10 sm:px-15">
+                <div className="stack gap-2">
+                  <div className="stack_row justify-between">
+                    <p className="dynamic_text font-black">
+                      {event?.type === 'tour'
+                        ? `${handleType(event?.type)} de ${event.city}`
+                        : handleType(event?.type)}
+                    </p>
+                    {canEdit && event.id && (
+                      <button onClick={e => handleUpdate(e, event.id)}>
+                        <MdEdit />
+                      </button>
+                    )}
+                  </div>
+                  {!!event?.startDate && (
+                    <div className="stack">
+                      <p className="dynamic_text font-black">Start:</p>
+                      <div className="ml-2">
+                        <div>{event.start}</div>
+                      </div>
+                    </div>
                   )}
-                </div>
-                {!!event?.startDate && (
-                  <div className="stack">
-                    <p className="dynamic_text font-black">Start:</p>
-                    <div className="ml-2">
-                      <div>{event.start}</div>
+                  {!!event?.endDate && (
+                    <div className="stack">
+                      <p className="dynamic_text font-black">Slut:</p>
+                      <div className="ml-2">
+                        <p>{event.end}</p>
+                      </div>
                     </div>
-                  </div>
-                )}
-                {!!event?.endDate && (
-                  <div className="stack">
-                    <p className="dynamic_text font-black">Slut:</p>
-                    <div className="ml-2">
-                      <p>{event.end}</p>
+                  )}
+                  {event.meetingPoints.trim() && (
+                    <div className="stack">
+                      <p className="dynamic_text font-black">Mødesteder:</p>
+                      <div className="dynamic_text">
+                        {event.meetingPoints.split('--').map((f: string) => {
+                          return (
+                            <div className="ml-4">
+                              <li>{f.trim()}</li>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                )}
-                {event.meetingPoints.trim() && (
-                  <div className="stack">
-                    <p className="dynamic_text font-black">Mødesteder:</p>
-                    <div className="dynamic_text">
-                      {event.meetingPoints.split('--').map((f: string) => {
-                        return (
-                          <div className="ml-4">
-                            <li>{f.trim()}</li>
-                          </div>
-                        );
-                      })}
+                  )}
+                  {event?.notes?.trim() && (
+                    <div className="stack">
+                      <div className="dynamic_text font-black">OBS:</div>
+                      <div className="dynamic_text">
+                        {event.notes.split('--').map((f: string) => {
+                          return (
+                            <div className="ml-4 dynamic_text">
+                              <li>{f.trim()}</li>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                )}
-                {event?.notes?.trim() && (
-                  <div className="stack">
-                    <div className="dynamic_text font-black">OBS:</div>
-                    <div className="dynamic_text">
-                      {event.notes.split('--').map((f: string) => {
+                  )}
+                  {event?.activities?.trim() && (
+                    <div className="dynamic_text font-black">
+                      Aktiviteter:
+                      {event.activities.split('--').map((f: string) => {
                         return (
                           <div className="ml-4 dynamic_text">
                             <li>{f.trim()}</li>
@@ -132,24 +154,11 @@ const EventsPage = ({ documentUser }: Props) => {
                         );
                       })}
                     </div>
-                  </div>
-                )}
-                {event?.activities?.trim() && (
-                  <div className="dynamic_text font-black">
-                    Aktiviteter:
-                    {event.activities.split('--').map((f: string) => {
-                      return (
-                        <div className="ml-4 dynamic_text">
-                          <li>{f.trim()}</li>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
       {/* {showDialog && (
         <FormDialog

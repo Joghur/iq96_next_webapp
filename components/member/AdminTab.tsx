@@ -7,7 +7,7 @@ const AdminTab = () => {
           onClick={() => {
             console.log('Kopierer');
           }}
-          className="btn btn-accent dynamic_text ">
+          className="btn btn-accent dynamic_text inline-block">
           Kopier gamle men aktuelle kort-markører
         </button>
         <button
@@ -15,7 +15,7 @@ const AdminTab = () => {
           onClick={() => {
             console.log('Sletter');
           }}
-          className="btn btn-accent dynamic_text ">
+          className="btn btn-accent dynamic_text inline-block">
           Slet gamle, men aktuelle kort-markører
         </button>
       </div>
