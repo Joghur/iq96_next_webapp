@@ -74,10 +74,10 @@ const EventsPage = ({ documentUser }: Props) => {
   return (
     <div>
       <HeaderTitle title={'Begivenheder'} />
-      <div className="">
-        {!events && (
-          <div className="container px-6 pt-16 mx-auto">
-            <p className="dynamic_text">
+      <div className="mx-auto max-w-2xl">
+        {events && (
+          <div className="container px-6 pt-16">
+            <p className="text-center dynamic_text">
               Der er ingen events på dette tidspunkt
             </p>
           </div>
