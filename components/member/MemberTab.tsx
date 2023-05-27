@@ -30,6 +30,8 @@ const MemberTab = () => {
           <DynamicText>{authUser?.email}</DynamicText>
         </div>
         <ThemeSelector />
+      </div>
+      <div className="flex justify-center">
         <button
           onClick={() => {
             logout();

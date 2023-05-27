@@ -4,6 +4,7 @@ import { useContext, useEffect } from 'react';
 
 import LoadingSpinner from '@components/utility/LoadingSpinner';
 import EventsPage from '@components/home/EventsPage';
+import PageLayout from '@components/layout/PageLayout';
 import SignIn from '@components/auth/SignIn';
 import { Themes, LOCALSTORAGE_THEME } from '@components/utility/ThemeSelector';
 import { authContext } from '@/lib/store/auth-context';
@@ -32,10 +33,8 @@ export default function Home() {
   }
 
   return (
-    <>
-      <main className="container px-6 py-16 mx-auto">
-        <EventsPage documentUser={documentUser} />
-      </main>
-    </>
+    <PageLayout>
+      <EventsPage documentUser={documentUser} />
+    </PageLayout>
   );
 }

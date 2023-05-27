@@ -3,8 +3,10 @@
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 
-import { authContext } from '@lib/store/auth-context';
+import HeaderTitle from '@components/layout/HeaderTitle';
 import LoadingSpinner from '@components/utility/LoadingSpinner';
+import PageLayout from '@components/layout/PageLayout';
+import { authContext } from '@lib/store/auth-context';
 
 const LibraryPage = () => {
   const { authUser, loading } = useContext(authContext);
@@ -19,12 +21,12 @@ const LibraryPage = () => {
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="py-16">
-        <p className="text-5xl">Bibliothek</p>
+    <PageLayout>
+      <HeaderTitle title={'Bibliothek'} />
+      <div className="flex justify-center items-center h-screen">
+        <p className="dynamic_text">Kommer snart ...</p>
       </div>
-      <p className="">Kommer snart ...</p>
-    </div>
+    </PageLayout>
   );
 };
 

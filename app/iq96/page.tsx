@@ -8,6 +8,7 @@ import AboutTab from '@components/member/AboutTab';
 import AdminTab from '@components/member/AdminTab';
 import MemberTab from '@components/member/MemberTab';
 import LoadingSpinner from '@components/utility/LoadingSpinner';
+import PageLayout from '@components/layout/PageLayout';
 
 type MemberTabs = 'iq96' | 'about' | 'admin';
 
@@ -34,9 +35,9 @@ const MemberPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="py-16 pb-4">
-        <div className="tabs tabs-boxed">
+    <PageLayout>
+      <div className="flex justify-end sm:justify-center mb-4 sm:my-10">
+        <div className="tabs tabs-boxed inline-block">
           <button
             id="iq96"
             onClick={handleChange}
@@ -59,7 +60,7 @@ const MemberPage = () => {
               onClick={handleChange}
               className={`tab ${
                 value === 'admin' ? 'tab-active' : ''
-              } dynamic_text `}>
+              } dynamic_text`}>
               Admin
             </button>
           )}
@@ -70,7 +71,7 @@ const MemberPage = () => {
         {value === 'about' && <AboutTab />}
         {value === 'admin' && <AdminTab />}
       </div>
-    </div>
+    </PageLayout>
   );
 };
 
