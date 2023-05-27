@@ -30,14 +30,12 @@ Where the user can add new markers and they will be sorted according to type
 - Deployed using vercel.com
 - leaflet
 
-## Setup
+## Installation
+
+### `npm install`
 
 Before running project:
 Use file `.env.template` to add environment values. For instance values from your firebase console for connecting to this cloud DB.
-
-After that run
-
-### `npm install`
 
 ## Available Scripts
 
@@ -48,5 +46,7 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Or build and run using
+
+### `npm run build`
+### `npm run start`
