@@ -74,7 +74,9 @@ function UserMapButton() {
   };
 
   return (
-    <button className="btn rounded-full shadow-xl ring-2 z-1000" onClick={handleFlyToUserLocation}>
+    <button
+      className="btn rounded-full shadow-xl ring-2 z-1000"
+      onClick={handleFlyToUserLocation}>
       <MdMyLocation />
     </button>
   );
