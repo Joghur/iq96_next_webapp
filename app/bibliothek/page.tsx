@@ -23,7 +23,7 @@ const LibraryPage = () => {
   return (
     <PageLayout>
       <HeaderTitle title={'Bibliothek'} />
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center mt-40">
         <p className="dynamic_text">Kommer snart ...</p>
       </div>
     </PageLayout>

@@ -5,7 +5,12 @@ interface Props {
 }
 
 const PageLayout = ({ children }: Props) => {
-  return <div className="flex flex-col px-6 mx-auto">{children}</div>;
+  return (
+    <div className="relative flex flex-col flex-grow px-6 mx-auto">
+      {children}
+      <div className="h-40" />
+    </div>
+  );
 };
 
 export default PageLayout;
