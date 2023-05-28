@@ -19,7 +19,7 @@ const ChatPage = () => {
     router.replace('/');
   }
   return (
-    <PageLayout title={'Chat'} >
+    <PageLayout>
       <div className="flex justify-center items-center mt-40">
         <p className="dynamic_text">Kommer snart ...</p>
       </div>

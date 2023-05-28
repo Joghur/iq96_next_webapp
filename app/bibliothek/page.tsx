@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 
-import HeaderTitle from '@components/layout/HeaderTitleOBSOLETE';
 import LoadingSpinner from '@components/utility/LoadingSpinner';
 import PageLayout from '@components/layout/PageLayout';
 import { authContext } from '@lib/store/auth-context';
@@ -21,7 +20,7 @@ const LibraryPage = () => {
   }
 
   return (
-    <PageLayout title={'Bibliothek'} >
+    <PageLayout>
       <div className="flex justify-center items-center mt-40">
         <p className="dynamic_text">Kommer snart ...</p>
       </div>

@@ -29,8 +29,6 @@ const MemberPage = () => {
 
   const handleChange = (event: MouseEvent<HTMLButtonElement>) => {
     const { id } = event.target as HTMLButtonElement;
-    console.log('id', id);
-
     setValue(id as MemberTabs);
   };
 

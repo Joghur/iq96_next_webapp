@@ -2,11 +2,10 @@ import { ReactNode } from 'react';
 import HeaderNavbar from './HeaderNavBar';
 
 interface Props {
-  title?: string;
   children: ReactNode;
 }
 
-const PageLayout: React.FC<Props> = ({ title, children }) => {
+const PageLayout: React.FC<Props> = ({ children }) => {
   return (
     <div className="relative flex flex-col flex-grow px-6 mx-auto">
       <HeaderNavbar />
