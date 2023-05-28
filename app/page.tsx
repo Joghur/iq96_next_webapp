@@ -33,7 +33,7 @@ export default function Home() {
   }
 
   return (
-    <PageLayout>
+    <PageLayout title={'Begivenheder'} >
       <EventsPage documentUser={documentUser} />
     </PageLayout>
   );

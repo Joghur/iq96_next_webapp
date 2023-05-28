@@ -1,3 +1,5 @@
+import HeaderNavbar from '@components/layout/HeaderNavBar';
+import PageLayout from '@components/layout/PageLayout';
 import LoadingSpinner from '@components/utility/LoadingSpinner';
 import dynamic from 'next/dynamic';
 
@@ -7,7 +9,11 @@ function MapPage() {
     loading: () => <LoadingSpinner />,
     ssr: false, // This line is important. It's what prevents server-side render
   });
-  return <Map />;
+  return (
+    <PageLayout>
+      <Map />
+    </PageLayout>
+  );
 }
 
 export default MapPage;

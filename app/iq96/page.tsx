@@ -66,7 +66,7 @@ const MemberPage = () => {
           )}
         </div>
       </div>
-      <div className="pt-6">
+      <div className="flex items-center justify-center pt-6">
         {value === 'iq96' && <MemberTab />}
         {value === 'about' && <AboutTab />}
         {value === 'admin' && <AdminTab />}
