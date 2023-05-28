@@ -22,8 +22,8 @@ const ChatPage = () => {
   return (
     <PageLayout>
       <HeaderTitle title={'Chat'} />
-      <div className="flex justify-center items-center h-screen">
-        <p className="">Kommer snart ...</p>
+      <div className="justify-center items-center mt-40">
+        <p className="text-center">Kommer snart ...</p>
       </div>
     </PageLayout>
   );

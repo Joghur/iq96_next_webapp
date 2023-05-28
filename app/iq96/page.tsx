@@ -36,7 +36,7 @@ const MemberPage = () => {
 
   return (
     <PageLayout>
-      <div className="flex justify-end sm:justify-center mb-4 sm:my-10">
+      <div className="flex justify-end sm:justify-center mb-4 sm:mt-10 sm:mb-15">
         <div className="tabs tabs-boxed inline-block">
           <button
             id="iq96"

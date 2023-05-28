@@ -4,7 +4,7 @@ import Link from 'next/link';
 const HeaderNavbar: React.FC = () => {
   return (
     <header className="header_nav bg-cover bg-blur backdrop-blur-sm rounded-xl">
-      <nav className="container gap-2 px-4 flex items-center justify-between">
+      <nav className="gap-2 px-4 flex items-center justify-between">
         <Link href="/" className="flex gap-2 md:gap-5">
           <Image
             src="/images/logo/iqlogo_512.png"
