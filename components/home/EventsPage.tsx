@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { User } from 'firebase/auth';
 import { MdEdit } from 'react-icons/md';
 
-import HeaderTitle from '@components/layout/HeaderTitle';
 import LoadingSpinner from '@components/utility/LoadingSpinner';
 import { handleType } from '@lib/convertEventType';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
@@ -73,7 +72,6 @@ const EventsPage = ({ documentUser }: Props) => {
 
   return (
     <div>
-      <HeaderTitle title={'Begivenheder'} />
       <div className="mx-auto max-w-2xl">
         {!events && (
           <div className="items-center justify-center px-6 pt-16">

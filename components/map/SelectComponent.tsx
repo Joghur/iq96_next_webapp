@@ -39,7 +39,7 @@ export const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
 
   return (
     <select
-      className="select select-bordered md:select-lg select-xs w-full max-w-xs"
+      className="select select-bordered sm:select-lg select-xs w-full max-w-xs"
       value={selection}
       onChange={e => handleSelectChange(e.target.value)}>
       <option key={'iq-places'} disabled>

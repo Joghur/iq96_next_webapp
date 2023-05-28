@@ -29,8 +29,6 @@ const MemberPage = () => {
 
   const handleChange = (event: MouseEvent<HTMLButtonElement>) => {
     const { id } = event.target as HTMLButtonElement;
-    console.log('id', id);
-
     setValue(id as MemberTabs);
   };
 
@@ -66,7 +64,7 @@ const MemberPage = () => {
           )}
         </div>
       </div>
-      <div className="pt-6">
+      <div className="flex items-center justify-center pt-6">
         {value === 'iq96' && <MemberTab />}
         {value === 'about' && <AboutTab />}
         {value === 'admin' && <AdminTab />}

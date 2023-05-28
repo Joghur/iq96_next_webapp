@@ -74,7 +74,9 @@ function UserMapButton() {
   };
 
   return (
-    <button className="btn" onClick={handleFlyToUserLocation}>
+    <button
+      className="btn rounded-full shadow-xl ring-2 z-1000"
+      onClick={handleFlyToUserLocation}>
       <MdMyLocation />
     </button>
   );
@@ -220,12 +222,12 @@ const MapPage = () => {
                 {documentUser?.nick}
               </Tooltip>
             </Marker>
-            <div className="absolute top-[50vh] right-2 shadow-xl z-1000">
+            <div className="absolute top-[50vh] right-2">
               <UserMapButton />
             </div>
           </>
         )}
-        <div className="absolute top-2 right-2 shadow-xl">
+        <div className="absolute top-2 right-2 shadow-xl z-10000">
           {appFirstMarkers.length > 0 && (
             <FlyToSelector markers={appFirstMarkers} />
           )}
@@ -298,7 +300,7 @@ const MapPage = () => {
                         <div className="pt-5">
                           <label
                             htmlFor="password"
-                            className="block green_gradient font-medium mb-2">
+                            className="block dynamic_text green_gradient font-medium mb-2">
                             Titel
                           </label>
                           <textarea
@@ -306,13 +308,13 @@ const MapPage = () => {
                             value={currentMarker?.title}
                             onChange={handleChangeMarker}
                             placeholder={currentMarker?.title || 'Titel'}
-                            className="textarea textarea-bordered text-white"
+                            className="textarea textarea-bordered dynamic_text"
                           />
                         </div>
                         <div className="pt-5">
                           <label
                             htmlFor="password"
-                            className="block green_gradient font-medium mb-2">
+                            className="block dynamic_text green_gradient font-medium mb-2">
                             Nick
                           </label>
                           <textarea
@@ -320,13 +322,13 @@ const MapPage = () => {
                             value={currentMarker?.nick}
                             onChange={handleChangeMarker}
                             placeholder={currentMarker?.title || 'Nick'}
-                            className="textarea textarea-bordered text-white"
+                            className="textarea textarea-bordered dynamic_text"
                           />
                         </div>
                         <div className="pt-5">
                           <label
                             htmlFor="password"
-                            className="block green_gradient font-medium mb-2">
+                            className="block dynamic_text green_gradient font-medium mb-2">
                             Type
                           </label>
                           <textarea
@@ -336,13 +338,13 @@ const MapPage = () => {
                             placeholder={
                               currentMarker?.madeBy || 'Type: app eller user'
                             }
-                            className="textarea textarea-bordered text-white"
+                            className="textarea textarea-bordered dynamic_text"
                           />
                         </div>
                         <div className="pt-5">
                           <label
                             htmlFor="password"
-                            className="block green_gradient font-medium mb-2">
+                            className="block dynamic_text green_gradient font-medium mb-2">
                             Beskrivelse
                           </label>
                           <textarea
@@ -352,7 +354,7 @@ const MapPage = () => {
                             placeholder={
                               currentMarker?.description || 'Beskrivelse'
                             }
-                            className="textarea textarea-bordered text-white"
+                            className="textarea textarea-bordered dynamic_text"
                           />
                         </div>
                         <div className="stack_row justify-between pt-5">

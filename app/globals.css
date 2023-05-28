@@ -78,11 +78,11 @@
 
 /* Nav Component */
 .logo_text {
-  @apply hidden sm:flex self-center whitespace-nowrap font-semibold text-3xl orange_gradient tracking-wide dark:text-white;
+  @apply flex self-center whitespace-nowrap font-semibold text-2xl orange_gradient tracking-wide dark:text-white;
 }
 
 .header_nav {
-  @apply fixed max-w-4xl z-50 top-0 left-0;
+  @apply fixed flex z-50 top-0 left-0;
 }
 
 .bottom_nav {

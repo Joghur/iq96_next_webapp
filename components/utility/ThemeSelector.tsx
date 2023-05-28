@@ -73,7 +73,7 @@ const ThemeSelector = () => {
         id="themeSelector"
         value={currentTheme}
         onChange={e => handleThemeChange(e.target.value as Themes)}
-        className="select select-bordered md:select-lg select-xs w-full max-w-xs ">
+        className="select select-bordered sm:select-lg select-xs w-full max-w-xs ">
         {themes.map((o, index) => (
           <option value={o} key={index}>
             {o}

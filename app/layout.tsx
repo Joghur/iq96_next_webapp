@@ -7,7 +7,6 @@ import { Metadata } from 'next';
 
 import AuthContextProvider from '@/lib/store/auth-context';
 import BottomNav from '@components/layout/BottomNav';
-import HeaderNavbar from '@components/layout/HeaderNavBar';
 // import SiteContextProvider from '@/lib/store/site-context';
 
 export const revalidate = false;
@@ -27,7 +26,6 @@ export default function RootLayout({ children }: Props) {
       <body>
         <AuthContextProvider>
           {/* <SiteContextProvider> */}
-          <HeaderNavbar />
           {children}
           <BottomNav />
           {/* </SiteContextProvider> */}
