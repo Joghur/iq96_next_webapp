@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useEffect } from 'react'; // React
+import { useContext, useEffect } from 'react';
 
 import EventsPage from '@components/home/EventsPage';
 import PageLayout from '@components/layout/PageLayout';
