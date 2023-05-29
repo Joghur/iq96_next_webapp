@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { User } from 'firebase/auth';
 import { MdEdit } from 'react-icons/md';
+import { motion } from 'framer-motion';
 
 import LoadingSpinner from '@components/utility/LoadingSpinner';
 import { handleType } from '@lib/convertEventType';
@@ -70,9 +71,17 @@ const EventsPage = ({ documentUser }: Props) => {
     documentUser?.isBoard ||
     documentUser?.isSuperAdmin;
 
+  const eventTransitionVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div>
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto max-w-2xl mt-40">
+        <div className="items-center justify-center px-6 pt-16">
+          <p className="text-center dynamic_text">Næste begivenhed</p>
+        </div>
         {!events && (
           <div className="items-center justify-center px-6 pt-16">
             <p className="text-center dynamic_text">
@@ -81,80 +90,129 @@ const EventsPage = ({ documentUser }: Props) => {
           </div>
         )}
         {events &&
-          events.map(event => {
+          events.length > 0 &&
+          events.map((event, index) => {
             return (
-              <div className="paper m-5 py-7 px-10 sm:px-15">
-                <div className="stack gap-2">
-                  <div className="stack_row justify-between">
-                    <p className="dynamic_text font-black">
-                      {event?.type === 'tour'
-                        ? `${handleType(event?.type)} de ${event.city}`
-                        : handleType(event?.type)}
-                    </p>
-                    {canEdit && event.id && (
-                      <button onClick={e => handleUpdate(e, event.id)}>
-                        <MdEdit />
-                      </button>
-                    )}
-                  </div>
-                  {!!event?.startDate && (
-                    <div className="stack">
-                      <p className="dynamic_text font-black">Start:</p>
-                      <div className="ml-2">
-                        <div>{event.start}</div>
-                      </div>
-                    </div>
-                  )}
-                  {!!event?.endDate && (
-                    <div className="stack">
-                      <p className="dynamic_text font-black">Slut:</p>
-                      <div className="ml-2">
-                        <p>{event.end}</p>
-                      </div>
-                    </div>
-                  )}
-                  {event.meetingPoints.trim() && (
-                    <div className="stack">
-                      <p className="dynamic_text font-black">Mødesteder:</p>
-                      <div className="dynamic_text">
-                        {event.meetingPoints.split('--').map((f: string) => {
-                          return (
-                            <div className="ml-4">
-                              <li>{f.trim()}</li>
+              <>
+                <div className="gap-2">
+                  {index === 0 && (
+                    <motion.div
+                      initial={{ x: -100 }}
+                      animate={{ x: 0 }}
+                      transition={{
+                        duration: 1.5,
+                        type: 'tween',
+                        stiffness: 100,
+                      }}>
+                      <div className="paper m-5 py-7 px-10 sm:px-15">
+                        <div className="stack_row justify-between">
+                          <p className="dynamic_text font-black">
+                            {event?.type === 'tour'
+                              ? `${handleType(event?.type)} de ${event.city}`
+                              : handleType(event?.type)}
+                          </p>
+                          {canEdit && event.id && (
+                            <button onClick={e => handleUpdate(e, event.id)}>
+                              <MdEdit />
+                            </button>
+                          )}
+                        </div>
+                        {!!event?.startDate && (
+                          <div className="stack">
+                            <p className="dynamic_text font-black">Start:</p>
+                            <div className="">
+                              <div>{event.start}</div>
                             </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-                  {event?.notes?.trim() && (
-                    <div className="stack">
-                      <div className="dynamic_text font-black">OBS:</div>
-                      <div className="dynamic_text">
-                        {event.notes.split('--').map((f: string) => {
-                          return (
-                            <div className="ml-4 dynamic_text">
-                              <li>{f.trim()}</li>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-                  {event?.activities?.trim() && (
-                    <div className="dynamic_text font-black">
-                      Aktiviteter:
-                      {event.activities.split('--').map((f: string) => {
-                        return (
-                          <div className="ml-4 dynamic_text">
-                            <li>{f.trim()}</li>
                           </div>
-                        );
-                      })}
-                    </div>
+                        )}
+                        {!!event?.endDate && (
+                          <div className="stack">
+                            <p className="dynamic_text font-black">Slut:</p>
+                            <div className="">
+                              <p>{event.end}</p>
+                            </div>
+                          </div>
+                        )}
+                        {event.meetingPoints.trim() && (
+                          <div className="stack">
+                            <p className="dynamic_text font-black">
+                              Mødesteder:
+                            </p>
+                            <div className="dynamic_text">
+                              {event.meetingPoints
+                                .split('--')
+                                .map((f: string) => {
+                                  return (
+                                    <div className="ml-4">
+                                      <li>{f.trim()}</li>
+                                    </div>
+                                  );
+                                })}
+                            </div>
+                          </div>
+                        )}
+                        {event?.notes?.trim() && (
+                          <div className="stack">
+                            <div className="dynamic_text font-black">OBS:</div>
+                            <div className="dynamic_text">
+                              {event.notes.split('--').map((f: string) => {
+                                return (
+                                  <div className="ml-4 dynamic_text">
+                                    <li>{f.trim()}</li>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
+                        {event?.activities?.trim() && (
+                          <div className="dynamic_text font-black">
+                            Aktiviteter:
+                            {event.activities.split('--').map((f: string) => {
+                              return (
+                                <div className="ml-4 dynamic_text">
+                                  <li>{f.trim()}</li>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {index === 1 && (
+                    <motion.div className="pt-16">
+                      <p className="text-center dynamic_text">
+                        Fremtidige begivenheder
+                      </p>
+                    </motion.div>
+                  )}
+                  {index > 0 && (
+                    <motion.div
+                      key={index}
+                      variants={eventTransitionVariants}
+                      initial="hidden"
+                      animate="visible"
+                      transition={{ duration: 0.5, delay: index * 0.8 + 0.7 }}
+                      className="paper m-1 py-2">
+                      <div className="stack_row justify-between">
+                        <p className="dynamic_text font-black">
+                          {event?.type === 'tour'
+                            ? `${handleType(event?.type)} de ${event.city}`
+                            : handleType(event?.type)}
+                        </p>
+                        <p>{event.start}</p>
+                        {canEdit && event.id && (
+                          <button onClick={e => handleUpdate(e, event.id)}>
+                            <MdEdit />
+                          </button>
+                        )}
+                      </div>
+                    </motion.div>
                   )}
                 </div>
-              </div>
+              </>
             );
           })}
       </div>

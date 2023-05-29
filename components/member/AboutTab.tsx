@@ -1,9 +1,22 @@
+import { motion } from 'framer-motion';
+
+import DynamicText from '@components/utility/DynamicText';
 import packageJson from '../../package.json';
-import DynamicText from '../utility/DynamicText';
 
 const AboutTab = () => {
   return (
-    <div className="px-5">
+    <motion.div
+      animate={{
+        scale: [1, 2, 2, 1, 1],
+        rotate: [0, 0, 180, 180, 0],
+        borderRadius: ['0%', '0%', '50%', '50%', '0%'],
+      }}
+      transition={{
+        duration: 2,
+        ease: 'easeInOut',
+        times: [0, 0.2, 0.5, 0.8, 1],
+      }}
+      className="px-5">
       <DynamicText>
         <strong>{`IQ96 web app v${packageJson.version}`}</strong>
       </DynamicText>
@@ -22,7 +35,7 @@ const AboutTab = () => {
           lokation er sat til
         </li>
       </ul>
-    </div>
+    </motion.div>
   );
 };
 

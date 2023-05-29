@@ -1,10 +1,10 @@
 'use client';
 
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react'; // React
 
-import LoadingSpinner from '@components/utility/LoadingSpinner';
 import EventsPage from '@components/home/EventsPage';
 import PageLayout from '@components/layout/PageLayout';
+import LoadingSpinner from '@components/utility/LoadingSpinner';
 import SignIn from '@components/auth/SignIn';
 import { Themes, LOCALSTORAGE_THEME } from '@components/utility/ThemeSelector';
 import { authContext } from '@/lib/store/auth-context';

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+
 import HeaderNavbar from './HeaderNavBar';
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
 
 const PageLayout: React.FC<Props> = ({ children }) => {
   return (
-    <div className="relative flex flex-col flex-grow px-6 mx-auto">
+    <div className="relative flex flex-col flex-grow mx-auto">
       <HeaderNavbar />
       {children}
       <div className="h-40" />

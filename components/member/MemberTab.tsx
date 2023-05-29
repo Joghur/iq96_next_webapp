@@ -2,6 +2,7 @@
 
 import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 import DynamicText from '@components/utility/DynamicText';
 import { authContext } from '@lib/store/auth-context';
@@ -17,7 +18,11 @@ const MemberTab = () => {
   }
 
   return (
-    <div className="px-5">
+    <motion.div
+      initial={{ x: -100 }}
+      animate={{ x: 0 }}
+      transition={{ type: 'spring', stiffness: 100 }}
+      className="px-5">
       <div className="flex flex-col gap-3">
         <div className="flex-grow">
           <DynamicText>
@@ -41,7 +46,7 @@ const MemberTab = () => {
           Log ud
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
