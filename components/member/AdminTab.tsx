@@ -1,3 +1,7 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 const AdminTab = () => {
   return (
     <div className="px-5">
@@ -10,14 +14,21 @@ const AdminTab = () => {
           className="btn btn-accent dynamic_text inline-block">
           Kopier gamle men aktuelle kort-markører
         </button>
-        <button
+        <motion.button
+          initial={{ opacity: 0.6 }}
+          whileHover={{
+            scale: 1.2,
+            transition: { duration: 1 },
+          }}
+          whileTap={{ scale: 0.9 }}
+          whileInView={{ opacity: 1 }}
           disabled
           onClick={() => {
             console.log('Sletter');
           }}
           className="btn btn-accent dynamic_text inline-block">
           Slet gamle, men aktuelle kort-markører
-        </button>
+        </motion.button>
       </div>
     </div>
   );
