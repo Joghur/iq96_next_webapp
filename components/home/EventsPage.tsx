@@ -78,7 +78,7 @@ const EventsPage = ({ documentUser }: Props) => {
 
   return (
     <div>
-      <div className="mx-auto max-w-2xl mt-40">
+      <div className="mx-auto max-w-2xl mt-12 sm:mt-40">
         <div className="items-center justify-center px-6 pt-16">
           <p className="text-center dynamic_text">Næste begivenhed</p>
         </div>
@@ -100,7 +100,7 @@ const EventsPage = ({ documentUser }: Props) => {
                       initial={{ x: -100 }}
                       animate={{ x: 0 }}
                       transition={{
-                        duration: 1.5,
+                        duration: 1,
                         type: 'tween',
                         stiffness: 100,
                       }}>
@@ -182,11 +182,11 @@ const EventsPage = ({ documentUser }: Props) => {
                   )}
 
                   {index === 1 && (
-                    <motion.div className="pt-16">
+                    <div className="pt-16">
                       <p className="text-center dynamic_text">
                         Fremtidige begivenheder
                       </p>
-                    </motion.div>
+                    </div>
                   )}
                   {index > 0 && (
                     <motion.div
@@ -194,7 +194,7 @@ const EventsPage = ({ documentUser }: Props) => {
                       variants={eventTransitionVariants}
                       initial="hidden"
                       animate="visible"
-                      transition={{ duration: 0.5, delay: index * 0.8 + 0.7 }}
+                      transition={{ duration: 0.5, delay: index * 0.8 + 0.3 }}
                       className="paper m-1 py-2">
                       <div className="stack_row justify-between">
                         <p className="dynamic_text font-black">
