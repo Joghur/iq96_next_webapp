@@ -3,7 +3,6 @@ import { User, onAuthStateChanged } from 'firebase/auth';
 import {
   CollectionReference,
   DocumentData,
-  SnapshotMetadata,
   Timestamp,
   Query,
   collection,
@@ -18,6 +17,7 @@ import {
   orderBy,
   where,
   query,
+  limit,
 } from 'firebase/firestore';
 
 import { app, auth, db } from '@lib/firebase';
@@ -41,6 +41,8 @@ export type CollectionName = 'events' | 'map' | 'chats';
 export const useFirestore = <T extends DocumentData>(
   collectionName: CollectionName,
   order: string,
+  orderDirection: 'desc' | 'asc' = 'asc',
+  limitBy = 4,
 ) => {
   const [docs, setDocs] = useState<T[] | undefined>(undefined);
   const [loading, setLoading] = useState(true);
@@ -70,7 +72,8 @@ export const useFirestore = <T extends DocumentData>(
   useEffect(() => {
     const queryRef = query(
       collection(db, collectionName) as CollectionReference<T>,
-      orderBy(order),
+      orderBy(order, orderDirection),
+      limit(limitBy),
     ) as Query<T>;
     const unsubscribe = onSnapshot(queryRef, snapshot => {
       const docs: T[] = [];
@@ -81,15 +84,17 @@ export const useFirestore = <T extends DocumentData>(
       setLoading(false);
     });
     return unsubscribe;
-  }, [db, collectionName]);
+  }, [db, collectionName, limitBy]);
 
   return { docs, loading, addingDoc, updatingDoc, deletingDoc };
 };
 
+/** obsolete */
 export const useFirestoreMax4Days = (
   collectionName: CollectionName,
   order: string,
   days = 4,
+  limitBy = 3,
 ) => {
   const [docs, setDocs] = useState<DocumentData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -126,8 +131,9 @@ export const useFirestoreMax4Days = (
       collection(db, collectionName),
       where('createdAt', '>=', cutoff),
       orderBy(order),
+      limit(limitBy),
     );
-    // const collectionRef = query(collection(db, collectionName));
+
     const unsubscribe = onSnapshot(collectionRef, snapshot => {
       const docs: DocumentData[] = [];
       snapshot.forEach(doc => {
