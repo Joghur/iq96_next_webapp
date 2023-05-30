@@ -156,13 +156,16 @@ const ChatPage = () => {
                             <div className={``}>
                               <div
                                 className={`flex flex-row justify-between p-1`}>
-                                <p className={`dynamic_text`}>
+                                <p
+                                  className={`dark:text-gray-900 dynamic_text`}>
                                   <strong>
                                     {isChatUser ? 'Dig' : chat.user.name}
                                   </strong>
                                 </p>
                               </div>
-                              <p className="p-1 dynamic_text">{chat.text}</p>
+                              <p className="p-1 dark:text-gray-900 dynamic_text">
+                                {chat.text}
+                              </p>
                             </div>
                           </div>
                         </li>
@@ -180,6 +183,29 @@ const ChatPage = () => {
               </p>
             </div>
           )}
+          <div className="flex items-center space-x-2 mt-4">
+            <input
+              type="text"
+              className="flex-grow px-4 py-2 bg-white border border-gray-300 rounded-full"
+              placeholder="Skriv en besked"
+              onChange={event => setInput(event.target.value)}
+            />
+            <button
+              onClick={handleSubmit}
+              className="flex items-center justify-center w-10 h-10 text-white bg-green-500 rounded-full">
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </PageLayout>
@@ -187,46 +213,3 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
-
-//   return (
-//     <Box
-//       sx={{
-//         display: 'flex',
-//         flexDirection: 'column',
-//         height: '100%',
-//         width: small ? '100vw' : '95vw',
-//       }}>
-//       <Stack
-//         justifyContent="center"
-//         alignItems="center"
-//         sx={{
-//           flexGrow: 1,
-//           overflowY: 'auto',
-//           padding: '16px',
-//         }}>
-
-//       </Stack>
-//       <Box sx={{display: 'flex', gap: '16px', padding: '16px'}}>
-//         <TextField
-//           label="Skriv din besked"
-//           variant="outlined"
-//           size="small"
-//           fullWidth
-//           value={input}
-//           onChange={event => setInput(event.target.value)}
-//         />
-//         <Button variant="contained" onClick={handleSubmit}>
-//           Send
-//         </Button>
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// primary={`${
-//     message.user.name
-//   } - ${convertEpochSecondsToDateString(
-//       message.createdAt.seconds,
-//       )}`}
-// secondary={message.text}
-// />
