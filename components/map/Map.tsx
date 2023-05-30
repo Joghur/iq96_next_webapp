@@ -89,7 +89,7 @@ const MapPage = () => {
     loading: markerLoading,
     updatingDoc,
     deletingDoc,
-  } = useFirestore<MarkerData>('map', 'type');
+  } = useFirestore<MarkerData>('map', 'type', 'asc', 256);
   const router = useRouter();
   const [userPosition, setUserPosition] = useState<
     LatLngExpression | undefined
