@@ -74,7 +74,7 @@ const ChatPage = () => {
           avatar: documentUser?.avatar,
         },
       });
-      setInput('');
+      setInput(() => '');
     }
   };
 
@@ -186,6 +186,7 @@ const ChatPage = () => {
           <div className="flex items-center space-x-2 mt-4">
             <input
               type="text"
+              value={input}
               className="flex-grow px-4 py-2 bg-white border border-gray-300 rounded-full"
               placeholder="Skriv en besked"
               onChange={event => setInput(event.target.value)}
