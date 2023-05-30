@@ -10,6 +10,7 @@ import { DocumentUser, useFirestoreMax4Days } from '@lib/hooks/useFirestore';
 import { User } from 'firebase/auth';
 import { convertEpochSecondsToDateString } from '@lib/dates';
 import moment from 'moment';
+import Image from 'next/image';
 
 type FirebaseTimestamp = {
   seconds: number;
@@ -42,6 +43,7 @@ const ChatPage = () => {
     loading: chatLoading,
     addingDoc,
   } = useFirestoreMax4Days('chats', 'createdAt', days);
+
   const router = useRouter();
 
   if (loading) {
@@ -52,7 +54,7 @@ const ChatPage = () => {
     router.replace('/');
   }
 
-  if (loading) {
+  if (chatLoading) {
     return <LoadingSpinner text={'Henter Chats'} />;
   }
 
@@ -81,81 +83,98 @@ const ChatPage = () => {
 
   return (
     <PageLayout>
-      <div className="flex justify-center items-center mt-40">
-        <div className="stack_row gap-2">
-          <button onClick={() => handleChangeDays()}>
+      <div className="mx-auto max-w-4xl min-h-screen mt-12 sm:mt-40">
+        <div className="flex flex-row justify-center gap-2">
+          <button
+            onClick={() => handleChangeDays()}
+            className="btn dynamic_text">
             Vis beskeder for 10 dage tilbage
           </button>
-          <button onClick={() => handleChangeDays(365)}>
+          <button
+            onClick={() => handleChangeDays(365)}
+            className="btn dynamic_text">
             Gå et år tilbage
           </button>
         </div>
-        <div className="paper">
-          {chats.length > 0 && (
-            <ul>
-              {chats.map((chat, index) => {
-                const isChatUser = chat.user.name === documentUser?.nick;
+        <div className="p-4">
+          {chats.length > 0 &&
+            chats.map((chat, index) => {
+              const isChatUser = chat.user.name === documentUser?.nick;
 
-                const isSame = moment(chat.createdAt.seconds * 1000).isSame(
-                  moment(dayAsMilliSeconds),
-                  'date',
-                );
+              const isSame = moment(chat.createdAt.seconds * 1000).isSame(
+                moment(dayAsMilliSeconds),
+                'date',
+              );
 
-                if (!isSame) {
-                  showDay = true;
-                } else {
-                  showDay = false;
-                }
-                dayAsMilliSeconds = chat.createdAt.seconds * 1000;
+              if (!isSame) {
+                showDay = true;
+              } else {
+                showDay = false;
+              }
+              dayAsMilliSeconds = chat.createdAt.seconds * 1000;
 
-                return (
-                  <>
+              return (
+                <div className={`mb-4`}>
+                  <ul className={` ${isChatUser ? '' : ''}`}>
                     {showDay && (
                       <li>
-                        {/* <Chip
-                          label={convertEpochSecondsToDateString(
-                            chat.createdAt.seconds,
-                            'D/MMM-YYYY',
-                          )}
-                        /> */}
+                        <div className="flex items-center justify-center inline-block mb-4 bg-gray-200 text-gray-700 ring-1 rounded-full">
+                          <span className="dynamic_text">
+                            {convertEpochSecondsToDateString(
+                              chat.createdAt.seconds,
+                              'D/MMM-YYYY',
+                            )}
+                          </span>
+                        </div>
                       </li>
                     )}
-                    <li
-                      key={index}
-                      className={`flex flex-start ${
-                        isChatUser ? 'flex-end' : 'flex-start'
+                    <div
+                      className={`flex flex-col ${
+                        isChatUser ? 'items-end' : 'items-start'
                       }`}>
                       <div
-                        className={`paper shadow p-2 ${
-                          isChatUser ? 'ml-8' : 'ml-2'
-                        } ${isChatUser ? 'mr-2' : 'mr-8'} ${
+                        className={`max-w-xs p-2 shadow-lg rounded-lg ${
                           isChatUser ? 'bg-lime-500' : 'bg-orange-500'
                         }`}>
-                        <div className="stack_row gap-1">
-                          {/* <Avatar
-                            alt={chat.user.name}
-                            src={`${process.env.PUBLIC_URL}/images/avatars/${chat.user?.avatar}.png`}
-                          /> */}
-                          <div className="stack">
-                            <div className="stack_row gap-2 items-center">
-                              <p className="dynamic_text">{chat.user.name}</p>
-                              <p className="dynamic_text">
+                        <li key={index}>
+                          <div className="flex">
+                            <div className="flex flex-none flex-col justify-center items-center mr-1">
+                              <Image
+                                width={27}
+                                height={27}
+                                alt={chat.user.name}
+                                src={`/images/avatars/${chat.user?.avatar}.png`}
+                                className="rounded-full bg-gray-300 ring-1 ring-gray-500"
+                              />
+                              <p className="mt-1 text-gray-500 dynamic_text">
                                 {convertEpochSecondsToDateString(
                                   chat.createdAt.seconds,
                                   'HH:mm',
                                 )}
                               </p>
                             </div>
-                            <p className="dynamic_text">{chat.text}</p>
+                            <div className={``}>
+                              <div
+                                className={`flex flex-row justify-between p-1`}>
+                                <p
+                                  className={`dark:text-gray-900 dynamic_text`}>
+                                  <strong>
+                                    {isChatUser ? 'Dig' : chat.user.name}
+                                  </strong>
+                                </p>
+                              </div>
+                              <p className="p-1 dark:text-gray-900 dynamic_text">
+                                {chat.text}
+                              </p>
+                            </div>
                           </div>
-                        </div>
+                        </li>
                       </div>
-                    </li>
-                  </>
-                );
-              })}
-            </ul>
-          )}
+                    </div>
+                  </ul>
+                </div>
+              );
+            })}
           {chats.length === 0 && (
             <div className="box">
               <p className="p-2">
@@ -164,6 +183,29 @@ const ChatPage = () => {
               </p>
             </div>
           )}
+          <div className="flex items-center space-x-2 mt-4">
+            <input
+              type="text"
+              className="flex-grow px-4 py-2 bg-white border border-gray-300 rounded-full"
+              placeholder="Skriv en besked"
+              onChange={event => setInput(event.target.value)}
+            />
+            <button
+              onClick={handleSubmit}
+              className="flex items-center justify-center w-10 h-10 text-white bg-green-500 rounded-full">
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </PageLayout>
@@ -171,46 +213,3 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
-
-//   return (
-//     <Box
-//       sx={{
-//         display: 'flex',
-//         flexDirection: 'column',
-//         height: '100%',
-//         width: small ? '100vw' : '95vw',
-//       }}>
-//       <Stack
-//         justifyContent="center"
-//         alignItems="center"
-//         sx={{
-//           flexGrow: 1,
-//           overflowY: 'auto',
-//           padding: '16px',
-//         }}>
-
-//       </Stack>
-//       <Box sx={{display: 'flex', gap: '16px', padding: '16px'}}>
-//         <TextField
-//           label="Skriv din besked"
-//           variant="outlined"
-//           size="small"
-//           fullWidth
-//           value={input}
-//           onChange={event => setInput(event.target.value)}
-//         />
-//         <Button variant="contained" onClick={handleSubmit}>
-//           Send
-//         </Button>
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// primary={`${
-//     message.user.name
-//   } - ${convertEpochSecondsToDateString(
-//       message.createdAt.seconds,
-//       )}`}
-// secondary={message.text}
-// />

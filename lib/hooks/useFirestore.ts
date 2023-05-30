@@ -1,23 +1,25 @@
 import { useState, useEffect } from 'react';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import {
-  collection,
-  getFirestore,
-  orderBy,
-  updateDoc,
-  query,
-  addDoc,
+  CollectionReference,
   DocumentData,
-  onSnapshot,
-  doc,
-  getDocs,
-  setDoc,
-  deleteDoc,
-  where,
+  SnapshotMetadata,
   Timestamp,
   Query,
-  CollectionReference,
+  collection,
+  getFirestore,
+  doc,
+  addDoc,
+  deleteDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+  onSnapshot,
+  orderBy,
+  where,
+  query,
 } from 'firebase/firestore';
+
 import { app, auth, db } from '@lib/firebase';
 
 export interface DocumentUser {
