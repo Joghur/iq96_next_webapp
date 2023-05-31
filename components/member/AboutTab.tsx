@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import packageJson from '../../package.json';
 
 const aboutList = [
+  ['0.6.4', 'GDPR'],
   [
     '0.6.3',
     'Kortet virker nogenlunde som før. Listen af steder er nu ordnet så det er lettere at finde IQ96 begivenheder. Animationer',

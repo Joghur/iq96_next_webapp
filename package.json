@@ -1,6 +1,6 @@
 {
   "name": "iq96_next_webapp",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@google-cloud/local-auth": "^2.1.0",
+    "@google-cloud/local-auth": "2.1.0",
     "@types/gapi": "0.0.44",
     "@types/node": "20.1.5",
     "@types/react": "18.2.6",
@@ -21,10 +21,10 @@
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "firebase": "9.22.0",
-    "framer-motion": "^10.12.16",
-    "googleapis": "^105.0.0",
+    "framer-motion": "10.12.16",
+    "googleapis": "105.0.0",
     "leaflet": "1.9.4",
-    "moment": "^2.29.4",
+    "moment": "2.29.4",
     "mongodb": "5.5.0",
     "mongoose": "7.1.1",
     "next": "13.4.3",
