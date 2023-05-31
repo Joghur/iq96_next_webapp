@@ -2,7 +2,11 @@
 
 import { useState } from 'react';
 
-import { LOCALSTORAGE_PREFIX } from '@lib/localStorage';
+import {
+  LOCALSTORAGE_PREFIX,
+  getLocalStorage,
+  setLocalStorage,
+} from '@lib/localStorage';
 
 const COOKIE_LOCALSTORAGE_ACCEPTED = `${LOCALSTORAGE_PREFIX}-cookieAccepted`;
 
@@ -10,11 +14,13 @@ const CookieWarning = () => {
   const [isAccepted, setIsAccepted] = useState(false);
 
   const acceptCookies = () => {
-    localStorage.setItem(COOKIE_LOCALSTORAGE_ACCEPTED, 'true');
+    setLocalStorage<string>(COOKIE_LOCALSTORAGE_ACCEPTED, 'true');
     setIsAccepted(true);
   };
 
-  const isCookieAccepted = localStorage.getItem(COOKIE_LOCALSTORAGE_ACCEPTED);
+  const isCookieAccepted = getLocalStorage<string>(
+    COOKIE_LOCALSTORAGE_ACCEPTED,
+  );
 
   if (isAccepted || isCookieAccepted) {
     return null;

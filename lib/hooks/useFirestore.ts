@@ -89,7 +89,7 @@ export const useFirestore = <T extends DocumentData>(
   return { docs, loading, addingDoc, updatingDoc, deletingDoc };
 };
 
-/** obsolete */
+/** @deprecated */
 export const useFirestoreMax4Days = (
   collectionName: CollectionName,
   order: string,

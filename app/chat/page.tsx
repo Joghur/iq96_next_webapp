@@ -66,7 +66,6 @@ const ChatPage = () => {
   }
 
   const handleDelete = async (id: string | undefined) => {
-    console.log('handleDelete', id);
     if (id) {
       await deletingDoc(id);
     }

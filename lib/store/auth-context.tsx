@@ -8,7 +8,6 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { DocumentData } from 'firebase/firestore';
 
 import { auth } from '@/lib/firebase';
 import { DocumentUser, useDocumentUser } from '@lib/hooks/useFirestore';
@@ -50,7 +49,7 @@ export default function AuthContextProvider({
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
-      console.log('Logout error: ', err);
+      console.error('Logout error: ', err);
       alert('Der er skete en fejl under login!');
     }
   };
@@ -63,7 +62,7 @@ export default function AuthContextProvider({
     try {
       await sendPasswordResetEmail(auth, email);
     } catch (error) {
-      console.log('Logout error: ', error);
+      console.error('Logout error: ', error);
       alert('Der er skete en fejl under reset kodeord!');
     }
   };
