@@ -1,7 +1,5 @@
 'use client';
 
-import { useCallback, useState, useEffect } from 'react';
-
 export const LOCALSTORAGE_PREFIX = 'iq96nextwebapp';
 
 export const getLocalStorage = <T>(key: string) => {

@@ -7,7 +7,6 @@ import { Metadata } from 'next';
 
 import AuthContextProvider from '@/lib/store/auth-context';
 import BottomNav from '@components/layout/BottomNav';
-import CookieWarning from '@components/layout/CookieWarning';
 // import SiteContextProvider from '@/lib/store/site-context';
 
 export const revalidate = false;
@@ -30,9 +29,6 @@ export default function RootLayout({ children }: Props) {
           {children}
           <BottomNav />
           {/* </SiteContextProvider> */}
-          <footer>
-            <CookieWarning />
-          </footer>
         </AuthContextProvider>
       </body>
     </html>
