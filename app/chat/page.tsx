@@ -66,7 +66,6 @@ const ChatPage = () => {
   }
 
   const handleDelete = async (id: string | undefined) => {
-    console.log('handleDelete', id);
     if (id) {
       await deletingDoc(id);
     }
@@ -106,7 +105,8 @@ const ChatPage = () => {
   return (
     <PageLayout>
       <div className="mx-auto max-w-4xl min-h-screen mt-12 sm:mt-40">
-        <div className="fixed top-0 right-1 flex items-center space-x-2 mt-4 dynamic_text">
+        <div
+          className={`fixed -top-3 sm:top-6 right-3 flex w-5/6 items-center space-x-2 mt-4 dynamic_text`}>
           <input
             type="text"
             value={input}
