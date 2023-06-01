@@ -36,3 +36,4 @@ out
 service-account-key.json
 google_mail_client_secret.json
 credentialsgoogle.json
+token.json
