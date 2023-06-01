@@ -1,15 +1,14 @@
 'use client';
 
-import { useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useContext, useEffect, useState } from 'react';
 
 import { authContext } from '@/lib/store/auth-context';
 import {
-  LOCALSTORAGE_PREFIX,
   getLocalStorage,
+  LOCALSTORAGE_PREFIX,
   setLocalStorage,
 } from '@lib/localStorage';
-import DynamicText from '@components/utility/DynamicText';
 
 export const LOCALSTORAGE_EMAIL = `${LOCALSTORAGE_PREFIX}-email`;
 
@@ -54,6 +53,7 @@ function SignIn() {
   };
 
   const validateEmail = (mail: string | undefined) => {
+    // eslint-disable-next-line no-useless-escape
     if (mail && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
       setValidatedEmail({
         validated: true,
@@ -86,7 +86,7 @@ function SignIn() {
   return (
     <main className="container max-w-2xl px-6 mx-auto">
       <p className="pt-16 mb-3 sm:text-xl blue_gradient font-bold text-center dynamic_text">
-        Velkommen til IQ96's webapp
+        Velkommen til IQ96&apos;s webapp
       </p>
       <p className="mb-6 text-center dynamic_text">Log ind for at forsætte</p>
 
@@ -171,24 +171,24 @@ function SignIn() {
         <div className="flex flex-col gap-2 items-center pt-4">
           <ul className="list-decimal">
             <li>
-              <DynamicText>
+              <p className="dynamic_text">
                 Indtast din email ovenover og tryk Reset
-              </DynamicText>
+              </p>
             </li>
             <li>
-              <DynamicText>Gå til din email indboks</DynamicText>
+              <p className="dynamic_text">Gå til din email indboks</p>
             </li>
             <li>
-              <DynamicText>
+              <p className="dynamic_text">
                 Find reset mailen. Den kommer fra
                 noreply@iq96-20418.firebaseapp.com
-              </DynamicText>
+              </p>
             </li>
             <li>
-              <DynamicText>
+              <p className="dynamic_text">
                 Tryk på linket i mail -{'>'} vælg nyt kodeord -{'>'} kom tilbage
                 hertil, og tast nyt kodeord ind
-              </DynamicText>
+              </p>
             </li>
           </ul>
         </div>

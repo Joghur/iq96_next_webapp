@@ -1,14 +1,14 @@
 'use client';
 
-import { MouseEvent, useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { MouseEvent, useContext, useState } from 'react';
 
-import { authContext } from '@lib/store/auth-context';
 import AboutTab from '@components/member/AboutTab';
 import AdminTab from '@components/member/AdminTab';
 import MemberTab from '@components/member/MemberTab';
-import LoadingSpinner from '@components/utility/LoadingSpinner';
-import PageLayout from '@components/layout/PageLayout';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import PageLayout from '@components/ui/PageLayout';
+import { authContext } from '@lib/store/auth-context';
 
 type MemberTabs = 'iq96' | 'about' | 'admin';
 

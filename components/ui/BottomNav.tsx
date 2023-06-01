@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaUserNinja, FaHome, FaMapMarkerAlt } from 'react-icons/fa';
-import { MdPhotoLibrary, MdChatBubbleOutline } from 'react-icons/md';
+import { FaHome, FaMapMarkerAlt, FaUserNinja } from 'react-icons/fa';
+import { MdChatBubbleOutline, MdPhotoLibrary } from 'react-icons/md';
 
 const BottomNav = () => {
   const pathname = usePathname();

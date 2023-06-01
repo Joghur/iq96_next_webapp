@@ -1,17 +1,17 @@
 'use client';
 
+import { User } from 'firebase/auth';
+import moment from 'moment';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
-import moment from 'moment';
-import Image from 'next/image';
 
-import LoadingSpinner from '@components/utility/LoadingSpinner';
-import PageLayout from '@components/layout/PageLayout';
-import { authContext } from '@lib/store/auth-context';
-import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
-import { User } from 'firebase/auth';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import PageLayout from '@components/ui/PageLayout';
 import { convertEpochSecondsToDateString } from '@lib/dates';
+import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
+import { authContext } from '@lib/store/auth-context';
 
 type FirebaseTimestamp = {
   seconds: number;
@@ -31,11 +31,6 @@ export interface ChatType {
   group: string;
   text: string;
   user: ChatUser;
-}
-
-interface Props {
-  authUser: User | null;
-  documentUser: DocumentUser | null;
 }
 
 const ChatPage = () => {
@@ -149,7 +144,7 @@ const ChatPage = () => {
               dayAsMilliSeconds = chat.createdAt.seconds * 1000;
 
               return (
-                <div className={`mb-4`}>
+                <div key="chatMain" className={`mb-4`}>
                   <ul className={``}>
                     {showDay && (
                       <li>
@@ -232,9 +227,7 @@ const ChatPage = () => {
           )}
         </div>
         <div className="flex flex-row justify-center gap-2">
-          <button
-            onClick={() => handleExpandLimit()}
-            className="btn dynamic_text">
+          <button onClick={() => handleExpandLimit()} className="btn">
             Flere beskeder
           </button>
         </div>

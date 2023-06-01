@@ -1,34 +1,48 @@
 module.exports = {
   root: true,
   env: {
-    es6: true,
-    jest: true,
+    browser: true,
+    commonjs: true,
+    es2021: true,
+    node: true,
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['react-hooks', 'react', 'import', 'promise', 'prettier'],
   extends: [
-    'plugin:@typescript-eslint/recommended',
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
-    'prettier',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'next/core-web-vitals',
   ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
+    ecmaVersion: 12,
+    sourceType: 'module',
   },
+  plugins: ['react', '@typescript-eslint'],
   rules: {
-    '@typescript-eslint/no-use-before-define': ['off'],
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-unused-vars': ['warn'],
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'off',
-    'prefer-const': 'error',
+    'sort-imports': [
+      'error',
+      {
+        ignoreCase: true,
+        ignoreDeclarationSort: true,
+        ignoreMemberSort: false,
+        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+        allowSeparatedGroups: false,
+      },
+    ],
+    'import/order': [
+      'error',
+      {
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
   },
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      rules: {},
-    },
-  ],
 };

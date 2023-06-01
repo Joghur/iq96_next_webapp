@@ -1,13 +1,13 @@
 'use client';
 
-import { useContext } from 'react';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
 
-import DynamicText from '@components/utility/DynamicText';
+import { Separator } from '@/components/ui/separator';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import ThemeSelector from '@components/ui/ThemeSelector';
 import { authContext } from '@lib/store/auth-context';
-import LoadingSpinner from '@components/utility/LoadingSpinner';
-import ThemeSelector from '@components/utility/ThemeSelector';
 
 const MemberTab = () => {
   const { logout, authUser, documentUser, loading } = useContext(authContext);
@@ -23,18 +23,25 @@ const MemberTab = () => {
       animate={{ x: 0 }}
       transition={{ type: 'spring', stiffness: 100 }}
       className="px-5">
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         <div className="flex-grow">
-          <DynamicText>
+          <p className="dynamic_text">
             <strong>{documentUser?.name}</strong>
-          </DynamicText>
-          <DynamicText>{documentUser?.nick}</DynamicText>
+          </p>
+          <p className="dynamic_text">{documentUser?.nick}</p>
           {documentUser?.nick !== documentUser?.title && (
-            <DynamicText>{documentUser?.title}</DynamicText>
+            <p className="dynamic_text">{documentUser?.title}</p>
           )}
-          <DynamicText>{authUser?.email}</DynamicText>
+          <p>{authUser?.email}</p>
         </div>
+        <div>
+          <Separator className="my-2 bg-gray-500" />
+        </div>
+        <p className="dynamic_text">Indstillinger</p>
         <ThemeSelector />
+        <div>
+          <Separator className="my-2 bg-gray-500" />
+        </div>
       </div>
       <div className="flex justify-center">
         <button

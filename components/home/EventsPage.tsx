@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { User } from 'firebase/auth';
-import { MdEdit } from 'react-icons/md';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { MdEdit } from 'react-icons/md';
 
-import LoadingSpinner from '@components/utility/LoadingSpinner';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { handleType } from '@lib/convertEventType';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 
@@ -32,11 +32,10 @@ interface Props {
 }
 
 const EventsPage = ({ documentUser }: Props) => {
-  const {
-    docs: events,
-    loading,
-    updatingDoc,
-  } = useFirestore<EventType>('events', 'startDate');
+  const { docs: events, loading } = useFirestore<EventType>(
+    'events',
+    'startDate',
+  );
   const [currentEvent, setCurrentEvent] = useState<EventType | null>(null);
   const [showDialog, setShowDialog] = useState(false);
 
@@ -79,11 +78,11 @@ const EventsPage = ({ documentUser }: Props) => {
   return (
     <div>
       <div className="mx-auto max-w-2xl mt-12 sm:mt-40">
-        <div className="items-center justify-center px-6 pt-16">
+        <div className="items-center justify-center pt-16">
           <p className="text-center dynamic_text">Næste begivenhed</p>
         </div>
         {!events && (
-          <div className="items-center justify-center px-6 pt-16">
+          <div className="items-center justify-center pt-16">
             <p className="text-center dynamic_text">
               Der er ingen events på dette tidspunkt
             </p>
@@ -91,18 +90,21 @@ const EventsPage = ({ documentUser }: Props) => {
         )}
         {events.map((event, index) => {
           return (
-            <div key={index} className="gap-2">
+            <div key={index} className="gap-2 m-10">
               {index === 0 && (
                 <motion.div
                   key={`sd${index}`}
                   initial={{ x: -100 }}
                   animate={{ x: 0 }}
                   transition={{
-                    duration: 1,
+                    duration: 0.8,
                     type: 'tween',
                     stiffness: 100,
-                  }}>
-                  <div key={index} className="paper m-5 py-7 px-10 sm:px-15">
+                  }}
+                  className="">
+                  <div
+                    key={index}
+                    className="paper py-7 px-10 sm:px-15 rounded-xl">
                     <div className="stack_row justify-between">
                       <p className="dynamic_text font-black">
                         {event?.type === 'tour'
@@ -192,20 +194,21 @@ const EventsPage = ({ documentUser }: Props) => {
                   variants={eventTransitionVariants}
                   initial="hidden"
                   animate="visible"
-                  transition={{ duration: 0.5, delay: index * 0.8 + 0.3 }}
-                  className="paper m-1 py-2">
-                  <div className="stack_row justify-between">
-                    <p className="dynamic_text font-black">
-                      {event?.type === 'tour'
-                        ? `${handleType(event?.type)} de ${event.city}`
-                        : handleType(event?.type)}
-                    </p>
-                    <p>{event.start}</p>
-                    {canEdit && event.id && (
-                      <button onClick={e => handleUpdate(e, event.id)}>
-                        <MdEdit />
-                      </button>
-                    )}
+                  transition={{ duration: 0.5, delay: index * 0.8 + 0.3 }}>
+                  <div className="paper py-2">
+                    <div className="stack_row justify-between">
+                      <p className="dynamic_text font-black">
+                        {event?.type === 'tour'
+                          ? `${handleType(event?.type)} de ${event.city}`
+                          : handleType(event?.type)}
+                      </p>
+                      <p>{event.start}</p>
+                      {canEdit && event.id && (
+                        <button onClick={e => handleUpdate(e, event.id)}>
+                          <MdEdit />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </motion.div>
               )}

@@ -1,11 +1,18 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import {
-  LOCALSTORAGE_PREFIX,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
   getLocalStorage,
+  LOCALSTORAGE_PREFIX,
   setLocalStorage,
 } from '@lib/localStorage';
-import { useState, useEffect } from 'react';
 
 export const LOCALSTORAGE_THEME = `${LOCALSTORAGE_PREFIX}-theme`;
 
@@ -65,21 +72,24 @@ const ThemeSelector = () => {
   };
 
   return (
-    <div>
-      <label htmlFor="themeSelector" className="dynamic_text">
-        Vælg farve tema:
-      </label>
-      <select
-        id="themeSelector"
+    <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center gap-1 sm:gap-2">
+      <div>
+        <p className="dynamic_text flex flex-none">Farve tema:</p>
+      </div>
+      <Select
         value={currentTheme}
-        onChange={e => handleThemeChange(e.target.value as Themes)}
-        className="select select-bordered sm:select-lg select-xs w-full max-w-xs ">
-        {themes.map((o, index) => (
-          <option value={o} key={index}>
-            {o}
-          </option>
-        ))}
-      </select>
+        onValueChange={e => handleThemeChange(e as Themes)}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder={currentTheme} />
+        </SelectTrigger>
+        <SelectContent className="bg-gray-50">
+          {themes.map((o, index) => (
+            <SelectItem value={o} key={index}>
+              {o}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 };
