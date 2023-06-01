@@ -1,19 +1,19 @@
 'use client';
 
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
-import EventsPage from '@components/home/EventsPage';
-import PageLayout from '@components/layout/PageLayout';
-import LoadingSpinner from '@components/utility/LoadingSpinner';
-import SignIn from '@components/auth/SignIn';
-import { Themes, LOCALSTORAGE_THEME } from '@components/utility/ThemeSelector';
 import { authContext } from '@/lib/store/auth-context';
+import SignIn from '@components/auth/SignIn';
+import EventsPage from '@components/home/EventsPage';
+import CookieWarning from '@components/ui/CookieWarning';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import PageLayout from '@components/ui/PageLayout';
+import { LOCALSTORAGE_THEME, Themes } from '@components/ui/ThemeSelector';
 import {
-  LOCALSTORAGE_PREFIX,
   getLocalStorage,
+  LOCALSTORAGE_PREFIX,
   setLocalStorage,
 } from '@lib/localStorage';
-import CookieWarning from '@components/layout/CookieWarning';
 
 const COOKIE_LOCALSTORAGE_ACCEPTED = `${LOCALSTORAGE_PREFIX}-cookieAccepted`;
 
@@ -23,7 +23,7 @@ export default function Home() {
     'true',
   );
 
-  const handleStart = () => {
+  const handleStart = useCallback(() => {
     setIsCookieAccepted(() =>
       getLocalStorage<string>(COOKIE_LOCALSTORAGE_ACCEPTED),
     );
@@ -32,7 +32,7 @@ export default function Home() {
     if (savedTheme) {
       document.querySelector('html')?.setAttribute('data-theme', savedTheme);
     }
-  };
+  }, []);
 
   useEffect(() => {
     handleStart();

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 'use client';
 
-import { ReactNode, createContext } from 'react';
 import {
-  User,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  User,
 } from 'firebase/auth';
+import { createContext, ReactNode } from 'react';
 
 import { auth } from '@/lib/firebase';
 import { DocumentUser, useDocumentUser } from '@lib/hooks/useFirestore';

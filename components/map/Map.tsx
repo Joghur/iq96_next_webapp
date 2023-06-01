@@ -1,28 +1,24 @@
 'use client';
 
+import L, { Icon, LatLngExpression } from 'leaflet';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useContext } from 'react';
-import { MdMyLocation, MdEdit, MdDelete } from 'react-icons/md';
-
-import { authContext } from '@lib/store/auth-context';
 
 import { useEffect, useState } from 'react';
+import { MdDelete, MdEdit, MdMyLocation } from 'react-icons/md';
 import {
   MapContainer,
   Marker,
   Popup,
-  useMapEvents,
-  Tooltip,
   TileLayer,
-  useMap,
+  Tooltip,
+  useMapEvents,
 } from 'react-leaflet';
-import L, { Icon, LatLngExpression } from 'leaflet';
+
+import FlyToSelector from './SelectComponent';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { useFirestore } from '@lib/hooks/useFirestore';
-import SelectComponent, {
-  FlyToSelector,
-} from '@components/map/SelectComponent';
-import DynamicText from '@components/utility/DynamicText';
-import LoadingSpinner from '@components/utility/LoadingSpinner';
+import { authContext } from '@lib/store/auth-context';
 
 interface Coordinate {
   latitude: number;
@@ -99,8 +95,6 @@ const MapPage = () => {
   const [currentMarker, setCurrentMarker] = useState<MarkerData | undefined>(
     undefined,
   );
-
-  const small = false;
 
   useEffect(() => {
     if (authUser && navigator.geolocation) {
@@ -234,7 +228,7 @@ const MapPage = () => {
         </div>
         {appFirstMarkers.length > 0 &&
           appFirstMarkers.map((marker, index) => (
-            <div className="ring-3">
+            <div key={`first${index}`} className="ring-3">
               <Marker
                 key={index}
                 position={[marker.location.latitude, marker.location.longitude]}
@@ -257,8 +251,8 @@ const MapPage = () => {
                   <div>
                     {!showEdit && !showDelete && (
                       <div>
-                        <DynamicText>{marker.title}</DynamicText>
-                        <DynamicText>{marker.description}</DynamicText>
+                        <p className="dynamic_text">{marker.title}</p>
+                        <p className="dynamic_text">{marker.description}</p>
                         <div className="stack_row gap-3 justify-center items-center">
                           {documentUser?.nick === 'Redacteur' && (
                             <button

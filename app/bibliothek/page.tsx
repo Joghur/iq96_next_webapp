@@ -3,8 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 
-import LoadingSpinner from '@components/utility/LoadingSpinner';
-import PageLayout from '@components/layout/PageLayout';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import PageLayout from '@components/ui/PageLayout';
 import { authContext } from '@lib/store/auth-context';
 
 const LibraryPage = () => {

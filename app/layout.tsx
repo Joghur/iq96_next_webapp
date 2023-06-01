@@ -2,11 +2,11 @@ import './globals.css';
 import 'leaflet/dist/leaflet.css';
 import './leaflet-override.css';
 
-import { ReactNode } from 'react';
 import { Metadata } from 'next';
+import { ReactNode } from 'react';
 
 import AuthContextProvider from '@/lib/store/auth-context';
-import BottomNav from '@components/layout/BottomNav';
+import BottomNav from '@components/ui/BottomNav';
 // import SiteContextProvider from '@/lib/store/site-context';
 
 export const revalidate = false;

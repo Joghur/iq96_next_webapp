@@ -1,7 +1,7 @@
-import { MarkerData } from '@components/map/Map';
 import L from 'leaflet';
 import React, { useEffect, useState } from 'react';
 import { useMap } from 'react-leaflet';
+import { MarkerData } from '@components/map/Map';
 
 export const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
   const map = useMap();
@@ -22,12 +22,15 @@ export const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
     setSelection(() => event);
   };
 
+  const centerLat = center[0];
+  const centerLng = center[1];
+
   useEffect(() => {
-    const latlng = L.latLng(center[0], center[1]);
+    const latlng = L.latLng(centerLat, centerLng);
     map.flyTo(latlng, 18, {
       duration: 2,
     });
-  }, [center[0]]);
+  }, [map, centerLat, centerLng]);
 
   const appMarkers = markers?.filter(o => o.madeBy === 'app');
   const userMarkers = markers?.filter(o => o.madeBy === 'user');

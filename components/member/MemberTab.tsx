@@ -1,13 +1,12 @@
 'use client';
 
-import { useContext } from 'react';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
 
-import DynamicText from '@components/utility/DynamicText';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import ThemeSelector from '@components/ui/ThemeSelector';
 import { authContext } from '@lib/store/auth-context';
-import LoadingSpinner from '@components/utility/LoadingSpinner';
-import ThemeSelector from '@components/utility/ThemeSelector';
 
 const MemberTab = () => {
   const { logout, authUser, documentUser, loading } = useContext(authContext);
@@ -25,14 +24,14 @@ const MemberTab = () => {
       className="px-5">
       <div className="flex flex-col gap-3">
         <div className="flex-grow">
-          <DynamicText>
+          <p className="dynamic_text">
             <strong>{documentUser?.name}</strong>
-          </DynamicText>
-          <DynamicText>{documentUser?.nick}</DynamicText>
+          </p>
+          <p className="dynamic_text">{documentUser?.nick}</p>
           {documentUser?.nick !== documentUser?.title && (
-            <DynamicText>{documentUser?.title}</DynamicText>
+            <p className="dynamic_text">{documentUser?.title}</p>
           )}
-          <DynamicText>{authUser?.email}</DynamicText>
+          <p>{authUser?.email}</p>
         </div>
         <ThemeSelector />
       </div>

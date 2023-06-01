@@ -1,24 +1,24 @@
-import { useState, useEffect } from 'react';
-import { User, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import {
-  CollectionReference,
-  DocumentData,
-  Timestamp,
-  Query,
-  collection,
-  getFirestore,
-  doc,
   addDoc,
+  collection,
+  CollectionReference,
   deleteDoc,
+  doc,
+  DocumentData,
   getDocs,
-  setDoc,
-  updateDoc,
+  getFirestore,
+  limit,
   onSnapshot,
   orderBy,
-  where,
   query,
-  limit,
+  Query,
+  setDoc,
+  Timestamp,
+  updateDoc,
+  where,
 } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 
 import { app, auth, db } from '@lib/firebase';
 
@@ -84,7 +84,7 @@ export const useFirestore = <T extends DocumentData>(
       setLoading(false);
     });
     return unsubscribe;
-  }, [db, collectionName, limitBy]);
+  }, [collectionName, limitBy, order, orderDirection]);
 
   return { docs, loading, addingDoc, updatingDoc, deletingDoc };
 };
