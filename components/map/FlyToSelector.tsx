@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useMap } from 'react-leaflet';
 import {
   Select,
@@ -10,7 +10,12 @@ import {
 } from '@/components/ui/select';
 import { MarkerData } from '@components/map/Map';
 
-export const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
+interface Props {
+  label: string;
+  markers: MarkerData[];
+}
+
+export const FlyToSelector: FC<Props> = ({ label, markers }) => {
   const map = useMap();
   const [center, setCenter] = useState([
     markers[0].location.latitude || 0,
@@ -52,11 +57,11 @@ export const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
       value={selection}
       onValueChange={value => handleSelectChange(value)}>
       <SelectTrigger className="w-[180px] bg-gray-50">
-        <SelectValue placeholder="IQ96 steder" />
+        <SelectValue placeholder={label} />
       </SelectTrigger>
       <SelectContent className="bg-gray-50">
-        <SelectItem value="IQ96 steder" key={'iq-places'} disabled>
-          IQ96 steder
+        <SelectItem value={label} key={'iq-places'} disabled>
+          {label}
         </SelectItem>
         {appMarkers.length > 0 &&
           appMarkers.map((item, index) => (

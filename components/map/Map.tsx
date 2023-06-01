@@ -15,7 +15,7 @@ import {
   useMapEvents,
 } from 'react-leaflet';
 
-import FlyToSelector from './SelectComponent';
+import FlyToSelector from './FlyToSelector';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { useFirestore } from '@lib/hooks/useFirestore';
 import { authContext } from '@lib/store/auth-context';
@@ -222,9 +222,14 @@ const MapPage = () => {
           </>
         )}
         <div className="absolute top-2 right-2 shadow-xl z-10000">
-          {appFirstMarkers.length > 0 && (
-            <FlyToSelector markers={appFirstMarkers} />
-          )}
+          <div className="flex flex-col sm:flex-row gap-1">
+            {/* {appFirstMarkers.length > 0 && (
+              <FlyToSelector label="Vælg by" markers={appFirstMarkers} />
+            )} */}
+            {appFirstMarkers.length > 0 && (
+              <FlyToSelector label="IQ96 steder" markers={appFirstMarkers} />
+            )}
+          </div>
         </div>
         {appFirstMarkers.length > 0 &&
           appFirstMarkers.map((marker, index) => (

@@ -143,7 +143,7 @@ export const useFirestoreMax4Days = (
       setLoading(false);
     });
     return unsubscribe;
-  }, [db, collectionName, days]);
+  }, [collectionName, days, limitBy, order]);
 
   return { docs, loading, addingDoc, updatingDoc, deletingDoc };
 };

@@ -39,6 +39,9 @@ const MemberTab = () => {
         </div>
         <p className="dynamic_text">Indstillinger</p>
         <ThemeSelector />
+        <div>
+          <Separator className="my-2 bg-gray-500" />
+        </div>
       </div>
       <div className="flex justify-center">
         <button
