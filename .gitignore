@@ -31,6 +31,9 @@ build/
 .next
 out
 
+# manually added
+.env_copy
 service-account-key.json
 google_mail_client_secret.json
 credentialsgoogle.json
+token.json
