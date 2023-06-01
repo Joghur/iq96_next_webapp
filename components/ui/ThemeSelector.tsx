@@ -2,6 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
   getLocalStorage,
   LOCALSTORAGE_PREFIX,
   setLocalStorage,
@@ -65,25 +72,24 @@ const ThemeSelector = () => {
   };
 
   return (
-    <div className="flex sm:flex-row sm:justify-center sm:item-center sm:gap-2">
+    <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center gap-1 sm:gap-2">
       <div>
-        <label htmlFor="themeSelector" className="dynamic_text flex flex-none">
-          Farve tema:
-        </label>
+        <p className="dynamic_text flex flex-none">Farve tema:</p>
       </div>
-      <div>
-        <select
-          id="themeSelector"
-          value={currentTheme}
-          onChange={e => handleThemeChange(e.target.value as Themes)}
-          className="select select-bordered sm:select-sm select-sm w-full max-w-xs ">
+      <Select
+        value={currentTheme}
+        onValueChange={e => handleThemeChange(e as Themes)}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder={currentTheme} />
+        </SelectTrigger>
+        <SelectContent className="bg-gray-50">
           {themes.map((o, index) => (
-            <option value={o} key={index}>
+            <SelectItem value={o} key={index}>
               {o}
-            </option>
+            </SelectItem>
           ))}
-        </select>
-      </div>
+        </SelectContent>
+      </Select>
     </div>
   );
 };

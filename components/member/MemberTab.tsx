@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 
+import { Separator } from '@/components/ui/separator';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import ThemeSelector from '@components/ui/ThemeSelector';
 import { authContext } from '@lib/store/auth-context';
@@ -22,7 +23,7 @@ const MemberTab = () => {
       animate={{ x: 0 }}
       transition={{ type: 'spring', stiffness: 100 }}
       className="px-5">
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         <div className="flex-grow">
           <p className="dynamic_text">
             <strong>{documentUser?.name}</strong>
@@ -33,6 +34,10 @@ const MemberTab = () => {
           )}
           <p>{authUser?.email}</p>
         </div>
+        <div>
+          <Separator className="my-2 bg-gray-500" />
+        </div>
+        <p className="dynamic_text">Indstillinger</p>
         <ThemeSelector />
       </div>
       <div className="flex justify-center">
