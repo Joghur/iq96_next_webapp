@@ -144,7 +144,7 @@ const ChatPage = () => {
               dayAsMilliSeconds = chat.createdAt.seconds * 1000;
 
               return (
-                <div key="chat" className={`mb-4`}>
+                <div key="chatMain" className={`mb-4`}>
                   <ul className={``}>
                     {showDay && (
                       <li>
@@ -227,9 +227,7 @@ const ChatPage = () => {
           )}
         </div>
         <div className="flex flex-row justify-center gap-2">
-          <button
-            onClick={() => handleExpandLimit()}
-            className="btn dynamic_text">
+          <button onClick={() => handleExpandLimit()} className="btn">
             Flere beskeder
           </button>
         </div>
