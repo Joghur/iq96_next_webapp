@@ -1,6 +1,13 @@
 import L from 'leaflet';
 import React, { useEffect, useState } from 'react';
 import { useMap } from 'react-leaflet';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { MarkerData } from '@components/map/Map';
 
 export const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
@@ -41,67 +48,71 @@ export const FlyToSelector = ({ markers }: { markers: MarkerData[] }) => {
   );
 
   return (
-    <select
-      className="select select-bordered sm:select-lg select-xs w-full max-w-xs"
+    <Select
       value={selection}
-      onChange={e => handleSelectChange(e.target.value)}>
-      <option key={'iq-places'} disabled>
-        IQ96 steder
-      </option>
-      {appMarkers.length > 0 &&
-        appMarkers.map((option, index) => (
+      onValueChange={value => handleSelectChange(value)}>
+      <SelectTrigger className="w-[180px] bg-gray-50">
+        <SelectValue placeholder="IQ96 steder" />
+      </SelectTrigger>
+      <SelectContent className="bg-gray-50">
+        <SelectItem value="IQ96 steder" key={'iq-places'} disabled>
+          IQ96 steder
+        </SelectItem>
+        {appMarkers.length > 0 &&
+          appMarkers.map((item, index) => (
+            <SelectItem key={`iq96-${index}`} value={item.title}>
+              {item.nick}
+            </SelectItem>
+          ))}
+        {barMarkers.length > 0 && (
           <>
-            <option key={`iq96-${index}`} value={option.title}>
-              {option.nick}
-            </option>
+            <SelectItem value={''} key={'empty1'} disabled></SelectItem>
+            <SelectItem value={'Barer'} key={'bars'} disabled>
+              Barer
+            </SelectItem>
+            {barMarkers.map((barItem, index) => (
+              <>
+                <SelectItem key={`bars-${index}`} value={barItem.title}>
+                  {barItem.nick}
+                </SelectItem>
+              </>
+            ))}
           </>
-        ))}
-      {barMarkers.length > 0 && (
-        <>
-          <option key={'empty1'} disabled></option>
-          <option key={'bars'} disabled>
-            Barer
-          </option>
-          {barMarkers.map((option, index) => (
-            <>
-              <option key={`bars-${index}`} value={option.title}>
-                {option.nick}
-              </option>
-            </>
-          ))}
-        </>
-      )}
-      {restaurantMarkers.length > 0 && (
-        <>
-          <option key={'empty2'} disabled></option>
-          <option key={'restaurants'} disabled>
-            Restauranter
-          </option>
-          {restaurantMarkers.map((option, index) => (
-            <>
-              <option key={`restaurants-${index}`} value={option.title}>
-                {option.nick}
-              </option>
-            </>
-          ))}
-        </>
-      )}
-      {restMarkers.length > 0 && (
-        <>
-          <option key={'empty3'} disabled></option>
-          <option key={'others'} disabled>
-            Andre steder
-          </option>
-          {restMarkers.map((option, index) => (
-            <>
-              <option key={`others-${index}`} value={option.title}>
-                {option.nick}
-              </option>
-            </>
-          ))}
-        </>
-      )}
-    </select>
+        )}
+        {restaurantMarkers.length > 0 && (
+          <>
+            <SelectItem value={''} key={'restaurants'} disabled></SelectItem>
+            <SelectItem value={'restaurants'} key={'restaurants'} disabled>
+              Restauranter
+            </SelectItem>
+            {restaurantMarkers.map((restaurantItem, index) => (
+              <>
+                <SelectItem
+                  key={`restaurants-${index}`}
+                  value={restaurantItem.title}>
+                  {restaurantItem.nick}
+                </SelectItem>
+              </>
+            ))}
+          </>
+        )}
+        {restMarkers.length > 0 && (
+          <>
+            <SelectItem value={''} key={'empty3'} disabled></SelectItem>
+            <SelectItem value={'Andre steder'} key={'others'} disabled>
+              Andre steder
+            </SelectItem>
+            {restMarkers.map((restItem, index) => (
+              <>
+                <SelectItem key={`others-${index}`} value={restItem.title}>
+                  {restItem.nick}
+                </SelectItem>
+              </>
+            ))}
+          </>
+        )}
+      </SelectContent>
+    </Select>
   );
 };
 
