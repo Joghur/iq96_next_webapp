@@ -25,7 +25,6 @@ const AdminTab = () => {
     <div className="px-5">
       {connections.map((person: any, index: number) => {
         const address = person?.addresses?.[0];
-        console.log('address', address);
         return (
           <div key={index}>
             <p>
