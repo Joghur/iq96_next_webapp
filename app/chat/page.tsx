@@ -1,6 +1,7 @@
 'use client';
 
 // import { User } from 'firebase/auth';
+import { motion } from 'framer-motion';
 import moment from 'moment';
 import Image from 'next/image';
 import { useContext, useState } from 'react';
@@ -31,6 +32,11 @@ export interface ChatType {
   text: string;
   user: ChatUser;
 }
+
+const eventTransitionVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: { opacity: 1, y: 0 },
+};
 
 const ChatPage = () => {
   const [limitBy, setLimitBy] = useState(4);
@@ -96,7 +102,7 @@ const ChatPage = () => {
 
   return (
     <PageLayout>
-      <div className="mx-auto max-w-4xl min-h-screen mt-12 sm:mt-40">
+      <div className="mx-auto max-w-4xl min-h-screen mt-12 sm:mt-24">
         <div
           className={`fixed -top-3 sm:top-6 right-3 flex w-5/6 items-center space-x-2 mt-4 dynamic_text`}>
           <input
@@ -141,7 +147,13 @@ const ChatPage = () => {
               dayAsMilliSeconds = chat.createdAt.seconds * 1000;
 
               return (
-                <div key="chatMain" className={`mb-4`}>
+                <motion.div
+                  key={`${index}chatMain`}
+                  variants={eventTransitionVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ duration: 0.5, delay: index * 0.3 + 0.3 }}
+                  className={`mb-4`}>
                   <ul className={``}>
                     {showDay && (
                       <li>
@@ -185,8 +197,7 @@ const ChatPage = () => {
                             <div className={``}>
                               <div
                                 className={`flex flex-row justify-between p-1`}>
-                                <p
-                                  className={`dark:text-gray-900 dynamic_text`}>
+                                <p className={`text-gray-500 dynamic_text`}>
                                   <strong>
                                     {isChatUser ? 'Dig' : chat.user.name}
                                   </strong>
@@ -202,7 +213,7 @@ const ChatPage = () => {
                                   )}
                                 </div>
                               </div>
-                              <p className="p-1 dark:text-gray-900 dynamic_text">
+                              <p className="p-1 text-black dynamic_text">
                                 {chat.text}
                               </p>
                             </div>
@@ -211,7 +222,7 @@ const ChatPage = () => {
                       </div>
                     </div>
                   </ul>
-                </div>
+                </motion.div>
               );
             })}
           {chats && chats.length === 0 && (
