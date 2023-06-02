@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { MouseEvent, useContext, useState } from 'react';
 
 import AboutTab from '@components/member/AboutTab';
@@ -13,23 +12,22 @@ import { authContext } from '@lib/store/auth-context';
 type MemberTabs = 'iq96' | 'about' | 'admin';
 
 const MemberPage = () => {
-  const { authUser, loading } = useContext(authContext);
+  const { authUser, documentUser, loading } = useContext(authContext);
   const [value, setValue] = useState<MemberTabs>('iq96');
-  const router = useRouter();
-
-  const isSuperAdmin = true; // documentUser?.isSuperAdmin;
 
   if (loading) {
     return <LoadingSpinner />;
   }
 
   if (!authUser) {
-    router.replace('/');
+    return null;
   }
+
+  const isSuperAdmin = documentUser?.isSuperAdmin;
 
   const handleChange = (event: MouseEvent<HTMLButtonElement>) => {
     const { id } = event.target as HTMLButtonElement;
-    setValue(id as MemberTabs);
+    setValue(() => id as MemberTabs);
   };
 
   return (
@@ -67,7 +65,9 @@ const MemberPage = () => {
       <div className="flex items-center justify-center pt-6">
         {value === 'iq96' && <MemberTab />}
         {value === 'about' && <AboutTab />}
-        {value === 'admin' && <AdminTab />}
+        {value === 'admin' && documentUser && (
+          <AdminTab documentUser={documentUser} />
+        )}
       </div>
     </PageLayout>
   );

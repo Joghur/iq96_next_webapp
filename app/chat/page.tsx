@@ -1,16 +1,16 @@
 'use client';
 
-import { User } from 'firebase/auth';
+// import { User } from 'firebase/auth';
+import { motion } from 'framer-motion';
 import moment from 'moment';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import PageLayout from '@components/ui/PageLayout';
 import { convertEpochSecondsToDateString } from '@lib/dates';
-import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
+import { useFirestore } from '@lib/hooks/useFirestore';
 import { authContext } from '@lib/store/auth-context';
 
 type FirebaseTimestamp = {
@@ -33,6 +33,11 @@ export interface ChatType {
   user: ChatUser;
 }
 
+const eventTransitionVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: { opacity: 1, y: 0 },
+};
+
 const ChatPage = () => {
   const [limitBy, setLimitBy] = useState(4);
   const [input, setInput] = useState<string>('');
@@ -46,14 +51,12 @@ const ChatPage = () => {
     deletingDoc,
   } = useFirestore<ChatType>('chats', 'createdAt', 'desc', limitBy);
 
-  const router = useRouter();
-
   if (loading) {
     return <LoadingSpinner />;
   }
 
   if (!authUser) {
-    router.replace('/');
+    return null;
   }
 
   if (chatLoading) {
@@ -99,7 +102,7 @@ const ChatPage = () => {
 
   return (
     <PageLayout>
-      <div className="mx-auto max-w-4xl min-h-screen mt-12 sm:mt-40">
+      <div className="mx-auto max-w-4xl min-h-screen mt-12 sm:mt-24">
         <div
           className={`fixed -top-3 sm:top-6 right-3 flex w-5/6 items-center space-x-2 mt-4 dynamic_text`}>
           <input
@@ -118,9 +121,9 @@ const ChatPage = () => {
               viewBox="0 0 24 24"
               stroke="currentColor">
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
           </button>
@@ -144,7 +147,13 @@ const ChatPage = () => {
               dayAsMilliSeconds = chat.createdAt.seconds * 1000;
 
               return (
-                <div key="chatMain" className={`mb-4`}>
+                <motion.div
+                  key={`${index}chatMain`}
+                  variants={eventTransitionVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ duration: 0.5, delay: index * 0.3 + 0.3 }}
+                  className={`mb-4`}>
                   <ul className={``}>
                     {showDay && (
                       <li>
@@ -188,8 +197,7 @@ const ChatPage = () => {
                             <div className={``}>
                               <div
                                 className={`flex flex-row justify-between p-1`}>
-                                <p
-                                  className={`dark:text-gray-900 dynamic_text`}>
+                                <p className={`text-gray-500 dynamic_text`}>
                                   <strong>
                                     {isChatUser ? 'Dig' : chat.user.name}
                                   </strong>
@@ -205,7 +213,7 @@ const ChatPage = () => {
                                   )}
                                 </div>
                               </div>
-                              <p className="p-1 dark:text-gray-900 dynamic_text">
+                              <p className="p-1 text-black dynamic_text">
                                 {chat.text}
                               </p>
                             </div>
@@ -214,7 +222,7 @@ const ChatPage = () => {
                       </div>
                     </div>
                   </ul>
-                </div>
+                </motion.div>
               );
             })}
           {chats && chats.length === 0 && (
