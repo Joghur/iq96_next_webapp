@@ -205,9 +205,9 @@ const MapPage = () => {
               position={userPosition}
               icon={
                 new Icon({
-                  iconUrl: `/images/avatars/${
-                    documentUser?.avatar || 'marker-icon'
-                  }.png`,
+                  iconUrl: documentUser?.avatar
+                    ? `/images/avatars/${documentUser.avatar}.png`
+                    : '/images/markers/marker-icon.png',
                   iconSize: [25, 25],
                   iconAnchor: [18, 18],
                   popupAnchor: [0, -10],
@@ -244,8 +244,11 @@ const MapPage = () => {
                       marker.type as MarkerType,
                       marker.madeBy,
                     )}.png`,
-                    iconSize: [35, 35],
-                    iconAnchor: [18, 18],
+                    shadowUrl: `/images/markers/marker-shadow.png`,
+                    iconSize: [25, 35],
+                    iconAnchor: [18, 27],
+                    shadowSize: [25, 35],
+                    shadowAnchor: [14, 26],
                     popupAnchor: [0, -10],
                   })
                 }>
