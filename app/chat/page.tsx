@@ -1,16 +1,15 @@
 'use client';
 
-import { User } from 'firebase/auth';
+// import { User } from 'firebase/auth';
 import moment from 'moment';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import PageLayout from '@components/ui/PageLayout';
 import { convertEpochSecondsToDateString } from '@lib/dates';
-import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
+import { useFirestore } from '@lib/hooks/useFirestore';
 import { authContext } from '@lib/store/auth-context';
 
 type FirebaseTimestamp = {
@@ -46,14 +45,12 @@ const ChatPage = () => {
     deletingDoc,
   } = useFirestore<ChatType>('chats', 'createdAt', 'desc', limitBy);
 
-  const router = useRouter();
-
   if (loading) {
     return <LoadingSpinner />;
   }
 
   if (!authUser) {
-    router.replace('/');
+    return null;
   }
 
   if (chatLoading) {
@@ -118,9 +115,9 @@ const ChatPage = () => {
               viewBox="0 0 24 24"
               stroke="currentColor">
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
           </button>

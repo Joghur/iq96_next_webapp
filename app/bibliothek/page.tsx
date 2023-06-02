@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 
 import LoadingSpinner from '@components/ui/LoadingSpinner';
@@ -9,14 +8,13 @@ import { authContext } from '@lib/store/auth-context';
 
 const LibraryPage = () => {
   const { authUser, loading } = useContext(authContext);
-  const router = useRouter();
 
   if (loading) {
     return <LoadingSpinner />;
   }
 
   if (!authUser) {
-    router.replace('/');
+    return null;
   }
 
   return (

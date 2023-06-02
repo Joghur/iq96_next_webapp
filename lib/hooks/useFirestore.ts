@@ -225,7 +225,7 @@ export const useDocumentUser = (): [
 
   useEffect(() => {
     if (!_loading && _authUser) {
-      setFirebaseUser(_authUser);
+      setFirebaseUser(() => _authUser);
 
       const q = query(
         collection(db, 'users'),
@@ -235,17 +235,20 @@ export const useDocumentUser = (): [
         .then(querySnapshot => {
           if (!querySnapshot.empty) {
             const docData = querySnapshot.docs[0].data() as DocumentUser;
-            setDocumentUser({ ...docData, id: querySnapshot.docs[0].id });
-            setLoading(false);
+            setDocumentUser(() => ({
+              ...docData,
+              id: querySnapshot.docs[0].id,
+            }));
+            setLoading(() => false);
           }
         })
         .catch(error => {
           console.error('Error getting document user:', error);
         });
     } else {
-      setFirebaseUser(null);
-      setDocumentUser(null);
-      setLoading(false);
+      setFirebaseUser(() => null);
+      setDocumentUser(() => null);
+      setLoading(() => false);
     }
   }, [db, _authUser, _loading]);
 

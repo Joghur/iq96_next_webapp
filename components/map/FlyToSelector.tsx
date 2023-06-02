@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import { useMap } from 'react-leaflet';
 import {
   Select,
@@ -70,51 +70,45 @@ export const FlyToSelector: FC<Props> = ({ label, markers }) => {
             </SelectItem>
           ))}
         {barMarkers.length > 0 && (
-          <>
+          <Fragment>
             <SelectItem value={''} key={'empty1'} disabled></SelectItem>
             <SelectItem value={'Barer'} key={'bars'} disabled>
               Barer
             </SelectItem>
             {barMarkers.map((barItem, index) => (
-              <>
-                <SelectItem key={`bars-${index}`} value={barItem.title}>
-                  {barItem.nick}
-                </SelectItem>
-              </>
+              <SelectItem key={`bars-${index}`} value={barItem.title}>
+                {barItem.nick}
+              </SelectItem>
             ))}
-          </>
+          </Fragment>
         )}
         {restaurantMarkers.length > 0 && (
-          <>
-            <SelectItem value={''} key={'restaurants'} disabled></SelectItem>
+          <Fragment>
+            <SelectItem value={''} key={'empty2'} disabled></SelectItem>
             <SelectItem value={'restaurants'} key={'restaurants'} disabled>
               Restauranter
             </SelectItem>
             {restaurantMarkers.map((restaurantItem, index) => (
-              <>
-                <SelectItem
-                  key={`restaurants-${index}`}
-                  value={restaurantItem.title}>
-                  {restaurantItem.nick}
-                </SelectItem>
-              </>
+              <SelectItem
+                key={`restaurants-${index}`}
+                value={restaurantItem.title}>
+                {restaurantItem.nick}
+              </SelectItem>
             ))}
-          </>
+          </Fragment>
         )}
         {restMarkers.length > 0 && (
-          <>
+          <Fragment>
             <SelectItem value={''} key={'empty3'} disabled></SelectItem>
             <SelectItem value={'Andre steder'} key={'others'} disabled>
               Andre steder
             </SelectItem>
             {restMarkers.map((restItem, index) => (
-              <>
-                <SelectItem key={`others-${index}`} value={restItem.title}>
-                  {restItem.nick}
-                </SelectItem>
-              </>
+              <SelectItem key={`others-${index}`} value={restItem.title}>
+                {restItem.nick}
+              </SelectItem>
             ))}
-          </>
+          </Fragment>
         )}
       </SelectContent>
     </Select>
