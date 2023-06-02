@@ -43,6 +43,9 @@ interface Phone {
 
 interface Address {
   formattedValue?: string;
+  streetAddress?: string;
+  postalCode?: string;
+  city?: string;
 }
 
 export interface Connection {
@@ -112,13 +115,16 @@ const AdminTab = ({ documentUser }: Props) => {
               <TableBody>
                 {sortedConnections.map((person: Connection, index: number) => {
                   const memberIndex = index + 1;
-                  const name = person?.names?.[0]?.displayName;
-                  const email = person?.emailAddresses?.[0]?.value;
+                  const name = person?.names?.[0]?.displayName?.trim();
+                  const email =
+                    person?.emailAddresses?.[0]?.value?.trim() || '';
                   const phone = person?.phoneNumbers?.map(
-                    (o: Phone) => `${o.canonicalForm}  `,
+                    (o: Phone) => `${o.canonicalForm?.trim()}\n`,
                   );
-                  const address = person?.addresses?.[0]?.formattedValue;
-                  const birthday = person?.birthdays?.[0].text;
+                  const address = person?.addresses?.[0]?.formattedValue
+                    ?.replace('DK', '')
+                    .trim();
+                  const birthday = person?.birthdays?.[0].text?.trim() || '';
 
                   if (email === 'nyheder@iq96.dk') {
                     return;
@@ -131,8 +137,11 @@ const AdminTab = ({ documentUser }: Props) => {
                       <TableCell className="p-1"></TableCell>
                       <TableCell className="p-1">{email}</TableCell>
                       <TableCell className="p-1">{phone}</TableCell>
-                      <TableCell className="p-1">{address}</TableCell>
+                      <TableCell className="p-1 flex flex-col">
+                        {address}
+                      </TableCell>
                       <TableCell className="p-1">{birthday}</TableCell>
+                      <TableCell className="p-1"></TableCell>
                     </TableRow>
                   );
                 })}
