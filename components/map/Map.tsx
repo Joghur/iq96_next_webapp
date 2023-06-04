@@ -1,7 +1,6 @@
 'use client';
 
 import L, { Icon, LatLngExpression } from 'leaflet';
-// import { useRouter } from 'next/navigation';
 import { ChangeEvent, useContext } from 'react';
 
 import { useEffect, useState } from 'react';
@@ -86,7 +85,6 @@ const MapPage = () => {
     updatingDoc,
     deletingDoc,
   } = useFirestore<MarkerData>('map', 'type', 'asc', 256);
-  // const router = useRouter();
   const [userPosition, setUserPosition] = useState<
     LatLngExpression | undefined
   >(undefined);

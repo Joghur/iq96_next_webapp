@@ -30,13 +30,17 @@ export interface DocumentUser {
   isAdmin: boolean;
   isBoard: boolean;
   isSuperAdmin: boolean;
-  locationId: string;
   name: string;
   nick: string;
   title: string;
+  tshirt?: string;
+  address?: string;
+  phones?: string[];
+  iqEmail?: string;
+  birthday?: string;
 }
 
-export type CollectionName = 'events' | 'map' | 'chats';
+export type CollectionName = 'users' | 'events' | 'map' | 'chats';
 
 export const useFirestore = <T extends DocumentData>(
   collectionName: CollectionName,
