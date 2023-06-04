@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import packageJson from '../../package.json';
 
 const aboutList = [
+  ['0.6.6', 'Med-lems data kan ses under IQ96 -> Med-lem & IQ96'],
   [
     '0.6.5',
     'Vores foreningskonto kontakter kan nu hentes (indtil videre kun af admin)',

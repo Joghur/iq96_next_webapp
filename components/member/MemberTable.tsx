@@ -1,9 +1,9 @@
 'use server';
 
-import { Connection } from './AdminTab';
+import { Connection } from './ContactsTab';
 import { authorize, listConnections } from '@lib/peopleNode';
 
-export const getMembers = async () => {
+export const getGmailContacts = async () => {
   let connections: Connection[];
   try {
     connections = (await authorize()

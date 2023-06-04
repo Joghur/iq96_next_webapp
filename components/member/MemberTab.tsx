@@ -29,10 +29,29 @@ const MemberTab = () => {
             <strong>{documentUser?.name}</strong>
           </p>
           <p className="dynamic_text">{documentUser?.nick}</p>
-          {documentUser?.nick !== documentUser?.title && (
-            <p className="dynamic_text">{documentUser?.title}</p>
-          )}
-          <p>{authUser?.email}</p>
+
+          <p className="mt-4 dynamic_text">
+            <span className="font-semibold ">Titel:</span> {documentUser?.title}
+          </p>
+          <p className="dynamic_text">
+            <span className="font-semibold">IQ96 email:</span> {authUser?.email}
+          </p>
+          <p className="dynamic_text">
+            <span className="font-semibold">Login email:</span>{' '}
+            {documentUser?.email}
+          </p>
+          <p className="dynamic_text">
+            <span className="font-semibold">Adresse:</span>{' '}
+            {documentUser?.address}
+          </p>
+          <p className="dynamic_text">
+            <span className="font-semibold">Telefon:</span>{' '}
+            {documentUser?.phones?.map(o => o)}
+          </p>
+          <p className="dynamic_text">
+            <span className="font-semibold">T-shirt størrelse:</span>{' '}
+            {documentUser?.tshirt || 'Ukendt'}
+          </p>
         </div>
         <div>
           <Separator className="my-2 bg-gray-500" />

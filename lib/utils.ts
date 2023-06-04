@@ -1,6 +1,79 @@
 import { ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { DocumentUser } from './hooks/useFirestore';
+import { Connection, ContactPhone } from '@components/member/ContactsTab';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
+}
+
+export interface EvaluatePerson {
+  name: string;
+  email?: string;
+  iqEmail?: string;
+  phones: string[];
+  address: string;
+  birthday: string;
+}
+
+const addNameToArray = (textValue: string, list: string[]): string[] => {
+  if (list[0] !== textValue) {
+    return [textValue, ...list];
+  }
+  return list;
+};
+
+export function compareObjects(obj1: any, obj2: any): string[] {
+  if (obj1?.length === 0 || obj2?.length === 0) {
+    return [];
+  }
+
+  const mismatchedProperties: string[] = [];
+
+  if (obj1?.names?.[0]?.displayName?.trim() !== obj2.name) {
+    mismatchedProperties.push('name');
+  }
+
+  if (obj1?.emailAddresses?.[0]?.value?.trim() !== obj2.email) {
+    mismatchedProperties.push('email');
+  }
+
+  // TODO better way to compare phone numbers
+  if (
+    !arraysAreEqual(
+      obj1?.phoneNumbers?.map(
+        (o: ContactPhone) => `${o.canonicalForm?.trim()}`,
+      ),
+      obj2.phones,
+    )
+  ) {
+    mismatchedProperties.push('phones');
+  }
+
+  if (
+    obj1?.addresses?.[0]?.formattedValue?.replace('DK', '').trim() !==
+    obj2.address
+  ) {
+    mismatchedProperties.push('address');
+  }
+
+  if (obj1?.birthdays?.[0].text?.trim() !== obj2.birthday) {
+    mismatchedProperties.push('birthday');
+  }
+
+  return addNameToArray(obj2.name, mismatchedProperties);
+}
+
+function arraysAreEqual(arr1: string[], arr2: string[]): boolean {
+  if (arr1?.length !== arr2?.length) {
+    return false;
+  }
+
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      return false;
+    }
+  }
+
+  return true;
 }
