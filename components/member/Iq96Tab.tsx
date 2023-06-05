@@ -1,8 +1,10 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Fragment, useState } from 'react';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
+import { eventTransitionVariants } from '@lib/animations';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 
 const Iq96Tab = () => {
@@ -41,15 +43,19 @@ const Iq96Tab = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-4 gap-4 dynamic_text">
           {sortedIqUsers.map((o, index) => (
-            <div
+            <motion.div
               key={index}
+              variants={eventTransitionVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.5, delay: index * 0.3 + 0.1 }}
               className="m-1 sm:m-4 p-4 ring-2 rounded-xl shadow-xl flex flex-col items-center hover:cursor-pointer"
               onClick={() => setShowProfile(o.name)}>
               <div className="flex flex-col justify-left items-center gap-3 overflow-hidden">
                 <Image
                   src={`/images/avatars/${o.avatar}.png`}
                   width={50}
-                  height={0}
+                  height={50}
                   alt={o.avatar}
                 />
                 <span className="font-semibold">{o.name}</span>
@@ -68,7 +74,7 @@ const Iq96Tab = () => {
                   </Fragment>
                 )}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
