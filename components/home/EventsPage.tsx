@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { MdEdit } from 'react-icons/md';
 
 import LoadingSpinner from '@components/ui/LoadingSpinner';
+import { eventTransitionVariants } from '@lib/animations';
 import { handleType } from '@lib/convertEventType';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 
@@ -70,11 +71,6 @@ const EventsPage = ({ documentUser }: Props) => {
     documentUser?.isBoard ||
     documentUser?.isSuperAdmin;
 
-  const eventTransitionVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
   return (
     <div>
       <div className="mx-auto max-w-2xl mt-12 sm:mt-40">
@@ -90,7 +86,7 @@ const EventsPage = ({ documentUser }: Props) => {
         )}
         {events.map((event, index) => {
           return (
-            <div key={index} className="gap-2 m-10">
+            <div key={index} className="gap-2 mx-10 my-3">
               {index === 0 && (
                 <motion.div
                   key={`sd${index}`}
@@ -100,11 +96,8 @@ const EventsPage = ({ documentUser }: Props) => {
                     duration: 0.8,
                     type: 'tween',
                     stiffness: 100,
-                  }}
-                  className="">
-                  <div
-                    key={index}
-                    className="paper py-7 px-10 sm:px-15 rounded-xl">
+                  }}>
+                  <div key={index} className="paper px-10 sm:px-15 rounded-xl">
                     <div className="stack_row justify-between">
                       <p className="dynamic_text font-black">
                         {event?.type === 'tour'

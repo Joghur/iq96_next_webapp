@@ -38,7 +38,6 @@ export function compareObjects(obj1: any, obj2: any): string[] {
     mismatchedProperties.push('email');
   }
 
-  // TODO better way to compare phone numbers
   if (
     !arraysAreEqual(
       obj1?.phoneNumbers?.map(
@@ -64,6 +63,7 @@ export function compareObjects(obj1: any, obj2: any): string[] {
   return addNameToArray(obj2.name, mismatchedProperties);
 }
 
+// TODO better way to compare phone number arrays
 function arraysAreEqual(arr1: string[], arr2: string[]): boolean {
   if (arr1?.length !== arr2?.length) {
     return false;

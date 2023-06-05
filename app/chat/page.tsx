@@ -9,6 +9,7 @@ import { MdDelete } from 'react-icons/md';
 
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import PageLayout from '@components/ui/PageLayout';
+import { eventTransitionVariants } from '@lib/animations';
 import { convertEpochSecondsToDateString } from '@lib/dates';
 import { useFirestore } from '@lib/hooks/useFirestore';
 import { authContext } from '@lib/store/auth-context';
@@ -32,11 +33,6 @@ export interface ChatType {
   text: string;
   user: ChatUser;
 }
-
-const eventTransitionVariants = {
-  hidden: { opacity: 0, y: -20 },
-  visible: { opacity: 1, y: 0 },
-};
 
 const ChatPage = () => {
   const [limitBy, setLimitBy] = useState(4);
