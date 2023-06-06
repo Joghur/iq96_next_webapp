@@ -58,7 +58,7 @@ const MemberTab = () => {
         <p className="dynamic_text text-[larger] font-semibold sm:mb-5">
           Indstillinger
         </p>
-        {documentUser && (
+        {documentUser?.tshirt && (
           <TshirtSelector
             documentUser={documentUser}
             updatingDoc={updatingDoc}

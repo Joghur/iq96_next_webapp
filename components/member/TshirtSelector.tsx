@@ -1,7 +1,7 @@
 "use client";
 
 import { DocumentData } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -20,12 +20,17 @@ interface Props {
   updatingDoc: (id: string, document: DocumentData) => Promise<void>;
 }
 const TshirtSelector = ({ documentUser, updatingDoc }: Props) => {
-  const [currentSize, setCurrentSize] = useState<TshirtSizes | undefined>(
-    documentUser?.tshirt as TshirtSizes
+  console.log("documentUser.tshirt", documentUser.tshirt);
+  const [currentSize, setCurrentSize] = useState<TshirtSizes>(
+    () => documentUser.tshirt as TshirtSizes
   );
 
+  useEffect(() => {
+    setCurrentSize(documentUser?.tshirt as TshirtSizes);
+  }, [documentUser?.tshirt]);
+
   const handleThemeChange = async (size: TshirtSizes) => {
-    setCurrentSize(size);
+    setCurrentSize(() => size);
     await updatingDoc(documentUser.id, { tshirt: size });
   };
 
@@ -41,7 +46,7 @@ const TshirtSelector = ({ documentUser, updatingDoc }: Props) => {
         onValueChange={(e) => handleThemeChange(e as TshirtSizes)}
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder={currentSize || "Ukendt"} />
+          <SelectValue placeholder={currentSize} />
         </SelectTrigger>
         <SelectContent className="bg-gray-50">
           {sizes.map((o, index) => (
