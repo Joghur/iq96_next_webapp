@@ -28,7 +28,9 @@ const MemberTabsPage = ({ value, onChange, isDev, isSuperAdmin }: Props) => {
         <button
           id="member"
           onClick={onChange}
-          className={`tab ${value === "member" ? "tab-active" : ""}  `}
+          className={`tab ${
+            value === "member" ? "tab-active" : ""
+          } dynamic_text `}
         >
           {documentUser.nick}
         </button>

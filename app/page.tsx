@@ -58,6 +58,12 @@ export default function Home() {
   return (
     <PageLayout>
       <EventsPage documentUser={documentUser} />
+      <button
+        className="btn-outline btn mx-10 mt-10 "
+        onClick={() => (window.location.href = "https://www.iq96.dk")}
+      >
+        Gå til den gamle side iq96.dk
+      </button>
     </PageLayout>
   );
 }
