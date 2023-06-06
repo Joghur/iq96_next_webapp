@@ -22,6 +22,7 @@ const addNameToArray = (textValue: string, list: string[]): string[] => {
   return list;
 };
 
+// TODO fix any
 export function compareObjects(obj1: any, obj2: any): string[] {
   if (obj1?.length === 0 || obj2?.length === 0) {
     return [];

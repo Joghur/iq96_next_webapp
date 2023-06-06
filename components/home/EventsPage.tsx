@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { MdEdit } from "react-icons/md";
 
+import EventForm from "./EventForm";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
 import { eventTransitionVariants } from "@lib/animations";
 import { handleType } from "@lib/convertEventType";
@@ -33,10 +34,11 @@ interface Props {
 }
 
 const EventsPage = ({ documentUser }: Props) => {
-  const { docs: events, loading } = useFirestore<EventType>(
-    "events",
-    "startDate"
-  );
+  const {
+    docs: events,
+    loading,
+    updatingDoc,
+  } = useFirestore<EventType>("events", "startDate");
   const [currentEvent, setCurrentEvent] = useState<EventType | null>(null);
   const [showDialog, setShowDialog] = useState(false);
 
@@ -63,7 +65,7 @@ const EventsPage = ({ documentUser }: Props) => {
     setCurrentEvent(
       () => events?.filter((o) => o.id === id)[0] as unknown as EventType
     );
-    setShowDialog(true);
+    setShowDialog(() => true);
   };
 
   const canEdit =
@@ -129,7 +131,9 @@ const EventsPage = ({ documentUser }: Props) => {
                     )}
                     {event.meetingPoints.trim() && (
                       <div className="stack">
-                        <p className="dynamic_text font-black">Mødesteder:</p>
+                        <p className="dynamic_text mt-4 font-black">
+                          Mødesteder:
+                        </p>
                         <div className="dynamic_text">
                           {event.meetingPoints
                             .split("--")
@@ -145,7 +149,7 @@ const EventsPage = ({ documentUser }: Props) => {
                     )}
                     {event?.notes?.trim() && (
                       <div className="stack">
-                        <div className="dynamic_text font-black">OBS:</div>
+                        <div className="dynamic_text mt-4 font-black">OBS:</div>
                         <div className="dynamic_text">
                           {event.notes.split("--").map((f: string, index) => {
                             return (
@@ -174,7 +178,6 @@ const EventsPage = ({ documentUser }: Props) => {
                   </div>
                 </motion.div>
               )}
-
               {index === 1 && (
                 <div key={`events-${index}`} className="pt-6 sm:pt-16">
                   <p className="dynamic_text text-center">
@@ -211,14 +214,14 @@ const EventsPage = ({ documentUser }: Props) => {
           );
         })}
       </div>
-      {/* {showDialog && (
-        <FormDialog
+      {showDialog && (
+        <EventForm
+          event={currentEvent || undefined}
           open={showDialog}
           onClose={() => setShowDialog(false)}
-          event={currentEvent || undefined}
           updatingDoc={updatingDoc}
         />
-      )} */}
+      )}
     </div>
   );
 };
