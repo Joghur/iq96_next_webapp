@@ -73,7 +73,7 @@ const EventsPage = ({ documentUser }: Props) => {
 
   return (
     <div>
-      <div className="mx-auto mt-12 max-w-2xl sm:mt-40">
+      <div className="mx-auto max-w-2xl sm:mt-40">
         <div className="items-center justify-center pt-16">
           <p className="dynamic_text text-center">Næste begivenhed</p>
         </div>
@@ -176,7 +176,7 @@ const EventsPage = ({ documentUser }: Props) => {
               )}
 
               {index === 1 && (
-                <div key={`events-${index}`} className="pt-16">
+                <div key={`events-${index}`} className="pt-6 sm:pt-16">
                   <p className="dynamic_text text-center">
                     Fremtidige begivenheder
                   </p>
@@ -197,7 +197,7 @@ const EventsPage = ({ documentUser }: Props) => {
                           ? `${handleType(event?.type)} de ${event.city}`
                           : handleType(event?.type)}
                       </p>
-                      <p>{event.start}</p>
+                      <p className="dynamic_text">{event.start}</p>
                       {canEdit && event.id && (
                         <button onClick={(e) => handleUpdate(e, event.id)}>
                           <MdEdit />
