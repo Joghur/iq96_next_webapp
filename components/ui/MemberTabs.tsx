@@ -23,8 +23,8 @@ const MemberTabsPage = ({ value, onChange, isDev, isSuperAdmin }: Props) => {
   }
 
   return (
-    <div className="flex justify-end sm:justify-center mb-7 sm:mt-10 sm:mb-15 space-x-1">
-      <div className="fixed tabs tabs-boxed whitespace-no-wrap dynamic_text">
+    <div className="flex justify-end sm:justify-center mb-7 sm:mt-10 sm:mb-15">
+      <div className="fixed tabs tabs-boxed space-x-0 gap-0 opacity-100 dynamic_text">
         <button
           id="member"
           onClick={onChange}
@@ -34,7 +34,7 @@ const MemberTabsPage = ({ value, onChange, isDev, isSuperAdmin }: Props) => {
         <button
           id="iq96"
           onClick={onChange}
-          className={`tab ${
+          className={`tab px-1 sm:px-4 ${
             value === 'iq96' ? 'tab-active' : ''
           } dynamic_text `}>
           IQ96
@@ -42,7 +42,7 @@ const MemberTabsPage = ({ value, onChange, isDev, isSuperAdmin }: Props) => {
         <button
           id="about"
           onClick={onChange}
-          className={`tab ${
+          className={`tab px-1 sm:px-4 ${
             value === 'about' ? 'tab-active' : ''
           } dynamic_text `}>
           Om
@@ -51,7 +51,7 @@ const MemberTabsPage = ({ value, onChange, isDev, isSuperAdmin }: Props) => {
           <button
             id="admin"
             onClick={onChange}
-            className={`tab ${
+            className={`tab px-1 sm:px-4 ${
               value === 'admin' ? 'tab-active' : ''
             } dynamic_text`}>
             Admin
@@ -61,7 +61,7 @@ const MemberTabsPage = ({ value, onChange, isDev, isSuperAdmin }: Props) => {
           <button
             id="contacts"
             onClick={onChange}
-            className={`tab ${
+            className={`tab px-1 sm:px-4 ${
               value === 'contacts' ? 'tab-active' : ''
             } dynamic_text`}>
             Kontakter
