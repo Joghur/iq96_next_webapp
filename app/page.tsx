@@ -58,10 +58,10 @@ export default function Home() {
 
   return (
     <PageLayout>
-      <EventsPage documentUser={documentUser} />
-      <div className="mx-auto mt-6 max-w-2xl">
+      <div className="fixed right-0 top-0 sm:right-10 sm:top-10">
         <OldPageButton />
       </div>
+      <EventsPage documentUser={documentUser} />
     </PageLayout>
   );
 }

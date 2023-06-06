@@ -168,6 +168,7 @@ const MapPage = () => {
 
   const canEdit = documentUser?.isSuperAdmin || false;
 
+  // TODO fix any
   function compare1(a: any, b: any) {
     if (a.nick < b.nick) {
       return -1;

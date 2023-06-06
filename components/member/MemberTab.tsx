@@ -51,6 +51,11 @@ const MemberTab = () => {
             <span className="font-semibold">Telefon:</span>{" "}
             {documentUser?.phones?.map((o) => o)}
           </p>
+          <p className="dynamic_text mt-4 text-center">
+            <span className="font-semibold">
+              Ændringer? Skriv til Kasseur eller Redacteur!
+            </span>
+          </p>
         </div>
         <div>
           <Separator className="my-2 bg-gray-500 sm:my-5" />
