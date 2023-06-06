@@ -1,4 +1,4 @@
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { onAuthStateChanged, User } from "firebase/auth";
 import {
   addDoc,
   collection,
@@ -17,10 +17,10 @@ import {
   Timestamp,
   updateDoc,
   where,
-} from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
 
-import { app, auth, db } from '@lib/firebase';
+import { app, auth, db } from "@lib/firebase";
 
 export interface DocumentUser {
   id: string;
@@ -40,13 +40,13 @@ export interface DocumentUser {
   birthday?: string;
 }
 
-export type CollectionName = 'users' | 'events' | 'map' | 'chats';
+export type CollectionName = "users" | "events" | "map" | "chats";
 
 export const useFirestore = <T extends DocumentData>(
   collectionName: CollectionName,
   order: string,
-  orderDirection: 'desc' | 'asc' = 'asc',
-  limitBy = 4,
+  orderDirection: "desc" | "asc" = "asc",
+  limitBy = 4
 ) => {
   const [docs, setDocs] = useState<T[] | undefined>(undefined);
   const [loading, setLoading] = useState(true);
@@ -68,7 +68,7 @@ export const useFirestore = <T extends DocumentData>(
       .then(() => {
         console.log(`Document with ID ${id} deleted successfully!`);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(`Error deleting document with ID ${id}: `, error);
       });
   };
@@ -77,11 +77,11 @@ export const useFirestore = <T extends DocumentData>(
     const queryRef = query(
       collection(db, collectionName) as CollectionReference<T>,
       orderBy(order, orderDirection),
-      limit(limitBy),
+      limit(limitBy)
     ) as Query<T>;
-    const unsubscribe = onSnapshot(queryRef, snapshot => {
+    const unsubscribe = onSnapshot(queryRef, (snapshot) => {
       const docs: T[] = [];
-      snapshot.forEach(doc => {
+      snapshot.forEach((doc) => {
         docs.push({ id: doc.id, ...doc.data() });
       });
       setDocs(docs as T[]);
@@ -98,7 +98,7 @@ export const useFirestoreMax4Days = (
   collectionName: CollectionName,
   order: string,
   days = 4,
-  limitBy = 3,
+  limitBy = 3
 ) => {
   const [docs, setDocs] = useState<DocumentData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -120,27 +120,27 @@ export const useFirestoreMax4Days = (
       .then(() => {
         console.log(`Document with ID ${id} deleted successfully!`);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(`Error deleting document with ID ${id}: `, error);
       });
   };
 
   useEffect(() => {
     const cutoff = Timestamp.fromMillis(
-      Date.now() - days * 24 * 60 * 60 * 1000,
+      Date.now() - days * 24 * 60 * 60 * 1000
     );
 
     // create a Firestore query to fetch documents where createdAt is less than or equal to the cutoff time
     const collectionRef = query(
       collection(db, collectionName),
-      where('createdAt', '>=', cutoff),
+      where("createdAt", ">=", cutoff),
       orderBy(order),
-      limit(limitBy),
+      limit(limitBy)
     );
 
-    const unsubscribe = onSnapshot(collectionRef, snapshot => {
+    const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
       const docs: DocumentData[] = [];
-      snapshot.forEach(doc => {
+      snapshot.forEach((doc) => {
         docs.push({ id: doc.id, ...doc.data() });
       });
       setDocs(docs);
@@ -157,7 +157,7 @@ export const useAuth = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, authUser => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
       setAuthUser(authUser);
       setLoading(false);
     });
@@ -168,58 +168,58 @@ export const useAuth = () => {
 };
 
 export const copyMapMarkers = () => {
-  getDocs(collection(db, 'map'))
-    .then(querySnapshot => {
+  getDocs(collection(db, "map"))
+    .then((querySnapshot) => {
       const documents: DocumentData[] = [];
 
-      querySnapshot.forEach(doc => {
+      querySnapshot.forEach((doc) => {
         documents.push(doc.data());
       });
 
-      setDoc(doc(db, 'oldmap', 'odense'), {
+      setDoc(doc(db, "oldmap", "odense"), {
         documents: documents,
       })
         .then(() => {
-          console.log('Documents copied successfully!');
+          console.log("Documents copied successfully!");
         })
-        .catch(error => {
-          console.error('Error copying documents: ', error);
+        .catch((error) => {
+          console.error("Error copying documents: ", error);
         });
     })
-    .catch(error => {
-      console.error('Error getting documents: ', error);
+    .catch((error) => {
+      console.error("Error getting documents: ", error);
     });
 };
 
 export const deleteMapMarkers = () => {
-  getDocs(collection(db, 'map'))
-    .then(querySnapshot => {
-      querySnapshot.forEach(document => {
-        const docRef = doc(db, 'map', document.id);
+  getDocs(collection(db, "map"))
+    .then((querySnapshot) => {
+      querySnapshot.forEach((document) => {
+        const docRef = doc(db, "map", document.id);
 
         deleteDoc(docRef)
           .then(() => {
             console.log(
-              `Document with ID ${document.id} deleted successfully!`,
+              `Document with ID ${document.id} deleted successfully!`
             );
           })
-          .catch(error => {
+          .catch((error) => {
             console.error(
               `Error deleting document with ID ${document.id}: `,
-              error,
+              error
             );
           });
       });
     })
-    .catch(error => {
-      console.error('Error getting documents: ', error);
+    .catch((error) => {
+      console.error("Error getting documents: ", error);
     });
 };
 
 export const useDocumentUser = (): [
   User | null,
   DocumentUser | null,
-  boolean,
+  boolean
 ] => {
   const [authUser, setFirebaseUser] = useState<User | null>(null);
   const [documentUser, setDocumentUser] = useState<DocumentUser | null>(null);
@@ -232,11 +232,11 @@ export const useDocumentUser = (): [
       setFirebaseUser(() => _authUser);
 
       const q = query(
-        collection(db, 'users'),
-        where('uid', '==', _authUser.uid),
+        collection(db, "users"),
+        where("uid", "==", _authUser.uid)
       );
       getDocs(q)
-        .then(querySnapshot => {
+        .then((querySnapshot) => {
           if (!querySnapshot.empty) {
             const docData = querySnapshot.docs[0].data() as DocumentUser;
             setDocumentUser(() => ({
@@ -246,8 +246,8 @@ export const useDocumentUser = (): [
             setLoading(() => false);
           }
         })
-        .catch(error => {
-          console.error('Error getting document user:', error);
+        .catch((error) => {
+          console.error("Error getting document user:", error);
         });
     } else {
       setFirebaseUser(() => null);

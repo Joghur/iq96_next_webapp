@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-export const LOCALSTORAGE_PREFIX = 'iq96nextwebapp';
+export const LOCALSTORAGE_PREFIX = "iq96nextwebapp";
 
 export const getLocalStorage = <T>(key: string) => {
   const res = localStorage.getItem(key);
@@ -10,7 +10,7 @@ export const getLocalStorage = <T>(key: string) => {
       return JSON.parse(res) as T;
     }
   } catch (error) {
-    console.error('Local Storage error');
+    console.error("Local Storage error");
   }
   return null;
 };

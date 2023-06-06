@@ -35,7 +35,7 @@ const Iq96Tab = () => {
     });
 
   return (
-    <div className="table-container touch-action-pan-y overflow-y-scroll transition-transform duration-300">
+    <div className="table-container touch-action-pan-y overflow-y-scroll">
       <div className="px-10 sm:py-4">
         <p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
           Med-lemmer

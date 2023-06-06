@@ -4,8 +4,8 @@ import { MouseEvent, useContext, useState } from "react";
 
 import AboutTab from "@components/member/AboutTab";
 import AdminTab from "@components/member/AdminTab";
-import ContactsTab from "@components/member/ContactsTab";
 import Iq96Tab from "@components/member/Iq96Tab";
+import ContactsTab from "@components/member/IqMemberTable";
 import MemberTab from "@components/member/MemberTab";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
 import MemberTabsPage, { MemberTabs } from "@components/ui/MemberTabs";

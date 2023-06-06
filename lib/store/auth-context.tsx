@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-'use client';
+"use client";
 
 import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
   User,
-} from 'firebase/auth';
-import { createContext, ReactNode } from 'react';
+} from "firebase/auth";
+import { createContext, ReactNode } from "react";
 
-import { auth } from '@/lib/firebase';
-import { DocumentUser, useDocumentUser } from '@lib/hooks/useFirestore';
+import { auth } from "@/lib/firebase";
+import { DocumentUser, useDocumentUser } from "@lib/hooks/useFirestore";
 
 interface AuthContextValues {
   authUser: User | null | undefined;
@@ -18,7 +18,7 @@ interface AuthContextValues {
   loading: boolean;
   emailLoginHandler: (
     email: string | undefined,
-    password: string | undefined,
+    password: string | undefined
   ) => Promise<void>;
   logout: () => void;
   resetPassword: (email: string) => Promise<void>;
@@ -49,8 +49,8 @@ export default function AuthContextProvider({
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
-      console.error('Logout error: ', err);
-      alert('Der er skete en fejl under login!');
+      console.error("Logout error: ", err);
+      alert("Der er skete en fejl under login!");
     }
   };
 
@@ -62,8 +62,8 @@ export default function AuthContextProvider({
     try {
       await sendPasswordResetEmail(auth, email);
     } catch (error) {
-      console.error('Logout error: ', error);
-      alert('Der er skete en fejl under reset kodeord!');
+      console.error("Logout error: ", error);
+      alert("Der er skete en fejl under reset kodeord!");
     }
   };
 

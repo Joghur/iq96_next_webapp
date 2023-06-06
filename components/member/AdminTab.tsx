@@ -1,6 +1,6 @@
 "use client";
 
-import { IqMemberTable } from "./ContactsTab";
+import { IqMemberTable } from "./IqMemberTable";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
 import { DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
 
@@ -31,12 +31,14 @@ const AdminTab = () => {
     });
 
   return (
-    <div className="table-container touch-action-pan-y overflow-y-scroll transition-transform duration-300">
-      <div className="scale-120 px-1 sm:py-4 lg:px-10">
+    <div className="overflow-y-scroll">
+      <div className="px-1 sm:py-4 lg:px-10">
         <p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
           Med-lemmer
         </p>
-        <IqMemberTable iqUsers={sortedIqUsers} isEditable={false} showAll />
+        <div className="items-start">
+          <IqMemberTable iqUsers={sortedIqUsers} isEditable={false} showAll />
+        </div>
       </div>
     </div>
   );

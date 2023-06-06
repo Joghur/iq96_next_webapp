@@ -258,9 +258,9 @@ export const IqMemberTable = ({
   };
 
   return (
-    <Table className="transform-origin-top-left scale-100 transform px-1">
+    <Table className="px-1">
       <TableHeader>
-        <TableRow className="text-xs">
+        <TableRow className="dynamic_text">
           <TableHead className="p-1">#</TableHead>
           <TableHead className="p-1">Med-lem</TableHead>
           <TableHead className="p-1">IQ-navn</TableHead>

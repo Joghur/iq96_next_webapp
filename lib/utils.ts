@@ -1,7 +1,7 @@
 import { ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { DocumentUser } from './hooks/useFirestore';
-import { Connection, ContactPhone } from '@components/member/ContactsTab';
+import { Connection, ContactPhone } from '@components/member/IqMemberTable';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
