@@ -8,6 +8,7 @@ import EventsPage from "@components/home/EventsPage";
 import { LOCALSTORAGE_THEME, Themes } from "@components/member/ThemeSelector";
 import CookieWarning from "@components/ui/CookieWarning";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
+import OldPageButton from "@components/ui/OldPageButton";
 import PageLayout from "@components/ui/PageLayout";
 import {
   getLocalStorage,
@@ -58,12 +59,9 @@ export default function Home() {
   return (
     <PageLayout>
       <EventsPage documentUser={documentUser} />
-      <button
-        className="btn-outline btn mx-10 mt-10 "
-        onClick={() => (window.location.href = "https://www.iq96.dk")}
-      >
-        Gå til den gamle side iq96.dk
-      </button>
+      <div className="mx-auto mt-10 max-w-2xl">
+        <OldPageButton />
+      </div>
     </PageLayout>
   );
 }

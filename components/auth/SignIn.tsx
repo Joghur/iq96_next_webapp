@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 
 import { authContext } from "@/lib/store/auth-context";
+import OldPageButton from "@components/ui/OldPageButton";
 import {
   getLocalStorage,
   LOCALSTORAGE_PREFIX,
@@ -88,8 +89,16 @@ function SignIn() {
       <p className="blue_gradient dynamic_text mb-3 pt-16 text-center font-bold sm:text-xl">
         Velkommen til IQ96&apos;s webapp
       </p>
-      <p className="dynamic_text mb-6 text-center">Log ind for at forsætte</p>
-
+      <div className="mb-6 mt-5 flex items-center justify-center gap-2">
+        <div>
+          <p className="dynamic_text">
+            Log ind for at forsætte <span className="font-bold">eller</span>
+          </p>
+        </div>
+        <div>
+          <OldPageButton />
+        </div>
+      </div>
       <div className="flex flex-col overflow-hidden rounded-2xl bg-slate-800 shadow-md shadow-slate-500">
         <div className="h-42">
           <Image
