@@ -1,12 +1,12 @@
-import { User } from 'firebase/auth';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { MdEdit } from 'react-icons/md';
+import { User } from "firebase/auth";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { MdEdit } from "react-icons/md";
 
-import LoadingSpinner from '@components/ui/LoadingSpinner';
-import { eventTransitionVariants } from '@lib/animations';
-import { handleType } from '@lib/convertEventType';
-import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
+import LoadingSpinner from "@components/ui/LoadingSpinner";
+import { eventTransitionVariants } from "@lib/animations";
+import { handleType } from "@lib/convertEventType";
+import { DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
 
 interface FirebaseDate {
   seconds: number;
@@ -34,19 +34,19 @@ interface Props {
 
 const EventsPage = ({ documentUser }: Props) => {
   const { docs: events, loading } = useFirestore<EventType>(
-    'events',
-    'startDate',
+    "events",
+    "startDate"
   );
   const [currentEvent, setCurrentEvent] = useState<EventType | null>(null);
   const [showDialog, setShowDialog] = useState(false);
 
   if (loading) {
-    return <LoadingSpinner text={'Henter begivenheder...'} />;
+    return <LoadingSpinner text={"Henter begivenheder..."} />;
   }
 
   if (!events) {
     return (
-      <div className="px-6 pt-16 mx-auto">
+      <div className="mx-auto px-6 pt-16">
         <p className="dynamic_text">Der er ingen events på dette tidspunkt</p>
       </div>
     );
@@ -54,14 +54,14 @@ const EventsPage = ({ documentUser }: Props) => {
 
   const handleUpdate = async (
     _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    id: string | undefined,
+    id: string | undefined
   ) => {
     if (!id) {
       return;
     }
 
     setCurrentEvent(
-      () => events?.filter(o => o.id === id)[0] as unknown as EventType,
+      () => events?.filter((o) => o.id === id)[0] as unknown as EventType
     );
     setShowDialog(true);
   };
@@ -73,20 +73,20 @@ const EventsPage = ({ documentUser }: Props) => {
 
   return (
     <div>
-      <div className="mx-auto max-w-2xl mt-12 sm:mt-40">
+      <div className="mx-auto mt-12 max-w-2xl sm:mt-40">
         <div className="items-center justify-center pt-16">
-          <p className="text-center dynamic_text">Næste begivenhed</p>
+          <p className="dynamic_text text-center">Næste begivenhed</p>
         </div>
         {!events && (
           <div className="items-center justify-center pt-16">
-            <p className="text-center dynamic_text">
+            <p className="dynamic_text text-center">
               Der er ingen events på dette tidspunkt
             </p>
           </div>
         )}
         {events.map((event, index) => {
           return (
-            <div key={index} className="gap-2 mx-10 my-3">
+            <div key={index} className="mx-10 my-3 gap-2">
               {index === 0 && (
                 <motion.div
                   key={`sd${index}`}
@@ -94,18 +94,19 @@ const EventsPage = ({ documentUser }: Props) => {
                   animate={{ x: 0 }}
                   transition={{
                     duration: 0.8,
-                    type: 'tween',
+                    type: "tween",
                     stiffness: 100,
-                  }}>
-                  <div key={index} className="paper px-10 sm:px-15 rounded-xl">
+                  }}
+                >
+                  <div key={index} className=" sm:px-15 paper rounded-xl px-10">
                     <div className="stack_row justify-between">
                       <p className="dynamic_text font-black">
-                        {event?.type === 'tour'
+                        {event?.type === "tour"
                           ? `${handleType(event?.type)} de ${event.city}`
                           : handleType(event?.type)}
                       </p>
                       {canEdit && event.id && (
-                        <button onClick={e => handleUpdate(e, event.id)}>
+                        <button onClick={(e) => handleUpdate(e, event.id)}>
                           <MdEdit />
                         </button>
                       )}
@@ -131,7 +132,7 @@ const EventsPage = ({ documentUser }: Props) => {
                         <p className="dynamic_text font-black">Mødesteder:</p>
                         <div className="dynamic_text">
                           {event.meetingPoints
-                            .split('--')
+                            .split("--")
                             .map((f: string, index) => {
                               return (
                                 <div key={index} className="ml-4">
@@ -146,9 +147,9 @@ const EventsPage = ({ documentUser }: Props) => {
                       <div className="stack">
                         <div className="dynamic_text font-black">OBS:</div>
                         <div className="dynamic_text">
-                          {event.notes.split('--').map((f: string, index) => {
+                          {event.notes.split("--").map((f: string, index) => {
                             return (
-                              <div key={index} className="ml-4 dynamic_text">
+                              <div key={index} className="dynamic_text ml-4">
                                 <li>{f.trim()}</li>
                               </div>
                             );
@@ -160,10 +161,10 @@ const EventsPage = ({ documentUser }: Props) => {
                       <div className="dynamic_text font-black">
                         Aktiviteter:
                         {event.activities
-                          .split('--')
+                          .split("--")
                           .map((f: string, index) => {
                             return (
-                              <div key={index} className="ml-4 dynamic_text">
+                              <div key={index} className="dynamic_text ml-4">
                                 <li>{f.trim()}</li>
                               </div>
                             );
@@ -176,7 +177,7 @@ const EventsPage = ({ documentUser }: Props) => {
 
               {index === 1 && (
                 <div key={`events-${index}`} className="pt-16">
-                  <p className="text-center dynamic_text">
+                  <p className="dynamic_text text-center">
                     Fremtidige begivenheder
                   </p>
                 </div>
@@ -187,17 +188,18 @@ const EventsPage = ({ documentUser }: Props) => {
                   variants={eventTransitionVariants}
                   initial="hidden"
                   animate="visible"
-                  transition={{ duration: 0.5, delay: index * 0.8 + 0.3 }}>
+                  transition={{ duration: 0.5, delay: index * 0.8 + 0.3 }}
+                >
                   <div className="paper py-2">
-                    <div className="stack_row justify-between">
+                    <div className="stack_row items-center justify-between">
                       <p className="dynamic_text font-black">
-                        {event?.type === 'tour'
+                        {event?.type === "tour"
                           ? `${handleType(event?.type)} de ${event.city}`
                           : handleType(event?.type)}
                       </p>
                       <p>{event.start}</p>
                       {canEdit && event.id && (
-                        <button onClick={e => handleUpdate(e, event.id)}>
+                        <button onClick={(e) => handleUpdate(e, event.id)}>
                           <MdEdit />
                         </button>
                       )}

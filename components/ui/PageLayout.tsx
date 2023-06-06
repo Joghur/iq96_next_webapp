@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
-import HeaderNavbar from './HeaderNavBar';
+import HeaderNavbar from "./HeaderNavBar";
 
 interface Props {
   children: ReactNode;
@@ -8,7 +8,7 @@ interface Props {
 
 const PageLayout: React.FC<Props> = ({ children }) => {
   return (
-    <div className="relative flex flex-col flex-grow mx-auto">
+    <div className="relative mx-auto flex flex-grow flex-col">
       <HeaderNavbar />
       {children}
       <div className="h-40" />

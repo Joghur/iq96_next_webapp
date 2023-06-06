@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useCallback, useEffect, useState } from 'react';
-import { getGmailContacts } from './MemberTable';
-import LoadingSpinner from '@components/ui/LoadingSpinner';
-import { Separator } from '@components/ui/separator';
+import { useCallback, useEffect, useState } from "react";
+import { getGmailContacts } from "./MemberTable";
+import LoadingSpinner from "@components/ui/LoadingSpinner";
+import { Separator } from "@components/ui/separator";
 import {
   Table,
   TableBody,
@@ -11,9 +11,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@components/ui/table';
-import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
-import { compareObjects } from '@lib/utils';
+} from "@components/ui/table";
+import { DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
+import { compareObjects } from "@lib/utils";
 
 export interface ContactName {
   displayName?: string;
@@ -63,10 +63,10 @@ const ContactsTab = () => {
     docs: users,
     updatingDoc,
     loading,
-  } = useFirestore<DocumentUser>('users', 'name', 'asc', 26);
+  } = useFirestore<DocumentUser>("users", "name", "asc", 26);
 
   const handleGmailContacts = useCallback(async () => {
-    if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') {
+    if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
       const res = await getGmailContacts();
       setCon(() => res);
     }
@@ -77,7 +77,7 @@ const ContactsTab = () => {
   }, [handleGmailContacts]);
 
   if (loading) {
-    return <LoadingSpinner text={'Henter med-lemmer...'} />;
+    return <LoadingSpinner text={"Henter med-lemmer..."} />;
   }
 
   if (!users || !connections || connections?.length === 0) {
@@ -88,30 +88,30 @@ const ContactsTab = () => {
     .filter(
       (o: Connection, index: number) =>
         index < 26 &&
-        o?.emailAddresses?.[0]?.value !== process.env.NEXT_PUBLIC_NEWSMAIL,
+        o?.emailAddresses?.[0]?.value !== process.env.NEXT_PUBLIC_NEWSMAIL
     )
     .sort((a: Connection, b: Connection) => {
-      const displayNameA = a?.names?.[0]?.displayName ?? '';
-      const displayNameB = b?.names?.[0]?.displayName ?? '';
+      const displayNameA = a?.names?.[0]?.displayName ?? "";
+      const displayNameB = b?.names?.[0]?.displayName ?? "";
 
       return displayNameA.localeCompare(displayNameB);
     });
 
   const sortedIqUsers = users
     .filter(
-      (o: DocumentUser, index: number) => index < 26 && o?.name !== 'IQ96',
+      (o: DocumentUser, index: number) => index < 26 && o?.name !== "IQ96"
     )
     .sort((a: DocumentUser, b: DocumentUser) => {
-      const displayNameA = a?.name ?? '';
-      const displayNameB = b?.name ?? '';
+      const displayNameA = a?.name ?? "";
+      const displayNameB = b?.name ?? "";
 
       return displayNameA.localeCompare(displayNameB);
     });
 
   return (
-    <div className="table-container overflow-y-scroll touch-action-pan-y transition-transform duration-300">
-      <div className="px-1 lg:px-10 scale-120 sm:py-4">
-        <p className="flex justify-center bg-slate-100 dynamic_text font-semibold">
+    <div className="table-container touch-action-pan-y overflow-y-scroll transition-transform duration-300">
+      <div className="scale-120 px-1 sm:py-4 lg:px-10">
+        <p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
           Med-lemmer
         </p>
         <IqMemberTable
@@ -124,28 +124,30 @@ const ContactsTab = () => {
         <div>
           <Separator className="my-5 bg-gray-500" />
         </div>
-        <p className="flex justify-center bg-slate-100 dynamic_text font-semibold">
+        <p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
           Gmail kontakter
         </p>
         <GmailContacts connections={sortedConnections} />
         <div>
           <Separator className="my-5 bg-gray-500" />
         </div>
-        <div className="flex flex-col gap-3 min-h-screen mx-5">
+        <div className="mx-5 flex min-h-screen flex-col gap-3">
           <button
             disabled
             onClick={() => {
-              console.log('Kopierer');
+              console.log("Kopierer");
             }}
-            className="btn btn-accent dynamic_text inline-block">
+            className="dynamic_text btn-accent btn inline-block"
+          >
             Kopier gamle men aktuelle kort-markører
           </button>
           <button
             disabled
             onClick={() => {
-              console.log('Sletter');
+              console.log("Sletter");
             }}
-            className="btn btn-accent dynamic_text inline-block">
+            className="dynamic_text btn-accent btn inline-block"
+          >
             Slet gamle, men aktuelle kort-markører
           </button>
         </div>
@@ -162,7 +164,7 @@ interface GmailProps {
 
 const GmailContacts = ({ connections }: GmailProps) => {
   return (
-    <Table className="transform-origin-top-left transform scale-100">
+    <Table className="transform-origin-top-left scale-100 transform">
       <TableHeader>
         <TableRow className="text-xs">
           <TableHead className="p-1">#</TableHead>
@@ -177,14 +179,14 @@ const GmailContacts = ({ connections }: GmailProps) => {
         {connections.map((person: Connection, index: number) => {
           const memberIndex = index + 1;
           const name = person?.names?.[0]?.displayName?.trim();
-          const email = person?.emailAddresses?.[0]?.value?.trim() || '';
+          const email = person?.emailAddresses?.[0]?.value?.trim() || "";
           const phones = person?.phoneNumbers?.map(
-            (o: ContactPhone) => `${o.canonicalForm?.trim()}\n`,
+            (o: ContactPhone) => `${o.canonicalForm?.trim()}\n`
           );
           const address = person?.addresses?.[0]?.formattedValue
-            ?.replace('DK', '')
+            ?.replace("DK", "")
             .trim();
-          const birthday = person?.birthdays?.[0].text?.trim() || '';
+          const birthday = person?.birthdays?.[0].text?.trim() || "";
 
           return (
             <TableRow key={name} className="text-xs">
@@ -192,7 +194,7 @@ const GmailContacts = ({ connections }: GmailProps) => {
               <TableCell className="p-1">{name}</TableCell>
               <TableCell className="p-1">{email}</TableCell>
               <TableCell className="p-1">{phones}</TableCell>
-              <TableCell className="p-1 flex flex-col">{address}</TableCell>
+              <TableCell className="flex flex-col p-1">{address}</TableCell>
               <TableCell className="p-1">{birthday}</TableCell>
             </TableRow>
           );
@@ -224,10 +226,10 @@ export const IqMemberTable = ({
   const evaluateArrays = iqUsers.map((docUser: DocumentUser) =>
     compareObjects(
       connections?.find(
-        contact => contact?.names?.[0]?.displayName?.trim() === docUser.name,
+        (contact) => contact?.names?.[0]?.displayName?.trim() === docUser.name
       ),
-      docUser,
-    ),
+      docUser
+    )
   );
 
   const handleClick = async (person: DocumentUser, contact?: Connection) => {
@@ -235,30 +237,30 @@ export const IqMemberTable = ({
       return null;
     }
     await updatingDoc(person.id, {
-      id: person?.id || '',
+      id: person?.id || "",
       isAdmin: person?.isAdmin || false,
       isBoard: person?.isBoard || false,
       isSuperAdmin: person?.isSuperAdmin || false,
-      nick: person?.nick || '',
-      title: person?.title || '',
-      uid: person?.uid || '',
-      avatar: person.avatar || '',
-      tshirt: person.tshirt || '',
-      name: contact?.names?.[0]?.displayName?.trim() || '',
-      email: contact?.emailAddresses?.[0]?.value?.trim() || '',
+      nick: person?.nick || "",
+      title: person?.title || "",
+      uid: person?.uid || "",
+      avatar: person.avatar || "",
+      tshirt: person.tshirt || "",
+      name: contact?.names?.[0]?.displayName?.trim() || "",
+      email: contact?.emailAddresses?.[0]?.value?.trim() || "",
       phones:
         contact?.phoneNumbers?.map(
-          (o: ContactPhone) => `${o.canonicalForm?.trim()}`,
+          (o: ContactPhone) => `${o.canonicalForm?.trim()}`
         ) || [],
       address:
-        contact?.addresses?.[0]?.formattedValue?.replace('DK', '').trim() || '',
+        contact?.addresses?.[0]?.formattedValue?.replace("DK", "").trim() || "",
     });
   };
 
   return (
-    <Table className="transform-origin-top-left transform scale-100 px-1">
+    <Table className="px-1">
       <TableHeader>
-        <TableRow className="text-xs">
+        <TableRow className="dynamic_text">
           <TableHead className="p-1">#</TableHead>
           <TableHead className="p-1">Med-lem</TableHead>
           <TableHead className="p-1">IQ-navn</TableHead>
@@ -273,24 +275,24 @@ export const IqMemberTable = ({
         {iqUsers &&
           iqUsers.map((person: DocumentUser, index: number) => {
             const diffArray = evaluateArrays.filter(
-              arr => arr && arr.includes(person.name),
+              (arr) => arr && arr.includes(person.name)
             )[0];
             const memberIndex = index + 1;
             const name = person?.name?.trim();
             const isNameDiff = Boolean(
-              connections && diffArray?.includes('name'),
+              connections && diffArray?.includes("name")
             );
-            const email = person?.email || '';
+            const email = person?.email || "";
             const isEmailDiff = Boolean(
-              connections && diffArray?.includes('email'),
+              connections && diffArray?.includes("email")
             );
             const phones = person?.phones?.map((o: string) => `${o?.trim()}`);
             const isPhonesDiff = Boolean(
-              connections && diffArray?.includes('phones'),
+              connections && diffArray?.includes("phones")
             );
-            const address = person?.address?.replace('DK', '').trim();
+            const address = person?.address?.replace("DK", "").trim();
             const isAddressDiff = Boolean(
-              connections && diffArray?.includes('address'),
+              connections && diffArray?.includes("address")
             );
 
             return (
@@ -300,41 +302,43 @@ export const IqMemberTable = ({
                   handleClick(
                     person,
                     connections?.find(
-                      contact =>
-                        contact?.names?.[0]?.displayName?.trim() ===
-                        person.name,
-                    ),
+                      (contact) =>
+                        contact?.names?.[0]?.displayName?.trim() === person.name
+                    )
                   )
                 }
                 className={`text-xs hover:${
-                  isEditable ? 'cursor-pointer' : 'cursor-text'
-                }`}>
+                  isEditable ? "cursor-pointer" : "cursor-text"
+                }`}
+              >
                 <TableCell className="p-1">{memberIndex}</TableCell>
                 <TableCell
-                  className={`${
-                    isNameDiff ? 'text-white bg-red-500' : ''
-                  } p-1`}>
+                  className={`${isNameDiff ? "bg-red-500 text-white" : ""} p-1`}
+                >
                   {name}
                 </TableCell>
                 <TableCell className="p-1">{person.nick}</TableCell>
                 <TableCell className="p-1">{person.title}</TableCell>
                 <TableCell
                   className={`${
-                    isEmailDiff ? 'text-white bg-red-500' : ''
-                  } p-1`}>
+                    isEmailDiff ? "bg-red-500 text-white" : ""
+                  } p-1`}
+                >
                   {email}
                 </TableCell>
                 <TableCell
                   className={`${
-                    isPhonesDiff ? 'text-white bg-red-500' : ''
-                  } p-1`}>
-                  {phones?.join(' / ')}
+                    isPhonesDiff ? "bg-red-500 text-white" : ""
+                  } p-1`}
+                >
+                  {phones?.join(" / ")}
                 </TableCell>
                 {showAll && (
                   <TableCell
                     className={`${
-                      isAddressDiff ? 'text-white bg-red-500' : ''
-                    } p-1`}>
+                      isAddressDiff ? "bg-red-500 text-white" : ""
+                    } p-1`}
+                  >
                     {address}
                   </TableCell>
                 )}

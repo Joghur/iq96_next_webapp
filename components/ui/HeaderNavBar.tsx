@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 const HeaderNavbar: React.FC = () => {
   return (
@@ -11,14 +11,14 @@ const HeaderNavbar: React.FC = () => {
           alt="logo"
           width={100}
           height={100}
-          className="object-contain hidden sm:flex p-1"
+          className="hidden object-contain p-1 sm:flex"
         />
         <Image
           src="/images/logo/iqlogo_512.png"
           alt="logo"
           width={37}
           height={37}
-          className="object-contain flex sm:hidden"
+          className="flex object-contain sm:hidden"
         />
       </Link>
       {/* {title && <HeaderTitle title={title} />} */}

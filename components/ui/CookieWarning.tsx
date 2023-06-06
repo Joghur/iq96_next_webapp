@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC } from "react";
 
 interface Props {
   acceptCookies: () => void;
@@ -6,14 +6,14 @@ interface Props {
 
 const CookieWarning: FC<Props> = ({ acceptCookies }) => {
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-md max-w-sm text-center dynamic_text">
-        <div className="flex gap-2 justify-center mb-4">
+    <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
+      <div className="dynamic_text max-w-sm rounded-lg bg-white p-6 text-center shadow-md">
+        <div className="mb-4 flex justify-center gap-2">
           <p className="">
             Ved at bruge siden accepterer du brugen af cookies!
           </p>
         </div>
-        <button className="btn dynamic_text" onClick={acceptCookies}>
+        <button className="dynamic_text btn" onClick={acceptCookies}>
           Acceptér
         </button>
       </div>

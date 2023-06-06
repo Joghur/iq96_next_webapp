@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
 // import { User } from 'firebase/auth';
-import { motion } from 'framer-motion';
-import moment from 'moment';
-import Image from 'next/image';
-import { useContext, useState } from 'react';
-import { MdDelete } from 'react-icons/md';
+import { motion } from "framer-motion";
+import moment from "moment";
+import Image from "next/image";
+import { useContext, useState } from "react";
+import { MdDelete } from "react-icons/md";
 
-import LoadingSpinner from '@components/ui/LoadingSpinner';
-import PageLayout from '@components/ui/PageLayout';
-import { eventTransitionVariants } from '@lib/animations';
-import { convertEpochSecondsToDateString } from '@lib/dates';
-import { useFirestore } from '@lib/hooks/useFirestore';
-import { authContext } from '@lib/store/auth-context';
+import LoadingSpinner from "@components/ui/LoadingSpinner";
+import PageLayout from "@components/ui/PageLayout";
+import { eventTransitionVariants } from "@lib/animations";
+import { convertEpochSecondsToDateString } from "@lib/dates";
+import { useFirestore } from "@lib/hooks/useFirestore";
+import { authContext } from "@lib/store/auth-context";
 
 type FirebaseTimestamp = {
   seconds: number;
@@ -36,7 +36,7 @@ export interface ChatType {
 
 const ChatPage = () => {
   const [limitBy, setLimitBy] = useState(4);
-  const [input, setInput] = useState<string>('');
+  const [input, setInput] = useState<string>("");
   const [updating, setUpdating] = useState<ChatType | undefined>(undefined);
   const { authUser, documentUser, loading } = useContext(authContext);
   const {
@@ -45,7 +45,7 @@ const ChatPage = () => {
     addingDoc,
     updatingDoc,
     deletingDoc,
-  } = useFirestore<ChatType>('chats', 'createdAt', 'desc', limitBy);
+  } = useFirestore<ChatType>("chats", "createdAt", "desc", limitBy);
 
   if (loading) {
     return <LoadingSpinner />;
@@ -56,7 +56,7 @@ const ChatPage = () => {
   }
 
   if (chatLoading) {
-    return <LoadingSpinner text={'Henter Chats'} />;
+    return <LoadingSpinner text={"Henter Chats"} />;
   }
 
   const handleDelete = async (id: string | undefined) => {
@@ -66,11 +66,11 @@ const ChatPage = () => {
   };
 
   const handleExpandLimit = (messages = 10) => {
-    setLimitBy(old => old + messages);
+    setLimitBy((old) => old + messages);
   };
 
   const handleSubmit = async () => {
-    if (input.trim() !== '' && authUser) {
+    if (input.trim() !== "" && authUser) {
       if (updating && updating.id) {
         await updatingDoc(updating.id, {
           ...updating,
@@ -80,15 +80,15 @@ const ChatPage = () => {
       } else {
         await addingDoc({
           createdAt: new Date(),
-          group: 'general',
+          group: "general",
           text: input.trim(),
           user: {
             id: authUser.uid,
-            name: documentUser?.nick || 'Ukendt',
+            name: documentUser?.nick || "Ukendt",
             avatar: documentUser?.avatar,
           },
         });
-        setInput(() => '');
+        setInput(() => "");
       }
     }
   };
@@ -98,29 +98,33 @@ const ChatPage = () => {
 
   return (
     <PageLayout>
-      <div className="mx-auto max-w-4xl min-h-screen mt-12 sm:mt-24">
+      <div className="mx-auto mt-12 min-h-screen max-w-4xl sm:mt-24">
         <div
-          className={`fixed -top-3 sm:top-6 right-3 flex w-5/6 items-center space-x-2 mt-4 dynamic_text`}>
+          className={`dynamic_text fixed -top-3 right-3 mt-4 flex w-5/6 items-center space-x-2 sm:top-6`}
+        >
           <input
             type="text"
             value={input}
-            className="flex-grow px-4 py-2 bg-white border border-gray-300 rounded-full"
+            className="flex-grow rounded-full border border-gray-300 bg-white px-4 py-2"
             placeholder="Skriv en besked"
-            onChange={event => setInput(event.target.value)}
+            onChange={(event) => setInput(event.target.value)}
           />
           <button
             onClick={handleSubmit}
-            className="flex items-center justify-center w-10 h-10 text-white bg-green-500 rounded-full">
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500 text-white"
+          >
             <svg
-              className="w-6 h-6"
+              className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor">
+              stroke="currentColor"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              ></path>
             </svg>
           </button>
         </div>
@@ -132,7 +136,7 @@ const ChatPage = () => {
 
               const isSame = moment(chat.createdAt?.seconds * 1000).isSame(
                 moment(dayAsMilliSeconds),
-                'date',
+                "date"
               );
 
               if (!isSame) {
@@ -149,15 +153,16 @@ const ChatPage = () => {
                   initial="hidden"
                   animate="visible"
                   transition={{ duration: 0.5, delay: index * 0.3 + 0.3 }}
-                  className={`mb-4`}>
+                  className={`mb-4`}
+                >
                   <ul className={``}>
                     {showDay && (
                       <li>
-                        <div className="flex items-center justify-center mb-4 bg-gray-200 text-gray-700 ring-1 rounded-full">
+                        <div className="mb-4 flex items-center justify-center rounded-full bg-gray-200 text-gray-700 ring-1">
                           <span className="dynamic_text">
                             {convertEpochSecondsToDateString(
                               chat.createdAt.seconds,
-                              'D/MMM-YYYY',
+                              "D/MMM-YYYY"
                             )}
                           </span>
                         </div>
@@ -165,37 +170,40 @@ const ChatPage = () => {
                     )}
                     <div
                       className={`flex flex-col ${
-                        isChatUser ? 'items-end ml-7' : 'items-start mr-7'
-                      }`}>
+                        isChatUser ? "ml-7 items-end" : "mr-7 items-start"
+                      }`}
+                    >
                       <div
-                        className={`max-w-xs p-2 shadow-lg rounded-lg ${
+                        className={`max-w-xs rounded-lg p-2 shadow-lg ${
                           isChatUser
-                            ? 'bg-lime-500 ml-12'
-                            : 'bg-orange-500 mr-12'
-                        }`}>
+                            ? "ml-12 bg-lime-500"
+                            : "mr-12 bg-orange-500"
+                        }`}
+                      >
                         <li key={index}>
                           <div className="flex">
-                            <div className="flex flex-none flex-col justify-center items-center mr-1">
+                            <div className="mr-1 flex flex-none flex-col items-center justify-center">
                               <Image
                                 width={27}
                                 height={27}
                                 alt={chat.user.name}
                                 src={`/images/avatars/${chat.user?.avatar}.png`}
-                                className="rounded-full bg-gray-300 ring-1 ring-gray-500 w-full h-auto"
+                                className="h-auto w-full rounded-full bg-gray-300 ring-1 ring-gray-500"
                               />
-                              <p className="mt-1 text-gray-500 dynamic_text">
+                              <p className="dynamic_text mt-1 text-gray-500">
                                 {convertEpochSecondsToDateString(
                                   chat.createdAt.seconds,
-                                  'HH:mm',
+                                  "HH:mm"
                                 )}
                               </p>
                             </div>
                             <div className={``}>
                               <div
-                                className={`flex flex-row justify-between p-1`}>
-                                <p className={`text-gray-500 dynamic_text`}>
+                                className={`flex flex-row justify-between p-1`}
+                              >
+                                <p className={`dynamic_text text-gray-500`}>
                                   <strong>
-                                    {isChatUser ? 'Dig' : chat.user.name}
+                                    {isChatUser ? "Dig" : chat.user.name}
                                   </strong>
                                 </p>
                                 <div className="flex flex-row gap-3">
@@ -209,7 +217,7 @@ const ChatPage = () => {
                                   )}
                                 </div>
                               </div>
-                              <p className="p-1 text-black dynamic_text">
+                              <p className="dynamic_text p-1 text-black">
                                 {chat.text}
                               </p>
                             </div>

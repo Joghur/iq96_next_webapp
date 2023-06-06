@@ -1,14 +1,14 @@
-import L from 'leaflet';
-import React, { FC, Fragment, useEffect, useState } from 'react';
-import { useMap } from 'react-leaflet';
+import L from "leaflet";
+import React, { FC, Fragment, useEffect, useState } from "react";
+import { useMap } from "react-leaflet";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { MarkerData } from '@components/map/Map';
+} from "@/components/ui/select";
+import { MarkerData } from "@components/map/Map";
 
 interface Props {
   label: string;
@@ -21,11 +21,11 @@ export const FlyToSelector: FC<Props> = ({ label, markers }) => {
     markers[0].location.latitude || 0,
     markers[0].location.longitude || 0,
   ]);
-  const [selection, setSelection] = useState('IQ96 steder');
+  const [selection, setSelection] = useState("IQ96 steder");
 
   const handleSelectChange = (event: string) => {
     const selectedMarker = markers.filter(
-      (d: MarkerData) => d.title === event,
+      (d: MarkerData) => d.title === event
     )[0];
     setCenter([
       selectedMarker.location.latitude,
@@ -44,23 +44,24 @@ export const FlyToSelector: FC<Props> = ({ label, markers }) => {
     });
   }, [map, centerLat, centerLng]);
 
-  const appMarkers = markers?.filter(o => o.madeBy === 'app');
-  const userMarkers = markers?.filter(o => o.madeBy === 'user');
-  const restaurantMarkers = userMarkers?.filter(o => o.type === 'restaurant');
-  const barMarkers = userMarkers?.filter(o => o.type === 'bar');
+  const appMarkers = markers?.filter((o) => o.madeBy === "app");
+  const userMarkers = markers?.filter((o) => o.madeBy === "user");
+  const restaurantMarkers = userMarkers?.filter((o) => o.type === "restaurant");
+  const barMarkers = userMarkers?.filter((o) => o.type === "bar");
   const restMarkers = userMarkers?.filter(
-    o => o.type !== 'bar' && o.type !== 'restaurant',
+    (o) => o.type !== "bar" && o.type !== "restaurant"
   );
 
   return (
     <Select
       value={selection}
-      onValueChange={value => handleSelectChange(value)}>
+      onValueChange={(value) => handleSelectChange(value)}
+    >
       <SelectTrigger className="w-[180px] bg-gray-50">
         <SelectValue placeholder={label} />
       </SelectTrigger>
       <SelectContent className="bg-gray-50">
-        <SelectItem value={label} key={'iq-places'} disabled>
+        <SelectItem value={label} key={"iq-places"} disabled>
           {label}
         </SelectItem>
         {appMarkers.length > 0 &&
@@ -71,8 +72,8 @@ export const FlyToSelector: FC<Props> = ({ label, markers }) => {
           ))}
         {barMarkers.length > 0 && (
           <Fragment>
-            <SelectItem value={''} key={'empty1'} disabled></SelectItem>
-            <SelectItem value={'Barer'} key={'bars'} disabled>
+            <SelectItem value={""} key={"empty1"} disabled></SelectItem>
+            <SelectItem value={"Barer"} key={"bars"} disabled>
               Barer
             </SelectItem>
             {barMarkers.map((barItem, index) => (
@@ -84,14 +85,15 @@ export const FlyToSelector: FC<Props> = ({ label, markers }) => {
         )}
         {restaurantMarkers.length > 0 && (
           <Fragment>
-            <SelectItem value={''} key={'empty2'} disabled></SelectItem>
-            <SelectItem value={'restaurants'} key={'restaurants'} disabled>
+            <SelectItem value={""} key={"empty2"} disabled></SelectItem>
+            <SelectItem value={"restaurants"} key={"restaurants"} disabled>
               Restauranter
             </SelectItem>
             {restaurantMarkers.map((restaurantItem, index) => (
               <SelectItem
                 key={`restaurants-${index}`}
-                value={restaurantItem.title}>
+                value={restaurantItem.title}
+              >
                 {restaurantItem.nick}
               </SelectItem>
             ))}
@@ -99,8 +101,8 @@ export const FlyToSelector: FC<Props> = ({ label, markers }) => {
         )}
         {restMarkers.length > 0 && (
           <Fragment>
-            <SelectItem value={''} key={'empty3'} disabled></SelectItem>
-            <SelectItem value={'Andre steder'} key={'others'} disabled>
+            <SelectItem value={""} key={"empty3"} disabled></SelectItem>
+            <SelectItem value={"Andre steder"} key={"others"} disabled>
               Andre steder
             </SelectItem>
             {restMarkers.map((restItem, index) => (
