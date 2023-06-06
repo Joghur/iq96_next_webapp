@@ -1,20 +1,22 @@
-'use client';
+"use client";
 
 interface Props {
   text?: string;
 }
 
-const LoadingSpinner = ({ text = 'Henter...' }: Props) => {
+const LoadingSpinner = ({ text = "Henter..." }: Props) => {
   return (
     <div>
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex h-screen items-center justify-center">
         <div
           aria-label="Henter..."
           role="status"
-          className="flex items-center space-x-2">
+          className="flex items-center space-x-2"
+        >
           <svg
             className="h-6 w-6 animate-spin stroke-gray-500"
-            viewBox="0 0 256 256">
+            viewBox="0 0 256 256"
+          >
             <line
               x1="128"
               y1="32"
@@ -22,7 +24,8 @@ const LoadingSpinner = ({ text = 'Henter...' }: Props) => {
               y2="64"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth="24"></line>
+              strokeWidth="24"
+            ></line>
             <line
               x1="195.9"
               y1="60.1"
@@ -30,7 +33,8 @@ const LoadingSpinner = ({ text = 'Henter...' }: Props) => {
               y2="82.7"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth="24"></line>
+              strokeWidth="24"
+            ></line>
             <line
               x1="224"
               y1="128"
@@ -38,7 +42,8 @@ const LoadingSpinner = ({ text = 'Henter...' }: Props) => {
               y2="128"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth="24"></line>
+              strokeWidth="24"
+            ></line>
             <line
               x1="195.9"
               y1="195.9"
@@ -46,7 +51,8 @@ const LoadingSpinner = ({ text = 'Henter...' }: Props) => {
               y2="173.3"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth="24"></line>
+              strokeWidth="24"
+            ></line>
             <line
               x1="128"
               y1="224"
@@ -54,7 +60,8 @@ const LoadingSpinner = ({ text = 'Henter...' }: Props) => {
               y2="192"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth="24"></line>
+              strokeWidth="24"
+            ></line>
             <line
               x1="60.1"
               y1="195.9"
@@ -62,7 +69,8 @@ const LoadingSpinner = ({ text = 'Henter...' }: Props) => {
               y2="173.3"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth="24"></line>
+              strokeWidth="24"
+            ></line>
             <line
               x1="32"
               y1="128"
@@ -70,7 +78,8 @@ const LoadingSpinner = ({ text = 'Henter...' }: Props) => {
               y2="128"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth="24"></line>
+              strokeWidth="24"
+            ></line>
             <line
               x1="60.1"
               y1="60.1"
@@ -78,7 +87,8 @@ const LoadingSpinner = ({ text = 'Henter...' }: Props) => {
               y2="82.7"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth="24"></line>
+              strokeWidth="24"
+            ></line>
           </svg>
           <span className="dynamic_text font-medium text-gray-500">{text}</span>
         </div>

@@ -1,7 +1,7 @@
-'use server';
+"use server";
 
-import { Connection } from './ContactsTab';
-import { authorize, listConnections } from '@lib/peopleNode';
+import { Connection } from "./ContactsTab";
+import { authorize, listConnections } from "@lib/peopleNode";
 
 export const getGmailContacts = async () => {
   let connections: Connection[];
@@ -11,6 +11,6 @@ export const getGmailContacts = async () => {
       .catch(console.error)) as Connection[];
     return connections;
   } catch (error) {
-    console.log('error', error);
+    console.log("error", error);
   }
 };
