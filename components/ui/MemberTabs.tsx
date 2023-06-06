@@ -7,9 +7,11 @@ export type MemberTabs = 'member' | 'iq96' | 'about' | 'admin' | 'contacts';
 interface Props {
   value?: MemberTabs;
   onChange: (event: MouseEvent<HTMLButtonElement>) => void;
+  isDev: boolean;
+  isSuperAdmin: boolean;
 }
 
-const MemberTabsPage = ({ value, onChange }: Props) => {
+const MemberTabsPage = ({ value, onChange, isDev, isSuperAdmin }: Props) => {
   const { authUser, documentUser, loading } = useContext(authContext);
 
   if (loading) {
@@ -19,18 +21,14 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
   if (!authUser || !documentUser) {
     return null;
   }
-  const isLocalhost = process.env.NEXT_PUBLIC_NODE_ENV === 'development';
-  const isDev = documentUser?.nick === 'Redacteur' && isLocalhost;
 
   return (
-    <div className="flex justify-end sm:justify-center mb-4 sm:mt-10 sm:mb-15">
-      <div className="tabs tabs-boxed inline-block">
+    <div className="flex justify-end sm:justify-center mb-7 sm:mt-10 sm:mb-15 space-x-1">
+      <div className="fixed tabs tabs-boxed whitespace-no-wrap dynamic_text">
         <button
           id="member"
           onClick={onChange}
-          className={`tab ${
-            value === 'member' ? 'tab-active' : ''
-          } dynamic_text `}>
+          className={`tab ${value === 'member' ? 'tab-active' : ''}  `}>
           Med-Lem
         </button>
         <button
@@ -49,7 +47,7 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
           } dynamic_text `}>
           Om
         </button>
-        {isDev && (
+        {isSuperAdmin && (
           <button
             id="admin"
             onClick={onChange}
@@ -66,7 +64,7 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
             className={`tab ${
               value === 'contacts' ? 'tab-active' : ''
             } dynamic_text`}>
-            Håndter kontakter
+            Kontakter
           </button>
         )}
       </div>

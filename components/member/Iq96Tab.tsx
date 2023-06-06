@@ -41,7 +41,7 @@ const Iq96Tab = () => {
           Med-lemmer
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-4 gap-4 dynamic_text">
+        <div className="grid grid-cols-1 mt-4 sm:mt-0 sm:grid-cols-2 md:grid-cols-4 gap-4 dynamic_text">
           {sortedIqUsers.map((o, index) => (
             <motion.div
               key={index}
@@ -57,6 +57,7 @@ const Iq96Tab = () => {
                   width={50}
                   height={50}
                   alt={o.avatar}
+                  className="w-auto h-auto"
                 />
                 <span className="font-semibold">{o.name}</span>
               </div>

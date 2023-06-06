@@ -35,7 +35,12 @@ const MemberPage = () => {
 
   return (
     <PageLayout>
-      <MemberTabsPage value={value} onChange={handleChange} />
+      <MemberTabsPage
+        value={value}
+        onChange={handleChange}
+        isDev
+        isSuperAdmin
+      />
       <div className="flex items-center justify-center pt-6">
         {value === 'member' && <MemberTab />}
         {value === 'iq96' && <Iq96Tab />}
