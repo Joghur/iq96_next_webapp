@@ -219,7 +219,8 @@ export const deleteMapMarkers = () => {
 export const useDocumentUser = (): [
   User | null,
   DocumentUser | null,
-  boolean
+  boolean,
+  (id: string, document: DocumentData) => Promise<void>
 ] => {
   const [authUser, setFirebaseUser] = useState<User | null>(null);
   const [documentUser, setDocumentUser] = useState<DocumentUser | null>(null);
@@ -227,14 +228,17 @@ export const useDocumentUser = (): [
   const db = getFirestore(app);
   const { authUser: _authUser, loading: _loading } = useAuth();
 
+  const updatingDoc = async (id: string, document: DocumentData) => {
+    const userCollectionRef = collection(db, "users");
+    const docRef = doc(userCollectionRef, id);
+    await updateDoc(docRef, { ...document });
+  };
+
   useEffect(() => {
     if (!_loading && _authUser) {
       setFirebaseUser(() => _authUser);
-
-      const q = query(
-        collection(db, "users"),
-        where("uid", "==", _authUser.uid)
-      );
+      const userCollectionRef = collection(db, "users");
+      const q = query(userCollectionRef, where("uid", "==", _authUser.uid));
       getDocs(q)
         .then((querySnapshot) => {
           if (!querySnapshot.empty) {
@@ -256,5 +260,5 @@ export const useDocumentUser = (): [
     }
   }, [db, _authUser, _loading]);
 
-  return [authUser, documentUser, loading];
+  return [authUser, documentUser, loading, updatingDoc];
 };

@@ -7,6 +7,7 @@ import {
   signOut,
   User,
 } from "firebase/auth";
+import { DocumentData } from "firebase/firestore";
 import { createContext, ReactNode } from "react";
 
 import { auth } from "@/lib/firebase";
@@ -22,6 +23,7 @@ interface AuthContextValues {
   ) => Promise<void>;
   logout: () => void;
   resetPassword: (email: string) => Promise<void>;
+  updatingDoc: (id: string, document: DocumentData) => Promise<void>;
 }
 
 export const authContext = createContext<AuthContextValues>({
@@ -31,6 +33,7 @@ export const authContext = createContext<AuthContextValues>({
   emailLoginHandler: async () => {},
   logout: () => {},
   resetPassword: async () => {},
+  updatingDoc: async () => {},
 });
 
 interface AuthContextProviderProps {
@@ -40,7 +43,7 @@ interface AuthContextProviderProps {
 export default function AuthContextProvider({
   children,
 }: AuthContextProviderProps) {
-  const [authUser, documentUser, loading] = useDocumentUser();
+  const [authUser, documentUser, loading, updatingDoc] = useDocumentUser();
 
   const emailLoginHandler = async (email?: string, password?: string) => {
     if (!email || !password) {
@@ -74,6 +77,7 @@ export default function AuthContextProvider({
     emailLoginHandler,
     logout,
     resetPassword,
+    updatingDoc,
   };
 
   return <authContext.Provider value={values}>{children}</authContext.Provider>;

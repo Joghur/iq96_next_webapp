@@ -191,7 +191,7 @@ const EventsPage = ({ documentUser }: Props) => {
                   transition={{ duration: 0.5, delay: index * 0.8 + 0.3 }}
                 >
                   <div className="paper py-2">
-                    <div className="stack_row items-ce justify-between">
+                    <div className="stack_row items-center justify-between">
                       <p className="dynamic_text font-black">
                         {event?.type === "tour"
                           ? `${handleType(event?.type)} de ${event.city}`

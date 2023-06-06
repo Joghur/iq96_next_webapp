@@ -1,5 +1,5 @@
 import { MouseEvent, useContext } from "react";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../ui/LoadingSpinner";
 import { authContext } from "@lib/store/auth-context";
 
 export type MemberTabs = "member" | "iq96" | "about" | "admin" | "contacts";
@@ -30,7 +30,7 @@ const MemberTabsPage = ({ value, onChange, isDev, isSuperAdmin }: Props) => {
           onClick={onChange}
           className={`tab ${value === "member" ? "tab-active" : ""}  `}
         >
-          Med-Lem
+          {documentUser.nick}
         </button>
         <button
           id="iq96"

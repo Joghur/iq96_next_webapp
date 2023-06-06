@@ -4,13 +4,15 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
+import ThemeSelector from "./ThemeSelector";
+import TshirtSelector from "./TshirtSelector";
 import { Separator } from "@/components/ui/separator";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
-import ThemeSelector from "@components/ui/ThemeSelector";
 import { authContext } from "@lib/store/auth-context";
 
 const MemberTab = () => {
-  const { logout, authUser, documentUser, loading } = useContext(authContext);
+  const { logout, authUser, documentUser, loading, updatingDoc } =
+    useContext(authContext);
   const router = useRouter();
 
   if (loading) {
@@ -22,12 +24,12 @@ const MemberTab = () => {
       initial={{ x: -100 }}
       animate={{ x: 0 }}
       transition={{ type: "spring", stiffness: 100 }}
-      className="px-5"
+      className="py-15 px-5 sm:py-5"
     >
       <div className="flex flex-col gap-2">
         <div className="flex-grow">
-          <p className="dynamic_text">
-            <strong>{documentUser?.name}</strong>
+          <p className="dynamic_text text-[larger] font-semibold">
+            {documentUser?.name}
           </p>
           <p className="dynamic_text">{documentUser?.nick}</p>
 
@@ -49,19 +51,20 @@ const MemberTab = () => {
             <span className="font-semibold">Telefon:</span>{" "}
             {documentUser?.phones?.map((o) => o)}
           </p>
-          <p className="dynamic_text">
-            <span className="font-semibold">T-shirt størrelse:</span>{" "}
-            {documentUser?.tshirt || "Ukendt"}
-          </p>
         </div>
         <div>
-          <Separator className="my-2 bg-gray-500" />
+          <Separator className="my-2 bg-gray-500 sm:my-5" />
         </div>
-        <p className="dynamic_text">Indstillinger</p>
+        <p className="dynamic_text text-[larger] font-semibold sm:mb-5">
+          Indstillinger
+        </p>
+        {documentUser && (
+          <TshirtSelector
+            documentUser={documentUser}
+            updatingDoc={updatingDoc}
+          />
+        )}
         <ThemeSelector />
-        <div>
-          <Separator className="my-2 bg-gray-500" />
-        </div>
       </div>
       <div className="flex justify-center">
         <button

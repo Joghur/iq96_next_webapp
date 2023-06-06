@@ -5,10 +5,10 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { authContext } from "@/lib/store/auth-context";
 import SignIn from "@components/auth/SignIn";
 import EventsPage from "@components/home/EventsPage";
+import { LOCALSTORAGE_THEME, Themes } from "@components/member/ThemeSelector";
 import CookieWarning from "@components/ui/CookieWarning";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
 import PageLayout from "@components/ui/PageLayout";
-import { LOCALSTORAGE_THEME, Themes } from "@components/ui/ThemeSelector";
 import {
   getLocalStorage,
   LOCALSTORAGE_PREFIX,

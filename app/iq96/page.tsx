@@ -7,8 +7,8 @@ import AdminTab from "@components/member/AdminTab";
 import Iq96Tab from "@components/member/Iq96Tab";
 import ContactsTab from "@components/member/IqMemberTable";
 import MemberTab from "@components/member/MemberTab";
+import MemberTabsPage, { MemberTabs } from "@components/member/MemberTabs";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
-import MemberTabsPage, { MemberTabs } from "@components/ui/MemberTabs";
 import PageLayout from "@components/ui/PageLayout";
 import { authContext } from "@lib/store/auth-context";
 
