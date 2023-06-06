@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { DocumentUser } from "@lib/hooks/useFirestore";
 
-const sizes = ["M", "L", "XL", "2XL", "3XL"] as const;
+const sizes = ["M", "L", "XL", "2XL", "3XL", "4XL"] as const;
 
 export type TshirtSizes = (typeof sizes)[number];
 
@@ -20,7 +20,6 @@ interface Props {
   updatingDoc: (id: string, document: DocumentData) => Promise<void>;
 }
 const TshirtSelector = ({ documentUser, updatingDoc }: Props) => {
-  console.log("documentUser.tshirt", documentUser.tshirt);
   const [currentSize, setCurrentSize] = useState<TshirtSizes>(
     () => documentUser.tshirt as TshirtSizes
   );

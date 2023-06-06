@@ -8,6 +8,7 @@ import EventsPage from "@components/home/EventsPage";
 import { LOCALSTORAGE_THEME, Themes } from "@components/member/ThemeSelector";
 import CookieWarning from "@components/ui/CookieWarning";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
+import OldPageButton from "@components/ui/OldPageButton";
 import PageLayout from "@components/ui/PageLayout";
 import {
   getLocalStorage,
@@ -58,6 +59,9 @@ export default function Home() {
   return (
     <PageLayout>
       <EventsPage documentUser={documentUser} />
+      <div className="mx-auto mt-10 max-w-2xl">
+        <OldPageButton />
+      </div>
     </PageLayout>
   );
 }
