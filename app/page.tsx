@@ -59,7 +59,7 @@ export default function Home() {
   return (
     <PageLayout>
       <EventsPage documentUser={documentUser} />
-      <div className="mx-auto mt-10 max-w-2xl">
+      <div className="mx-auto mt-6 max-w-2xl">
         <OldPageButton />
       </div>
     </PageLayout>
