@@ -100,7 +100,7 @@ const ChatPage = () => {
     <PageLayout>
       <div className="mx-auto mt-12 min-h-screen max-w-4xl sm:mt-24">
         <div
-          className={`dynamic_text fixed -top-3 right-3 mt-4 flex w-5/6 items-center space-x-2 sm:top-6`}
+          className={`dynamic_text fixed -top-3 right-3 z-50 mt-4 flex w-5/6 items-center space-x-2 sm:top-6`}
         >
           <input
             type="text"
@@ -158,26 +158,24 @@ const ChatPage = () => {
                   <ul className={``}>
                     {showDay && (
                       <li>
-                        <div className="mb-4 flex items-center justify-center rounded-full bg-gray-200 text-gray-700 ring-1">
-                          <span className="dynamic_text">
-                            {convertEpochSecondsToDateString(
-                              chat.createdAt.seconds,
-                              "D/MMM-YYYY"
-                            )}
-                          </span>
+                        <div className="dynamic_text mb-4 flex items-center justify-center rounded-full bg-gray-200 text-gray-700 ring-1">
+                          {convertEpochSecondsToDateString(
+                            chat.createdAt.seconds,
+                            "D/MMM-YYYY"
+                          )}
                         </div>
                       </li>
                     )}
                     <div
-                      className={`flex flex-col ${
-                        isChatUser ? "ml-7 items-end" : "mr-7 items-start"
+                      className={`chat -z-10 ${
+                        isChatUser ? "chat-end ml-20" : "chat-start mr-20"
                       }`}
                     >
                       <div
-                        className={`max-w-xs rounded-lg p-2 shadow-lg ${
+                        className={`chat-bubble max-w-md shadow-lg ${
                           isChatUser
-                            ? "ml-12 bg-lime-500"
-                            : "mr-12 bg-orange-500"
+                            ? "chat-bubble-success ml-12"
+                            : "chat-bubble-info mr-12"
                         }`}
                       >
                         <li key={index}>

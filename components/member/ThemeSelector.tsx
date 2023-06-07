@@ -74,7 +74,7 @@ const ThemeSelector = () => {
   return (
     <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
       <div>
-        <p className="dynamic_text flex flex-none font-semibold">Farve tema:</p>
+        <p className="dynamic_text flex flex-none font-semibold">Farve tema</p>
       </div>
       <Select
         value={currentTheme}

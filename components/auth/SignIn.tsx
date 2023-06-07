@@ -3,8 +3,10 @@
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 
+import { MdInfo } from "react-icons/md";
 import { authContext } from "@/lib/store/auth-context";
 import OldPageButton from "@components/ui/OldPageButton";
+import Tooltip from "@components/ui/Tooltip";
 import {
   getLocalStorage,
   LOCALSTORAGE_PREFIX,
@@ -111,13 +113,21 @@ function SignIn() {
         </div>
 
         <div className="px-4 py-4">
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="orange_gradient dynamic_text mb-2 block font-medium"
-            >
-              Email
-            </label>
+          <div className="mb-4 flex flex-col ">
+            <div className="flex gap-1 text-center">
+              <label
+                htmlFor="email"
+                className="orange_gradient dynamic_text mb-2 block font-medium"
+              >
+                Email
+              </label>
+              <Tooltip
+                text={`Email til web app eller android app'en. OBS! Det er ikke nødvendigvis den samme som bruges til den gamle side på ${process.env.NEXT_PUBLIC_OLDPAGE_LINK}`}
+                position="right"
+              >
+                <MdInfo fontSize="large" color={"green"} />
+              </Tooltip>
+            </div>
             <input
               type="email"
               id="email"
