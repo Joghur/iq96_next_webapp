@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
+import { MdInfo } from "react-icons/md";
 import ThemeSelector from "./ThemeSelector";
 import TshirtSelector from "./TshirtSelector";
 import { Separator } from "@/components/ui/separator";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
+import Tooltip from "@components/ui/Tooltip";
 import { authContext } from "@lib/store/auth-context";
 
 const MemberTab = () => {
@@ -32,29 +34,39 @@ const MemberTab = () => {
             {documentUser?.name}
           </p>
           <p className="dynamic_text">{documentUser?.nick}</p>
+          <div className="flex justify-center gap-3">
+            <div className="mt-4 flex flex-col items-end">
+              <div className="dynamic_text font-semibold">Titel</div>
+              <div className="dynamic_text flex items-center gap-1 font-semibold">
+                IQ96 email
+                <Tooltip text="Email som bestyrelsen skriver til">
+                  <MdInfo color={"green"} />
+                </Tooltip>
+              </div>
+              <div className="dynamic_text flex items-center gap-1 font-semibold">
+                Login email
+                <Tooltip
+                  text={`Email til denne side eller android app'en. OBS! Det er ikke nødvendigvis den samme som bruges til den gamle side på ${process.env.NEXT_PUBLIC_OLDPAGE_LINK}`}
+                >
+                  <MdInfo color={"green"} />
+                </Tooltip>
+              </div>
+              <p className="dynamic_text font-semibold">Adresse</p>
+              <p className="dynamic_text font-semibold">Telefon</p>
+            </div>
+            <div className="mt-4 flex flex-col items-start">
+              <p className="dynamic_text">{documentUser?.title}</p>
+              <p className="dynamic_text">{authUser?.email}</p>
+              <p className="dynamic_text">{documentUser?.email}</p>
+              <p className="dynamic_text">{documentUser?.address}</p>
+              <p className="dynamic_text">
+                {documentUser?.phones?.map((o) => o.replace("+45", ""))}
+              </p>
+            </div>
+          </div>
 
-          <p className="dynamic_text mt-4">
-            <span className="font-semibold ">Titel:</span> {documentUser?.title}
-          </p>
-          <p className="dynamic_text">
-            <span className="font-semibold">IQ96 email:</span> {authUser?.email}
-          </p>
-          <p className="dynamic_text">
-            <span className="font-semibold">Login email:</span>{" "}
-            {documentUser?.email}
-          </p>
-          <p className="dynamic_text">
-            <span className="font-semibold">Adresse:</span>{" "}
-            {documentUser?.address}
-          </p>
-          <p className="dynamic_text">
-            <span className="font-semibold">Telefon:</span>{" "}
-            {documentUser?.phones?.map((o) => o)}
-          </p>
-          <p className="dynamic_text mt-4 text-center">
-            <span className="font-semibold">
-              Ændringer? Skriv til Kasseur eller Redacteur!
-            </span>
+          <p className="dynamic_text mt-4 text-center font-semibold">
+            Ændringer? Skriv til Kasseur eller Redacteur!
           </p>
         </div>
         <div>

@@ -48,7 +48,7 @@ const EventsPage = ({ documentUser }: Props) => {
 
   if (!events) {
     return (
-      <div className="mx-auto px-6 pt-16">
+      <div className="mx-auto px-6 pt-20 sm:pt-24">
         <p className="dynamic_text">Der er ingen events på dette tidspunkt</p>
       </div>
     );
@@ -76,16 +76,9 @@ const EventsPage = ({ documentUser }: Props) => {
   return (
     <div>
       <div className="mx-auto max-w-2xl sm:mt-40">
-        <div className="items-center justify-center pt-16">
+        <div className="mb-4 mt-16 items-center justify-center">
           <p className="dynamic_text text-center">Næste begivenhed</p>
         </div>
-        {!events && (
-          <div className="items-center justify-center pt-16">
-            <p className="dynamic_text text-center">
-              Der er ingen events på dette tidspunkt
-            </p>
-          </div>
-        )}
         {events.map((event, index) => {
           return (
             <div key={index} className="mx-10 my-3 gap-2">
@@ -179,7 +172,7 @@ const EventsPage = ({ documentUser }: Props) => {
                 </motion.div>
               )}
               {index === 1 && (
-                <div key={`events-${index}`} className="pt-6 sm:pt-16">
+                <div key={`events-${index}`} className="mb-4 pt-6 sm:pt-16">
                   <p className="dynamic_text text-center">
                     Fremtidige begivenheder
                   </p>

@@ -2,6 +2,7 @@
 
 import { DocumentData } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { MdInfo } from "react-icons/md";
 import {
   Select,
   SelectContent,
@@ -9,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Tooltip from "@components/ui/Tooltip";
 import { DocumentUser } from "@lib/hooks/useFirestore";
 
 const sizes = ["M", "L", "XL", "2XL", "3XL", "4XL"] as const;
@@ -36,9 +38,14 @@ const TshirtSelector = ({ documentUser, updatingDoc }: Props) => {
   return (
     <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
       <div>
-        <p className="dynamic_text flex flex-none font-semibold">
-          T-shirt størrelse:
-        </p>
+        <div className="dynamic_text flex flex-none font-semibold">
+          <div className="flex items-center gap-1">
+            T-shirt størrelse
+            <Tooltip text="Vælg din størrelse. Max for t-shirts er 3XL og for jubilæumstøj 4XL. Vælg derfor din foretrukne og i t-shirt sammenhæng bliver den nedsat til 3XL når der bestilles">
+              <MdInfo color="green" />
+            </Tooltip>
+          </div>
+        </div>
       </div>
       <Select
         value={currentSize}
