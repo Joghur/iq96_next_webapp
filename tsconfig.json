@@ -23,6 +23,6 @@
       "@*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/head.js", "lib/store/auth-context.tsx", "app/page.tsx", "components/utility/MyComponent.jsx", "lib/peopleNode.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/head.js", "lib/store/auth-context.tsx", "app/page.tsx", "components/utility/MyComponent.jsx", "lib/peopleNode.js", "components/map/TestMapQuery.jsx"],
   "exclude": ["node_modules"]
 }
