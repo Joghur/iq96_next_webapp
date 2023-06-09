@@ -1,6 +1,6 @@
 "use server";
 
-import { Connection } from "./IqMemberTable";
+import { Connection } from "./Contacts";
 import { authorize, listConnections } from "@lib/peopleNode";
 
 export const getGmailContacts = async () => {
