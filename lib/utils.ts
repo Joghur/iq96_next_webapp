@@ -77,3 +77,14 @@ function arraysAreEqual(arr1: string[], arr2: string[]): boolean {
 
   return true;
 }
+
+// TODO fix any
+export function compareNick(a: any, b: any) {
+  if (a.nick < b.nick) {
+    return -1;
+  }
+  if (a.nick > b.nick) {
+    return 1;
+  }
+  return 0;
+}
