@@ -31,27 +31,28 @@ const ThemeSelector = () => {
   }, []);
 
   const handleThemeChange = () => {
+    const theme = isChecked ? "dark" : "light";
     if (document?.querySelector("html")) {
-      setCurrentTheme(() => (isChecked ? "dark" : "light"));
-      document
-        .querySelector("html")
-        ?.setAttribute("data-theme", isChecked ? "dark" : "light");
-      setLocalStorage(LOCALSTORAGE_THEME, currentTheme);
+      setCurrentTheme(() => theme);
+      document.querySelector("html")?.setAttribute("data-theme", theme);
+      setLocalStorage(LOCALSTORAGE_THEME, theme);
       setIsChecked(() => !isChecked);
     }
   };
 
   return (
     <Fragment>
-      <div className="dynamic_text flex flex-none font-semibold">
-        <div className="flex items-center gap-1">Farve tema</div>
+      <div className="flex gap-2">
+        <div className="dynamic_text flex flex-none font-semibold">
+          <div className="flex items-center">Tema</div>
+        </div>
+        <Switch
+          preLabel="Lys"
+          postLabel="Mørk"
+          value={currentTheme === "dark"}
+          onChange={handleThemeChange}
+        />
       </div>
-      <Switch
-        preLabel="Lys"
-        postLabel="Mørk"
-        value={currentTheme === "dark"}
-        onChange={handleThemeChange}
-      />
     </Fragment>
   );
 };
