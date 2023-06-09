@@ -1,6 +1,6 @@
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { ContactPhone } from "@components/member/IqMemberTable";
+import { ContactPhone } from "@components/member/Contacts";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

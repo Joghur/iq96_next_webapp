@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 
+import BottomSpacer from "./BottomSpacer";
 import HeaderNavbar from "./HeaderNavBar";
 
 interface Props {
@@ -11,7 +12,7 @@ const PageLayout: React.FC<Props> = ({ children }) => {
     <div className="relative mx-auto flex flex-grow flex-col">
       <HeaderNavbar />
       {children}
-      <div className="h-40" />
+      <BottomSpacer />
     </div>
   );
 };

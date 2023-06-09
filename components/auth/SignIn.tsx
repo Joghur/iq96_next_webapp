@@ -5,6 +5,8 @@ import { useContext, useEffect, useState } from "react";
 
 import { MdInfo } from "react-icons/md";
 import { authContext } from "@/lib/store/auth-context";
+import ThemeSelector from "@components/member/ThemeSelector";
+import BottomSpacer from "@components/ui/BottomSpacer";
 import OldPageButton from "@components/ui/OldPageButton";
 import Tooltip from "@components/ui/Tooltip";
 import {
@@ -88,6 +90,9 @@ function SignIn() {
 
   return (
     <main className="container mx-auto max-w-2xl px-6">
+      <div className="fixed right-4 top-4 z-50 flex flex-row items-center justify-center opacity-100">
+        <ThemeSelector />
+      </div>
       <p className="blue_gradient dynamic_text mb-3 pt-16 text-center font-bold sm:text-xl">
         Velkommen til IQ96&apos;s webapp
       </p>
@@ -216,6 +221,7 @@ function SignIn() {
           </ul>
         </div>
       )}
+      <BottomSpacer />
     </main>
   );
 }

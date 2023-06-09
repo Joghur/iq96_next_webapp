@@ -1,6 +1,6 @@
 {
   "name": "iq96_next_webapp",
-  "version": "0.6.7",
+  "version": "0.6.8",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@google-cloud/local-auth": "2.1.0",
+    "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-select": "1.2.2",
     "@radix-ui/react-separator": "1.0.3",
     "@radix-ui/react-toast": "^1.1.4",
@@ -38,6 +40,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "13.4.3",
+    "@tailwindcss/typography": "^0.5.9",
     "@types/gapi": "0.0.44",
     "@types/leaflet": "1.9.3",
     "@types/node": "20.2.5",

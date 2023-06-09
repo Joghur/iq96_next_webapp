@@ -1,13 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Fragment, useEffect, useState } from "react";
+import Switch from "@components/ui/Switch";
 import {
   getLocalStorage,
   LOCALSTORAGE_PREFIX,
@@ -16,39 +10,12 @@ import {
 
 export const LOCALSTORAGE_THEME = `${LOCALSTORAGE_PREFIX}-theme`;
 
-const themes = [
-  "light",
-  "dark",
-  "cupcake",
-  "bumblebee",
-  "emerald",
-  "corporate",
-  "retro",
-  "cyberpunk",
-  "valentine",
-  "halloween",
-  "garden",
-  "forest",
-  "aqua",
-  "lofi",
-  "pastel",
-  "fantasy",
-  "wireframe",
-  "black",
-  "luxury",
-  "cmyk",
-  "autumn",
-  "business",
-  "acid",
-  "lemonade",
-  "night",
-  "coffee",
-  "winter",
-] as const;
+const themes = ["light", "dark"] as const;
 
 export type Themes = (typeof themes)[number];
 
 const ThemeSelector = () => {
+  const [isChecked, setIsChecked] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<Themes>("light");
 
   const handleStart = async () => {
@@ -63,35 +30,30 @@ const ThemeSelector = () => {
     handleStart();
   }, []);
 
-  const handleThemeChange = (theme: Themes) => {
+  const handleThemeChange = () => {
+    const theme = isChecked ? "dark" : "light";
     if (document?.querySelector("html")) {
-      setCurrentTheme(theme);
+      setCurrentTheme(() => theme);
       document.querySelector("html")?.setAttribute("data-theme", theme);
       setLocalStorage(LOCALSTORAGE_THEME, theme);
+      setIsChecked(() => !isChecked);
     }
   };
 
   return (
-    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
-      <div>
-        <p className="dynamic_text flex flex-none font-semibold">Farve tema</p>
+    <Fragment>
+      <div className="flex gap-2">
+        <div className="dynamic_text flex flex-none font-semibold">
+          <div className="flex items-center">Tema</div>
+        </div>
+        <Switch
+          preLabel="Lys"
+          postLabel="Mørk"
+          value={currentTheme === "dark"}
+          onChange={handleThemeChange}
+        />
       </div>
-      <Select
-        value={currentTheme}
-        onValueChange={(e) => handleThemeChange(e as Themes)}
-      >
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder={currentTheme} />
-        </SelectTrigger>
-        <SelectContent className="bg-gray-50">
-          {themes.map((o, index) => (
-            <SelectItem value={o} key={index}>
-              {o}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
+    </Fragment>
   );
 };
 

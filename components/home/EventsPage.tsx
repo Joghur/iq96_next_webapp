@@ -90,12 +90,11 @@ const EventsPage = ({ documentUser }: Props) => {
                   transition={{
                     duration: 0.8,
                     type: "tween",
-                    stiffness: 100,
                   }}
                 >
-                  <div key={index} className=" sm:px-15 paper rounded-xl px-10">
+                  <div key={index} className="sm:px-15 paper rounded-xl px-10">
                     <div className="stack_row justify-between">
-                      <p className="dynamic_text font-black">
+                      <p className="dynamic_text">
                         {event?.type === "tour"
                           ? `${handleType(event?.type)} de ${event.city}`
                           : handleType(event?.type)}
@@ -108,7 +107,7 @@ const EventsPage = ({ documentUser }: Props) => {
                     </div>
                     {!!event?.startDate && (
                       <div className="stack">
-                        <p className="dynamic_text font-black">Start:</p>
+                        <p className="dynamic_text">Start:</p>
                         <div className="">
                           <div>{event.start}</div>
                         </div>
@@ -116,7 +115,7 @@ const EventsPage = ({ documentUser }: Props) => {
                     )}
                     {!!event?.endDate && (
                       <div className="stack">
-                        <p className="dynamic_text font-black">Slut:</p>
+                        <p className="dynamic_text">Slut:</p>
                         <div className="">
                           <p>{event.end}</p>
                         </div>
@@ -124,9 +123,7 @@ const EventsPage = ({ documentUser }: Props) => {
                     )}
                     {event.meetingPoints.trim() && (
                       <div className="stack">
-                        <p className="dynamic_text mt-4 font-black">
-                          Mødesteder:
-                        </p>
+                        <p className="dynamic_text mt-4">Mødesteder:</p>
                         <div className="dynamic_text">
                           {event.meetingPoints
                             .split("--")
@@ -142,7 +139,7 @@ const EventsPage = ({ documentUser }: Props) => {
                     )}
                     {event?.notes?.trim() && (
                       <div className="stack">
-                        <div className="dynamic_text mt-4 font-black">OBS:</div>
+                        <div className="dynamic_text mt-4">OBS:</div>
                         <div className="dynamic_text">
                           {event.notes.split("--").map((f: string, index) => {
                             return (
@@ -155,7 +152,7 @@ const EventsPage = ({ documentUser }: Props) => {
                       </div>
                     )}
                     {event?.activities?.trim() && (
-                      <div className="dynamic_text font-black">
+                      <div className="dynamic_text">
                         Aktiviteter:
                         {event.activities
                           .split("--")
@@ -188,7 +185,7 @@ const EventsPage = ({ documentUser }: Props) => {
                 >
                   <div className="paper py-2">
                     <div className="stack_row items-center justify-between">
-                      <p className="dynamic_text font-black">
+                      <p className="dynamic_text">
                         {event?.type === "tour"
                           ? `${handleType(event?.type)} de ${event.city}`
                           : handleType(event?.type)}

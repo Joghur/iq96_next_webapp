@@ -54,7 +54,7 @@
 }
 
 .paper {
-  @apply rounded-lg bg-white p-4 shadow-lg;
+  @apply rounded-lg p-4 shadow-xl;
 }
 
 .stack {

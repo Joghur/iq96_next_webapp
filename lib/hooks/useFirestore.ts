@@ -6,6 +6,7 @@ import {
   deleteDoc,
   doc,
   DocumentData,
+  getDoc,
   getDocs,
   getFirestore,
   limit,
@@ -84,13 +85,77 @@ export const useFirestore = <T extends DocumentData>(
       snapshot.forEach((doc) => {
         docs.push({ id: doc.id, ...doc.data() });
       });
-      setDocs(docs as T[]);
-      setLoading(false);
+      setDocs(() => docs as T[]);
+      setLoading(() => false);
     });
     return unsubscribe;
   }, [collectionName, limitBy, order, orderDirection]);
 
   return { docs, loading, addingDoc, updatingDoc, deletingDoc };
+};
+
+export const useMapData = <T extends DocumentData>(
+  collectionName: CollectionName,
+  order: string,
+  orderDirection: "desc" | "asc" = "asc",
+  limitBy = 4
+) => {
+  const [docs, setDocs] = useState<T[] | undefined>(undefined);
+  const [cities, setCities] = useState<string[] | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
+
+  const collectionRef = collection(
+    db,
+    collectionName
+  ) as CollectionReference<T>;
+
+  const addingDoc = async (document: T) => {
+    console.log("addingDoc");
+  };
+
+  const updatingDoc = async (id: string, document: T) => {
+    console.log("updatingDoc");
+  };
+
+  const deletingDoc = async (id: string) => {
+    console.log("deletingDoc");
+  };
+
+  const queryCities = async () => {
+    try {
+      const q = query(collectionRef);
+
+      const querySnapshot = await getDocs(q);
+
+      const citiesArr: string[] = [];
+
+      querySnapshot.forEach((doc) => {
+        console.log("Document ID:", doc.id);
+        citiesArr.push(doc.id);
+      });
+      setCities(() => citiesArr);
+      setLoading(() => false);
+    } catch (error) {
+      console.error("Error querying document IDs:", error);
+    }
+  };
+
+  useEffect(() => {
+    queryCities();
+    // const q = query(collectionRef, orderBy(order, orderDirection)) as Query<T>;
+    // const unsubscribe = onSnapshot(q, (snapshot) => {
+    //   // const docs: T[] = [];
+    //   // console.log("snapshot", snapshot);
+    //   // snapshot.forEach((doc) => {
+    //   //   docs.push({ id: doc.id, ...doc.data() });
+    //   // });
+    //   setDocs(() => docs as T[]);
+    //   setLoading(() => false);
+    // });
+    // return unsubscribe;
+  }, [collectionName, limitBy, order, orderDirection]);
+
+  return { docs, loading, cities, addingDoc, updatingDoc, deletingDoc };
 };
 
 /** @deprecated */
@@ -167,28 +232,33 @@ export const useAuth = () => {
   return { authUser, loading };
 };
 
-export const copyMapMarkers = () => {
-  getDocs(collection(db, "map"))
-    .then((querySnapshot) => {
-      const documents: DocumentData[] = [];
+export type CopyCollection = "oldmap" | "map";
 
-      querySnapshot.forEach((doc) => {
-        documents.push(doc.data());
-      });
+export const copyDocument = async (
+  oldCollectionTitle: CopyCollection,
+  oldDocumentTitle: string,
+  newCollectionTitle = oldCollectionTitle,
+  newDocumentTitle = oldDocumentTitle
+) => {
+  try {
+    const oldMapDocRef = doc(db, oldCollectionTitle, oldDocumentTitle);
+    const oldMapDocSnapshot = await getDoc(oldMapDocRef);
 
-      setDoc(doc(db, "oldmap", "odense"), {
-        documents: documents,
-      })
-        .then(() => {
-          console.log("Documents copied successfully!");
-        })
-        .catch((error) => {
-          console.error("Error copying documents: ", error);
-        });
-    })
-    .catch((error) => {
-      console.error("Error getting documents: ", error);
-    });
+    if (oldMapDocSnapshot.exists()) {
+      const odenseData = oldMapDocSnapshot.data();
+
+      const mapDocRef = doc(db, newCollectionTitle, newDocumentTitle);
+      await setDoc(mapDocRef, odenseData);
+
+      console.log(`Document ${newDocumentTitle} copied successfully!`);
+    } else {
+      console.log(
+        `The document does not exist in the collection ${oldCollectionTitle}.`
+      );
+    }
+  } catch (error) {
+    console.error(`Error copying document ${oldDocumentTitle}:`, error);
+  }
 };
 
 export const deleteMapMarkers = () => {

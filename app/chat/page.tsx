@@ -13,6 +13,7 @@ import { eventTransitionVariants } from "@lib/animations";
 import { convertEpochSecondsToDateString } from "@lib/dates";
 import { useFirestore } from "@lib/hooks/useFirestore";
 import { authContext } from "@lib/store/auth-context";
+import { cn } from "@lib/utils";
 
 type FirebaseTimestamp = {
   seconds: number;
@@ -146,6 +147,13 @@ const ChatPage = () => {
               }
               dayAsMilliSeconds = chat.createdAt.seconds * 1000;
 
+              const listItemClass = cn({
+                "dynamic_text mb-4 flex items-center justify-center rounded-full ring-1":
+                  true,
+                "mt-4": index === 0,
+                "mt-16": index !== 0,
+              });
+
               return (
                 <motion.div
                   key={`${index}chatMain`}
@@ -155,10 +163,10 @@ const ChatPage = () => {
                   transition={{ duration: 0.5, delay: index * 0.3 + 0.3 }}
                   className={`mb-4`}
                 >
-                  <ul className={``}>
+                  <ul>
                     {showDay && (
                       <li>
-                        <div className="dynamic_text mb-4 flex items-center justify-center rounded-full bg-gray-200 text-gray-700 ring-1">
+                        <div className={listItemClass}>
                           {convertEpochSecondsToDateString(
                             chat.createdAt.seconds,
                             "D/MMM-YYYY"
@@ -186,7 +194,7 @@ const ChatPage = () => {
                                 height={27}
                                 alt={chat.user.name}
                                 src={`/images/avatars/${chat.user?.avatar}.png`}
-                                className="h-auto w-full rounded-full bg-gray-300 ring-1 ring-gray-500"
+                                className="h-auto w-full rounded-full bg-white ring-1 ring-gray-500"
                               />
                               <p className="dynamic_text mt-1 text-gray-500">
                                 {convertEpochSecondsToDateString(
@@ -195,7 +203,7 @@ const ChatPage = () => {
                                 )}
                               </p>
                             </div>
-                            <div className={``}>
+                            <div>
                               <div
                                 className={`flex flex-row justify-between p-1`}
                               >

@@ -69,7 +69,7 @@ const Iq96Tab = () => {
                   <Fragment>
                     <p>
                       {o.phones?.map((p, index) => (
-                        <p key={index}>{p}</p>
+                        <p key={index}>{p?.replace("+45", "")}</p>
                       ))}
                     </p>
                     <p>{o.email}</p>

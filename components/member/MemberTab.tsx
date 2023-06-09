@@ -75,13 +75,19 @@ const MemberTab = () => {
         <p className="dynamic_text text-[larger] font-semibold sm:mb-5">
           Indstillinger
         </p>
-        {documentUser?.tshirt && (
-          <TshirtSelector
-            documentUser={documentUser}
-            updatingDoc={updatingDoc}
-          />
-        )}
-        <ThemeSelector />
+        <div className="flex flex-col gap-5 sm:gap-3">
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+            {documentUser?.tshirt && (
+              <TshirtSelector
+                documentUser={documentUser}
+                updatingDoc={updatingDoc}
+              />
+            )}
+          </div>
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+            <ThemeSelector />
+          </div>
+        </div>
       </div>
       <div className="flex justify-center">
         <button
