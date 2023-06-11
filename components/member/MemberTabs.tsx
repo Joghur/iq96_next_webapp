@@ -9,9 +9,16 @@ interface Props {
   onChange: (event: MouseEvent<HTMLButtonElement>) => void;
   isDev: boolean;
   isSuperAdmin: boolean;
+  isBoard: boolean;
 }
 
-const MemberTabsPage = ({ value, onChange, isDev, isSuperAdmin }: Props) => {
+const MemberTabsPage = ({
+  value,
+  onChange,
+  isDev,
+  isSuperAdmin,
+  isBoard,
+}: Props) => {
   const { authUser, documentUser, loading } = useContext(authContext);
 
   if (loading) {
@@ -52,7 +59,7 @@ const MemberTabsPage = ({ value, onChange, isDev, isSuperAdmin }: Props) => {
         >
           Om
         </button>
-        {isSuperAdmin && (
+        {(isSuperAdmin || isBoard) && (
           <button
             id="admin"
             onClick={onChange}
