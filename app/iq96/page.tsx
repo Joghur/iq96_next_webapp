@@ -41,6 +41,7 @@ const MemberPage = () => {
         onChange={handleChange}
         isDev
         isSuperAdmin
+        isBoard
       />
       <div className="flex items-center justify-center pt-6">
         {value === "member" && <MemberTab />}
