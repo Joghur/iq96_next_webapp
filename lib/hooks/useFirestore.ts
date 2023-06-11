@@ -328,6 +328,11 @@ export const useDocumentUser = (): [
       setDocumentUser(() => null);
       setLoading(() => false);
     }
+    return () => {
+      setLoading(() => false);
+      setFirebaseUser(() => null);
+      setDocumentUser(() => null);
+    };
   }, [db, _authUser, _loading]);
 
   return [authUser, documentUser, loading, updatingDoc];
