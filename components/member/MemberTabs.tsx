@@ -7,18 +7,9 @@ export type MemberTabs = "member" | "iq96" | "about" | "admin" | "contacts";
 interface Props {
   value?: MemberTabs;
   onChange: (event: MouseEvent<HTMLButtonElement>) => void;
-  isDev: boolean;
-  isSuperAdmin: boolean;
-  isBoard: boolean;
 }
 
-const MemberTabsPage = ({
-  value,
-  onChange,
-  isDev,
-  isSuperAdmin,
-  isBoard,
-}: Props) => {
+const MemberTabsPage = ({ value, onChange }: Props) => {
   const { authUser, documentUser, loading } = useContext(authContext);
 
   if (loading) {
@@ -28,10 +19,9 @@ const MemberTabsPage = ({
   if (!authUser || !documentUser) {
     return null;
   }
-
   return (
     <div className="sm:mb-15 mb-7 flex justify-end sm:mt-10 sm:justify-center">
-      <div className="dynamic_text tabs tabs-boxed fixed gap-0 space-x-0 opacity-100 sm:space-x-4">
+      <div className="dynamic_text z-55 tabs tabs-boxed fixed gap-0 space-x-0 opacity-100 sm:space-x-4">
         <button
           id="member"
           onClick={onChange}
@@ -59,7 +49,7 @@ const MemberTabsPage = ({
         >
           Om
         </button>
-        {(isSuperAdmin || isBoard) && (
+        {(documentUser.isSuperAdmin || documentUser.isBoard) && (
           <button
             id="admin"
             onClick={onChange}
@@ -70,17 +60,18 @@ const MemberTabsPage = ({
             Admin
           </button>
         )}
-        {isDev && (
-          <button
-            id="contacts"
-            onClick={onChange}
-            className={`tab px-1 sm:px-4 ${
-              value === "contacts" ? "tab-active" : ""
-            } dynamic_text`}
-          >
-            Kontakter
-          </button>
-        )}
+        {documentUser?.nick === "Redacteur" &&
+          process.env.NEXT_PUBLIC_ENV !== "production" && (
+            <button
+              id="contacts"
+              onClick={onChange}
+              className={`tab px-1 sm:px-4 ${
+                value === "contacts" ? "tab-active" : ""
+              } dynamic_text`}
+            >
+              Kontakter
+            </button>
+          )}
       </div>
     </div>
   );

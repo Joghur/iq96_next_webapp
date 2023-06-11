@@ -33,16 +33,9 @@ const MemberPage = () => {
   const isBoard = documentUser?.isBoard;
   const isLocalhost = process.env.NEXT_PUBLIC_ENV !== "production";
   const isDev = documentUser?.nick === "Redacteur" && isLocalhost;
-
   return (
     <PageLayout>
-      <MemberTabsPage
-        value={value}
-        onChange={handleChange}
-        isDev
-        isSuperAdmin
-        isBoard
-      />
+      <MemberTabsPage value={value} onChange={handleChange} />
       <div className="flex items-center justify-center pt-6">
         {value === "member" && <MemberTab />}
         {value === "iq96" && <Iq96Tab />}
