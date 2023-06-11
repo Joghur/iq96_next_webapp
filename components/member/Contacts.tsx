@@ -71,7 +71,7 @@ const ContactsTab = () => {
   } = useFirestore<DocumentUser>("users", "name", "asc", 26);
 
   const handleGmailContacts = useCallback(async () => {
-    if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
+    if (process.env.NEXT_PUBLIC_ENV !== "production") {
       const res = await getGmailContacts();
       setCon(() => res);
     }

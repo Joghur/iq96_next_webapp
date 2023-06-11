@@ -30,7 +30,8 @@ const MemberPage = () => {
   };
 
   const isSuperAdmin = documentUser?.isSuperAdmin;
-  const isLocalhost = process.env.NEXT_PUBLIC_NODE_ENV === "development";
+  const isBoard = documentUser?.isBoard;
+  const isLocalhost = process.env.NEXT_PUBLIC_ENV !== "production";
   const isDev = documentUser?.nick === "Redacteur" && isLocalhost;
 
   return (
@@ -45,7 +46,7 @@ const MemberPage = () => {
         {value === "member" && <MemberTab />}
         {value === "iq96" && <Iq96Tab />}
         {value === "about" && <AboutTab />}
-        {value === "admin" && isSuperAdmin && <AdminTab />}
+        {value === "admin" && (isSuperAdmin || isBoard) && <AdminTab />}
         {value === "contacts" && isDev && <ContactsTab />}
       </div>
     </PageLayout>
