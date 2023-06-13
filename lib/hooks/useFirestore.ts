@@ -131,7 +131,6 @@ export const useCityData = <T extends DocumentData>(
       const citiesArr: string[] = [];
 
       querySnapshot.forEach((doc) => {
-        console.log("Document ID:", doc.id);
         citiesArr.push(doc.id);
       });
       setCities(() => citiesArr);
@@ -160,8 +159,6 @@ export const useMapData = <T extends DocumentData>(
 ) => {
   const [markers, setMarkers] = useState<T[] | undefined>(undefined);
   const [loadingMarkers, setLoadingMarkers] = useState(true);
-  console.log("collectionName", collectionName);
-  console.log("documentName", documentName);
 
   const queryMarkers = async () => {
     const markersCollectionRef = collection(

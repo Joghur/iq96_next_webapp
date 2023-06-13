@@ -9,6 +9,7 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import AddCityButton, { MapCityType } from "./AddCityButton";
 import AddMarkerButton from "./AddMarkerButton";
 import CitySelector from "./CitySelector";
+import ManualMarker from "./ManualMarker";
 import MarkerSelector from "./MarkerSelector";
 import MoiMarkers from "./MoiMarkers";
 import UserMapButton from "./UserMapButton";
@@ -192,6 +193,7 @@ const MapPage = () => {
               deletingDoc={deletingMarker}
             />
           ))}
+        <ManualMarker addingMarker={addingMarker} />
       </MapContainer>
     </div>
   );

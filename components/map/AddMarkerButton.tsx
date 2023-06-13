@@ -57,7 +57,7 @@ interface NewMarkerFormProps {
   userPosition: L.LatLngExpression;
 }
 
-const NewMarkerForm = ({
+export const NewMarkerForm = ({
   open,
   onClose,
   addingMarker,
