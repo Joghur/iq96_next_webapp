@@ -1,23 +1,28 @@
+import L from "leaflet";
 import { ChangeEvent, useState } from "react";
 import { MdAdd } from "react-icons/md";
+import { MarkerData } from "./Map";
 import Modal from "@components/ui/Modal";
 
-export interface MapCityType {
-  city: string;
-  year: string;
-}
-
-const initialCity = {
-  city: "",
-  year: "",
+const initialMarker: MarkerData = {
+  id: "",
+  location: {
+    latitude: 0,
+    longitude: 0,
+  },
+  description: "Et hotel",
+  madeBy: "app",
+  nick: "Hotel",
+  title: "test",
+  type: "hotel",
 };
 
 interface Props {
-  selectedCity: MapCityType;
-  addingCities: (document: MapCityType) => Promise<void>;
+  addingMarker: (document: MarkerData) => Promise<void>;
+  userPosition: L.LatLngExpression;
 }
 
-const AddButton = ({ selectedCity, addingCities }: Props) => {
+const AddMarkerButton = ({ addingMarker, userPosition }: Props) => {
   const [open, setOpen] = useState(false);
 
   const toogleAddModal = async () => {
@@ -33,48 +38,55 @@ const AddButton = ({ selectedCity, addingCities }: Props) => {
       >
         <MdAdd fontSize="large" />
       </button>
-      <NewCityForm
-        mapCity={selectedCity}
+      <NewMarkerForm
         open={open}
         onClose={() => setOpen(() => false)}
-        addingCities={addingCities}
+        addingMarker={addingMarker}
+        userPosition={userPosition}
       />
     </>
   );
 };
 
-export default AddButton;
+export default AddMarkerButton;
 
-interface NewCityFormProps {
-  mapCity?: MapCityType;
+interface NewMarkerFormProps {
   open: boolean;
   onClose: () => void;
-  addingCities: (document: MapCityType) => Promise<void>;
+  addingMarker: (document: MarkerData) => Promise<void>;
+  userPosition: L.LatLngExpression;
 }
 
-const NewCityForm = ({
-  mapCity,
+const NewMarkerForm = ({
   open,
   onClose,
-  addingCities,
-}: NewCityFormProps) => {
-  const [changedCity, setChangingCity] = useState<MapCityType>(
-    mapCity || initialCity
-  );
-
+  addingMarker,
+  userPosition,
+}: NewMarkerFormProps) => {
+  const [changedMarker, setChangingMarker] =
+    useState<MarkerData>(initialMarker);
+  console.log("changedMarker", changedMarker);
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     if (event) {
       const { id, value } = event.target;
 
-      setChangingCity((oldCity) => ({
-        ...oldCity,
+      setChangingMarker((oldMarker) => ({
+        ...oldMarker,
         [id]: value,
       }));
     }
   };
 
   const handleSubmit = async () => {
-    await addingCities({ city: changedCity.city, year: changedCity.year });
+    const latLng = L.latLng(userPosition);
+    await addingMarker({
+      location: { latitude: latLng.lat, longitude: latLng.lng },
+      description: changedMarker.description,
+      madeBy: changedMarker.madeBy,
+      nick: changedMarker.nick,
+      title: changedMarker.title,
+      type: changedMarker.type,
+    });
     onClose();
   };
 
@@ -91,24 +103,9 @@ const NewCityForm = ({
           </label>
           <textarea
             id="year"
-            value={changedCity.year}
+            value={changedMarker.description}
             onChange={handleChange}
-            placeholder={changedCity?.year || "År"}
-            className="dynamic_text textarea-bordered textarea"
-          />
-        </div>
-        <div className="pt-5">
-          <label
-            htmlFor="text"
-            className="dynamic_text green_gradient mb-2 block font-medium"
-          >
-            Tour by
-          </label>
-          <textarea
-            id="city"
-            value={changedCity.city}
-            onChange={handleChange}
-            placeholder={changedCity?.city || "Bynavn"}
+            placeholder={changedMarker?.description || "Beskrivelse"}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>

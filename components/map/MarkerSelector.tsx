@@ -17,6 +17,7 @@ interface Props {
 
 export const MarkerSelector: FC<Props> = ({ label, markers }) => {
   const map = useMap();
+  console.log("markers - MarkerSelector", markers);
   const [center, setCenter] = useState([
     markers.length > 0 ? markers[0].location.latitude : 0,
     markers.length > 0 ? markers[0].location.longitude : 0,

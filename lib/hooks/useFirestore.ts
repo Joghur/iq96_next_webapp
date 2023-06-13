@@ -21,7 +21,7 @@ import {
 } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
 
-import { MapCityType } from "@components/map/AddButton";
+import { MapCityType } from "@components/map/AddCityButton";
 import { app, auth, db } from "@lib/firebase";
 
 export interface DocumentUser {
@@ -163,7 +163,7 @@ export const useMapData = <T extends DocumentData>(
   console.log("collectionName", collectionName);
   console.log("documentName", documentName);
 
-  const queryMarkers = useCallback(async () => {
+  const queryMarkers = async () => {
     const markersCollectionRef = collection(
       db,
       collectionName,
@@ -186,13 +186,14 @@ export const useMapData = <T extends DocumentData>(
 
     return unsubscribe;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [documentName]);
+  };
 
   useEffect(() => {
     queryMarkers();
   }, [documentName]);
 
   const addingMarker = async (document: DocumentData) => {
+    console.log("insdide ", document);
     const markersCollectionRef = collection(
       db,
       collectionName,

@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { MapCityType } from "./AddButton";
+import { MapCityType } from "./AddCityButton";
 import {
   Select,
   SelectContent,

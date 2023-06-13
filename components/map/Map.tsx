@@ -6,7 +6,8 @@ import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 
-import AddButton, { MapCityType } from "./AddButton";
+import AddCityButton, { MapCityType } from "./AddCityButton";
+import AddMarkerButton from "./AddMarkerButton";
 import CitySelector from "./CitySelector";
 import MarkerSelector from "./MarkerSelector";
 import MoiMarkers from "./MoiMarkers";
@@ -24,7 +25,7 @@ interface Coordinate {
 }
 
 export interface MarkerData {
-  id: string;
+  id?: string;
   location: Coordinate;
   description: string;
   madeBy: string;
@@ -52,8 +53,16 @@ const MapPage = () => {
 
   const { cities, loadingCities, addingCities } = useCityData("map");
 
-  const { markers, loadingMarkers, updatingMarker, deletingMarker } =
-    useMapData<MarkerData>("map", `${selectedCity.year}-${selectedCity.city}`);
+  const {
+    markers,
+    loadingMarkers,
+    addingMarker,
+    updatingMarker,
+    deletingMarker,
+  } = useMapData<MarkerData>(
+    "map",
+    `${selectedCity.year}-${selectedCity.city}`
+  );
 
   const [userPosition, setUserPosition] = useState<
     LatLngExpression | undefined
@@ -141,12 +150,18 @@ const MapPage = () => {
             <div className="absolute right-2 top-[50vh]">
               <UserMapButton />
             </div>
+            <div className="absolute right-2 top-[70vh]">
+              <AddMarkerButton
+                addingMarker={addingMarker}
+                userPosition={userPosition}
+              />
+            </div>
           </>
         )}
 
         {documentUser.isSuperAdmin && (
           <div className="absolute right-2 top-[60vh]">
-            <AddButton
+            <AddCityButton
               selectedCity={selectedCity}
               addingCities={addingCities}
             />
