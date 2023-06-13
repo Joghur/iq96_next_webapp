@@ -14,7 +14,18 @@ const themes = ["light", "dark"] as const;
 
 export type Themes = (typeof themes)[number];
 
-const ThemeSelector = () => {
+export const handleStartTheme = () => {
+  const savedTheme: Themes | null = getLocalStorage(LOCALSTORAGE_THEME);
+  if (savedTheme) {
+    document.querySelector("html")?.setAttribute("data-theme", savedTheme);
+  }
+};
+
+interface Props {
+  showLabel?: boolean;
+}
+
+const ThemeSelector = ({ showLabel }: Props) => {
   const [isChecked, setIsChecked] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<Themes>("light");
 
@@ -43,9 +54,11 @@ const ThemeSelector = () => {
   return (
     <Fragment>
       <div className="flex gap-2">
-        <div className="dynamic_text flex flex-none font-semibold">
-          <div className="flex items-center">Tema</div>
-        </div>
+        {showLabel && (
+          <div className="dynamic_text flex flex-none font-semibold">
+            <div className="flex items-center">Tema</div>
+          </div>
+        )}
         <Switch
           preLabel="Lys"
           postLabel="Mørk"

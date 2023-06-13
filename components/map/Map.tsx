@@ -6,12 +6,15 @@ import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 
-import FlyToSelector from "./FlyToSelector";
+import AddButton, { MapCityType } from "./AddButton";
+import CitySelector from "./CitySelector";
+import MarkerSelector from "./MarkerSelector";
 import MoiMarkers from "./MoiMarkers";
 import UserMapButton from "./UserMapButton";
 import UserMarker from "./UserMarker";
+import { handleStartTheme } from "@components/member/ThemeSelector";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
-import { useFirestore } from "@lib/hooks/useFirestore";
+import { useCityData, useMapData } from "@lib/hooks/useFirestore";
 import { authContext } from "@lib/store/auth-context";
 import { compareNick } from "@lib/utils";
 
@@ -30,17 +33,43 @@ export interface MarkerData {
   type: string;
 }
 
+export interface CityData {
+  city: string;
+  year: string;
+}
+
 const MapPage = () => {
-  const { authUser, documentUser, loading } = useContext(authContext);
   const {
-    docs: markers,
-    loading: markerLoading,
-    updatingDoc,
-    deletingDoc,
-  } = useFirestore<MarkerData>("map", "type", "asc", 256);
+    authUser,
+    documentUser,
+    loading: loadingUser,
+  } = useContext(authContext);
+
+  const [selectedCity, setSelectedCity] = useState<MapCityType>({
+    city: "",
+    year: "",
+  });
+
+  const { cities, loadingCities, addingCities } = useCityData("map");
+
+  const { markers, loadingMarkers, updatingMarker, deletingMarker } =
+    useMapData<MarkerData>("map", `${selectedCity.year}-${selectedCity.city}`);
+
   const [userPosition, setUserPosition] = useState<
     LatLngExpression | undefined
   >(undefined);
+
+  useEffect(() => {
+    if (cities && cities?.length > 0 && cities[0].includes("-")) {
+      // eslint-disable-next-line no-unsafe-optional-chaining
+      const [year, city] = cities.reverse()[0]?.split("-");
+      setSelectedCity(() => ({ city, year }));
+    }
+  }, [cities]);
+
+  useEffect(() => {
+    handleStartTheme();
+  }, []);
 
   useEffect(() => {
     if (authUser && navigator.geolocation) {
@@ -61,7 +90,7 @@ const MapPage = () => {
     }
   }, [authUser]);
 
-  if (loading) {
+  if (loadingUser) {
     return <LoadingSpinner />;
   }
 
@@ -69,9 +98,14 @@ const MapPage = () => {
     return null;
   }
 
-  if (markerLoading) {
+  if (loadingCities) {
+    return <LoadingSpinner text={"Henter byer..."} />;
+  }
+
+  if (loadingMarkers) {
     return <LoadingSpinner text={"Henter markører..."} />;
   }
+
   const canEdit = documentUser?.isSuperAdmin || false;
 
   markers?.sort(compareNick);
@@ -81,6 +115,9 @@ const MapPage = () => {
   if (userMarkers && appMarkers) {
     appFirstMarkers = appMarkers.concat(userMarkers);
   }
+
+  console.log("cities", cities);
+  console.log("markers", markers);
 
   const startLocation = userPosition || L.latLng(55.6660739, 12.5256102);
 
@@ -106,14 +143,26 @@ const MapPage = () => {
             </div>
           </>
         )}
+
+        {documentUser.isSuperAdmin && (
+          <div className="absolute right-2 top-[60vh]">
+            <AddButton
+              selectedCity={selectedCity}
+              addingCities={addingCities}
+            />
+          </div>
+        )}
         <div className="z-10000 absolute right-2 top-2 shadow-xl">
           <div className="flex flex-col gap-1 sm:flex-row">
-            {/* {appFirstMarkers.length > 0 && (
-              <FlyToSelector label="Vælg by" markers={appFirstMarkers} />
-            )} */}
-            {appFirstMarkers.length > 0 && (
-              <FlyToSelector label="IQ96 steder" markers={appFirstMarkers} />
+            {cities && cities?.length > 0 && (
+              <CitySelector
+                label="Vælg by"
+                selected={selectedCity}
+                cities={cities}
+                onChange={setSelectedCity}
+              />
             )}
+            <MarkerSelector label="IQ96 steder" markers={appFirstMarkers} />
           </div>
         </div>
         {appFirstMarkers.length > 0 &&
@@ -124,8 +173,8 @@ const MapPage = () => {
               marker={marker}
               documentUser={documentUser}
               canEdit={canEdit}
-              updatingDoc={updatingDoc}
-              deletingDoc={deletingDoc}
+              updatingDoc={updatingMarker}
+              deletingDoc={deletingMarker}
             />
           ))}
       </MapContainer>

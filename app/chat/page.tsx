@@ -4,9 +4,10 @@
 import { motion } from "framer-motion";
 import moment from "moment";
 import Image from "next/image";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 
+import { handleStartTheme } from "@components/member/ThemeSelector";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
 import PageLayout from "@components/ui/PageLayout";
 import { eventTransitionVariants } from "@lib/animations";
@@ -47,6 +48,10 @@ const ChatPage = () => {
     updatingDoc,
     deletingDoc,
   } = useFirestore<ChatType>("chats", "createdAt", "desc", limitBy);
+
+  useEffect(() => {
+    handleStartTheme();
+  }, []);
 
   if (loading) {
     return <LoadingSpinner />;

@@ -15,11 +15,11 @@ interface Props {
   markers: MarkerData[];
 }
 
-export const FlyToSelector: FC<Props> = ({ label, markers }) => {
+export const MarkerSelector: FC<Props> = ({ label, markers }) => {
   const map = useMap();
   const [center, setCenter] = useState([
-    markers[0].location.latitude || 0,
-    markers[0].location.longitude || 0,
+    markers.length > 0 ? markers[0].location.latitude : 0,
+    markers.length > 0 ? markers[0].location.longitude : 0,
   ]);
   const [selection, setSelection] = useState("IQ96 steder");
 
@@ -64,6 +64,7 @@ export const FlyToSelector: FC<Props> = ({ label, markers }) => {
         <SelectItem value={label} key={"iq-places"} disabled>
           {label}
         </SelectItem>
+        {}
         {appMarkers.length > 0 &&
           appMarkers.map((item, index) => (
             <SelectItem key={`iq96-${index}`} value={item.title}>
@@ -117,4 +118,4 @@ export const FlyToSelector: FC<Props> = ({ label, markers }) => {
   );
 };
 
-export default FlyToSelector;
+export default MarkerSelector;
