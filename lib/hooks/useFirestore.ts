@@ -19,8 +19,9 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
+import { MapCityType } from "@components/map/AddCityButton";
 import { app, auth, db } from "@lib/firebase";
 
 export interface DocumentUser {
@@ -94,68 +95,145 @@ export const useFirestore = <T extends DocumentData>(
   return { docs, loading, addingDoc, updatingDoc, deletingDoc };
 };
 
-export const useMapData = <T extends DocumentData>(
-  collectionName: CollectionName,
-  order: string,
-  orderDirection: "desc" | "asc" = "asc",
-  limitBy = 4
+export const useCityData = <T extends DocumentData>(
+  collectionName: CollectionName
 ) => {
-  const [docs, setDocs] = useState<T[] | undefined>(undefined);
   const [cities, setCities] = useState<string[] | undefined>(undefined);
-  const [loading, setLoading] = useState(true);
+  const [loadingCities, setLoadingCities] = useState(true);
 
-  const collectionRef = collection(
-    db,
-    collectionName
-  ) as CollectionReference<T>;
+  const citiesCollectionRef = collection(db, collectionName);
 
-  const addingDoc = async (document: T) => {
-    console.log("addingDoc");
-  };
-
-  const updatingDoc = async (id: string, document: T) => {
-    console.log("updatingDoc");
-  };
-
-  const deletingDoc = async (id: string) => {
-    console.log("deletingDoc");
-  };
-
-  const queryCities = async () => {
+  const addingCities = async (document: MapCityType) => {
+    console.log("addingCities");
     try {
-      const q = query(collectionRef);
+      const newDocRef = doc(
+        citiesCollectionRef,
+        `${document.year}-${document.city}`
+      );
+
+      await setDoc(
+        newDocRef,
+        { city: document.city, year: document.year },
+        { merge: true }
+      );
+    } catch (error) {
+      console.log("Error creating city", error);
+    }
+  };
+
+  const queryCities = useCallback(async () => {
+    setLoadingCities(() => true);
+    try {
+      const q = query(citiesCollectionRef);
 
       const querySnapshot = await getDocs(q);
 
       const citiesArr: string[] = [];
 
       querySnapshot.forEach((doc) => {
-        console.log("Document ID:", doc.id);
         citiesArr.push(doc.id);
       });
       setCities(() => citiesArr);
-      setLoading(() => false);
     } catch (error) {
       console.error("Error querying document IDs:", error);
     }
-  };
+
+    setLoadingCities(() => false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     queryCities();
-    // const q = query(collectionRef, orderBy(order, orderDirection)) as Query<T>;
-    // const unsubscribe = onSnapshot(q, (snapshot) => {
-    //   // const docs: T[] = [];
-    //   // console.log("snapshot", snapshot);
-    //   // snapshot.forEach((doc) => {
-    //   //   docs.push({ id: doc.id, ...doc.data() });
-    //   // });
-    //   setDocs(() => docs as T[]);
-    //   setLoading(() => false);
-    // });
-    // return unsubscribe;
-  }, [collectionName, limitBy, order, orderDirection]);
+  }, [queryCities]);
 
-  return { docs, loading, cities, addingDoc, updatingDoc, deletingDoc };
+  return {
+    cities,
+    loadingCities,
+    addingCities,
+  };
+};
+
+export const useMapData = <T extends DocumentData>(
+  collectionName: CollectionName,
+  documentName: string
+) => {
+  const [markers, setMarkers] = useState<T[] | undefined>(undefined);
+  const [loadingMarkers, setLoadingMarkers] = useState(true);
+
+  const queryMarkers = async () => {
+    const markersCollectionRef = collection(
+      db,
+      collectionName,
+      documentName,
+      "markers"
+    ) as CollectionReference<T>;
+    setLoadingMarkers(() => true);
+
+    const q = query(markersCollectionRef) as Query<T>;
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const docs: T[] = [];
+
+      snapshot.forEach((doc) => {
+        docs.push({ ...doc.data(), id: doc.id });
+      });
+      setMarkers(() => docs as T[]);
+    });
+    setLoadingMarkers(() => false);
+
+    return unsubscribe;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
+  useEffect(() => {
+    queryMarkers();
+  }, [documentName]);
+
+  const addingMarker = async (document: DocumentData) => {
+    console.log("insdide ", document);
+    const markersCollectionRef = collection(
+      db,
+      collectionName,
+      documentName,
+      "markers"
+    ) as CollectionReference<T>;
+    await addDoc(markersCollectionRef, document);
+  };
+
+  const updatingMarker = async (id: string, document: DocumentData) => {
+    const markersCollectionRef = collection(
+      db,
+      collectionName,
+      documentName,
+      "markers"
+    ) as CollectionReference<T>;
+    const docRef = doc(markersCollectionRef, id);
+    await updateDoc(docRef, { ...document });
+  };
+
+  const deletingMarker = async (id: string) => {
+    const markersCollectionRef = collection(
+      db,
+      collectionName,
+      documentName,
+      "markers"
+    ) as CollectionReference<T>;
+    const docRef = doc(markersCollectionRef, id);
+    deleteDoc(docRef)
+      .then(() => {
+        console.log(`Document with ID ${id} deleted successfully!`);
+      })
+      .catch((error) => {
+        console.error(`Error deleting document with ID ${id}: `, error);
+      });
+  };
+  return {
+    markers,
+    loadingMarkers,
+    addingMarker,
+    updatingMarker,
+    deletingMarker,
+  };
 };
 
 /** @deprecated */
@@ -260,6 +338,41 @@ export const copyDocument = async (
     console.error(`Error copying document ${oldDocumentTitle}:`, error);
   }
 };
+
+// Used to copy firebase structure: collection-document (array) to
+// collection-document-collection-documents (array items copied as documents)
+export async function copyDocumentsToNestedCollection() {
+  const sourceDocRef = doc(db, "oldmap", "odense");
+  const sourceDocSnap = await getDoc(sourceDocRef);
+
+  if (sourceDocSnap.exists()) {
+    const documents = sourceDocSnap.data()?.documents;
+
+    if (documents && Array.isArray(documents)) {
+      for (const item of documents) {
+        console.log("item", item);
+        try {
+          await addDoc(collection(db, "map", "2022-Odense", "markers"), item);
+          await setDoc(
+            doc(db, "map", "2022-Odense"),
+            { city: "Odense", year: "2022" },
+            { merge: true }
+          );
+        } catch (error) {
+          console.log("Error creating bookmark", error);
+        }
+      }
+
+      console.log("Documents copied successfully!");
+    } else {
+      console.log(
+        'The "documents" property does not exist or is not an array.'
+      );
+    }
+  } else {
+    console.log("The source document does not exist.");
+  }
+}
 
 export const deleteMapMarkers = () => {
   getDocs(collection(db, "map"))

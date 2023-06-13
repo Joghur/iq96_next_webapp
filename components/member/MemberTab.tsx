@@ -46,7 +46,7 @@ const MemberTab = () => {
               <div className="dynamic_text flex items-center gap-1 font-semibold">
                 Login email
                 <Tooltip
-                  text={`Email til denne side eller android app'en. OBS! Det er ikke nødvendigvis den samme som bruges til den gamle side på ${process.env.NEXT_PUBLIC_OLDPAGE_LINK}`}
+                  text={`Email brugt til login på denne side eller android app'en. OBS! Det er ikke nødvendigvis den samme som bruges til den gamle side på ${process.env.NEXT_PUBLIC_OLDPAGE_LINK}`}
                 >
                   <MdInfo color={"green"} />
                 </Tooltip>
@@ -85,7 +85,7 @@ const MemberTab = () => {
             )}
           </div>
           <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
-            <ThemeSelector />
+            <ThemeSelector showLabel />
           </div>
         </div>
       </div>

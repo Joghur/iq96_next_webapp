@@ -98,9 +98,10 @@ function SignIn() {
       </p>
       <div className="mb-6 mt-5 flex items-center justify-center gap-2">
         <div>
-          <p className="dynamic_text">
-            Log ind for at forsætte <span className="font-bold">eller</span>
-          </p>
+          <p className="dynamic_text">Log ind for at fortsætte</p>
+        </div>
+        <div>
+          <p className="dynamic_text font-bold">eller</p>
         </div>
         <div>
           <OldPageButton />
@@ -127,7 +128,7 @@ function SignIn() {
                 Email
               </label>
               <Tooltip
-                text={`Email til web app eller android app'en. OBS! Det er ikke nødvendigvis den samme som bruges til den gamle side på ${process.env.NEXT_PUBLIC_OLDPAGE_LINK}`}
+                text={`Email brugt til login på denne side eller android app'en. OBS! Det er ikke nødvendigvis den samme som bruges til den gamle side på ${process.env.NEXT_PUBLIC_OLDPAGE_LINK}`}
                 position="right"
               >
                 <MdInfo fontSize="large" color={"green"} />

@@ -15,6 +15,7 @@ import {
 } from "@components/ui/table";
 import {
   copyDocument,
+  copyDocumentsToNestedCollection,
   deleteMapMarkers,
   DocumentUser,
   useFirestore,
@@ -139,17 +140,18 @@ const ContactsTab = () => {
         <div className="mx-5 flex min-h-screen flex-col gap-3">
           <button
             disabled
-            onClick={() => copyDocument("oldmap", "2023-Edinbourgh", "map")}
+            // onClick={() => copyDocument("oldmap", "2023-Edinbourgh", "map")}
+            onClick={async () => await copyDocumentsToNestedCollection()}
             className="dynamic_text btn-accent btn inline-block"
           >
-            Kopier gamle men aktuelle kort-markører
+            Kopier gamle kort-markører
           </button>
           <button
             disabled
             onClick={deleteMapMarkers}
             className="dynamic_text btn-accent btn inline-block"
           >
-            Slet gamle, men aktuelle kort-markører
+            Slet gamle kort-markører
           </button>
         </div>
       </div>

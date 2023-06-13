@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEvent, useContext, useState } from "react";
+import { MouseEvent, useContext, useEffect, useState } from "react";
 
 import AboutTab from "@components/member/AboutTab";
 import AdminTab from "@components/member/AdminTab";
@@ -8,6 +8,7 @@ import ContactsTab from "@components/member/Contacts";
 import Iq96Tab from "@components/member/Iq96Tab";
 import MemberTab from "@components/member/MemberTab";
 import MemberTabsPage, { MemberTabs } from "@components/member/MemberTabs";
+import { handleStartTheme } from "@components/member/ThemeSelector";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
 import PageLayout from "@components/ui/PageLayout";
 import { authContext } from "@lib/store/auth-context";
@@ -15,6 +16,10 @@ import { authContext } from "@lib/store/auth-context";
 const MemberPage = () => {
   const { authUser, documentUser, loading } = useContext(authContext);
   const [value, setValue] = useState<MemberTabs>("member");
+
+  useEffect(() => {
+    handleStartTheme();
+  }, []);
 
   if (loading) {
     return <LoadingSpinner />;

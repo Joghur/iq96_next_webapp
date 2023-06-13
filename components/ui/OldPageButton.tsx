@@ -6,7 +6,7 @@ const OldPageButton = () => {
         (window.location.href = process.env.NEXT_PUBLIC_OLDPAGE_LINK || "")
       }
     >
-      Gå til den gamle side {process.env.NEXT_PUBLIC_OLDPAGE}
+      Gå til gammel side - {process.env.NEXT_PUBLIC_OLDPAGE}
     </button>
   );
 };

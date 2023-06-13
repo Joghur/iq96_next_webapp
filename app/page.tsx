@@ -5,7 +5,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { authContext } from "@/lib/store/auth-context";
 import SignIn from "@components/auth/SignIn";
 import EventsPage from "@components/home/EventsPage";
-import { LOCALSTORAGE_THEME, Themes } from "@components/member/ThemeSelector";
+import { handleStartTheme } from "@components/member/ThemeSelector";
 import CookieWarning from "@components/ui/CookieWarning";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
 import OldPageButton from "@components/ui/OldPageButton";
@@ -28,11 +28,7 @@ export default function Home() {
     setIsCookieAccepted(() =>
       getLocalStorage<string>(COOKIE_LOCALSTORAGE_ACCEPTED)
     );
-
-    const savedTheme: Themes | null = getLocalStorage(LOCALSTORAGE_THEME);
-    if (savedTheme) {
-      document.querySelector("html")?.setAttribute("data-theme", savedTheme);
-    }
+    handleStartTheme();
   }, []);
 
   useEffect(() => {
