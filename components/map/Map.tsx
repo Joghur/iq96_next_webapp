@@ -126,9 +126,6 @@ const MapPage = () => {
     appFirstMarkers = appMarkers.concat(userMarkers);
   }
 
-  console.log("cities", cities);
-  console.log("markers", markers);
-
   const startLocation = userPosition || L.latLng(55.6660739, 12.5256102);
 
   return (

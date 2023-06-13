@@ -65,7 +65,7 @@ export const NewMarkerForm = ({
 }: NewMarkerFormProps) => {
   const [changedMarker, setChangingMarker] =
     useState<MarkerData>(initialMarker);
-  console.log("changedMarker", changedMarker);
+
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     if (event) {
       const { id, value } = event.target;

@@ -18,15 +18,19 @@ export type MarkerType =
   | "restaurant"
   | "sightseeing"
   | "tour"
-  | "train";
+  | "train"
+  | "unknown";
 
 const handleDocType = (docType: MarkerType, madeBy: string) => {
   switch (madeBy) {
     case "app":
       return `${docType}_red`;
 
+    case "user":
+      return `${docType}`;
+
     default:
-      return docType;
+      return "unknown";
   }
 };
 
