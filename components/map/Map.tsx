@@ -16,6 +16,7 @@ import UserMapButton from "./UserMapButton";
 import UserMarker from "./UserMarker";
 import { handleStartTheme } from "@components/member/ThemeSelector";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
+import SelectRadix from "@components/ui/SelectRadix";
 import { useCityData, useMapData } from "@lib/hooks/useFirestore";
 import { authContext } from "@lib/store/auth-context";
 import { compareNick } from "@lib/utils";

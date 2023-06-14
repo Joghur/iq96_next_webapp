@@ -1,12 +1,6 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { MapCityType } from "./AddCityButton";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import SelectRadix from "@components/ui/SelectRadix";
 
 interface Props {
   label: string;
@@ -26,26 +20,17 @@ export const CitySelector: FC<Props> = ({
     onChange({ year, city });
   };
 
+  const selectGroup = { label, groupItems: cities };
+  const selectedString = `${selected.year}-${selected.city}`;
+
   return (
-    <Select
-      value={`${selected.year}-${selected.city}`}
-      onValueChange={(value) => handleSelectChange(value)}
-    >
-      <SelectTrigger className="w-[180px] bg-gray-50">
-        <SelectValue placeholder={label} />
-      </SelectTrigger>
-      <SelectContent className="bg-gray-50">
-        <SelectItem value={label} key={"iq-places"} disabled>
-          {label}
-        </SelectItem>
-        {cities.length > 0 &&
-          cities.map((city, index) => (
-            <SelectItem key={`city-${index}`} value={city}>
-              {city}
-            </SelectItem>
-          ))}
-      </SelectContent>
-    </Select>
+    <SelectRadix
+      value={selectedString}
+      defaultValue="Vælg by"
+      placeholder="Vælg by"
+      groups={[selectGroup]}
+      onChange={handleSelectChange}
+    />
   );
 };
 
