@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { MapCityType } from "./AddCityButton";
-import SelectRadix from "@components/ui/Select";
+import Select from "@components/ui/Select";
 
 interface Props {
   label: string;
@@ -24,7 +24,7 @@ export const CitySelect: FC<Props> = ({
   const selectedString = `${selected.year}-${selected.city}`;
 
   return (
-    <SelectRadix
+    <Select
       value={selectedString}
       defaultValue="Vælg by"
       placeholder="Vælg by"

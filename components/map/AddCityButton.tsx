@@ -27,7 +27,7 @@ const AddCityButton = ({ selectedCity, addingCities }: Props) => {
   return (
     <>
       <button
-        className="z-1000 btn rounded-full bg-white  text-mauve11 shadow-xl ring-2 hover:bg-violet6"
+        className="z-1000 btn rounded-full bg-white  text-black shadow-xl ring-2 hover:bg-violet6"
         onClick={toogleAddModal}
       >
         <MdLocationCity fontSize="large" />

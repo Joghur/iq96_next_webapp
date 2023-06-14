@@ -2,7 +2,7 @@ import L from "leaflet";
 import React, { FC, useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
 import { MarkerData } from "@components/map/Map";
-import SelectRadix, { SelectGroup } from "@components/ui/Select";
+import Select, { SelectGroup } from "@components/ui/Select";
 
 interface Props {
   markers: MarkerData[];
@@ -10,21 +10,26 @@ interface Props {
 
 export const MarkerSelect: FC<Props> = ({ markers }) => {
   const map = useMap();
-  console.log("markers", markers);
+
+  // TODO - logic needs some rewiring
   const [center, setCenter] = useState([
     markers.length > 0 ? markers[0].location.latitude : 0,
     markers.length > 0 ? markers[0].location.longitude : 0,
   ]);
-  const [selection, setSelection] = useState<string | undefined>(undefined);
+
+  const [selection, setSelection] = useState<string | undefined>(
+    markers[0]?.title
+  );
 
   const handleSelectChange = (event: string) => {
     const selectedMarker = markers.filter(
       (d: MarkerData) => d.title === event
     )[0];
-    setCenter([
+    setCenter(() => [
       selectedMarker.location.latitude,
       selectedMarker.location.longitude,
     ]);
+    console.log("event", event);
     setSelection(() => event);
   };
 
@@ -38,6 +43,8 @@ export const MarkerSelect: FC<Props> = ({ markers }) => {
     });
   }, [map, centerLat, centerLng]);
 
+  const lat = Boolean(markers.length > 0) && markers[0].location.latitude;
+
   useEffect(() => {
     if (markers.length > 0) {
       setCenter(() => [
@@ -45,7 +52,7 @@ export const MarkerSelect: FC<Props> = ({ markers }) => {
         markers[0].location.longitude,
       ]);
     }
-  }, [markers.length]);
+  }, [markers, lat]);
 
   const appMarkers = markers
     ?.filter((o) => o.madeBy === "app")
@@ -67,10 +74,9 @@ export const MarkerSelect: FC<Props> = ({ markers }) => {
     { label: "Barer", groupItems: barMarkers },
     { label: "Andre steder", groupItems: restMarkers },
   ];
-  console.log("selection", selection);
 
   return (
-    <SelectRadix
+    <Select
       value={selection}
       defaultValue={selection}
       placeholder="IQ steder"

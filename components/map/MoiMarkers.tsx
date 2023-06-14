@@ -5,23 +5,31 @@ import { ChangeEvent, useState } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { Tooltip as MapToolip, Marker, Popup } from "react-leaflet";
 import { MarkerData } from "./Map";
+import Select from "@components/ui/Select";
 import { DocumentUser } from "@lib/hooks/useFirestore";
 
-export type MarkerType =
-  | "bar"
-  | "bus"
-  | "cafe"
-  | "hotel"
-  | "museum"
-  | "music"
-  | "question"
-  | "restaurant"
-  | "sightseeing"
-  | "tour"
-  | "train"
-  | "unknown";
+const markerTypes = [
+  "bar",
+  "bus",
+  "cafe",
+  "hotel",
+  "museum",
+  "music",
+  "question",
+  "restaurant",
+  "sightseeing",
+  "tour",
+  "train",
+  "unknown",
+] as const;
 
-const handleDocType = (docType: MarkerType, madeBy: string) => {
+export type MarkerType = (typeof markerTypes)[number];
+
+const madeBys = ["app", "user"] as const;
+
+type MadeByType = (typeof madeBys)[number];
+
+const handleDocType = (docType: MarkerType, madeBy: MadeByType) => {
   switch (madeBy) {
     case "app":
       return `${docType}_red`;
@@ -38,7 +46,7 @@ interface Props {
   index: number;
   marker: MarkerData;
   documentUser: DocumentUser;
-  canEdit: boolean;
+  // canEdit: boolean;
   updatingDoc: (id: string, document: MarkerData) => Promise<void>;
   deletingDoc: (id: string) => Promise<void>;
 }
@@ -47,7 +55,7 @@ const MoiMarkers = ({
   index,
   marker,
   documentUser,
-  canEdit,
+  // canEdit,
   updatingDoc,
   deletingDoc,
 }: Props) => {
@@ -58,29 +66,32 @@ const MoiMarkers = ({
   );
 
   const handleOpenEditMarker = (marker: MarkerData) => {
-    setShowEdit(true);
-    setCurrentMarker(marker);
+    setShowEdit(() => true);
+    setCurrentMarker(() => marker);
   };
 
   const handleOpenDeleteModal = (marker: MarkerData) => {
-    setShowDelete(true);
-    setCurrentMarker(marker);
+    setShowDelete(() => true);
+    setCurrentMarker(() => marker);
   };
 
-  const handleDeleteMarker = () => {
+  const handleDeleteMarker = async () => {
     if (currentMarker?.id) {
-      deletingDoc(currentMarker.id);
+      await deletingDoc(currentMarker.id);
     }
     setShowDelete(false);
     setCurrentMarker(undefined);
   };
 
-  const handleSubmitMarker = () => {
+  const handleSubmitMarker = async () => {
     if (currentMarker?.id) {
-      updatingDoc(currentMarker.id, { ...currentMarker });
+      await updatingDoc(currentMarker.id, {
+        ...currentMarker,
+        madeBy: !documentUser.isSuperAdmin ? "user" : currentMarker.madeBy,
+      });
     }
-    setShowEdit(false);
-    setCurrentMarker(undefined);
+    setShowEdit(() => false);
+    setCurrentMarker(() => undefined);
   };
 
   const handleChangeMarker = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -96,6 +107,32 @@ const MoiMarkers = ({
     });
   };
 
+  const handleChangeMadeBy = (event: MadeByType) => {
+    setCurrentMarker((old) => {
+      if (old) {
+        return {
+          ...old,
+          madeBy: event,
+        };
+      }
+    });
+  };
+
+  const handleChangeType = (event: MarkerType) => {
+    setCurrentMarker((old) => {
+      if (old) {
+        return {
+          ...old,
+          type: event,
+        };
+      }
+    });
+  };
+
+  const canEdit = true;
+  const canDelete =
+    documentUser.isAdmin || documentUser.isBoard || documentUser.isSuperAdmin;
+
   return (
     <div key={`first${index}`} className="ring-3">
       <Marker
@@ -104,7 +141,7 @@ const MoiMarkers = ({
           new Icon({
             iconUrl: `/images/markers/${handleDocType(
               marker.type as MarkerType,
-              marker.madeBy
+              marker.madeBy as MadeByType
             )}.png`,
             shadowUrl: `/images/markers/marker-shadow.png`,
             iconSize: [25, 35],
@@ -127,7 +164,7 @@ const MoiMarkers = ({
                 <p className="dynamic_text">{marker.title}</p>
                 <p className="dynamic_text">{marker.description}</p>
                 <div className="stack_row items-center justify-center gap-3">
-                  {documentUser?.nick === "Redacteur" && (
+                  {canDelete && (
                     <button
                       onClick={() => handleOpenDeleteModal(marker)}
                       className="btn-error btn-xs btn"
@@ -135,16 +172,19 @@ const MoiMarkers = ({
                       <MdDelete />
                     </button>
                   )}
-                  <button
-                    onClick={() => handleOpenEditMarker(marker)}
-                    className="btn-warning btn-sm btn"
-                  >
-                    <MdEdit />
-                  </button>
+                  {canEdit &&
+                    (documentUser.isSuperAdmin || marker.madeBy !== "app") && (
+                      <button
+                        onClick={() => handleOpenEditMarker(marker)}
+                        className="btn-warning btn-sm btn"
+                      >
+                        <MdEdit />
+                      </button>
+                    )}
                 </div>
               </div>
             )}
-            {showDelete && canEdit && currentMarker && (
+            {showDelete && canDelete && currentMarker && (
               <div>
                 <p className="text-lg">Er du sikker på du vil slette markør?</p>
                 <p>Denne handling kan ikke ændres.</p>
@@ -211,23 +251,22 @@ const MoiMarkers = ({
                     className="dynamic_text textarea-bordered textarea bg-white"
                   />
                 </div>
-                <div className="pt-5">
-                  <label
-                    htmlFor="password"
-                    className="dynamic_text green_gradient mb-2 block font-medium"
-                  >
-                    Lavet af
-                  </label>
-                  <textarea
-                    id="madeBy"
-                    value={currentMarker?.madeBy}
-                    onChange={handleChangeMarker}
-                    placeholder={
-                      currentMarker?.madeBy || "Type: app eller user"
-                    }
-                    className="dynamic_text textarea-bordered textarea bg-white"
-                  />
-                </div>
+                {documentUser.isSuperAdmin && (
+                  <div className="pt-5">
+                    <label
+                      htmlFor="password"
+                      className="dynamic_text green_gradient mb-2 block font-medium"
+                    >
+                      Lavet af
+                    </label>
+                    <Select
+                      value={currentMarker?.madeBy}
+                      placeholder={currentMarker?.madeBy}
+                      onChange={(e) => handleChangeMadeBy(e as MadeByType)}
+                      groups={[{ groupItems: madeBys }]}
+                    />
+                  </div>
+                )}
                 <div className="pt-5">
                   <label
                     htmlFor="password"
@@ -235,12 +274,11 @@ const MoiMarkers = ({
                   >
                     Type
                   </label>
-                  <textarea
-                    id="type"
+                  <Select
                     value={currentMarker?.type}
-                    onChange={handleChangeMarker}
-                    placeholder={currentMarker?.type || "Type"}
-                    className="dynamic_text textarea-bordered textarea bg-white"
+                    placeholder={currentMarker?.type}
+                    onChange={(e) => handleChangeType(e as MarkerType)}
+                    groups={[{ groupItems: markerTypes }]}
                   />
                 </div>
                 <div className="stack_row justify-between pt-5">
