@@ -4,8 +4,12 @@ import packageJson from "../../package.json";
 
 const aboutList = [
   [
+    "0.7.0",
+    "Kortet: Kortet starter igen på den første markør lavet i byen. Mere finpudsning",
+  ],
+  [
     "0.6.9",
-    "Kortet: Det er muligt at se alle byer ny og oprette nye markører år man har valgt en by. Dette gøres ved at dobbeltklikke. Mangler stadig lidt finpudsning ",
+    "Kortet: Det er muligt at se alle byer og oprette nye markører, efter man har valgt en by. Dette gøres ved at dobbeltklikke. Mangler stadig lidt finpudsning ",
   ],
   [
     "0.6.8",
