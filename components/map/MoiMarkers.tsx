@@ -172,14 +172,15 @@ const MoiMarkers = ({
                       <MdDelete />
                     </button>
                   )}
-                  {canEdit && (
-                    <button
-                      onClick={() => handleOpenEditMarker(marker)}
-                      className="btn-warning btn-sm btn"
-                    >
-                      <MdEdit />
-                    </button>
-                  )}
+                  {canEdit &&
+                    (documentUser.isSuperAdmin || marker.madeBy !== "app") && (
+                      <button
+                        onClick={() => handleOpenEditMarker(marker)}
+                        className="btn-warning btn-sm btn"
+                      >
+                        <MdEdit />
+                      </button>
+                    )}
                 </div>
               </div>
             )}
