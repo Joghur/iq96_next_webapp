@@ -9,6 +9,7 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import AddCityButton, { MapCityType } from "./AddCityButton";
 import AddMarkerButton from "./AddMarkerButton";
 import CitySelect from "./CitySelect";
+import InfoButton from "./InfoButton";
 import ManualMarker from "./ManualMarker";
 import MarkerSelect from "./MarkerSelect";
 import MoiMarkers from "./MoiMarkers";
@@ -139,6 +140,9 @@ const MapPage = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <div className="absolute right-2 top-[40vh]">
+          <InfoButton documentUser={documentUser} />
+        </div>
         {userPosition && (
           <>
             <UserMarker

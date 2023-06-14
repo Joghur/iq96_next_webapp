@@ -14,7 +14,7 @@ const UserMapButton = () => {
 
   return (
     <button
-      className="z-1000 btn rounded-full bg-white shadow-xl ring-2 hover:bg-violet6"
+      className="z-1000 btn rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6"
       onClick={handleFlyToUserLocation}
     >
       <MdMyLocation fontSize="large" />
