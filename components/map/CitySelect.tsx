@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { MapCityType } from "./AddCityButton";
-import SelectRadix from "@components/ui/SelectRadix";
+import SelectRadix from "@components/ui/Select";
 
 interface Props {
   label: string;
@@ -9,7 +9,7 @@ interface Props {
   onChange: (arg0: MapCityType) => void;
 }
 
-export const CitySelector: FC<Props> = ({
+export const CitySelect: FC<Props> = ({
   label,
   cities,
   selected,
@@ -34,4 +34,4 @@ export const CitySelector: FC<Props> = ({
   );
 };
 
-export default CitySelector;
+export default CitySelect;

@@ -2,13 +2,13 @@ import L from "leaflet";
 import React, { FC, useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
 import { MarkerData } from "@components/map/Map";
-import SelectRadix, { SelectGroup } from "@components/ui/SelectRadix";
+import SelectRadix, { SelectGroup } from "@components/ui/Select";
 
 interface Props {
   markers: MarkerData[];
 }
 
-export const MarkerSelector: FC<Props> = ({ markers }) => {
+export const MarkerSelect: FC<Props> = ({ markers }) => {
   const map = useMap();
   console.log("markers", markers);
   const [center, setCenter] = useState([
@@ -73,11 +73,11 @@ export const MarkerSelector: FC<Props> = ({ markers }) => {
     <SelectRadix
       value={selection}
       defaultValue={selection}
-      placeholder={"IQ steder"}
+      placeholder="IQ steder"
       groups={selectGroups}
       onChange={handleSelectChange}
     />
   );
 };
 
-export default MarkerSelector;
+export default MarkerSelect;

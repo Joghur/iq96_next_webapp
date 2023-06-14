@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 
-import { handleStartTheme } from "@components/member/ThemeSelector";
+import { handleStartTheme } from "@components/member/ThemeToggle";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
 import PageLayout from "@components/ui/PageLayout";
 import { eventTransitionVariants } from "@lib/animations";

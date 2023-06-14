@@ -5,10 +5,11 @@ import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
 import { MdInfo } from "react-icons/md";
-import ThemeSelector from "./ThemeSelector";
-import TshirtSelector from "./TshirtSelector";
+import ThemeToggle from "./ThemeToggle";
+import TshirtSelect from "./TshirtSelect";
 import { Separator } from "@/components/ui/separator";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
+import SettingsItem from "@components/ui/SettingsItem";
 import Tooltip from "@components/ui/Tooltip";
 import { authContext } from "@lib/store/auth-context";
 
@@ -20,6 +21,9 @@ const MemberTab = () => {
   if (loading) {
     return <LoadingSpinner />;
   }
+
+  const tshirtTooltipText =
+    "Vælg din størrelse. Max for t-shirts er 3XL og for jubilæumstøj 4XL. Vælg derfor din foretrukne og i t-shirt sammenhæng bliver den nedsat til 3XL når der bestilles";
 
   return (
     <motion.div
@@ -78,14 +82,22 @@ const MemberTab = () => {
         <div className="flex flex-col gap-5 sm:gap-3">
           <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
             {documentUser?.tshirt && (
-              <TshirtSelector
-                documentUser={documentUser}
-                updatingDoc={updatingDoc}
-              />
+              <SettingsItem
+                label="T-shirt størrelse"
+                tooltipText={tshirtTooltipText}
+                tooltipIcon={<MdInfo color="green" />}
+              >
+                <TshirtSelect
+                  documentUser={documentUser}
+                  updatingDoc={updatingDoc}
+                />
+              </SettingsItem>
             )}
           </div>
           <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
-            <ThemeSelector showLabel />
+            <SettingsItem label="Farve tema">
+              <ThemeToggle />
+            </SettingsItem>
           </div>
         </div>
       </div>

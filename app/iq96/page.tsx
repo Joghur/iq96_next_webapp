@@ -8,7 +8,7 @@ import ContactsTab from "@components/member/Contacts";
 import Iq96Tab from "@components/member/Iq96Tab";
 import MemberTab from "@components/member/MemberTab";
 import MemberTabsPage, { MemberTabs } from "@components/member/MemberTabs";
-import { handleStartTheme } from "@components/member/ThemeSelector";
+import { handleStartTheme } from "@components/member/ThemeToggle";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
 import PageLayout from "@components/ui/PageLayout";
 import { authContext } from "@lib/store/auth-context";
