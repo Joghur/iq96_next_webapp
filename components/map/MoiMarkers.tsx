@@ -178,7 +178,7 @@ const MoiMarkers = ({
                     value={currentMarker?.title}
                     onChange={handleChangeMarker}
                     placeholder={currentMarker?.title || "Titel"}
-                    className="dynamic_text textarea-bordered textarea"
+                    className="dynamic_text textarea-bordered textarea bg-white"
                   />
                 </div>
                 <div className="pt-5">
@@ -193,24 +193,7 @@ const MoiMarkers = ({
                     value={currentMarker?.nick}
                     onChange={handleChangeMarker}
                     placeholder={currentMarker?.title || "Nick"}
-                    className="dynamic_text textarea-bordered textarea"
-                  />
-                </div>
-                <div className="pt-5">
-                  <label
-                    htmlFor="password"
-                    className="dynamic_text green_gradient mb-2 block font-medium"
-                  >
-                    Type
-                  </label>
-                  <textarea
-                    id="madeBy"
-                    value={currentMarker?.madeBy}
-                    onChange={handleChangeMarker}
-                    placeholder={
-                      currentMarker?.madeBy || "Type: app eller user"
-                    }
-                    className="dynamic_text textarea-bordered textarea"
+                    className="dynamic_text textarea-bordered textarea bg-white"
                   />
                 </div>
                 <div className="pt-5">
@@ -225,7 +208,39 @@ const MoiMarkers = ({
                     value={currentMarker?.description}
                     onChange={handleChangeMarker}
                     placeholder={currentMarker?.description || "Beskrivelse"}
-                    className="dynamic_text textarea-bordered textarea"
+                    className="dynamic_text textarea-bordered textarea bg-white"
+                  />
+                </div>
+                <div className="pt-5">
+                  <label
+                    htmlFor="password"
+                    className="dynamic_text green_gradient mb-2 block font-medium"
+                  >
+                    Lavet af
+                  </label>
+                  <textarea
+                    id="madeBy"
+                    value={currentMarker?.madeBy}
+                    onChange={handleChangeMarker}
+                    placeholder={
+                      currentMarker?.madeBy || "Type: app eller user"
+                    }
+                    className="dynamic_text textarea-bordered textarea bg-white"
+                  />
+                </div>
+                <div className="pt-5">
+                  <label
+                    htmlFor="password"
+                    className="dynamic_text green_gradient mb-2 block font-medium"
+                  >
+                    Type
+                  </label>
+                  <textarea
+                    id="type"
+                    value={currentMarker?.type}
+                    onChange={handleChangeMarker}
+                    placeholder={currentMarker?.type || "Type"}
+                    className="dynamic_text textarea-bordered textarea bg-white"
                   />
                 </div>
                 <div className="stack_row justify-between pt-5">
