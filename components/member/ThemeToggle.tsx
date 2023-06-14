@@ -25,7 +25,7 @@ interface Props {
   showLabel?: boolean;
 }
 
-const ThemeSelector = ({ showLabel }: Props) => {
+const ThemeToggle = ({ showLabel }: Props) => {
   const [isChecked, setIsChecked] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<Themes>("light");
 
@@ -70,4 +70,4 @@ const ThemeSelector = ({ showLabel }: Props) => {
   );
 };
 
-export default ThemeSelector;
+export default ThemeToggle;

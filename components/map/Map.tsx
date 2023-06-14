@@ -8,13 +8,13 @@ import { MapContainer, TileLayer } from "react-leaflet";
 
 import AddCityButton, { MapCityType } from "./AddCityButton";
 import AddMarkerButton from "./AddMarkerButton";
-import CitySelector from "./CitySelector";
+import CitySelect from "./CitySelect";
 import ManualMarker from "./ManualMarker";
-import MarkerSelector from "./MarkerSelector";
+import MarkerSelect from "./MarkerSelect";
 import MoiMarkers from "./MoiMarkers";
 import UserMapButton from "./UserMapButton";
 import UserMarker from "./UserMarker";
-import { handleStartTheme } from "@components/member/ThemeSelector";
+import { handleStartTheme } from "@components/member/ThemeToggle";
 import LoadingSpinner from "@components/ui/LoadingSpinner";
 import { useCityData, useMapData } from "@lib/hooks/useFirestore";
 import { authContext } from "@lib/store/auth-context";
@@ -168,14 +168,14 @@ const MapPage = () => {
         <div className="z-10000 absolute right-2 top-2 shadow-xl">
           <div className="flex flex-col gap-1 sm:flex-row">
             {cities && cities?.length > 0 && (
-              <CitySelector
+              <CitySelect
                 label="Vælg by"
                 selected={selectedCity}
                 cities={cities}
                 onChange={setSelectedCity}
               />
             )}
-            <MarkerSelector label="IQ96 steder" markers={appFirstMarkers} />
+            <MarkerSelect markers={appFirstMarkers} />
           </div>
         </div>
         {appFirstMarkers.length > 0 &&
