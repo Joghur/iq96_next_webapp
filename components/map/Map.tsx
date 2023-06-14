@@ -117,7 +117,7 @@ const MapPage = () => {
     return <LoadingSpinner text={"Henter markører..."} />;
   }
 
-  const canEdit = documentUser?.isSuperAdmin || false;
+  // const canEdit = documentUser?.isSuperAdmin || false;
 
   markers?.sort(compareNick);
   const appMarkers = markers?.filter((o) => o.madeBy === "app");
@@ -189,7 +189,7 @@ const MapPage = () => {
               index={index}
               marker={marker}
               documentUser={documentUser}
-              canEdit={canEdit}
+              // canEdit={canEdit}
               updatingDoc={updatingMarker}
               deletingDoc={deletingMarker}
             />

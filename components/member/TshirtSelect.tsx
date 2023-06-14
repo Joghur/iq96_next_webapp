@@ -2,10 +2,10 @@
 
 import { DocumentData } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import SelectRadix from "@components/ui/Select";
+import Select from "@components/ui/Select";
 import { DocumentUser } from "@lib/hooks/useFirestore";
 
-const sizes = ["M", "L", "XL", "XXL", "XXXL", "XXXXL"] as const;
+export const sizes = ["M", "L", "XL", "XXL", "XXXL", "XXXXL"] as const;
 
 export type TshirtSizes = (typeof sizes)[number];
 
@@ -28,7 +28,7 @@ const TshirtSelect = ({ documentUser, updatingDoc }: Props) => {
   };
 
   return (
-    <SelectRadix
+    <Select
       value={currentSize}
       placeholder={currentSize}
       onChange={(e) => handleThemeChange(e as TshirtSizes)}
