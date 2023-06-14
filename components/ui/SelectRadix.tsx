@@ -7,16 +7,16 @@ import * as Select from "@radix-ui/react-select";
 import React, { forwardRef } from "react";
 import { cn } from "@lib/utils";
 
-interface Group {
+export interface SelectGroup {
   label?: string;
   groupItems: string[];
 }
 
 interface Props {
-  value: string;
-  defaultValue: string;
-  placeholder: string;
-  groups: Group[];
+  value?: string | undefined;
+  defaultValue?: string | undefined;
+  placeholder?: string | undefined;
+  groups: SelectGroup[];
   onChange: (arg0: string) => void;
 }
 

@@ -21,14 +21,13 @@ const AddCityButton = ({ selectedCity, addingCities }: Props) => {
   const [open, setOpen] = useState(false);
 
   const toogleAddModal = async () => {
-    console.log("Addbutton");
     setOpen((old) => !old);
   };
 
   return (
     <>
       <button
-        className="z-1000 btn rounded-full shadow-xl ring-2"
+        className="z-1000 btn rounded-full bg-white  text-mauve11 shadow-xl ring-2 hover:bg-violet6"
         onClick={toogleAddModal}
       >
         <MdLocationCity fontSize="large" />

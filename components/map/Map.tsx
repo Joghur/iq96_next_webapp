@@ -176,7 +176,7 @@ const MapPage = () => {
                 onChange={setSelectedCity}
               />
             )}
-            <MarkerSelector label="IQ96 steder" markers={appFirstMarkers} />
+            <MarkerSelector markers={appFirstMarkers} />
           </div>
         </div>
         {appFirstMarkers.length > 0 &&
