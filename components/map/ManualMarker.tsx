@@ -17,7 +17,7 @@ function ManualMarker({ addingMarker }: Props) {
           madeBy: "user",
           nick: "",
           title: "",
-          type: "",
+          type: "unknown",
         });
       },
     });
