@@ -93,7 +93,7 @@ const EventsPage = ({ documentUser }: Props) => {
                   }}
                 >
                   <div key={index} className="sm:px-15 paper rounded-xl px-10">
-                    <div className="stack_row justify-between">
+                    <div className="flex justify-between">
                       <p className="dynamic_text">
                         {event?.type === "tour"
                           ? `${handleType(event?.type)} de ${event.city}`
@@ -106,7 +106,7 @@ const EventsPage = ({ documentUser }: Props) => {
                       )}
                     </div>
                     {!!event?.startDate && (
-                      <div className="stack">
+                      <div className="flex flex-col">
                         <p className="dynamic_text">Start:</p>
                         <div className="">
                           <div>{event.start}</div>
@@ -114,7 +114,7 @@ const EventsPage = ({ documentUser }: Props) => {
                       </div>
                     )}
                     {!!event?.endDate && (
-                      <div className="stack">
+                      <div className="flex flex-col">
                         <p className="dynamic_text">Slut:</p>
                         <div className="">
                           <p>{event.end}</p>
@@ -122,7 +122,7 @@ const EventsPage = ({ documentUser }: Props) => {
                       </div>
                     )}
                     {event.meetingPoints.trim() && (
-                      <div className="stack">
+                      <div className="flex flex-col">
                         <p className="dynamic_text mt-4">Mødesteder:</p>
                         <div className="dynamic_text">
                           {event.meetingPoints
@@ -138,7 +138,7 @@ const EventsPage = ({ documentUser }: Props) => {
                       </div>
                     )}
                     {event?.notes?.trim() && (
-                      <div className="stack">
+                      <div className="flex flex-col">
                         <div className="dynamic_text mt-4">OBS:</div>
                         <div className="dynamic_text">
                           {event.notes.split("--").map((f: string, index) => {
@@ -184,7 +184,7 @@ const EventsPage = ({ documentUser }: Props) => {
                   transition={{ duration: 0.5, delay: index * 0.8 + 0.3 }}
                 >
                   <div className="paper py-2">
-                    <div className="stack_row items-center justify-between">
+                    <div className="flex items-center justify-between">
                       <p className="dynamic_text">
                         {event?.type === "tour"
                           ? `${handleType(event?.type)} de ${event.city}`

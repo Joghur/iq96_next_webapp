@@ -156,14 +156,14 @@ const MoiMarkers = ({
           closeOnClick={false} // Do not remove
           closeOnEscapeKey={true} // Do not remove
           closeButton={true}
-          className="z-1000"
+          className="z-30"
         >
           <div>
             {!showEdit && !showDelete && (
               <div>
                 <p className="dynamic_text">{marker.title}</p>
                 <p className="dynamic_text">{marker.description}</p>
-                <div className="stack_row items-center justify-center gap-3">
+                <div className="flex items-center justify-center gap-3">
                   {canDelete && (
                     <button
                       onClick={() => handleOpenDeleteModal(marker)}
@@ -188,10 +188,10 @@ const MoiMarkers = ({
               <div>
                 <p className="text-lg">Er du sikker på du vil slette markør?</p>
                 <p>Denne handling kan ikke ændres.</p>
-                <div className="stack_row justify-between">
+                <div className="flex justify-between">
                   <button
                     onClick={() => setShowDelete(false)}
-                    className="btn-error btn-outline btn-sm btn"
+                    className="btn-outline btn-error btn-sm btn"
                   >
                     Fortryd
                   </button>
@@ -281,11 +281,11 @@ const MoiMarkers = ({
                     groups={[{ groupItems: markerTypes }]}
                   />
                 </div>
-                <div className="stack_row justify-between pt-5">
+                <div className="flex justify-between pt-5">
                   <button
                     onClick={() => setShowEdit(false)}
                     color={"error"}
-                    className="btn-error btn-outline btn-sm btn"
+                    className="btn-outline btn-error btn-sm btn"
                   >
                     Fortryd
                   </button>

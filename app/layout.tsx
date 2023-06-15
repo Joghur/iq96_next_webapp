@@ -27,7 +27,9 @@ export default function RootLayout({ children }: Props) {
         <AuthContextProvider>
           {/* <SiteContextProvider> */}
           {children}
-          <BottomNav />
+          <div className="z-40">
+            <BottomNav />
+          </div>
           {/* </SiteContextProvider> */}
         </AuthContextProvider>
       </body>

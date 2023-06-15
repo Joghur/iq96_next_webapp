@@ -9,7 +9,7 @@ const BottomNav = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="bottom_nav z-10000 overflow-hidden">
+    <nav className="bottom_nav overflow-hidden">
       <Link
         href="/"
         className={`dynamic_text ${
