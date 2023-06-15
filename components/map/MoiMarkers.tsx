@@ -191,7 +191,7 @@ const MoiMarkers = ({
                 <div className="flex justify-between">
                   <button
                     onClick={() => setShowDelete(false)}
-                    className="btn-outline btn-error btn-sm btn"
+                    className="btn-error btn-outline btn-sm btn"
                   >
                     Fortryd
                   </button>
@@ -285,7 +285,7 @@ const MoiMarkers = ({
                   <button
                     onClick={() => setShowEdit(false)}
                     color={"error"}
-                    className="btn-outline btn-error btn-sm btn"
+                    className="btn-error btn-outline btn-sm btn"
                   >
                     Fortryd
                   </button>
