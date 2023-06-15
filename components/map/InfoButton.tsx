@@ -18,17 +18,19 @@ const InfoButton = ({ documentUser }: Props) => {
   return (
     <>
       <button
-        className="z-1000 btn rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6"
+        className="btn rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6"
         onClick={toogleAddModal}
       >
         <MdInfo fontSize="large" />
       </button>
       {open && (
-        <InfoModal
-          open={open}
-          onClose={() => setOpen(() => false)}
-          documentUser={documentUser}
-        />
+        <div className="">
+          <InfoModal
+            open={open}
+            onClose={() => setOpen(() => false)}
+            documentUser={documentUser}
+          />
+        </div>
       )}
     </>
   );
@@ -45,9 +47,18 @@ interface InfoModalProps {
 const InfoModal = ({ open, onClose, documentUser }: InfoModalProps) => {
   return (
     <Modal open={open}>
-      <h3 className="text-lg font-bold">Sådan bruges kortet</h3>
-      <div>
-        <div className="stack_row justify-between pt-5">
+      <div className="max-h-[60vh]">
+        <div className="dynamic_text flex justify-between gap-2">
+          <h3 className="text-lg font-bold">Sådan bruges kortet</h3>
+          <button
+            onClick={onClose}
+            color={"error"}
+            className="modal-button btn-error btn-outline btn-sm btn"
+          >
+            Luk
+          </button>
+        </div>
+        <div className="dynamic_text pt-15 justify-between">
           <div className="flex flex-col gap-2">
             <div className="flex flex-col gap-2">
               <p>For at lave en ny markør:</p>
@@ -117,13 +128,6 @@ const InfoModal = ({ open, onClose, documentUser }: InfoModalProps) => {
               </div>
             )}
           </div>
-          <button
-            onClick={onClose}
-            color={"error"}
-            className="btn-error btn-outline btn-sm btn"
-          >
-            Luk
-          </button>
         </div>
       </div>
     </Modal>

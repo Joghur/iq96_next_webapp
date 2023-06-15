@@ -21,7 +21,7 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
   }
   return (
     <div className="sm:mb-15 mb-7 flex justify-end sm:mt-10 sm:justify-center">
-      <div className="dynamic_text z-55 tabs tabs-boxed fixed gap-0 space-x-0 opacity-100 sm:space-x-4">
+      <div className="dynamic_text tabs tabs-boxed fixed z-50 gap-0 space-x-0 opacity-100 sm:space-x-4">
         <button
           id="member"
           onClick={onChange}

@@ -27,7 +27,7 @@ const AddCityButton = ({ selectedCity, addingCities }: Props) => {
   return (
     <>
       <button
-        className="z-1000 btn rounded-full bg-white  text-black shadow-xl ring-2 hover:bg-violet6"
+        className="btn z-50 rounded-full bg-white  text-black shadow-xl ring-2 hover:bg-violet6"
         onClick={toogleAddModal}
       >
         <MdLocationCity fontSize="large" />
@@ -111,7 +111,7 @@ const NewCityForm = ({
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
-        <div className="stack_row justify-between pt-5">
+        <div className="flex justify-between pt-5">
           <button
             onClick={onClose}
             color={"error"}

@@ -145,7 +145,7 @@ const EventForm = ({
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
-        <div className="stack_row justify-between pt-5">
+        <div className="flex justify-between pt-5">
           <button
             onClick={onClose}
             color={"error"}
