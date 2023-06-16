@@ -1,4 +1,4 @@
-import { Connection, ContactPhone } from "./Contacts";
+import { Connection, ContactPhone } from "./DeveloperTab";
 import {
   Table,
   TableBody,

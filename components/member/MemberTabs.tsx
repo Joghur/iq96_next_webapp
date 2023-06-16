@@ -2,7 +2,7 @@ import { MouseEvent, useContext } from "react";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { authContext } from "@lib/store/auth-context";
 
-export type MemberTabs = "member" | "iq96" | "about" | "admin" | "contacts";
+export type MemberTabs = "member" | "iq96" | "about" | "admin" | "developer";
 
 interface Props {
   value?: MemberTabs;
@@ -20,8 +20,8 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
     return null;
   }
   return (
-    <div className="sm:mb-15 mb-7 flex justify-end sm:mt-10 sm:justify-center">
-      <div className="dynamic_text tabs tabs-boxed fixed z-50 gap-0 space-x-0 opacity-100 sm:space-x-4">
+    <div className="sm:mb-15 mb-7 mt-1 flex justify-end sm:mt-10 sm:justify-center">
+      <div className="dynamic_text tabs tabs-boxed fixed z-50 gap-0 space-x-0 opacity-100 shadow-lg sm:space-x-4">
         <button
           id="member"
           onClick={onChange}
@@ -60,18 +60,17 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
             Admin
           </button>
         )}
-        {documentUser?.nick === "Redacteur" &&
-          process.env.NEXT_PUBLIC_ENV !== "production" && (
-            <button
-              id="contacts"
-              onClick={onChange}
-              className={`tab px-1 sm:px-4 ${
-                value === "contacts" ? "tab-active" : ""
-              } dynamic_text`}
-            >
-              Kontakter
-            </button>
-          )}
+        {documentUser?.nick === "Redacteur" && (
+          <button
+            id="developer"
+            onClick={onChange}
+            className={`tab px-1 sm:px-4 ${
+              value === "developer" ? "tab-active" : ""
+            } dynamic_text`}
+          >
+            Developer
+          </button>
+        )}
       </div>
     </div>
   );

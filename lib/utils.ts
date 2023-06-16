@@ -1,6 +1,6 @@
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { ContactPhone } from "@components/member/Contacts";
+import { ContactPhone } from "@components/member/DeveloperTab";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
