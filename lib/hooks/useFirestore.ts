@@ -187,10 +187,10 @@ export const useMapData = <T extends DocumentData>(
 
   useEffect(() => {
     queryMarkers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [documentName]);
 
   const addingMarker = async (document: DocumentData) => {
-    console.log("insdide ", document);
     const markersCollectionRef = collection(
       db,
       collectionName,

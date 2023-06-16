@@ -29,7 +29,6 @@ export const MarkerSelect: FC<Props> = ({ markers }) => {
       selectedMarker.location.latitude,
       selectedMarker.location.longitude,
     ]);
-    console.log("event", event);
     setSelection(() => event);
   };
 

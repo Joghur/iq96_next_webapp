@@ -49,7 +49,7 @@ const EventsPage = ({ documentUser }: Props) => {
   if (!events) {
     return (
       <div className="mx-auto px-6 pt-20 sm:pt-24">
-        <p className="dynamic_text">Der er ingen events på dette tidspunkt</p>
+        <p>Der er ingen events på dette tidspunkt</p>
       </div>
     );
   }
@@ -74,10 +74,12 @@ const EventsPage = ({ documentUser }: Props) => {
     documentUser?.isSuperAdmin;
 
   return (
-    <div>
+    <div className="dynamic_text">
       <div className="mx-auto max-w-2xl sm:mt-40">
         <div className="mb-4 mt-16 items-center justify-center">
-          <p className="dynamic_text text-center">Næste begivenhed</p>
+          <p className="text-center text-[larger] font-bold">
+            Næste begivenhed
+          </p>
         </div>
         {events.map((event, index) => {
           return (
@@ -92,9 +94,12 @@ const EventsPage = ({ documentUser }: Props) => {
                     type: "tween",
                   }}
                 >
-                  <div key={index} className="sm:px-15 paper rounded-xl px-10">
+                  <div
+                    key={index}
+                    className="sm:px-15 paper flex flex-col gap-2 overflow-hidden rounded-xl px-10"
+                  >
                     <div className="flex justify-between">
-                      <p className="dynamic_text">
+                      <p className="font-semibold">
                         {event?.type === "tour"
                           ? `${handleType(event?.type)} de ${event.city}`
                           : handleType(event?.type)}
@@ -106,16 +111,13 @@ const EventsPage = ({ documentUser }: Props) => {
                       )}
                     </div>
                     {!!event?.startDate && (
-                      <div className="flex flex-col">
-                        <p className="dynamic_text">Start:</p>
-                        <div className="">
-                          <div>{event.start}</div>
-                        </div>
+                      <div className="orange_gradient flex text-center text-[larger]">
+                        <div>{event.start}</div>
                       </div>
                     )}
                     {!!event?.endDate && (
                       <div className="flex flex-col">
-                        <p className="dynamic_text">Slut:</p>
+                        <p>Slut:</p>
                         <div className="">
                           <p>{event.end}</p>
                         </div>
@@ -123,8 +125,8 @@ const EventsPage = ({ documentUser }: Props) => {
                     )}
                     {event.meetingPoints.trim() && (
                       <div className="flex flex-col">
-                        <p className="dynamic_text mt-4">Mødesteder:</p>
-                        <div className="dynamic_text">
+                        <p className="mt-4">Mødesteder:</p>
+                        <div>
                           {event.meetingPoints
                             .split("--")
                             .map((f: string, index) => {
@@ -139,11 +141,11 @@ const EventsPage = ({ documentUser }: Props) => {
                     )}
                     {event?.notes?.trim() && (
                       <div className="flex flex-col">
-                        <div className="dynamic_text mt-4">OBS:</div>
-                        <div className="dynamic_text">
+                        <div className="mt-4">OBS:</div>
+                        <div>
                           {event.notes.split("--").map((f: string, index) => {
                             return (
-                              <div key={index} className="dynamic_text ml-4">
+                              <div key={index} className="ml-4">
                                 <li>{f.trim()}</li>
                               </div>
                             );
@@ -152,13 +154,13 @@ const EventsPage = ({ documentUser }: Props) => {
                       </div>
                     )}
                     {event?.activities?.trim() && (
-                      <div className="dynamic_text">
+                      <div>
                         Aktiviteter:
                         {event.activities
                           .split("--")
                           .map((f: string, index) => {
                             return (
-                              <div key={index} className="dynamic_text ml-4">
+                              <div key={index} className="ml-4">
                                 <li>{f.trim()}</li>
                               </div>
                             );
@@ -170,7 +172,7 @@ const EventsPage = ({ documentUser }: Props) => {
               )}
               {index === 1 && (
                 <div key={`events-${index}`} className="mb-4 pt-6 sm:pt-16">
-                  <p className="dynamic_text text-center">
+                  <p className="text-center text-[larger] font-bold">
                     Fremtidige begivenheder
                   </p>
                 </div>
@@ -183,14 +185,14 @@ const EventsPage = ({ documentUser }: Props) => {
                   animate="visible"
                   transition={{ duration: 0.5, delay: index * 0.8 + 0.3 }}
                 >
-                  <div className="paper py-2">
-                    <div className="flex items-center justify-between">
-                      <p className="dynamic_text">
+                  <div className="paper overflow-hidden py-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="font-semibold">
                         {event?.type === "tour"
                           ? `${handleType(event?.type)} de ${event.city}`
                           : handleType(event?.type)}
                       </p>
-                      <p className="dynamic_text">{event.start}</p>
+                      <p>{event.start}</p>
                       {canEdit && event.id && (
                         <button onClick={(e) => handleUpdate(e, event.id)}>
                           <MdEdit />
