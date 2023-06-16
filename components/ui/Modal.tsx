@@ -12,7 +12,9 @@ const Modal = ({ children, open }: Props) => {
   });
   return (
     <div className={modalClass}>
-      <div className="modal-box">{children}</div>
+      <div className="sm-relative modal-box fixed top-4 sm:top-auto">
+        {children}
+      </div>
     </div>
   );
 };

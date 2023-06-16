@@ -28,12 +28,14 @@ const TshirtSelect = ({ documentUser, updatingDoc }: Props) => {
   };
 
   return (
-    <Select
-      value={currentSize}
-      placeholder={currentSize}
-      onChange={(e) => handleThemeChange(e as TshirtSizes)}
-      groups={[{ groupItems: sizes }]}
-    />
+    <div className="inline-block">
+      <Select
+        value={currentSize}
+        placeholder={currentSize}
+        onChange={(e) => handleThemeChange(e as TshirtSizes)}
+        groups={[{ groupItems: sizes }]}
+      />
+    </div>
   );
 };
 
