@@ -23,12 +23,12 @@ Where the user can add new markers and they will be sorted according to type
 
 ## Technologies
 
-- Typescript
-- React
-- Next v13.4 (server components / app folder)
-- Firebase
-- Deployed using vercel.com
-- leaflet
+- Language: Typescript
+- Library: React
+- Server: Next v13.4 (server components / app folder)
+- Database: Firebase
+- Deployment: Vercel
+- Utilities: framer-motion, radix, react-leaflet, react-hook-form, zod
 
 ## Installation
 

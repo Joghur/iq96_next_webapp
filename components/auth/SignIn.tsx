@@ -1,9 +1,12 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
+import { SubmitHandler, useForm } from "react-hook-form";
 import { MdInfo } from "react-icons/md";
+import { z as zod } from "zod";
 import { authContext } from "@/lib/store/auth-context";
 import ThemeToggle from "@components/member/ThemeToggle";
 import BottomSpacer from "@components/ui/BottomSpacer";
@@ -18,90 +21,70 @@ import {
 export const LOCALSTORAGE_EMAIL = `${LOCALSTORAGE_PREFIX}-email`;
 
 function SignIn() {
+  const formSchema = zod
+    .object({
+      email: zod
+        .string()
+        .email("Dette er ikke en brugbar email adresse")
+        .min(1, "En registreret email adresse er påkrævet"),
+      password: zod
+        .string()
+        .min(1, "Kodeord er påkrævet")
+        .min(8, "Kodeord skal være på mindst 8 tegn"),
+      confirmPassword: zod
+        .string()
+        .min(1, "Bekræftelses kodeord er påkrævet")
+        .min(8, "Bekræftelses kodeord skal være på mindst 8 tegn")
+        .optional(),
+    })
+    .refine(
+      (data) =>
+        reset ? data.password === data.confirmPassword : Boolean(data.password),
+      {
+        path: ["confirmPassword"],
+        message: "Kodeord skal være ens",
+      }
+    );
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormSchemaType>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: getLocalStorage(LOCALSTORAGE_EMAIL) || undefined,
+    },
+  });
+  type FormSchemaType = zod.infer<typeof formSchema>;
   const { emailLoginHandler, resetPassword } = useContext(authContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [reset, setReset] = useState(false);
   const [showResetInfo, setShowResetInfo] = useState(false);
 
-  const [validatedEmail, setValidatedEmail] = useState<{
-    validated: boolean;
-    helperText: string | undefined;
-  }>({
-    validated: true,
-    helperText: undefined,
-  });
-  const [validatedPassword, setValidatedPassword] = useState<{
-    validated: boolean;
-    helperText: string | undefined;
-  }>({
-    validated: true,
-    helperText: undefined,
-  });
-
-  useEffect(() => {
-    handleStart();
-  }, []);
-
-  const handleStart = () => {
-    const startEmail: string | null = getLocalStorage(LOCALSTORAGE_EMAIL);
-
-    setEmail(startEmail || "");
-    setPassword("");
-  };
-
-  const handleReset = async () => {
-    if (validateEmail(email)) {
-      setReset(false);
-      await resetPassword(email);
+  const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
+    if (reset) {
+      setReset(() => false);
+      await resetPassword(data.email);
+    } else {
+      await emailLoginHandler(data.email, data.password);
     }
-  };
-
-  const validateEmail = (mail: string | undefined) => {
-    // eslint-disable-next-line no-useless-escape
-    if (mail && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
-      setValidatedEmail({
-        validated: true,
-        helperText: undefined,
-      });
-      return true;
-    }
-    setValidatedEmail({
-      validated: false,
-      helperText: "Skriv en gyldig email adresse",
-    });
-    return false;
-  };
-
-  const validatePassword = (password: string | undefined) => {
-    if (password && password.length > 5) {
-      setValidatedPassword({
-        validated: true,
-        helperText: undefined,
-      });
-      return true;
-    }
-    setValidatedPassword({
-      validated: false,
-      helperText: "Kodeord skal være længere end 5 bogstaver",
-    });
-    return false;
+    setLocalStorage(LOCALSTORAGE_EMAIL, data.email);
   };
 
   return (
-    <main className="container mx-auto max-w-2xl px-6">
+    <main className="dynamic_text container mx-auto max-w-2xl px-6">
       <div className="fixed right-4 top-4 z-50 flex flex-row items-center justify-center opacity-100">
         <ThemeToggle />
       </div>
-      <p className="blue_gradient dynamic_text mb-3 pt-16 text-center font-bold sm:text-xl">
+      <p className="blue_gradient mb-3 pt-16 text-center font-bold sm:text-xl">
         Velkommen til IQ96&apos;s webapp
       </p>
       <div className="mb-6 mt-5 flex items-center justify-center gap-2">
         <div>
-          <p className="dynamic_text">Log ind for at fortsætte</p>
+          <p>Log ind for at fortsætte</p>
         </div>
         <div>
-          <p className="dynamic_text font-bold">eller</p>
+          <p className="font-bold">eller</p>
         </div>
         <div>
           <OldPageButton />
@@ -117,70 +100,94 @@ function SignIn() {
             className="text-2xl"
           />
         </div>
-
         <div className="px-4 py-4">
-          <div className="mb-4 flex flex-col ">
-            <div className="flex gap-1 text-center">
-              <label
-                htmlFor="email"
-                className="orange_gradient dynamic_text mb-2 block font-medium"
-              >
-                Email
-              </label>
-              <Tooltip
-                text={`Email brugt til login på denne side eller android app'en. OBS! Det er ikke nødvendigvis den samme som bruges til den gamle side på ${process.env.NEXT_PUBLIC_OLDPAGE_LINK}`}
-                position="right"
-              >
-                <MdInfo fontSize="large" color={"green"} />
-              </Tooltip>
+          <form onSubmit={handleSubmit(reset ? onSubmit : onSubmit)}>
+            <div className="mb-4 flex flex-col">
+              <div className="flex flex-row gap-2 text-center">
+                <div className="flex gap-1 text-center">
+                  <label
+                    htmlFor="email"
+                    className="orange_gradient mb-2 font-medium"
+                  >
+                    Email
+                  </label>
+                  <Tooltip
+                    text={`Email brugt til login på denne side eller android app'en. OBS! Det er ikke nødvendigvis den samme som bruges til den gamle side på ${process.env.NEXT_PUBLIC_OLDPAGE_LINK}`}
+                    position="right"
+                  >
+                    <MdInfo fontSize="large" color={"green"} />
+                  </Tooltip>
+                </div>
+                <div>
+                  {errors.email && (
+                    <span className="text-red-500">
+                      {errors.email?.message}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <input
+                type="email"
+                id="email"
+                className="w-full rounded border border-gray-300 px-4 py-2"
+                placeholder={"Din email"}
+                {...register("email")}
+              />
             </div>
-            <input
-              type="email"
-              id="email"
-              className="dynamic_text w-full rounded border border-gray-300 px-4 py-2"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          {!reset && (
             <div className="mb-6">
               <label
                 htmlFor="password"
-                className="orange_gradient dynamic_text mb-2 block font-medium"
+                className="orange_gradient  mb-2 block font-medium"
               >
-                Password
+                Kodeord
               </label>
               <input
                 type="password"
                 id="password"
-                className="dynamic_text w-full rounded border border-gray-300 px-4 py-2"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
+                className="w-full rounded border border-gray-300 px-4 py-2"
+                {...register("password")}
               />
+              {errors.password && (
+                <span className="mt-2 block text-red-500">
+                  {errors.password?.message}
+                </span>
+              )}
             </div>
-          )}
-          <button
-            onClick={async () => {
-              if (reset) {
-                await resetPassword(email);
-                setReset(() => false);
-              } else {
-                await emailLoginHandler(email, password);
-              }
-              setLocalStorage(LOCALSTORAGE_EMAIL, email);
-            }}
-            className="dynamic_text mx-auto mt-6 flex items-center gap-2 rounded-lg bg-gray-700 p-4 font-medium text-white"
-          >
-            <Image
-              src="/images/logo/iqlogo_180.png"
-              alt="logo"
-              width={37}
-              height={37}
-            />
-            {reset ? "Reset" : "Login"}
-          </button>
+            {reset && (
+              <div className="mb-6">
+                <label
+                  htmlFor="confirmPassword"
+                  className="orange_gradient  mb-2 block font-medium"
+                >
+                  Bekræft kodeord
+                </label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  className="w-full rounded border border-gray-300 px-4 py-2"
+                  {...register("confirmPassword")}
+                />
+                {errors.confirmPassword && (
+                  <span className="mt-2 block text-red-500">
+                    {errors.confirmPassword?.message}
+                  </span>
+                )}
+              </div>
+            )}
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className=" mx-auto mt-6 flex items-center gap-2 rounded-lg bg-gray-700 p-4 font-medium text-white"
+            >
+              <Image
+                src="/images/logo/iqlogo_180.png"
+                alt="logo"
+                width={37}
+                height={37}
+              />
+              {reset ? "Reset" : "Login"}
+            </button>
+          </form>
         </div>
       </div>
       {!reset && (
@@ -190,7 +197,7 @@ function SignIn() {
               setReset(() => true);
               setShowResetInfo(() => true);
             }}
-            className="orange_gradient dynamic_text"
+            className="orange_gradient"
           >
             Reset kodeord
           </button>
@@ -200,21 +207,19 @@ function SignIn() {
         <div className="flex flex-col items-center gap-2 pt-4">
           <ul className="list-decimal">
             <li>
-              <p className="dynamic_text">
-                Indtast din email ovenover og tryk Reset
-              </p>
+              <p>Indtast din email ovenover og tryk Reset</p>
             </li>
             <li>
-              <p className="dynamic_text">Gå til din email indboks</p>
+              <p>Gå til din email indboks</p>
             </li>
             <li>
-              <p className="dynamic_text">
+              <p>
                 Find reset mailen. Den kommer fra
                 noreply@iq96-20418.firebaseapp.com
               </p>
             </li>
             <li>
-              <p className="dynamic_text">
+              <p>
                 Tryk på linket i mail -{">"} vælg nyt kodeord -{">"} kom tilbage
                 hertil, og tast nyt kodeord ind
               </p>
