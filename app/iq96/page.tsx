@@ -4,7 +4,7 @@ import { MouseEvent, useContext, useEffect, useState } from "react";
 
 import AboutTab from "@components/member/AboutTab";
 import AdminTab from "@components/member/AdminTab";
-import ContactsTab from "@components/member/Contacts";
+import DeveloperTab from "@components/member/DeveloperTab";
 import Iq96Tab from "@components/member/Iq96Tab";
 import MemberTab from "@components/member/MemberTab";
 import MemberTabsPage, { MemberTabs } from "@components/member/MemberTabs";
@@ -46,7 +46,7 @@ const MemberPage = () => {
         {value === "iq96" && <Iq96Tab />}
         {value === "about" && <AboutTab />}
         {value === "admin" && (isSuperAdmin || isBoard) && <AdminTab />}
-        {value === "contacts" && isDev && <ContactsTab />}
+        {value === "developer" && isDev && <DeveloperTab />}
       </div>
     </PageLayout>
   );

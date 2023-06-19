@@ -14,7 +14,6 @@ import {
   TableRow,
 } from "@components/ui/table";
 import {
-  copyDocument,
   copyDocumentsToNestedCollection,
   deleteMapMarkers,
   DocumentUser,
@@ -62,7 +61,7 @@ export interface Connection {
   phoneNumbers?: ContactPhone[];
 }
 
-const ContactsTab = () => {
+const DeveloperTab = () => {
   const [connections, setCon] = useState<Connection[] | undefined>(undefined);
 
   const {
@@ -127,13 +126,17 @@ const ContactsTab = () => {
           isEditable
           showAll
         />
-        <div>
-          <Separator className="my-5 bg-gray-500" />
-        </div>
-        <p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
-          Gmail kontakter
-        </p>
-        <GmailContacts connections={sortedConnections} />
+        {process.env.NEXT_PUBLIC_ENV !== "production" && (
+          <>
+            <div>
+              <Separator className="my-5 bg-gray-500" />
+            </div>
+            <p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
+              Gmail kontakter
+            </p>
+            <GmailContacts connections={sortedConnections} />
+          </>
+        )}
         <div>
           <Separator className="my-5 bg-gray-500" />
         </div>
@@ -159,7 +162,7 @@ const ContactsTab = () => {
   );
 };
 
-export default ContactsTab;
+export default DeveloperTab;
 
 interface GmailProps {
   connections: Connection[];
