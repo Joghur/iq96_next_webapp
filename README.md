@@ -28,7 +28,7 @@ Where the user can add new markers and they will be sorted according to type
 - Server: Next v13.4 (server components / app folder)
 - Database: Firebase
 - Deployment: Vercel
-- Utilities: framer-motion, radix, react-leaflet, react-hook-form, zod
+- Utilities: framer-motion, radix, tailwind, react-leaflet, react-hook-form, zod
 
 ## Installation
 
