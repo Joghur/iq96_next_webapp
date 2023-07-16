@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Fragment, useState } from "react";
+
 import LoadingSpinner from "@components/ui/LoadingSpinner";
 import { eventTransitionVariants } from "@lib/animations";
 import { DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
@@ -49,7 +50,7 @@ const Iq96Tab = () => {
               initial="hidden"
               animate="visible"
               transition={{ duration: 0.5, delay: index * 0.3 + 0.1 }}
-              className="m-1 flex flex-col items-center rounded-xl p-4 shadow-xl ring-2 hover:cursor-pointer sm:m-4"
+              className="m-1 flex flex-col items-center overflow-x-hidden whitespace-nowrap rounded-xl p-4 shadow-xl ring-2 hover:cursor-pointer sm:m-4"
               onClick={() => setShowProfile(o.name)}
             >
               <div className="justify-left flex flex-col items-center gap-3 overflow-hidden">
@@ -62,17 +63,18 @@ const Iq96Tab = () => {
                 />
                 <span className="font-semibold">{o.name}</span>
               </div>
-              <div className="flex flex-col items-center overflow-hidden">
+              <div className="flex flex-col items-center">
                 <p>{o.nick}</p>
                 <p>{o.title}</p>
                 {showProfile === o.name && (
                   <Fragment>
-                    <p>
+                    <div>
                       {o.phones?.map((p, index) => (
                         <p key={index}>{p?.replace("+45", "")}</p>
                       ))}
-                    </p>
+                    </div>
                     <p>{o.email}</p>
+                    <p>{o.birthday}</p>
                   </Fragment>
                 )}
               </div>
