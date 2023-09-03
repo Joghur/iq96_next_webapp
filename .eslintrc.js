@@ -26,24 +26,24 @@ module.exports = {
   plugins: ['react', '@typescript-eslint'],
   rules: {
     quotes: ['error', 'single'],
-    'sort-imports': [
-      'error',
-      {
-        ignoreCase: true,
-        ignoreDeclarationSort: true,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-        allowSeparatedGroups: false,
-      },
-    ],
-    'import/order': [
-      'error',
-      {
-        alphabetize: {
-          order: 'asc',
-          caseInsensitive: true,
-        },
-      },
-    ],
+    // 'import/order': [
+    //   'error',
+    //   {
+    //     alphabetize: {
+    //       order: 'asc',
+    //       caseInsensitive: true,
+    //     },
+    //   },
+    // ],
+    // 'sort-imports': [
+    //   'error',
+    //   {
+    //     ignoreCase: true,
+    //     ignoreDeclarationSort: true,
+    //     ignoreMemberSort: false,
+    //     memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+    //     allowSeparatedGroups: false,
+    //   },
+    // ],
   },
 };
