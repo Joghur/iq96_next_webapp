@@ -6,40 +6,40 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  parser: '@typescript-eslint/parser',
+  parser: "@typescript-eslint/parser",
   extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:prettier/recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'next/core-web-vitals',
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "next/core-web-vitals",
   ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
     ecmaVersion: 12,
-    sourceType: 'module',
+    sourceType: "module",
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ["react", "@typescript-eslint"],
   rules: {
-    'sort-imports': [
-      'error',
+    "sort-imports": [
+      "error",
       {
         ignoreCase: true,
         ignoreDeclarationSort: true,
         ignoreMemberSort: false,
-        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+        memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
         allowSeparatedGroups: false,
       },
     ],
-    'import/order': [
-      'error',
+    "import/order": [
+      "error",
       {
         alphabetize: {
-          order: 'asc',
+          order: "asc",
           caseInsensitive: true,
         },
       },
