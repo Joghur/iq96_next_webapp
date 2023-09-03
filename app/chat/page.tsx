@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
 // import { User } from 'firebase/auth';
-import { motion } from "framer-motion";
-import moment from "moment";
-import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
-import { MdDelete } from "react-icons/md";
+import { motion } from 'framer-motion';
+import moment from 'moment';
+import Image from 'next/image';
+import { useContext, useEffect, useState } from 'react';
+import { MdDelete } from 'react-icons/md';
 
-import { handleStartTheme } from "@components/member/ThemeToggle";
-import LoadingSpinner from "@components/ui/LoadingSpinner";
-import PageLayout from "@components/ui/PageLayout";
-import { eventTransitionVariants } from "@lib/animations";
-import { convertEpochSecondsToDateString } from "@lib/dates";
-import { useFirestore } from "@lib/hooks/useFirestore";
-import { authContext } from "@lib/store/auth-context";
-import { cn } from "@lib/utils";
+import { handleStartTheme } from '@components/member/ThemeToggle';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import PageLayout from '@components/ui/PageLayout';
+import { eventTransitionVariants } from '@lib/animations';
+import { convertEpochSecondsToDateString } from '@lib/dates';
+import { useFirestore } from '@lib/hooks/useFirestore';
+import { authContext } from '@lib/store/auth-context';
+import { cn } from '@lib/utils';
 
 type FirebaseTimestamp = {
   seconds: number;
@@ -38,7 +38,7 @@ export interface ChatType {
 
 const ChatPage = () => {
   const [limitBy, setLimitBy] = useState(4);
-  const [input, setInput] = useState<string>("");
+  const [input, setInput] = useState<string>('');
   const [updating, setUpdating] = useState<ChatType | undefined>(undefined);
   const { authUser, documentUser, loading } = useContext(authContext);
   const {
@@ -47,7 +47,7 @@ const ChatPage = () => {
     addingDoc,
     updatingDoc,
     deletingDoc,
-  } = useFirestore<ChatType>("chats", "createdAt", "desc", limitBy);
+  } = useFirestore<ChatType>('chats', 'createdAt', 'desc', limitBy);
 
   useEffect(() => {
     handleStartTheme();
@@ -62,7 +62,7 @@ const ChatPage = () => {
   }
 
   if (chatLoading) {
-    return <LoadingSpinner text={"Henter Chats"} />;
+    return <LoadingSpinner text={'Henter Chats'} />;
   }
 
   const handleDelete = async (id: string | undefined) => {
@@ -76,7 +76,7 @@ const ChatPage = () => {
   };
 
   const handleSubmit = async () => {
-    if (input.trim() !== "" && authUser) {
+    if (input.trim() !== '' && authUser) {
       if (updating && updating.id) {
         await updatingDoc(updating.id, {
           ...updating,
@@ -86,15 +86,15 @@ const ChatPage = () => {
       } else {
         await addingDoc({
           createdAt: new Date(),
-          group: "general",
+          group: 'general',
           text: input.trim(),
           user: {
             id: authUser.uid,
-            name: documentUser?.nick || "Ukendt",
+            name: documentUser?.nick || 'Ukendt',
             avatar: documentUser?.avatar,
           },
         });
-        setInput(() => "");
+        setInput(() => '');
       }
     }
   };
@@ -142,7 +142,7 @@ const ChatPage = () => {
 
               const isSame = moment(chat.createdAt?.seconds * 1000).isSame(
                 moment(dayAsMilliSeconds),
-                "date"
+                'date'
               );
 
               if (!isSame) {
@@ -153,10 +153,10 @@ const ChatPage = () => {
               dayAsMilliSeconds = chat.createdAt.seconds * 1000;
 
               const listItemClass = cn({
-                "dynamic_text mb-4 flex items-center justify-center rounded-full ring-1":
+                'dynamic_text mb-4 flex items-center justify-center rounded-full ring-1':
                   true,
-                "mt-4": index === 0,
-                "mt-16": index !== 0,
+                'mt-4': index === 0,
+                'mt-16': index !== 0,
               });
 
               return (
@@ -174,21 +174,21 @@ const ChatPage = () => {
                         <div className={listItemClass}>
                           {convertEpochSecondsToDateString(
                             chat.createdAt.seconds,
-                            "D/MMM-YYYY"
+                            'D/MMM-YYYY'
                           )}
                         </div>
                       </li>
                     )}
                     <div
                       className={`chat -z-10 ${
-                        isChatUser ? "chat-end ml-20" : "chat-start mr-20"
+                        isChatUser ? 'chat-end ml-20' : 'chat-start mr-20'
                       }`}
                     >
                       <div
                         className={`chat-bubble max-w-md shadow-lg ${
                           isChatUser
-                            ? "chat-bubble-success ml-12"
-                            : "chat-bubble-info mr-12"
+                            ? 'chat-bubble-success ml-12'
+                            : 'chat-bubble-info mr-12'
                         }`}
                       >
                         <li key={index}>
@@ -204,7 +204,7 @@ const ChatPage = () => {
                               <p className="dynamic_text mt-1 text-gray-500">
                                 {convertEpochSecondsToDateString(
                                   chat.createdAt.seconds,
-                                  "HH:mm"
+                                  'HH:mm'
                                 )}
                               </p>
                             </div>
@@ -214,7 +214,7 @@ const ChatPage = () => {
                               >
                                 <p className={`dynamic_text text-gray-500`}>
                                   <strong>
-                                    {isChatUser ? "Dig" : chat.user.name}
+                                    {isChatUser ? 'Dig' : chat.user.name}
                                   </strong>
                                 </p>
                                 <div className="flex flex-row gap-3">

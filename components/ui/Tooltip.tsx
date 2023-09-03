@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { ReactNode } from "react";
-import { cn } from "@lib/utils";
+import { ReactNode } from 'react';
+import { cn } from '@lib/utils';
 
 interface Props {
   children: ReactNode;
   text: string;
-  position?: "top" | "right";
+  position?: 'top' | 'right';
 }
 
-const Tooltip = ({ children, text, position = "top" }: Props) => {
+const Tooltip = ({ children, text, position = 'top' }: Props) => {
   const tooltipClass = cn({
-    "tooltip-right tooltip": position === "right",
-    tooltip: position === "top",
+    'tooltip-right tooltip': position === 'right',
+    tooltip: position === 'top',
   });
 
   return (

@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
 
-import { MdInfo } from "react-icons/md";
-import ThemeToggle from "./ThemeToggle";
-import TshirtSelect from "./TshirtSelect";
-import { Separator } from "@/components/ui/separator";
-import LoadingSpinner from "@components/ui/LoadingSpinner";
-import SettingsItem from "@components/ui/SettingsItem";
-import Tooltip from "@components/ui/Tooltip";
-import { authContext } from "@lib/store/auth-context";
+import { MdInfo } from 'react-icons/md';
+import ThemeToggle from './ThemeToggle';
+import TshirtSelect from './TshirtSelect';
+import { Separator } from '@/components/ui/separator';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import SettingsItem from '@components/ui/SettingsItem';
+import Tooltip from '@components/ui/Tooltip';
+import { authContext } from '@lib/store/auth-context';
 
 const MemberTab = () => {
   const { logout, authUser, documentUser, loading, updatingDoc } =
@@ -23,13 +23,13 @@ const MemberTab = () => {
   }
 
   const tshirtTooltipText =
-    "Vælg din størrelse. Max for t-shirts er 3XL og for jubilæumstøj 4XL. Vælg derfor din foretrukne og i t-shirt sammenhæng bliver den nedsat til 3XL når der bestilles";
+    'Vælg din størrelse. Max for t-shirts er 3XL og for jubilæumstøj 4XL. Vælg derfor din foretrukne og i t-shirt sammenhæng bliver den nedsat til 3XL når der bestilles';
 
   return (
     <motion.div
       initial={{ x: -100 }}
       animate={{ x: 0 }}
-      transition={{ type: "spring", stiffness: 100 }}
+      transition={{ type: 'spring', stiffness: 100 }}
       className="py-15 px-5 sm:py-5"
     >
       <div className="flex flex-col gap-2">
@@ -44,7 +44,7 @@ const MemberTab = () => {
               <div className="dynamic_text flex items-center gap-1 font-semibold">
                 IQ96 email
                 <Tooltip text="Email som bestyrelsen skriver til">
-                  <MdInfo color={"green"} />
+                  <MdInfo color={'green'} />
                 </Tooltip>
               </div>
               <div className="dynamic_text flex items-center gap-1 font-semibold">
@@ -52,7 +52,7 @@ const MemberTab = () => {
                 <Tooltip
                   text={`Email brugt til login på denne side eller android app'en. OBS! Det er ikke nødvendigvis den samme som bruges til den gamle side på ${process.env.NEXT_PUBLIC_OLDPAGE_LINK}`}
                 >
-                  <MdInfo color={"green"} />
+                  <MdInfo color={'green'} />
                 </Tooltip>
               </div>
               <p className="dynamic_text font-semibold">Adresse</p>
@@ -64,7 +64,7 @@ const MemberTab = () => {
               <p className="dynamic_text">{documentUser?.email}</p>
               <p className="dynamic_text">{documentUser?.address}</p>
               <p className="dynamic_text">
-                {documentUser?.phones?.map((o) => o.replace("+45", ""))}
+                {documentUser?.phones?.map((o) => o.replace('+45', ''))}
               </p>
             </div>
           </div>
@@ -105,7 +105,7 @@ const MemberTab = () => {
         <button
           onClick={() => {
             logout();
-            router.replace("/");
+            router.replace('/');
           }}
           className="btn-error btn-xs btn mt-16"
         >

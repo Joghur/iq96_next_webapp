@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-"use client";
+'use client';
 
 import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
   User,
-} from "firebase/auth";
-import { DocumentData } from "firebase/firestore";
-import { createContext, ReactNode } from "react";
+} from 'firebase/auth';
+import { DocumentData } from 'firebase/firestore';
+import { createContext, ReactNode } from 'react';
 
-import { auth } from "@/lib/firebase";
-import { DocumentUser, useDocumentUser } from "@lib/hooks/useFirestore";
+import { auth } from '@/lib/firebase';
+import { DocumentUser, useDocumentUser } from '@lib/hooks/useFirestore';
 
 interface AuthContextValues {
   authUser: User | null | undefined;
@@ -52,8 +52,8 @@ export default function AuthContextProvider({
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
-      console.error("Logout error: ", err);
-      alert("Der er skete en fejl under login!");
+      console.error('Logout error: ', err);
+      alert('Der er skete en fejl under login!');
     }
   };
 
@@ -65,8 +65,8 @@ export default function AuthContextProvider({
     try {
       await sendPasswordResetEmail(auth, email);
     } catch (error) {
-      console.error("Logout error: ", error);
-      alert("Der er skete en fejl under reset kodeord!");
+      console.error('Logout error: ', error);
+      alert('Der er skete en fejl under reset kodeord!');
     }
   };
 

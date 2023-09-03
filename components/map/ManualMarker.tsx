@@ -1,6 +1,6 @@
-import React from "react";
-import { useMapEvents } from "react-leaflet";
-import { MarkerData } from "./Map";
+import React from 'react';
+import { useMapEvents } from 'react-leaflet';
+import { MarkerData } from './Map';
 
 interface Props {
   addingMarker: (document: MarkerData) => Promise<void>;
@@ -13,11 +13,11 @@ function ManualMarker({ addingMarker }: Props) {
         const { lat, lng } = e.latlng;
         await addingMarker({
           location: { latitude: lat, longitude: lng },
-          description: "",
-          madeBy: "user",
-          nick: "",
-          title: "",
-          type: "unknown",
+          description: '',
+          madeBy: 'user',
+          nick: '',
+          title: '',
+          type: 'unknown',
         });
       },
     });

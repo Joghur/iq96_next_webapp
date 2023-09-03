@@ -1,8 +1,8 @@
-import L from "leaflet";
-import React, { FC, useEffect, useState } from "react";
-import { useMap } from "react-leaflet";
-import { MarkerData } from "@components/map/Map";
-import Select, { SelectGroup } from "@components/ui/Select";
+import L from 'leaflet';
+import React, { FC, useEffect, useState } from 'react';
+import { useMap } from 'react-leaflet';
+import { MarkerData } from '@components/map/Map';
+import Select, { SelectGroup } from '@components/ui/Select';
 
 interface Props {
   markers: MarkerData[];
@@ -54,24 +54,24 @@ export const MarkerSelect: FC<Props> = ({ markers }) => {
   }, [markers, lat]);
 
   const appMarkers = markers
-    ?.filter((o) => o.madeBy === "app")
+    ?.filter((o) => o.madeBy === 'app')
     .map((s) => s.title);
-  const userMarkers = markers?.filter((o) => o.madeBy === "user");
+  const userMarkers = markers?.filter((o) => o.madeBy === 'user');
   const restaurantMarkers = userMarkers
-    ?.filter((o) => o.type === "restaurant")
+    ?.filter((o) => o.type === 'restaurant')
     .map((s) => s.title);
   const barMarkers = userMarkers
-    ?.filter((o) => o.type === "bar")
+    ?.filter((o) => o.type === 'bar')
     .map((s) => s.title);
   const restMarkers = userMarkers
-    ?.filter((o) => o.type !== "bar" && o.type !== "restaurant")
+    ?.filter((o) => o.type !== 'bar' && o.type !== 'restaurant')
     .map((s) => s.title);
 
   const selectGroups: SelectGroup[] = [
-    { label: "IQ96 steder", groupItems: appMarkers },
-    { label: "Restauranter", groupItems: restaurantMarkers },
-    { label: "Barer", groupItems: barMarkers },
-    { label: "Andre steder", groupItems: restMarkers },
+    { label: 'IQ96 steder', groupItems: appMarkers },
+    { label: 'Restauranter', groupItems: restaurantMarkers },
+    { label: 'Barer', groupItems: barMarkers },
+    { label: 'Andre steder', groupItems: restMarkers },
   ];
 
   return (

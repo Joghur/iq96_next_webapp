@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { MdAdd, MdInfo, MdLocationCity, MdMyLocation } from "react-icons/md";
-import { Separator } from "@/components/ui/separator";
-import Modal from "@components/ui/Modal";
-import { DocumentUser } from "@lib/hooks/useFirestore";
+import { useState } from 'react';
+import { MdAdd, MdInfo, MdLocationCity, MdMyLocation } from 'react-icons/md';
+import { Separator } from '@/components/ui/separator';
+import Modal from '@components/ui/Modal';
+import { DocumentUser } from '@lib/hooks/useFirestore';
 
 interface Props {
   documentUser: DocumentUser;
@@ -49,7 +49,7 @@ const InfoModal = ({ open, onClose, documentUser }: InfoModalProps) => {
         <h3 className="text-lg font-bold">Sådan bruges kortet</h3>
         <button
           onClick={onClose}
-          color={"error"}
+          color={'error'}
           className="modal-button btn-error btn-outline btn-sm btn"
         >
           Luk
@@ -76,7 +76,7 @@ const InfoModal = ({ open, onClose, documentUser }: InfoModalProps) => {
             </ul>
             <p className="font-semibold">ELLER</p>
             <p className="flex">
-              Brug{" "}
+              Brug{' '}
               <span className="flex-shrink-0">
                 <MdAdd fontSize="large" />
               </span>
@@ -97,7 +97,7 @@ const InfoModal = ({ open, onClose, documentUser }: InfoModalProps) => {
               <MdMyLocation fontSize="large" />
             </div>
             <p>
-              Flyver til din lokation.{" "}
+              Flyver til din lokation.{' '}
               <span className="font-semibold">OBS!</span> Kræver lokations
               tilladelse!
             </p>
@@ -107,7 +107,7 @@ const InfoModal = ({ open, onClose, documentUser }: InfoModalProps) => {
               <MdAdd fontSize="large" />
             </div>
             <p>
-              Opretter en tom markør på din position.{" "}
+              Opretter en tom markør på din position.{' '}
               <span className="font-semibold">OBS!</span> Kræver lokations
               tilladelse!
             </p>

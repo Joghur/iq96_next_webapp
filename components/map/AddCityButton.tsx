@@ -1,6 +1,6 @@
-import { ChangeEvent, useState } from "react";
-import { MdLocationCity } from "react-icons/md";
-import Modal from "@components/ui/Modal";
+import { ChangeEvent, useState } from 'react';
+import { MdLocationCity } from 'react-icons/md';
+import Modal from '@components/ui/Modal';
 
 export interface MapCityType {
   city: string;
@@ -8,8 +8,8 @@ export interface MapCityType {
 }
 
 const initialCity = {
-  city: "",
-  year: "",
+  city: '',
+  year: '',
 };
 
 interface Props {
@@ -92,7 +92,7 @@ const NewCityForm = ({
             id="year"
             value={changedCity.year}
             onChange={handleChange}
-            placeholder={changedCity?.year || "År"}
+            placeholder={changedCity?.year || 'År'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
@@ -107,14 +107,14 @@ const NewCityForm = ({
             id="city"
             value={changedCity.city}
             onChange={handleChange}
-            placeholder={changedCity?.city || "Bynavn"}
+            placeholder={changedCity?.city || 'Bynavn'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
         <div className="flex justify-between pt-5">
           <button
             onClick={onClose}
-            color={"error"}
+            color={'error'}
             className="btn-error btn-outline btn-sm btn"
           >
             Fortryd

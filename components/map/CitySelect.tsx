@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import { MapCityType } from "./AddCityButton";
-import Select from "@components/ui/Select";
+import React, { FC } from 'react';
+import { MapCityType } from './AddCityButton';
+import Select from '@components/ui/Select';
 
 interface Props {
   label: string;
@@ -16,7 +16,7 @@ export const CitySelect: FC<Props> = ({
   onChange,
 }) => {
   const handleSelectChange = (event: string) => {
-    const [year, city] = event.split("-");
+    const [year, city] = event.split('-');
     onChange({ year, city });
   };
 

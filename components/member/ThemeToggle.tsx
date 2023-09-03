@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { Fragment, useEffect, useState } from "react";
-import Switch from "@components/ui/Switch";
+import { Fragment, useEffect, useState } from 'react';
+import Switch from '@components/ui/Switch';
 import {
   getLocalStorage,
   LOCALSTORAGE_PREFIX,
   setLocalStorage,
-} from "@lib/localStorage";
+} from '@lib/localStorage';
 
 export const LOCALSTORAGE_THEME = `${LOCALSTORAGE_PREFIX}-theme`;
 
-const themes = ["light", "dark"] as const;
+const themes = ['light', 'dark'] as const;
 
 export type Themes = (typeof themes)[number];
 
 export const handleStartTheme = () => {
   const savedTheme: Themes | null = getLocalStorage(LOCALSTORAGE_THEME);
   if (savedTheme) {
-    document.querySelector("html")?.setAttribute("data-theme", savedTheme);
+    document.querySelector('html')?.setAttribute('data-theme', savedTheme);
   }
 };
 
@@ -27,13 +27,13 @@ interface Props {
 
 const ThemeToggle = ({ showLabel }: Props) => {
   const [isChecked, setIsChecked] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState<Themes>("light");
+  const [currentTheme, setCurrentTheme] = useState<Themes>('light');
 
   const handleStart = async () => {
     const savedTheme: Themes | null = await getLocalStorage(LOCALSTORAGE_THEME);
     if (savedTheme) {
       setCurrentTheme(savedTheme);
-      document.querySelector("html")?.setAttribute("data-theme", savedTheme);
+      document.querySelector('html')?.setAttribute('data-theme', savedTheme);
     }
   };
 
@@ -42,10 +42,10 @@ const ThemeToggle = ({ showLabel }: Props) => {
   }, []);
 
   const handleThemeChange = () => {
-    const theme = isChecked ? "dark" : "light";
-    if (document?.querySelector("html")) {
+    const theme = isChecked ? 'dark' : 'light';
+    if (document?.querySelector('html')) {
       setCurrentTheme(() => theme);
-      document.querySelector("html")?.setAttribute("data-theme", theme);
+      document.querySelector('html')?.setAttribute('data-theme', theme);
       setLocalStorage(LOCALSTORAGE_THEME, theme);
       setIsChecked(() => !isChecked);
     }
@@ -62,7 +62,7 @@ const ThemeToggle = ({ showLabel }: Props) => {
         <Switch
           preLabel="Lys"
           postLabel="Mørk"
-          value={currentTheme === "dark"}
+          value={currentTheme === 'dark'}
           onChange={handleThemeChange}
         />
       </div>

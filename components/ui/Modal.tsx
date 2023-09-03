@@ -1,4 +1,4 @@
-import { cn } from "@lib/utils";
+import { cn } from '@lib/utils';
 
 type Props = {
   children: React.ReactNode;
@@ -7,8 +7,8 @@ type Props = {
 
 const Modal = ({ children, open }: Props) => {
   const modalClass = cn({
-    "modal modal-middle": true,
-    "modal-open": open,
+    'modal modal-middle': true,
+    'modal-open': open,
   });
   return (
     <div className={modalClass}>

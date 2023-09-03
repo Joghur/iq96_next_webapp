@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { IqMemberTable } from "./IqMemberTable";
-import LoadingSpinner from "@components/ui/LoadingSpinner";
-import { DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
+import { IqMemberTable } from './IqMemberTable';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 
 const AdminTab = () => {
   const { docs: users, loading } = useFirestore<DocumentUser>(
-    "users",
-    "name",
-    "asc",
+    'users',
+    'name',
+    'asc',
     26
   );
 
   if (loading) {
-    return <LoadingSpinner text={"Henter med-lemmer..."} />;
+    return <LoadingSpinner text={'Henter med-lemmer...'} />;
   }
   if (!users) {
     return null;
@@ -21,11 +21,11 @@ const AdminTab = () => {
 
   const sortedIqUsers = users
     .filter(
-      (o: DocumentUser, index: number) => index < 26 && o?.name !== "IQ96"
+      (o: DocumentUser, index: number) => index < 26 && o?.name !== 'IQ96'
     )
     .sort((a: DocumentUser, b: DocumentUser) => {
-      const displayNameA = a?.name ?? "";
-      const displayNameB = b?.name ?? "";
+      const displayNameA = a?.name ?? '';
+      const displayNameB = b?.name ?? '';
 
       return displayNameA.localeCompare(displayNameB);
     });

@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { DocumentData } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import Select from "@components/ui/Select";
-import { DocumentUser } from "@lib/hooks/useFirestore";
+import { DocumentData } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import Select from '@components/ui/Select';
+import { DocumentUser } from '@lib/hooks/useFirestore';
 
-export const sizes = ["M", "L", "XL", "XXL", "XXXL", "XXXXL"] as const;
+export const sizes = ['M', 'L', 'XL', 'XXL', 'XXXL', 'XXXXL'] as const;
 
 export type TshirtSizes = (typeof sizes)[number];
 

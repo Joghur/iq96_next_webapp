@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { ChangeEvent, useState } from "react";
-import { EventType } from "./EventsPage";
-import Modal from "@components/ui/Modal";
+import { ChangeEvent, useState } from 'react';
+import { EventType } from './EventsPage';
+import Modal from '@components/ui/Modal';
 
 const initialEvent: EventType = {
-  type: "",
-  city: "Kokkedal",
-  country: "Danmark",
-  start: "",
-  end: "",
-  timezone: "Europe/Copenhagen",
+  type: '',
+  city: 'Kokkedal',
+  country: 'Danmark',
+  start: '',
+  end: '',
+  timezone: 'Europe/Copenhagen',
   year: 0,
   activities: `
     kl. xx - Guided tur i byen, mødested udenfor hotellet kl. xx:xx -- 
@@ -76,7 +76,7 @@ const EventForm = ({
             id="start"
             value={changedEvent.start}
             onChange={handleChange}
-            placeholder={changedEvent?.start || "Start"}
+            placeholder={changedEvent?.start || 'Start'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
@@ -91,7 +91,7 @@ const EventForm = ({
             id="end"
             value={changedEvent.end}
             onChange={handleChange}
-            placeholder={changedEvent?.end || "Slut"}
+            placeholder={changedEvent?.end || 'Slut'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
@@ -111,7 +111,7 @@ const EventForm = ({
             id="notes"
             value={changedEvent.notes}
             onChange={handleChange}
-            placeholder={changedEvent?.notes || "Slut"}
+            placeholder={changedEvent?.notes || 'Slut'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
@@ -126,7 +126,7 @@ const EventForm = ({
             id="meetingPoints"
             value={changedEvent.meetingPoints}
             onChange={handleChange}
-            placeholder={changedEvent?.meetingPoints || "Mødesteder"}
+            placeholder={changedEvent?.meetingPoints || 'Mødesteder'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
@@ -141,14 +141,14 @@ const EventForm = ({
             id="activities"
             value={changedEvent.activities}
             onChange={handleChange}
-            placeholder={changedEvent?.activities || "Aktiviteter"}
+            placeholder={changedEvent?.activities || 'Aktiviteter'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
         <div className="flex justify-between pt-5">
           <button
             onClick={onClose}
-            color={"error"}
+            color={'error'}
             className="btn-error btn-outline btn-sm btn"
           >
             Fortryd

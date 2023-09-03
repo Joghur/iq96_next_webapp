@@ -1,6 +1,6 @@
-import { ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-import { ContactPhone } from "@components/member/DeveloperTab";
+import { ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+import { ContactPhone } from '@components/member/DeveloperTab';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -31,11 +31,11 @@ export function compareObjects(obj1: any, obj2: any): string[] {
   const mismatchedProperties: string[] = [];
 
   if (obj1?.names?.[0]?.displayName?.trim() !== obj2.name) {
-    mismatchedProperties.push("name");
+    mismatchedProperties.push('name');
   }
 
   if (obj1?.emailAddresses?.[0]?.value?.trim() !== obj2.email) {
-    mismatchedProperties.push("email");
+    mismatchedProperties.push('email');
   }
 
   if (
@@ -46,18 +46,18 @@ export function compareObjects(obj1: any, obj2: any): string[] {
       obj2.phones
     )
   ) {
-    mismatchedProperties.push("phones");
+    mismatchedProperties.push('phones');
   }
 
   if (
-    obj1?.addresses?.[0]?.formattedValue?.replace("DK", "").trim() !==
+    obj1?.addresses?.[0]?.formattedValue?.replace('DK', '').trim() !==
     obj2.address
   ) {
-    mismatchedProperties.push("address");
+    mismatchedProperties.push('address');
   }
 
   if (obj1?.birthdays?.[0].text?.trim() !== obj2.birthday) {
-    mismatchedProperties.push("birthday");
+    mismatchedProperties.push('birthday');
   }
 
   return addNameToArray(obj2.name, mismatchedProperties);

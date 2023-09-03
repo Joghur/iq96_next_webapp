@@ -2,10 +2,10 @@ import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
-} from "@radix-ui/react-icons";
-import * as SelectRadix from "@radix-ui/react-select";
-import React, { forwardRef, Fragment } from "react";
-import { cn } from "@lib/utils";
+} from '@radix-ui/react-icons';
+import * as SelectRadix from '@radix-ui/react-select';
+import React, { forwardRef, Fragment } from 'react';
+import { cn } from '@lib/utils';
 
 export interface SelectGroup {
   label?: string;
@@ -101,7 +101,7 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
     return (
       <SelectRadix.Item
         className={cn(
-          "relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[35px] text-[13px] leading-none text-violet11 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 data-[highlighted]:outline-none",
+          'relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[35px] text-[13px] leading-none text-violet11 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 data-[highlighted]:outline-none',
           className
         )}
         {...props}

@@ -1,4 +1,4 @@
-import { Connection, ContactPhone } from "./DeveloperTab";
+import { Connection, ContactPhone } from './DeveloperTab';
 import {
   Table,
   TableBody,
@@ -6,9 +6,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@components/ui/table";
-import { DocumentUser } from "@lib/hooks/useFirestore";
-import { compareObjects } from "@lib/utils";
+} from '@components/ui/table';
+import { DocumentUser } from '@lib/hooks/useFirestore';
+import { compareObjects } from '@lib/utils';
 
 interface FirebaseProps {
   iqUsers?: DocumentUser[];
@@ -43,23 +43,23 @@ export const IqMemberTable = ({
       return null;
     }
     await updatingDoc(person.id, {
-      id: person?.id || "",
+      id: person?.id || '',
       isAdmin: person?.isAdmin || false,
       isBoard: person?.isBoard || false,
       isSuperAdmin: person?.isSuperAdmin || false,
-      nick: person?.nick || "",
-      title: person?.title || "",
-      uid: person?.uid || "",
-      avatar: person.avatar || "",
-      tshirt: person.tshirt || "",
-      name: contact?.names?.[0]?.displayName?.trim() || "",
-      email: contact?.emailAddresses?.[0]?.value?.trim() || "",
+      nick: person?.nick || '',
+      title: person?.title || '',
+      uid: person?.uid || '',
+      avatar: person.avatar || '',
+      tshirt: person.tshirt || '',
+      name: contact?.names?.[0]?.displayName?.trim() || '',
+      email: contact?.emailAddresses?.[0]?.value?.trim() || '',
       phones:
         contact?.phoneNumbers?.map(
           (o: ContactPhone) => `${o.canonicalForm?.trim()}`
         ) || [],
       address:
-        contact?.addresses?.[0]?.formattedValue?.replace("DK", "").trim() || "",
+        contact?.addresses?.[0]?.formattedValue?.replace('DK', '').trim() || '',
     });
   };
 
@@ -86,19 +86,19 @@ export const IqMemberTable = ({
             const memberIndex = index + 1;
             const name = person?.name?.trim();
             const isNameDiff = Boolean(
-              connections && diffArray?.includes("name")
+              connections && diffArray?.includes('name')
             );
-            const email = person?.email || "";
+            const email = person?.email || '';
             const isEmailDiff = Boolean(
-              connections && diffArray?.includes("email")
+              connections && diffArray?.includes('email')
             );
             const phones = person?.phones?.map((o: string) => `${o?.trim()}`);
             const isPhonesDiff = Boolean(
-              connections && diffArray?.includes("phones")
+              connections && diffArray?.includes('phones')
             );
-            const address = person?.address?.replace("DK", "").trim();
+            const address = person?.address?.replace('DK', '').trim();
             const isAddressDiff = Boolean(
-              connections && diffArray?.includes("address")
+              connections && diffArray?.includes('address')
             );
 
             return (
@@ -114,12 +114,12 @@ export const IqMemberTable = ({
                   )
                 }
                 className={`text-xs hover:${
-                  isEditable ? "cursor-pointer" : "cursor-text"
+                  isEditable ? 'cursor-pointer' : 'cursor-text'
                 }`}
               >
                 <TableCell className="p-1">{memberIndex}</TableCell>
                 <TableCell
-                  className={`${isNameDiff ? "bg-red-500 text-white" : ""} p-1`}
+                  className={`${isNameDiff ? 'bg-red-500 text-white' : ''} p-1`}
                 >
                   {name}
                 </TableCell>
@@ -127,22 +127,22 @@ export const IqMemberTable = ({
                 <TableCell className="p-1">{person.title}</TableCell>
                 <TableCell
                   className={`${
-                    isEmailDiff ? "bg-red-500 text-white" : ""
+                    isEmailDiff ? 'bg-red-500 text-white' : ''
                   } p-1`}
                 >
                   {email}
                 </TableCell>
                 <TableCell
                   className={`${
-                    isPhonesDiff ? "bg-red-500 text-white" : ""
+                    isPhonesDiff ? 'bg-red-500 text-white' : ''
                   } p-1`}
                 >
-                  {phones?.join(" / ")?.replace("+45", "")}
+                  {phones?.join(' / ')?.replace('+45', '')}
                 </TableCell>
                 {showAll && (
                   <TableCell
                     className={`${
-                      isAddressDiff ? "bg-red-500 text-white" : ""
+                      isAddressDiff ? 'bg-red-500 text-white' : ''
                     } p-1`}
                   >
                     {address}

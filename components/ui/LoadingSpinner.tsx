@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
 interface Props {
   text?: string;
 }
 
-const LoadingSpinner = ({ text = "Henter..." }: Props) => {
+const LoadingSpinner = ({ text = 'Henter...' }: Props) => {
   return (
     <div>
       <div className="flex h-screen items-center justify-center">
