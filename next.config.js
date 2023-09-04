@@ -4,9 +4,7 @@ const nextConfig = {
     serverActions: true,
   },
   images: {
-    loader: 'cloudinary',
     domains: ['res.cloudinary.com'],
-    path: 'https://res.cloudinary.com/%22dn01o52nc%22/image/upload',
   },
 };
 
