@@ -1,5 +1,6 @@
 import { ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+
 import { ContactPhone } from '@components/member/DeveloperTab';
 
 export function cn(...inputs: ClassValue[]) {
@@ -88,3 +89,20 @@ export function compareNick(a: any, b: any) {
   }
   return 0;
 }
+
+const capitalizeFirstLetter = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1);
+
+/**
+ *
+ * @param label Prettify labels
+ * 2023-edinbourgh -> 2023 - Edinbourgh
+ */
+export const prettyImageFolderLabel = (label: string) => {
+  if (label.includes('-')) {
+    // Image label folder has this syntaxc 2023-edinbourgh
+    const labelParts = label.split('-');
+    return `${labelParts[0]} - ${capitalizeFirstLetter(labelParts[1])}`;
+  }
+  return label;
+};

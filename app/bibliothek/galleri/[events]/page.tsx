@@ -22,7 +22,7 @@ export default async function AlbumsPage({
           <h1 className="text-4xl font-bold">Albums</h1>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-4">
           {folders.map((folder) => (
             <AlbumCard key={folder.path} event={events} folder={folder} />
           ))}

@@ -1,5 +1,7 @@
 import cloudinary from 'cloudinary';
 
+import { prettyImageFolderLabel } from '@lib/utils';
+
 import { SearchResult } from '../../page';
 import AlbumGrid from './album-grid';
 
@@ -25,7 +27,9 @@ export default async function EventsPage({
 
       <div className="flex flex-col gap-8">
         <div className="flex justify-between">
-          <h1 className="text-4xl font-bold">{albumName}</h1>
+          <h1 className="text-4xl font-bold">
+            {prettyImageFolderLabel(albumName)}
+          </h1>
         </div>
 
         <AlbumGrid images={results.resources} />

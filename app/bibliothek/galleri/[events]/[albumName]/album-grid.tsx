@@ -14,10 +14,9 @@ export default function AlbumGrid({ images }: { images: SearchResult[] }) {
           <CloudinaryImage
             key={imageData.public_id}
             src={imageData.public_id}
-            // imageData={imageData}
             width="400"
             height="300"
-            alt="an image of something"
+            alt="Her skulle være et sejt IQ billede"
           />
         );
       }}

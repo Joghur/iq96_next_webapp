@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import {
     Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
 } from '@/components/ui/card';
+import { prettyImageFolderLabel } from '@lib/utils';
 
 import { Folder } from './page';
 
@@ -18,8 +19,10 @@ export function AlbumCard({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{folder.name}</CardTitle>
-        <CardDescription>Billeder fra {event} {folder.name}</CardDescription>
+        <CardTitle>{prettyImageFolderLabel(folder.name)}</CardTitle>
+        <CardDescription>
+          Billeder fra {event} {prettyImageFolderLabel(folder.name)}
+        </CardDescription>
       </CardHeader>
       <CardContent></CardContent>
       <CardFooter className="flex justify-between">
