@@ -1,12 +1,19 @@
-import cloudinary from 'cloudinary';
+import { Fragment } from 'react';
 
-import EventsButton from '@components/library/gallery/EventsButton';
 import UploadButton from '@components/library/gallery/upload-button';
 import PageLayout from '@components/ui/PageLayout';
+
+import { GalleryCard } from './gallery-card';
+import { categories } from './layout';
 
 export type SearchResult = {
   public_id: string;
   tags: string[];
+};
+
+export type EventLabel = {
+  label: string;
+  shortLabel: string;
 };
 
 const GalleryPage = async () => {
@@ -17,10 +24,10 @@ const GalleryPage = async () => {
           <h1 className="text-4xl font-bold">Galleri</h1>
           <UploadButton />
         </div>
-        <div>
-          <EventsButton label="tour" />
-          <EventsButton label="gf" />
-          <EventsButton label="events" />
+        <div className="flex m-auto flex-col gap-4">
+          {categories.map((category: EventLabel) => (
+            <GalleryCard key={category.shortLabel} label={category} />
+          ))}
         </div>
       </div>
     </PageLayout>

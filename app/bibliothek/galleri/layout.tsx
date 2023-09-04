@@ -2,12 +2,13 @@ import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 
-type Folder = {
-  name: string;
-  path: string;
-};
+import { EventLabel } from './page';
 
-const categories = ['Tour', 'ØL', 'GF'];
+export const categories: EventLabel[] = [
+  { label: 'Tour', shortLabel: 'tour' },
+  { label: 'Generalforsamling', shortLabel: 'gf' },
+  { label: 'Stævner', shortLabel: 'events' },
+];
 
 async function SideMenu() {
   // TODO: Button icons
@@ -27,18 +28,18 @@ async function SideMenu() {
             >
               <Link href="/bibliothek/galleri">Galleri</Link>
             </Button>
-            {categories.map((category: string) => (
+            {categories.map((category: EventLabel) => (
               <Button
                 variant="ghost"
                 asChild
-                key={category}
+                key={category.shortLabel}
                 className="w-full justify-start flex gap-2"
               >
                 <Link
                   className="pl-8"
-                  href={`/bibliothek/galleri/${category.toLowerCase()}`}
+                  href={`/bibliothek/galleri/${category.shortLabel}`}
                 >
-                  {category}
+                  {category.label}
                 </Link>
               </Button>
             ))}
