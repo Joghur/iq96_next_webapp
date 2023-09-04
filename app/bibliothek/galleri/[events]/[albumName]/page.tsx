@@ -1,7 +1,7 @@
 import cloudinary from 'cloudinary';
 
 import UploadButton from '@components/library/gallery/upload-button';
-import { prettyImageFolderLabel } from '@lib/utils';
+import { convertFromUrlSafe, prettyImageFolderLabel } from '@lib/utils';
 
 import { SearchResult } from '../../page';
 import AlbumGrid from './album-grid';
@@ -14,7 +14,8 @@ export default async function EventsPage({
     albumName: string;
   };
 }) {
-  const folder = `${events}/${albumName}`;
+  const folder = `${events}/${convertFromUrlSafe(albumName)}`;
+  console.log('folder', folder);
 
   const results = (await cloudinary.v2.search
     .expression(`resource_type:image AND folder:${folder}`)
@@ -29,7 +30,7 @@ export default async function EventsPage({
       <div className="flex flex-col gap-8">
         <div className="flex justify-between">
           <h1 className="text-4xl font-bold">
-            {prettyImageFolderLabel(albumName)}
+            {prettyImageFolderLabel(convertFromUrlSafe(albumName))}
           </h1>
           <UploadButton folder={folder} />
         </div>

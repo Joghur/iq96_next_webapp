@@ -1,5 +1,3 @@
-import { Fragment } from 'react';
-
 import UploadButton from '@components/library/gallery/upload-button';
 import PageLayout from '@components/ui/PageLayout';
 

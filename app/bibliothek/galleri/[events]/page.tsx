@@ -1,5 +1,7 @@
 import cloudinary from 'cloudinary';
 
+import { convertLabels } from '@lib/utils';
+
 import { AlbumCard } from './[albumName]/album-card';
 
 export type Folder = { name: string; path: string };
@@ -19,7 +21,7 @@ export default async function AlbumsPage({
     <section>
       <div className="flex flex-col gap-8">
         <div className="flex justify-between">
-          <h1 className="text-4xl font-bold">Albums</h1>
+          <h1 className="text-4xl font-bold">{convertLabels(events)}</h1>
         </div>
 
         <div className="grid sm:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-4">

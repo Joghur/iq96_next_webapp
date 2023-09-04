@@ -2,9 +2,7 @@
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
-import {
-    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
-} from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Folder } from '@app/bibliothek/galleri/[events]/page';
 import { prettyImageFolderLabel } from '@lib/utils';
 
@@ -19,9 +17,6 @@ export function AlbumCard({
     <Card>
       <CardHeader>
         <CardTitle>{prettyImageFolderLabel(folder.name)}</CardTitle>
-        <CardDescription>
-          Billeder fra {event} {prettyImageFolderLabel(folder.name)}
-        </CardDescription>
       </CardHeader>
       <CardContent></CardContent>
       <CardFooter className="flex justify-between">
