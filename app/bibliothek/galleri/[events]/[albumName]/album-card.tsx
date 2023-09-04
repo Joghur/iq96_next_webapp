@@ -3,16 +3,10 @@ import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
 } from '@/components/ui/card';
+import { Folder } from '@app/bibliothek/galleri/[events]/page';
 import { prettyImageFolderLabel } from '@lib/utils';
-
-import { Folder } from './page';
 
 export function AlbumCard({
   folder,

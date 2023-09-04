@@ -1,6 +1,6 @@
 import cloudinary from 'cloudinary';
 
-import { AlbumCard } from './album-card';
+import { AlbumCard } from './[albumName]/album-card';
 
 export type Folder = { name: string; path: string };
 
@@ -11,7 +11,7 @@ export default async function AlbumsPage({
     events: string;
   };
 }) {
-  const { folders } = (await cloudinary.v2.api.sub_folders('tour')) as {
+  const { folders } = (await cloudinary.v2.api.sub_folders(events)) as {
     folders: Folder[];
   };
 
