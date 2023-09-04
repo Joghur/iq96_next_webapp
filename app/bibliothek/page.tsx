@@ -1,25 +1,32 @@
-'use client';
+import Link from 'next/link';
 
-import { useContext } from 'react';
-
-import LoadingSpinner from '@components/ui/LoadingSpinner';
+import { Button } from '@components/ui/button';
+// eslint-disable-next-line prettier/prettier
 import PageLayout from '@components/ui/PageLayout';
-import { authContext } from '@lib/store/auth-context';
 
 const LibraryPage = () => {
-  const { authUser, loading } = useContext(authContext);
+  // const { authUser, loading } = useContext(authContext);
+  // const [value, setValue] = useState<GalleryTabs>('tour');
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
+  // useEffect(() => {
+  //   handleStartTheme();
+  // }, []);
 
-  if (!authUser) {
-    return null;
-  }
+  // if (loading) {
+  //   return <LoadingSpinner />;
+  // }
+
+  // if (!authUser) {
+  //   return null;
+  // }
 
   return (
     <PageLayout>
-      <div className="mt-40 flex items-center justify-center">Galleri her</div>
+      <div className="flex items-center justify-center pt-6">
+        <Button asChild variant="secondary">
+          <Link href="/bibliothek/galleri">Gallery</Link>
+        </Button>
+      </div>
     </PageLayout>
   );
 };

@@ -106,7 +106,9 @@ const ChatPage = () => {
     <PageLayout>
       <div className="mx-auto mt-12 min-h-screen max-w-4xl sm:mt-24">
         <div
-          className={`dynamic_text fixed -top-3 right-3 z-50 mt-4 flex w-5/6 items-center space-x-2 sm:top-6`}
+          className={
+            'dynamic_text fixed -top-3 right-3 z-50 mt-4 flex w-5/6 items-center space-x-2 sm:top-6'
+          }
         >
           <input
             type="text"
@@ -166,7 +168,7 @@ const ChatPage = () => {
                   initial="hidden"
                   animate="visible"
                   transition={{ duration: 0.5, delay: index * 0.3 + 0.3 }}
-                  className={`mb-4`}
+                  className={'mb-4'}
                 >
                   <ul>
                     {showDay && (
@@ -210,9 +212,9 @@ const ChatPage = () => {
                             </div>
                             <div>
                               <div
-                                className={`flex flex-row justify-between p-1`}
+                                className={'flex flex-row justify-between p-1'}
                               >
-                                <p className={`dynamic_text text-gray-500`}>
+                                <p className={'dynamic_text text-gray-500'}>
                                   <strong>
                                     {isChatUser ? 'Dig' : chat.user.name}
                                   </strong>

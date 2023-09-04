@@ -403,7 +403,7 @@ export const useDocumentUser = (): [
   User | null,
   DocumentUser | null,
   boolean,
-  (id: string, document: DocumentData) => Promise<void>
+  (id: string, document: DocumentData) => Promise<void>,
 ] => {
   const [authUser, setFirebaseUser] = useState<User | null>(null);
   const [documentUser, setDocumentUser] = useState<DocumentUser | null>(null);
