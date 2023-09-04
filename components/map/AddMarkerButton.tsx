@@ -1,20 +1,20 @@
-import L from "leaflet";
-import { ChangeEvent, useState } from "react";
-import { MdAdd } from "react-icons/md";
-import { MarkerData } from "./Map";
-import Modal from "@components/ui/Modal";
+import L from 'leaflet';
+import { ChangeEvent, useState } from 'react';
+import { MdAdd } from 'react-icons/md';
+import { MarkerData } from './Map';
+import Modal from '@components/ui/Modal';
 
 const initialMarker: MarkerData = {
-  id: "",
+  id: '',
   location: {
     latitude: 0,
     longitude: 0,
   },
-  description: "Et hotel",
-  madeBy: "app",
-  nick: "Hotel",
-  title: "test",
-  type: "hotel",
+  description: 'Et hotel',
+  madeBy: 'app',
+  nick: 'Hotel',
+  title: 'test',
+  type: 'hotel',
 };
 
 interface Props {
@@ -26,7 +26,7 @@ const AddMarkerButton = ({ addingMarker, userPosition }: Props) => {
   const [open, setOpen] = useState(false);
 
   const toogleAddModal = async () => {
-    console.log("Addbutton");
+    console.log('Addbutton');
     setOpen((old) => !old);
   };
 
@@ -105,14 +105,14 @@ export const NewMarkerForm = ({
             id="year"
             value={changedMarker.description}
             onChange={handleChange}
-            placeholder={changedMarker?.description || "Beskrivelse"}
+            placeholder={changedMarker?.description || 'Beskrivelse'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
         <div className="flex justify-between pt-5">
           <button
             onClick={onClose}
-            color={"error"}
+            color={'error'}
             className="btn-error btn-outline btn-sm btn"
           >
             Fortryd

@@ -1,13 +1,13 @@
-import { User } from "firebase/auth";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { MdEdit } from "react-icons/md";
+import { User } from 'firebase/auth';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { MdEdit } from 'react-icons/md';
 
-import EventForm from "./EventForm";
-import LoadingSpinner from "@components/ui/LoadingSpinner";
-import { eventTransitionVariants } from "@lib/animations";
-import { handleType } from "@lib/convertEventType";
-import { DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
+import EventForm from './EventForm';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import { eventTransitionVariants } from '@lib/animations';
+import { handleType } from '@lib/convertEventType';
+import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 
 interface FirebaseDate {
   seconds: number;
@@ -38,12 +38,12 @@ const EventsPage = ({ documentUser }: Props) => {
     docs: events,
     loading,
     updatingDoc,
-  } = useFirestore<EventType>("events", "startDate");
+  } = useFirestore<EventType>('events', 'startDate');
   const [currentEvent, setCurrentEvent] = useState<EventType | null>(null);
   const [showDialog, setShowDialog] = useState(false);
 
   if (loading) {
-    return <LoadingSpinner text={"Henter begivenheder..."} />;
+    return <LoadingSpinner text={'Henter begivenheder...'} />;
   }
 
   if (!events) {
@@ -91,7 +91,7 @@ const EventsPage = ({ documentUser }: Props) => {
                   animate={{ x: 0 }}
                   transition={{
                     duration: 0.8,
-                    type: "tween",
+                    type: 'tween',
                   }}
                 >
                   <div
@@ -100,7 +100,7 @@ const EventsPage = ({ documentUser }: Props) => {
                   >
                     <div className="flex justify-between">
                       <p className="font-semibold">
-                        {event?.type === "tour"
+                        {event?.type === 'tour'
                           ? `${handleType(event?.type)} de ${event.city}`
                           : handleType(event?.type)}
                       </p>
@@ -128,7 +128,7 @@ const EventsPage = ({ documentUser }: Props) => {
                         <p className="mt-4">Mødesteder:</p>
                         <div>
                           {event.meetingPoints
-                            .split("--")
+                            .split('--')
                             .map((f: string, index) => {
                               return (
                                 <div key={index} className="ml-4">
@@ -143,7 +143,7 @@ const EventsPage = ({ documentUser }: Props) => {
                       <div className="flex flex-col">
                         <div className="mt-4">OBS:</div>
                         <div>
-                          {event.notes.split("--").map((f: string, index) => {
+                          {event.notes.split('--').map((f: string, index) => {
                             return (
                               <div key={index} className="ml-4">
                                 <li>{f.trim()}</li>
@@ -157,7 +157,7 @@ const EventsPage = ({ documentUser }: Props) => {
                       <div>
                         Aktiviteter:
                         {event.activities
-                          .split("--")
+                          .split('--')
                           .map((f: string, index) => {
                             return (
                               <div key={index} className="ml-4">
@@ -188,7 +188,7 @@ const EventsPage = ({ documentUser }: Props) => {
                   <div className="paper overflow-hidden py-2">
                     <div className="flex items-center justify-between gap-2">
                       <p className="font-semibold">
-                        {event?.type === "tour"
+                        {event?.type === 'tour'
                           ? `${handleType(event?.type)} de ${event.city}`
                           : handleType(event?.type)}
                       </p>

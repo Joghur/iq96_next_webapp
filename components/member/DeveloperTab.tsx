@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useState } from "react";
-import { IqMemberTable } from "./IqMemberTable";
-import { getGmailContacts } from "./MemberTable";
-import LoadingSpinner from "@components/ui/LoadingSpinner";
-import { Separator } from "@components/ui/separator";
+import { useCallback, useEffect, useState } from 'react';
+import { IqMemberTable } from './IqMemberTable';
+import { getGmailContacts } from './MemberTable';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import { Separator } from '@components/ui/separator';
 import {
   Table,
   TableBody,
@@ -12,13 +12,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@components/ui/table";
+} from '@components/ui/table';
 import {
   copyDocumentsToNestedCollection,
   deleteMapMarkers,
   DocumentUser,
   useFirestore,
-} from "@lib/hooks/useFirestore";
+} from '@lib/hooks/useFirestore';
 
 export interface ContactName {
   displayName?: string;
@@ -68,10 +68,10 @@ const DeveloperTab = () => {
     docs: users,
     updatingDoc,
     loading,
-  } = useFirestore<DocumentUser>("users", "name", "asc", 26);
+  } = useFirestore<DocumentUser>('users', 'name', 'asc', 26);
 
   const handleGmailContacts = useCallback(async () => {
-    if (process.env.NEXT_PUBLIC_ENV !== "production") {
+    if (process.env.NEXT_PUBLIC_ENV !== 'production') {
       const res = await getGmailContacts();
       setCon(() => res);
     }
@@ -82,7 +82,7 @@ const DeveloperTab = () => {
   }, [handleGmailContacts]);
 
   if (loading) {
-    return <LoadingSpinner text={"Henter med-lemmer..."} />;
+    return <LoadingSpinner text={'Henter med-lemmer...'} />;
   }
 
   if (!users || !connections || connections?.length === 0) {
@@ -96,19 +96,19 @@ const DeveloperTab = () => {
         o?.emailAddresses?.[0]?.value !== process.env.NEXT_PUBLIC_NEWSMAIL
     )
     .sort((a: Connection, b: Connection) => {
-      const displayNameA = a?.names?.[0]?.displayName ?? "";
-      const displayNameB = b?.names?.[0]?.displayName ?? "";
+      const displayNameA = a?.names?.[0]?.displayName ?? '';
+      const displayNameB = b?.names?.[0]?.displayName ?? '';
 
       return displayNameA.localeCompare(displayNameB);
     });
 
   const sortedIqUsers = users
     .filter(
-      (o: DocumentUser, index: number) => index < 26 && o?.name !== "IQ96"
+      (o: DocumentUser, index: number) => index < 26 && o?.name !== 'IQ96'
     )
     .sort((a: DocumentUser, b: DocumentUser) => {
-      const displayNameA = a?.name ?? "";
-      const displayNameB = b?.name ?? "";
+      const displayNameA = a?.name ?? '';
+      const displayNameB = b?.name ?? '';
 
       return displayNameA.localeCompare(displayNameB);
     });
@@ -126,7 +126,7 @@ const DeveloperTab = () => {
           isEditable
           showAll
         />
-        {process.env.NEXT_PUBLIC_ENV !== "production" && (
+        {process.env.NEXT_PUBLIC_ENV !== 'production' && (
           <>
             <div>
               <Separator className="my-5 bg-gray-500" />
@@ -185,14 +185,14 @@ const GmailContacts = ({ connections }: GmailProps) => {
         {connections.map((person: Connection, index: number) => {
           const memberIndex = index + 1;
           const name = person?.names?.[0]?.displayName?.trim();
-          const email = person?.emailAddresses?.[0]?.value?.trim() || "";
+          const email = person?.emailAddresses?.[0]?.value?.trim() || '';
           const phones = person?.phoneNumbers?.map(
             (o: ContactPhone) => `${o.canonicalForm?.trim()}\n`
           );
           const address = person?.addresses?.[0]?.formattedValue
-            ?.replace("DK", "")
+            ?.replace('DK', '')
             .trim();
-          const birthday = person?.birthdays?.[0].text?.trim() || "";
+          const birthday = person?.birthdays?.[0].text?.trim() || '';
 
           return (
             <TableRow key={name} className="text-xs">

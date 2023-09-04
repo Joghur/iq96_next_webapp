@@ -1,44 +1,46 @@
-"use client";
+'use client';
 
-import { Icon } from "leaflet";
-import { ChangeEvent, useState } from "react";
-import { MdDelete, MdEdit } from "react-icons/md";
-import { Tooltip as MapToolip, Marker, Popup } from "react-leaflet";
-import { MarkerData } from "./Map";
-import Select from "@components/ui/Select";
-import { DocumentUser } from "@lib/hooks/useFirestore";
+import { Icon } from 'leaflet';
+import { ChangeEvent, useState } from 'react';
+import { MdDelete, MdEdit } from 'react-icons/md';
+import { Tooltip as MapToolip, Marker, Popup } from 'react-leaflet';
+
+import Select from '@components/ui/Select';
+import { DocumentUser } from '@lib/hooks/useFirestore';
+
+import { MarkerData } from './Map';
 
 const markerTypes = [
-  "bar",
-  "bus",
-  "cafe",
-  "hotel",
-  "museum",
-  "music",
-  "question",
-  "restaurant",
-  "sightseeing",
-  "tour",
-  "train",
-  "unknown",
+  'bar',
+  'bus',
+  'cafe',
+  'hotel',
+  'museum',
+  'music',
+  'question',
+  'restaurant',
+  'sightseeing',
+  'tour',
+  'train',
+  'unknown',
 ] as const;
 
 export type MarkerType = (typeof markerTypes)[number];
 
-const madeBys = ["app", "user"] as const;
+const madeBys = ['app', 'user'] as const;
 
 type MadeByType = (typeof madeBys)[number];
 
 const handleDocType = (docType: MarkerType, madeBy: MadeByType) => {
   switch (madeBy) {
-    case "app":
+    case 'app':
       return `${docType}_red`;
 
-    case "user":
+    case 'user':
       return `${docType}`;
 
     default:
-      return "unknown";
+      return 'unknown';
   }
 };
 
@@ -87,7 +89,7 @@ const MoiMarkers = ({
     if (currentMarker?.id) {
       await updatingDoc(currentMarker.id, {
         ...currentMarker,
-        madeBy: !documentUser.isSuperAdmin ? "user" : currentMarker.madeBy,
+        madeBy: !documentUser.isSuperAdmin ? 'user' : currentMarker.madeBy,
       });
     }
     setShowEdit(() => false);
@@ -143,7 +145,7 @@ const MoiMarkers = ({
               marker.type as MarkerType,
               marker.madeBy as MadeByType
             )}.png`,
-            shadowUrl: `/images/markers/marker-shadow.png`,
+            shadowUrl: '/images/markers/marker-shadow.png',
             iconSize: [25, 35],
             iconAnchor: [18, 27],
             shadowSize: [25, 35],
@@ -173,7 +175,7 @@ const MoiMarkers = ({
                     </button>
                   )}
                   {canEdit &&
-                    (documentUser.isSuperAdmin || marker.madeBy !== "app") && (
+                    (documentUser.isSuperAdmin || marker.madeBy !== 'app') && (
                       <button
                         onClick={() => handleOpenEditMarker(marker)}
                         className="btn-warning btn-sm btn"
@@ -217,7 +219,7 @@ const MoiMarkers = ({
                     id="title"
                     value={currentMarker?.title}
                     onChange={handleChangeMarker}
-                    placeholder={currentMarker?.title || "Titel"}
+                    placeholder={currentMarker?.title || 'Titel'}
                     className="dynamic_text textarea-bordered textarea bg-white"
                   />
                 </div>
@@ -232,7 +234,7 @@ const MoiMarkers = ({
                     id="nick"
                     value={currentMarker?.nick}
                     onChange={handleChangeMarker}
-                    placeholder={currentMarker?.title || "Nick"}
+                    placeholder={currentMarker?.title || 'Nick'}
                     className="dynamic_text textarea-bordered textarea bg-white"
                   />
                 </div>
@@ -247,7 +249,7 @@ const MoiMarkers = ({
                     id="description"
                     value={currentMarker?.description}
                     onChange={handleChangeMarker}
-                    placeholder={currentMarker?.description || "Beskrivelse"}
+                    placeholder={currentMarker?.description || 'Beskrivelse'}
                     className="dynamic_text textarea-bordered textarea bg-white"
                   />
                 </div>
@@ -284,7 +286,7 @@ const MoiMarkers = ({
                 <div className="flex justify-between pt-5">
                   <button
                     onClick={() => setShowEdit(false)}
-                    color={"error"}
+                    color={'error'}
                     className="btn-error btn-outline btn-sm btn"
                   >
                     Fortryd

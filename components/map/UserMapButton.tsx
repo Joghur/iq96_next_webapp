@@ -1,5 +1,5 @@
-import { MdMyLocation } from "react-icons/md";
-import { useMapEvents } from "react-leaflet";
+import { MdMyLocation } from 'react-icons/md';
+import { useMapEvents } from 'react-leaflet';
 
 const UserMapButton = () => {
   const map = useMapEvents({

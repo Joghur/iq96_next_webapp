@@ -1,8 +1,8 @@
-import { MouseEvent, useContext } from "react";
-import LoadingSpinner from "../ui/LoadingSpinner";
-import { authContext } from "@lib/store/auth-context";
+import { MouseEvent, useContext } from 'react';
+import LoadingSpinner from '../ui/LoadingSpinner';
+import { authContext } from '@lib/store/auth-context';
 
-export type MemberTabs = "member" | "iq96" | "about" | "admin" | "developer";
+export type MemberTabs = 'member' | 'iq96' | 'about' | 'admin' | 'developer';
 
 interface Props {
   value?: MemberTabs;
@@ -26,7 +26,7 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
           id="member"
           onClick={onChange}
           className={`tab ${
-            value === "member" ? "tab-active" : ""
+            value === 'member' ? 'tab-active' : ''
           } dynamic_text `}
         >
           {documentUser.nick}
@@ -35,7 +35,7 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
           id="iq96"
           onClick={onChange}
           className={`tab px-1 sm:px-4 ${
-            value === "iq96" ? "tab-active" : ""
+            value === 'iq96' ? 'tab-active' : ''
           } dynamic_text `}
         >
           IQ96
@@ -44,7 +44,7 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
           id="about"
           onClick={onChange}
           className={`tab px-1 sm:px-4 ${
-            value === "about" ? "tab-active" : ""
+            value === 'about' ? 'tab-active' : ''
           } dynamic_text `}
         >
           Om
@@ -54,18 +54,18 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
             id="admin"
             onClick={onChange}
             className={`tab px-1 sm:px-4 ${
-              value === "admin" ? "tab-active" : ""
+              value === 'admin' ? 'tab-active' : ''
             } dynamic_text`}
           >
             Admin
           </button>
         )}
-        {documentUser?.nick === "Redacteur" && (
+        {documentUser?.nick === 'Redacteur' && (
           <button
             id="developer"
             onClick={onChange}
             className={`tab px-1 sm:px-4 ${
-              value === "developer" ? "tab-active" : ""
+              value === 'developer' ? 'tab-active' : ''
             } dynamic_text`}
           >
             Developer

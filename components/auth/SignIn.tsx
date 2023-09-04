@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
-import { useContext, useState } from "react";
+import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
+import { useContext, useState } from 'react';
 
-import { SubmitHandler, useForm } from "react-hook-form";
-import { MdInfo } from "react-icons/md";
-import { z as zod } from "zod";
-import { authContext } from "@/lib/store/auth-context";
-import ThemeToggle from "@components/member/ThemeToggle";
-import BottomSpacer from "@components/ui/BottomSpacer";
-import OldPageButton from "@components/ui/OldPageButton";
-import Tooltip from "@components/ui/Tooltip";
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { MdInfo } from 'react-icons/md';
+import { z as zod } from 'zod';
+import { authContext } from '@/lib/store/auth-context';
+import ThemeToggle from '@components/member/ThemeToggle';
+import BottomSpacer from '@components/ui/BottomSpacer';
+import OldPageButton from '@components/ui/OldPageButton';
+import Tooltip from '@components/ui/Tooltip';
 import {
   getLocalStorage,
   LOCALSTORAGE_PREFIX,
   setLocalStorage,
-} from "@lib/localStorage";
+} from '@lib/localStorage';
 
 export const LOCALSTORAGE_EMAIL = `${LOCALSTORAGE_PREFIX}-email`;
 
@@ -25,24 +25,24 @@ function SignIn() {
     .object({
       email: zod
         .string()
-        .email("Dette er ikke en brugbar email adresse")
-        .min(1, "En registreret email adresse er påkrævet"),
+        .email('Dette er ikke en brugbar email adresse')
+        .min(1, 'En registreret email adresse er påkrævet'),
       password: zod
         .string()
-        .min(1, "Kodeord er påkrævet")
-        .min(8, "Kodeord skal være på mindst 8 tegn"),
+        .min(1, 'Kodeord er påkrævet')
+        .min(8, 'Kodeord skal være på mindst 8 tegn'),
       confirmPassword: zod
         .string()
-        .min(1, "Bekræftelses kodeord er påkrævet")
-        .min(8, "Bekræftelses kodeord skal være på mindst 8 tegn")
+        .min(1, 'Bekræftelses kodeord er påkrævet')
+        .min(8, 'Bekræftelses kodeord skal være på mindst 8 tegn')
         .optional(),
     })
     .refine(
       (data) =>
         reset ? data.password === data.confirmPassword : Boolean(data.password),
       {
-        path: ["confirmPassword"],
-        message: "Kodeord skal være ens",
+        path: ['confirmPassword'],
+        message: 'Kodeord skal være ens',
       }
     );
 
@@ -115,7 +115,7 @@ function SignIn() {
                     text={`Email brugt til login på denne side eller android app'en. OBS! Det er ikke nødvendigvis den samme som bruges til den gamle side på ${process.env.NEXT_PUBLIC_OLDPAGE_LINK}`}
                     position="right"
                   >
-                    <MdInfo fontSize="large" color={"green"} />
+                    <MdInfo fontSize="large" color={'green'} />
                   </Tooltip>
                 </div>
                 <div>
@@ -130,8 +130,8 @@ function SignIn() {
                 type="email"
                 id="email"
                 className="w-full rounded border border-gray-300 px-4 py-2"
-                placeholder={"Din email"}
-                {...register("email")}
+                placeholder={'Din email'}
+                {...register('email')}
               />
             </div>
             <div className="mb-6">
@@ -145,7 +145,7 @@ function SignIn() {
                 type="password"
                 id="password"
                 className="w-full rounded border border-gray-300 px-4 py-2"
-                {...register("password")}
+                {...register('password')}
               />
               {errors.password && (
                 <span className="mt-2 block text-red-500">
@@ -165,7 +165,7 @@ function SignIn() {
                   type="password"
                   id="confirmPassword"
                   className="w-full rounded border border-gray-300 px-4 py-2"
-                  {...register("confirmPassword")}
+                  {...register('confirmPassword')}
                 />
                 {errors.confirmPassword && (
                   <span className="mt-2 block text-red-500">
@@ -185,7 +185,7 @@ function SignIn() {
                 width={37}
                 height={37}
               />
-              {reset ? "Reset" : "Login"}
+              {reset ? 'Reset' : 'Login'}
             </button>
           </form>
         </div>
@@ -220,7 +220,7 @@ function SignIn() {
             </li>
             <li>
               <p>
-                Tryk på linket i mail -{">"} vælg nyt kodeord -{">"} kom tilbage
+                Tryk på linket i mail -{'>'} vælg nyt kodeord -{'>'} kom tilbage
                 hertil, og tast nyt kodeord ind
               </p>
             </li>

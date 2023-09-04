@@ -1,4 +1,4 @@
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged, User } from 'firebase/auth';
 import {
   addDoc,
   collection,
@@ -18,11 +18,11 @@ import {
   Timestamp,
   updateDoc,
   where,
-} from "firebase/firestore";
-import { useCallback, useEffect, useState } from "react";
+} from 'firebase/firestore';
+import { useCallback, useEffect, useState } from 'react';
 
-import { MapCityType } from "@components/map/AddCityButton";
-import { app, auth, db } from "@lib/firebase";
+import { MapCityType } from '@components/map/AddCityButton';
+import { app, auth, db } from '@lib/firebase';
 
 export interface DocumentUser {
   id: string;
@@ -42,12 +42,12 @@ export interface DocumentUser {
   birthday?: string;
 }
 
-export type CollectionName = "users" | "events" | "map" | "chats";
+export type CollectionName = 'users' | 'events' | 'map' | 'chats';
 
 export const useFirestore = <T extends DocumentData>(
   collectionName: CollectionName,
   order: string,
-  orderDirection: "desc" | "asc" = "asc",
+  orderDirection: 'desc' | 'asc' = 'asc',
   limitBy = 4
 ) => {
   const [docs, setDocs] = useState<T[] | undefined>(undefined);
@@ -104,7 +104,7 @@ export const useCityData = <T extends DocumentData>(
   const citiesCollectionRef = collection(db, collectionName);
 
   const addingCities = async (document: MapCityType) => {
-    console.log("addingCities");
+    console.log('addingCities');
     try {
       const newDocRef = doc(
         citiesCollectionRef,
@@ -117,7 +117,7 @@ export const useCityData = <T extends DocumentData>(
         { merge: true }
       );
     } catch (error) {
-      console.log("Error creating city", error);
+      console.log('Error creating city', error);
     }
   };
 
@@ -135,7 +135,7 @@ export const useCityData = <T extends DocumentData>(
       });
       setCities(() => citiesArr);
     } catch (error) {
-      console.error("Error querying document IDs:", error);
+      console.error('Error querying document IDs:', error);
     }
 
     setLoadingCities(() => false);
@@ -165,7 +165,7 @@ export const useMapData = <T extends DocumentData>(
       db,
       collectionName,
       documentName,
-      "markers"
+      'markers'
     ) as CollectionReference<T>;
     setLoadingMarkers(() => true);
 
@@ -195,7 +195,7 @@ export const useMapData = <T extends DocumentData>(
       db,
       collectionName,
       documentName,
-      "markers"
+      'markers'
     ) as CollectionReference<T>;
     await addDoc(markersCollectionRef, document);
   };
@@ -205,7 +205,7 @@ export const useMapData = <T extends DocumentData>(
       db,
       collectionName,
       documentName,
-      "markers"
+      'markers'
     ) as CollectionReference<T>;
     const docRef = doc(markersCollectionRef, id);
     await updateDoc(docRef, { ...document });
@@ -216,7 +216,7 @@ export const useMapData = <T extends DocumentData>(
       db,
       collectionName,
       documentName,
-      "markers"
+      'markers'
     ) as CollectionReference<T>;
     const docRef = doc(markersCollectionRef, id);
     deleteDoc(docRef)
@@ -276,7 +276,7 @@ export const useFirestoreMax4Days = (
     // create a Firestore query to fetch documents where createdAt is less than or equal to the cutoff time
     const collectionRef = query(
       collection(db, collectionName),
-      where("createdAt", ">=", cutoff),
+      where('createdAt', '>=', cutoff),
       orderBy(order),
       limit(limitBy)
     );
@@ -310,7 +310,7 @@ export const useAuth = () => {
   return { authUser, loading };
 };
 
-export type CopyCollection = "oldmap" | "map";
+export type CopyCollection = 'oldmap' | 'map';
 
 export const copyDocument = async (
   oldCollectionTitle: CopyCollection,
@@ -342,7 +342,7 @@ export const copyDocument = async (
 // Used to copy firebase structure: collection-document (array) to
 // collection-document-collection-documents (array items copied as documents)
 export async function copyDocumentsToNestedCollection() {
-  const sourceDocRef = doc(db, "oldmap", "odense");
+  const sourceDocRef = doc(db, 'oldmap', 'odense');
   const sourceDocSnap = await getDoc(sourceDocRef);
 
   if (sourceDocSnap.exists()) {
@@ -350,35 +350,35 @@ export async function copyDocumentsToNestedCollection() {
 
     if (documents && Array.isArray(documents)) {
       for (const item of documents) {
-        console.log("item", item);
+        console.log('item', item);
         try {
-          await addDoc(collection(db, "map", "2022-Odense", "markers"), item);
+          await addDoc(collection(db, 'map', '2022-Odense', 'markers'), item);
           await setDoc(
-            doc(db, "map", "2022-Odense"),
-            { city: "Odense", year: "2022" },
+            doc(db, 'map', '2022-Odense'),
+            { city: 'Odense', year: '2022' },
             { merge: true }
           );
         } catch (error) {
-          console.log("Error creating bookmark", error);
+          console.log('Error creating bookmark', error);
         }
       }
 
-      console.log("Documents copied successfully!");
+      console.log('Documents copied successfully!');
     } else {
       console.log(
         'The "documents" property does not exist or is not an array.'
       );
     }
   } else {
-    console.log("The source document does not exist.");
+    console.log('The source document does not exist.');
   }
 }
 
 export const deleteMapMarkers = () => {
-  getDocs(collection(db, "map"))
+  getDocs(collection(db, 'map'))
     .then((querySnapshot) => {
       querySnapshot.forEach((document) => {
-        const docRef = doc(db, "map", document.id);
+        const docRef = doc(db, 'map', document.id);
 
         deleteDoc(docRef)
           .then(() => {
@@ -395,7 +395,7 @@ export const deleteMapMarkers = () => {
       });
     })
     .catch((error) => {
-      console.error("Error getting documents: ", error);
+      console.error('Error getting documents: ', error);
     });
 };
 
@@ -403,7 +403,7 @@ export const useDocumentUser = (): [
   User | null,
   DocumentUser | null,
   boolean,
-  (id: string, document: DocumentData) => Promise<void>
+  (id: string, document: DocumentData) => Promise<void>,
 ] => {
   const [authUser, setFirebaseUser] = useState<User | null>(null);
   const [documentUser, setDocumentUser] = useState<DocumentUser | null>(null);
@@ -412,7 +412,7 @@ export const useDocumentUser = (): [
   const { authUser: _authUser, loading: _loading } = useAuth();
 
   const updatingDoc = async (id: string, document: DocumentData) => {
-    const userCollectionRef = collection(db, "users");
+    const userCollectionRef = collection(db, 'users');
     const docRef = doc(userCollectionRef, id);
     await updateDoc(docRef, { ...document });
   };
@@ -420,8 +420,8 @@ export const useDocumentUser = (): [
   useEffect(() => {
     if (!_loading && _authUser) {
       setFirebaseUser(() => _authUser);
-      const userCollectionRef = collection(db, "users");
-      const q = query(userCollectionRef, where("uid", "==", _authUser.uid));
+      const userCollectionRef = collection(db, 'users');
+      const q = query(userCollectionRef, where('uid', '==', _authUser.uid));
       getDocs(q)
         .then((querySnapshot) => {
           if (!querySnapshot.empty) {
@@ -434,7 +434,7 @@ export const useDocumentUser = (): [
           }
         })
         .catch((error) => {
-          console.error("Error getting document user:", error);
+          console.error('Error getting document user:', error);
         });
     } else {
       setFirebaseUser(() => null);

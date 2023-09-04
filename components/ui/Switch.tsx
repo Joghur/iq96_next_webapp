@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Label } from "./label";
+import { Label } from './label';
 
 interface Props {
   preLabel?: string;

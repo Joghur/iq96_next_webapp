@@ -35,7 +35,7 @@ Where the user can add new markers and they will be sorted according to type
 ### `npm install`
 
 Before running project:
-Use file `.env.template` to add environment values. For instance values from your firebase console for connecting to this cloud DB.
+Use file `.env.example` to add environment values. For instance values from your firebase console for connecting to this cloud DB.
 
 ## Available Scripts
 

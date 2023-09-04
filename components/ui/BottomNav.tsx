@@ -1,9 +1,11 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { FaHome, FaMapMarkerAlt, FaUserNinja } from "react-icons/fa";
-import { MdChatBubbleOutline, MdPhotoLibrary } from "react-icons/md";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { FaHome, FaMapMarkerAlt, FaUserNinja } from 'react-icons/fa';
+import { MdChatBubbleOutline, MdPhotoLibrary } from 'react-icons/md';
+
+import NewContentBadge from './NewContentBadge';
 
 const BottomNav = () => {
   const pathname = usePathname();
@@ -14,9 +16,9 @@ const BottomNav = () => {
         <Link
           href="/"
           className={`dynamic_text ${
-            pathname === "/"
-              ? "bottom_nav_link_selected"
-              : "bottom_nav_link_container"
+            pathname === '/'
+              ? 'bottom_nav_link_selected'
+              : 'bottom_nav_link_container'
           }`}
         >
           <FaHome />
@@ -27,24 +29,25 @@ const BottomNav = () => {
         <Link
           href="/kort"
           className={`dynamic_text ${
-            pathname === "/kort"
-              ? "bottom_nav_link_selected"
-              : "bottom_nav_link_container"
+            pathname === '/kort'
+              ? 'bottom_nav_link_selected'
+              : 'bottom_nav_link_container'
           }`}
         >
           <FaMapMarkerAlt />
           Kort
         </Link>
       </div>
-      <div className="z-40">
+      <div className="relative z-40">
         <Link
           href="/bibliothek"
           className={`dynamic_text ${
-            pathname === "/bibliothek"
-              ? "bottom_nav_link_selected"
-              : "bottom_nav_link_container"
+            pathname === '/bibliothek'
+              ? 'bottom_nav_link_selected'
+              : 'bottom_nav_link_container'
           }`}
         >
+          <NewContentBadge />
           <MdPhotoLibrary />
           Bibliothek
         </Link>
@@ -53,9 +56,9 @@ const BottomNav = () => {
         <Link
           href="/chat"
           className={`dynamic_text ${
-            pathname === "/chat"
-              ? "bottom_nav_link_selected"
-              : "bottom_nav_link_container"
+            pathname === '/chat'
+              ? 'bottom_nav_link_selected'
+              : 'bottom_nav_link_container'
           }`}
         >
           <MdChatBubbleOutline />
@@ -66,9 +69,9 @@ const BottomNav = () => {
         <Link
           href="/iq96"
           className={`dynamic_text ${
-            pathname === "/iq96"
-              ? "bottom_nav_link_selected"
-              : "bottom_nav_link_container"
+            pathname === '/iq96'
+              ? 'bottom_nav_link_selected'
+              : 'bottom_nav_link_container'
           }`}
         >
           <FaUserNinja />

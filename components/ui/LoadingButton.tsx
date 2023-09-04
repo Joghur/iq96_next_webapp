@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
 interface Props {
   text?: string;
 }
 
-const LoadingButton = ({ text = "Henter..." }: Props) => {
+const LoadingButton = ({ text = 'Henter...' }: Props) => {
   return (
     <div>
       <button

@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { Fragment, useState } from "react";
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { Fragment, useState } from 'react';
 
-import LoadingSpinner from "@components/ui/LoadingSpinner";
-import { eventTransitionVariants } from "@lib/animations";
-import { DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import { eventTransitionVariants } from '@lib/animations';
+import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 
 const Iq96Tab = () => {
   const { docs: users, loading } = useFirestore<DocumentUser>(
-    "users",
-    "name",
-    "asc",
+    'users',
+    'name',
+    'asc',
     26
   );
-  const [showProfile, setShowProfile] = useState("");
+  const [showProfile, setShowProfile] = useState('');
 
   if (loading) {
-    return <LoadingSpinner text={"Henter med-lemmer..."} />;
+    return <LoadingSpinner text={'Henter med-lemmer...'} />;
   }
   if (!users) {
     return null;
@@ -26,11 +26,11 @@ const Iq96Tab = () => {
 
   const sortedIqUsers = users
     .filter(
-      (o: DocumentUser, index: number) => index < 26 && o?.name !== "IQ96"
+      (o: DocumentUser, index: number) => index < 26 && o?.name !== 'IQ96'
     )
     .sort((a: DocumentUser, b: DocumentUser) => {
-      const displayNameA = a?.name ?? "";
-      const displayNameB = b?.name ?? "";
+      const displayNameA = a?.name ?? '';
+      const displayNameB = b?.name ?? '';
 
       return displayNameA.localeCompare(displayNameB);
     });
@@ -70,7 +70,7 @@ const Iq96Tab = () => {
                   <Fragment>
                     <div>
                       {o.phones?.map((p, index) => (
-                        <p key={index}>{p?.replace("+45", "")}</p>
+                        <p key={index}>{p?.replace('+45', '')}</p>
                       ))}
                     </div>
                     <p>{o.email}</p>

@@ -1,6 +1,6 @@
-import { Icon } from "leaflet";
-import { Tooltip as MapToolip, Marker } from "react-leaflet";
-import { DocumentUser } from "@lib/hooks/useFirestore";
+import { Icon } from 'leaflet';
+import { Tooltip as MapToolip, Marker } from 'react-leaflet';
+import { DocumentUser } from '@lib/hooks/useFirestore';
 
 interface Props {
   documentUser: DocumentUser;
@@ -15,7 +15,7 @@ const UserMarker = ({ documentUser, userPosition }: Props) => {
         new Icon({
           iconUrl: documentUser?.avatar
             ? `/images/avatars/${documentUser.avatar}.png`
-            : "/images/markers/marker-icon.png",
+            : '/images/markers/marker-icon.png',
           iconSize: [25, 25],
           iconAnchor: [18, 18],
           popupAnchor: [0, -10],
