@@ -5,6 +5,10 @@ import packageJson from '../../package.json';
 
 const aboutList = [
   [
+    '0.8.0',
+    'Galleri: Galleriet er langsomt ved at komme op og køre igen. OBS!! Der er en Upload button i hver folder. Den peger desværre endnu ikke det rigtige sted hen, MEN jeres billeder bliver gemt (dog uden nogen form for info om hvem der har lavet den endnu - MEN hvis I gemmer i en folder med navn og destination, så har vi den info til senere brug).',
+  ],
+  [
     '0.7.0',
     'Kortet: Kortet starter igen på den første markør lavet i byen. Mere finpudsning',
   ],

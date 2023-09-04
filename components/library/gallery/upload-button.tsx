@@ -7,7 +7,11 @@ import { MdCloudUpload } from 'react-icons/md';
 
 import { Button } from '@components/ui/button';
 
-const UploadButton = () => {
+interface Props {
+  folder?: string;
+}
+
+const UploadButton = ({ folder }: Props) => {
   const router = useRouter();
 
   return (
@@ -17,6 +21,7 @@ const UploadButton = () => {
           <MdCloudUpload />
           <CldUploadButton
             uploadPreset="mihetffc"
+            public-id={folder}
             onUpload={() => {
               setTimeout(() => {
                 router.refresh();
