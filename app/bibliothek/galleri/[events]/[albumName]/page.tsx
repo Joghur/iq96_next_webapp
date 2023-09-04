@@ -1,5 +1,6 @@
 import cloudinary from 'cloudinary';
 
+import UploadButton from '@components/library/gallery/upload-button';
 import { prettyImageFolderLabel } from '@lib/utils';
 
 import { SearchResult } from '../../page';
@@ -30,6 +31,7 @@ export default async function EventsPage({
           <h1 className="text-4xl font-bold">
             {prettyImageFolderLabel(albumName)}
           </h1>
+          <UploadButton folder={folder} />
         </div>
 
         <AlbumGrid images={results.resources} />
