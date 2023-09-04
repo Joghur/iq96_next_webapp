@@ -106,3 +106,31 @@ export const prettyImageFolderLabel = (label: string) => {
   }
   return label;
 };
+
+/**
+ * Not all labels will be pulled from params and they're in english. So this wil be a short translater
+ * as this will never change
+ */
+export const convertLabels = (label: string) => {
+  switch (label) {
+    case 'gf':
+      return 'Generalforsamling';
+
+    case 'events':
+      return 'Stævner';
+
+    default:
+      return 'Tour';
+  }
+};
+
+/**
+ * Converting one instance of urlsafe to normal text
+ */
+export const convertFromUrlSafe = (label: string) => {
+  let newLabel = label;
+  if (newLabel.includes('%C3%B8l')) {
+    newLabel = decodeURIComponent(newLabel);
+  }
+  return newLabel;
+};
