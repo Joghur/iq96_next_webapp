@@ -4,9 +4,11 @@ import { Icon } from 'leaflet';
 import { ChangeEvent, useState } from 'react';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { Tooltip as MapToolip, Marker, Popup } from 'react-leaflet';
-import { MarkerData } from './Map';
+
 import Select from '@components/ui/Select';
 import { DocumentUser } from '@lib/hooks/useFirestore';
+
+import { MarkerData } from './Map';
 
 const markerTypes = [
   'bar',
@@ -143,7 +145,7 @@ const MoiMarkers = ({
               marker.type as MarkerType,
               marker.madeBy as MadeByType
             )}.png`,
-            shadowUrl: `/images/markers/marker-shadow.png`,
+            shadowUrl: '/images/markers/marker-shadow.png',
             iconSize: [25, 35],
             iconAnchor: [18, 27],
             shadowSize: [25, 35],

@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import { motion } from 'framer-motion';
 
 import packageJson from '../../package.json';

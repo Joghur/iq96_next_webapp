@@ -1,10 +1,14 @@
 'use client';
 
 import L, { LatLngExpression } from 'leaflet';
-import { useContext } from 'react';
-
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
+
+import { handleStartTheme } from '@components/member/ThemeToggle';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import { useCityData, useMapData } from '@lib/hooks/useFirestore';
+import { authContext } from '@lib/store/auth-context';
+import { compareNick } from '@lib/utils';
 
 import AddCityButton, { MapCityType } from './AddCityButton';
 import AddMarkerButton from './AddMarkerButton';
@@ -15,11 +19,6 @@ import MarkerSelect from './MarkerSelect';
 import MoiMarkers from './MoiMarkers';
 import UserMapButton from './UserMapButton';
 import UserMarker from './UserMarker';
-import { handleStartTheme } from '@components/member/ThemeToggle';
-import LoadingSpinner from '@components/ui/LoadingSpinner';
-import { useCityData, useMapData } from '@lib/hooks/useFirestore';
-import { authContext } from '@lib/store/auth-context';
-import { compareNick } from '@lib/utils';
 
 interface Coordinate {
   latitude: number;
@@ -134,7 +133,7 @@ const MapPage = () => {
       <MapContainer
         center={startLocation}
         zoom={20}
-        style={{ height: `100vh`, width: '100wh', zIndex: 0 }}
+        style={{ height: '100vh', width: '100wh', zIndex: 0 }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
