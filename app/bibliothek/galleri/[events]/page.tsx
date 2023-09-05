@@ -1,12 +1,12 @@
 import cloudinary from 'cloudinary';
+import Link from 'next/link';
 
-import { convertLabels } from '@lib/utils';
-
-import { AlbumCard } from './[albumName]/album-card';
+import { LibraryCard } from '@components/library/LibraryCard';
+import { convertLabels, prettyImageFolderLabel } from '@lib/utils';
 
 export type Folder = { name: string; path: string };
 
-export default async function AlbumsPage({
+export default async function GalleryPage({
   params: { events },
 }: {
   params: {
@@ -26,7 +26,12 @@ export default async function AlbumsPage({
 
         <div className="grid sm:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-4">
           {folders.map((folder) => (
-            <AlbumCard key={folder.path} event={events} folder={folder} />
+            <Link
+              href={`/bibliothek/galleri/${events}/${folder.name}`}
+              key={folder.path}
+            >
+              <LibraryCard cardTitle={prettyImageFolderLabel(folder.name)} />
+            </Link>
           ))}
         </div>
       </div>
