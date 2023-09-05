@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ReactNode } from 'react';
 
 import UploadButton from '@components/library/gallery/upload-button';
 import { LibraryCard } from '@components/library/LibraryCard';
@@ -14,6 +15,7 @@ export type SearchResult = {
 export type EventLabel = {
   label: string;
   shortLabel: string;
+  icon: ReactNode;
 };
 
 const GalleryPage = async () => {
