@@ -4,12 +4,11 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Fragment, useState } from 'react';
 
-import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { eventTransitionVariants } from '@lib/animations';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 
 const Iq96Tab = () => {
-  const { docs: users, loading } = useFirestore<DocumentUser>(
+  const { docs: users } = useFirestore<DocumentUser>(
     'users',
     'name',
     'asc',
@@ -17,9 +16,6 @@ const Iq96Tab = () => {
   );
   const [showProfile, setShowProfile] = useState('');
 
-  if (loading) {
-    return <LoadingSpinner text={'Henter med-lemmer...'} />;
-  }
   if (!users) {
     return null;
   }

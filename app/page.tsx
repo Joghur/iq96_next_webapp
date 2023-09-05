@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use client';
 
 import { useCallback, useContext, useEffect, useState } from 'react';
@@ -10,11 +11,7 @@ import CookieWarning from '@components/ui/CookieWarning';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import OldPageButton from '@components/ui/OldPageButton';
 import PageLayout from '@components/ui/PageLayout';
-import {
-  getLocalStorage,
-  LOCALSTORAGE_PREFIX,
-  setLocalStorage,
-} from '@lib/localStorage';
+import { getLocalStorage, LOCALSTORAGE_PREFIX, setLocalStorage } from '@lib/localStorage';
 
 const COOKIE_LOCALSTORAGE_ACCEPTED = `${LOCALSTORAGE_PREFIX}-cookieAccepted`;
 
