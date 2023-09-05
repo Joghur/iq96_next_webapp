@@ -2,14 +2,26 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useContext } from 'react';
 import { FaHome, FaMapMarkerAlt, FaUserNinja } from 'react-icons/fa';
 import { MdChatBubbleOutline, MdPhotoLibrary } from 'react-icons/md';
 
+import { authContext } from '@lib/store/auth-context';
+
+import LoadingSpinner from './LoadingSpinner';
 import NewContentBadge from './NewContentBadge';
 
 const BottomNav = () => {
   const pathname = usePathname();
+  const { authUser, loading } = useContext(authContext);
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
+  if (!authUser) {
+    return null;
+  }
   return (
     <nav className="bottom_nav overflow-hidden">
       <div className="z-40">

@@ -15,24 +15,24 @@ export default async function EventsPage({
   };
 }) {
   const folder = `${events}/${convertFromUrlSafe(albumName)}`;
-  console.log('folder', folder);
+  console.log('EventsPage - folder', folder);
 
   const results = (await cloudinary.v2.search
     .expression(`resource_type:image AND folder:${folder}`)
-    .sort_by('created_at', 'desc')
-    .max_results(100)
+    .sort_by('public_id', 'desc')
+    .max_results(300)
     .execute()) as { resources: SearchResult[] };
 
   return (
     <section>
       {/* <ForceRefresh /> */}
 
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8 mb-60">
         <div className="flex justify-between">
           <h1 className="text-4xl font-bold">
             {prettyImageFolderLabel(convertFromUrlSafe(albumName))}
           </h1>
-          <UploadButton folder={folder} />
+          {/* <UploadButton folder={folder} /> */}
         </div>
 
         <AlbumGrid images={results.resources} />

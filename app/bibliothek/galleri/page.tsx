@@ -1,8 +1,8 @@
 import UploadButton from '@components/library/gallery/upload-button';
 import PageLayout from '@components/ui/PageLayout';
 
+import { categories } from '../layout';
 import { GalleryCard } from './gallery-card';
-import { categories } from './layout';
 
 export type SearchResult = {
   public_id: string;
