@@ -26,7 +26,7 @@ export default async function EventsPage({
   return (
     <section>
       {/* <ForceRefresh /> */}
-      <div className="flex flex-col gap-8 mb-60">
+      <div className="flex flex-col gap-8">
         <div className="flex justify-between">
           <h1 className="text-4xl font-bold">
             {prettyImageFolderLabel(convertFromUrlSafe(galleryName))}

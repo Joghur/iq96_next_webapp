@@ -8,7 +8,7 @@ import { EventLabel } from './galleri/page';
 export const categories: EventLabel[] = [
   { label: 'Tour', shortLabel: 'tour', icon: <MdAirplanemodeActive /> },
   {
-    label: 'Generalforsamling',
+    label: 'GF',
     shortLabel: 'gf',
     icon: <MdPeople />,
   },
@@ -19,7 +19,7 @@ async function SideMenu() {
   // TODO: Button icons
 
   return (
-    <div className="pt-10 sm:pt-28 w-1/4 sm:fixed h-full">
+    <div className="pt-10 sm:pt-28 sm:fixed h-full">
       <div className="space-y-4 py-4">
         <div className="px-3 py-2">
           <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
@@ -44,8 +44,8 @@ async function SideMenu() {
                   className="pl-8"
                   href={`/bibliothek/galleri/${category.shortLabel}`}
                 >
-                  {category.icon}
-                  {category.label}
+                  <div className="flex-grow-0">{category.icon}</div>
+                  <div>{category.label}</div>
                 </Link>
               </Button>
             ))}
@@ -63,11 +63,11 @@ export default function RootLayout({
 }) {
   return (
     <div className="flex flex-col sm:flex-row ">
-      <div className="w-1/4">
+      <div className="w-full sm:w-1/4 justify-start">
         <SideMenu />
       </div>
 
-      <div className="sm:flex-1 px-4 pt-8 sm:overflow-y-auto">{children}</div>
+      <div className="px-4 pt-8 sm:overflow-y-auto mb-60">{children}</div>
     </div>
   );
 }
