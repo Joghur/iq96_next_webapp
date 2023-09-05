@@ -1,11 +1,29 @@
 'use client';
 
+import { useContext, useEffect } from 'react';
+
 import CloudinaryImage from '@components/library/gallery/cloudinary-image';
+import { handleStartTheme } from '@components/member/ThemeToggle';
 import { ImageGrid } from '@components/ui/image-grid';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import { authContext } from '@lib/store/auth-context';
 
 import { SearchResult } from '../../page';
 
 export default function AlbumGrid({ images }: { images: SearchResult[] }) {
+  const { authUser, loading } = useContext(authContext);
+
+  useEffect(() => {
+    handleStartTheme();
+  }, []);
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+  if (!authUser) {
+    return null;
+  }
+
   return (
     <ImageGrid
       images={images}
