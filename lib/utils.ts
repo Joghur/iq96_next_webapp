@@ -128,9 +128,6 @@ export const convertLabels = (label: string) => {
  * Converting one instance of urlsafe to normal text
  */
 export const convertFromUrlSafe = (label: string) => {
-  let newLabel = label;
-  if (newLabel.includes('%C3%B8l')) {
-    newLabel = decodeURIComponent(newLabel);
-  }
-  return newLabel;
+  const newLabel = label;
+  return decodeURIComponent(newLabel);
 };

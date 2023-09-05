@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 
-import { EventLabel } from './page';
+import { EventLabel } from './galleri/page';
 
 export const categories: EventLabel[] = [
   { label: 'Tour', shortLabel: 'tour' },
@@ -14,7 +14,7 @@ async function SideMenu() {
   // TODO: Button icons
 
   return (
-    <div className="pt-10 sm:pt-28 w-1/5">
+    <div className="pt-10 sm:pt-28 w-1/5 fixed h-full">
       <div className="space-y-4 py-4">
         <div className="px-3 py-2">
           <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
@@ -57,9 +57,11 @@ export default function RootLayout({
 }) {
   return (
     <div className="flex">
-      <SideMenu />
+      <div className="w-1/4">
+        <SideMenu />
+      </div>
 
-      <div className="w-full px-4 pt-8">{children}</div>
+      <div className="flex-1 px-4 pt-8 overflow-y-auto">{children}</div>
     </div>
   );
 }

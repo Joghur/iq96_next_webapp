@@ -24,7 +24,7 @@ const LibraryPage = () => {
     <PageLayout>
       <div className="flex items-center justify-center pt-6">
         <Button asChild variant="secondary">
-          <Link href="/bibliothek/galleri">Gallery</Link>
+          <Link href="/bibliothek/galleri">Galleri</Link>
         </Button>
       </div>
     </PageLayout>
