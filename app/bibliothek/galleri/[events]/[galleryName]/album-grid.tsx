@@ -3,8 +3,8 @@
 import { useContext, useEffect } from 'react';
 
 import CloudinaryImage from '@components/library/gallery/cloudinary-image';
+import { ImageGrid } from '@components/library/gallery/ImageGrid';
 import { handleStartTheme } from '@components/member/ThemeToggle';
-import { ImageGrid } from '@components/ui/image-grid';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { authContext } from '@lib/store/auth-context';
 

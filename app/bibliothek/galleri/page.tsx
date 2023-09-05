@@ -1,8 +1,10 @@
+import Link from 'next/link';
+
 import UploadButton from '@components/library/gallery/upload-button';
+import { LibraryCard } from '@components/library/LibraryCard';
 import PageLayout from '@components/ui/PageLayout';
 
 import { categories } from '../layout';
-import { GalleryCard } from './gallery-card';
 
 export type SearchResult = {
   public_id: string;
@@ -24,7 +26,12 @@ const GalleryPage = async () => {
         </div>
         <div className="flex m-auto flex-col gap-4">
           {categories.map((category: EventLabel) => (
-            <GalleryCard key={category.shortLabel} label={category} />
+            <Link
+              key={category.shortLabel}
+              href={`/bibliothek/galleri/${category.shortLabel}`}
+            >
+              <LibraryCard cardTitle={category.label} />
+            </Link>
           ))}
         </div>
       </div>
