@@ -8,7 +8,6 @@ import { useContext, useEffect, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 
 import { handleStartTheme } from '@components/member/ThemeToggle';
-import LoadingSpinner from '@components/ui/LoadingSpinner';
 import PageLayout from '@components/ui/PageLayout';
 import { eventTransitionVariants } from '@lib/animations';
 import { convertEpochSecondsToDateString } from '@lib/dates';
@@ -40,10 +39,9 @@ const ChatPage = () => {
   const [limitBy, setLimitBy] = useState(4);
   const [input, setInput] = useState<string>('');
   const [updating, setUpdating] = useState<ChatType | undefined>(undefined);
-  const { authUser, documentUser, loading } = useContext(authContext);
+  const { authUser, documentUser } = useContext(authContext);
   const {
     docs: chats,
-    loading: chatLoading,
     addingDoc,
     updatingDoc,
     deletingDoc,
@@ -53,16 +51,8 @@ const ChatPage = () => {
     handleStartTheme();
   }, []);
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
-
   if (!authUser) {
     return null;
-  }
-
-  if (chatLoading) {
-    return <LoadingSpinner text={'Henter Chats'} />;
   }
 
   const handleDelete = async (id: string | undefined) => {
