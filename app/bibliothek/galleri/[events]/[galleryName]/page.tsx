@@ -16,7 +16,6 @@ export default async function EventsPage({
   };
 }) {
   const folder = `${events}/${convertFromUrlSafe(galleryName)}`;
-  console.log('EventsPage - folder', folder);
 
   const results = (await cloudinary.v2.search
     .expression(`resource_type:image AND folder:${folder}`)
