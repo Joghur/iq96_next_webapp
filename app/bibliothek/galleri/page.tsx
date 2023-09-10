@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ReactNode } from 'react';
 
-import UploadButton from '@components/library/gallery/upload-button';
+import UploadButton from '@components/library/gallery/UploadButton';
 import { LibraryCard } from '@components/library/LibraryCard';
 import PageLayout from '@components/ui/PageLayout';
 

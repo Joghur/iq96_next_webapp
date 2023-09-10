@@ -1,5 +1,7 @@
 'use client';
 
+import { buildUrl } from 'cloudinary-build-url';
+import Image from 'next/image';
 import { useContext, useEffect } from 'react';
 
 import CloudinaryImage from '@components/library/gallery/cloudinary-image';
@@ -25,12 +27,18 @@ export default function AlbumGrid({ images }: { images: SearchResult[] }) {
       images={images}
       getImage={(imageData: SearchResult) => {
         return (
-          <CloudinaryImage
+          <Image
             key={imageData.public_id}
-            src={imageData.public_id}
-            width="400"
-            height="300"
+            src={buildUrl(imageData.public_id, {
+              cloud: {
+                cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+              },
+            })}
+            width={650}
+            height={356}
+            sizes="(min-width: 720px) 650px, calc(95.5vw - 19px)"
             alt="Her skulle være et sejt IQ billede"
+            className="rounded-lg"
           />
         );
       }}

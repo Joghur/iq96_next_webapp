@@ -2,7 +2,8 @@ import cloudinary from 'cloudinary';
 import Link from 'next/link';
 
 import { LibraryCard } from '@components/library/LibraryCard';
-import { convertLabels, prettyImageFolderLabel } from '@lib/utils';
+// eslint-disable-next-line prettier/prettier
+import { convertLabels, prettyImageFolderLabel, sortObjectArray } from '@lib/utils';
 
 export type Folder = { name: string; path: string };
 
@@ -17,6 +18,11 @@ export default async function GalleryPage({
     folders: Folder[];
   };
 
+  const sortedArray = sortObjectArray<Folder>(folders, {
+    property: 'name',
+    order: 'desc',
+  });
+
   return (
     <section>
       <div className="flex flex-col gap-8">
@@ -25,7 +31,7 @@ export default async function GalleryPage({
         </div>
 
         <div className="grid sm:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-4">
-          {folders.map((folder) => (
+          {sortedArray.map((folder) => (
             <Link
               href={`/bibliothek/galleri/${events}/${folder.name}`}
               key={folder.path}

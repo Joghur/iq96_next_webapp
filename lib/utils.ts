@@ -131,3 +131,25 @@ export const convertFromUrlSafe = (label: string) => {
   const newLabel = label;
   return decodeURIComponent(newLabel);
 };
+
+interface SortConfig<T> {
+  property: keyof T;
+  order: 'asc' | 'desc';
+}
+
+export function sortObjectArray<T>(arr: T[], config: SortConfig<T>): T[] {
+  return arr.slice().sort((a, b) => {
+    const valueA = a[config.property];
+    const valueB = b[config.property];
+
+    if (config.order === 'desc') {
+      if (valueA > valueB) return -1;
+      if (valueA < valueB) return 1;
+    } else {
+      if (valueA < valueB) return -1;
+      if (valueA > valueB) return 1;
+    }
+
+    return 0;
+  });
+}

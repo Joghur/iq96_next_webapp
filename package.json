@@ -1,6 +1,6 @@
 {
   "name": "iq96_next_webapp",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -24,6 +24,7 @@
     "autoprefixer": "10.4.15",
     "class-variance-authority": "0.7.0",
     "cloudinary": "^1.40.0",
+    "cloudinary-build-url": "^0.2.4",
     "clsx": "2.0.0",
     "encoding": "0.1.13",
     "firebase": "9.22.0",
@@ -45,6 +46,7 @@
     "zod": "3.22.2"
   },
   "devDependencies": {
+    "@cld-apis/types": "^0.1.6",
     "@next/eslint-plugin-next": "13.4.19",
     "@tailwindcss/typography": "0.5.9",
     "@types/leaflet": "1.9.4",
