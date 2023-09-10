@@ -1,6 +1,7 @@
 import cloudinary from 'cloudinary';
 
-import UploadButton from '@components/library/gallery/upload-button';
+import UploadButton from '@components/library/gallery/UploadButton';
+import { ForceRefresh } from '@components/ui/force-refresh';
 import { convertFromUrlSafe, prettyImageFolderLabel } from '@lib/utils';
 
 import { SearchResult } from '../../page';
@@ -25,13 +26,13 @@ export default async function EventsPage({
 
   return (
     <section>
-      {/* <ForceRefresh /> */}
+      <ForceRefresh />
       <div className="flex flex-col gap-8">
         <div className="flex justify-between">
           <h1 className="text-4xl font-bold">
             {prettyImageFolderLabel(convertFromUrlSafe(galleryName))}
           </h1>
-          {/* <UploadButton folder={folder} /> */}
+          <UploadButton folder={folder} />
         </div>
         <AlbumGrid images={results.resources} />
       </div>

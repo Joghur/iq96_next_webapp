@@ -20,6 +20,9 @@ const UploadButton = ({ folder }: Props) => {
         <div className="flex gap-2 items-center">
           <MdCloudUpload />
           <CldUploadButton
+            options={{
+              folder: folder,
+            }}
             uploadPreset="mihetffc"
             public-id={folder}
             onUpload={() => {
