@@ -6,8 +6,6 @@ import { ForceRefresh } from '@components/ui/force-refresh';
 
 import PdfGrid from '../../../../components/library/PdfGrid';
 
-export const lettersFolder = 'letters';
-
 export default async function EventsPage({
   params: { year },
 }: {
@@ -15,6 +13,7 @@ export default async function EventsPage({
     year: string;
   };
 }) {
+  const lettersFolder = 'letters';
   const results = (await cloudinary.v2.search
     .expression(
       `resource_type:image AND public_id:${lettersFolder}/brev${year.slice(
