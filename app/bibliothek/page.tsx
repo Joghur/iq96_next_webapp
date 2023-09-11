@@ -10,6 +10,9 @@ const LibraryPage = () => {
         <Link href="/bibliothek/galleri">
           <LibraryCard cardTitle="Galleri" />
         </Link>
+        <Link href="/bibliothek/breve">
+          <LibraryCard cardTitle="Breve" />
+        </Link>
       </div>
     </PageLayout>
   );

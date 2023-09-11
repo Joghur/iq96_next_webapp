@@ -1,18 +1,36 @@
 import Link from 'next/link';
-import { MdAirplanemodeActive, MdEmojiEvents, MdPeople } from 'react-icons/md';
+// eslint-disable-next-line prettier/prettier
+import { MdAirplanemodeActive, MdEmojiEvents, MdMail, MdPeople } from 'react-icons/md';
 
 import { Button } from '@/components/ui/button';
 
 import { EventLabel } from './galleri/page';
 
-export const categories: EventLabel[] = [
-  { label: 'Tour', shortLabel: 'tour', icon: <MdAirplanemodeActive /> },
+export const galleryCategories: EventLabel[] = [
+  {
+    label: 'Tour',
+    shortLabel: 'tour',
+    type: 'galleries',
+    icon: <MdAirplanemodeActive />,
+  },
   {
     label: 'GF',
     shortLabel: 'gf',
+    type: 'galleries',
     icon: <MdPeople />,
   },
-  { label: 'Stævner', shortLabel: 'events', icon: <MdEmojiEvents /> },
+  {
+    label: 'Stævner',
+    shortLabel: 'events',
+    type: 'galleries',
+    icon: <MdEmojiEvents />,
+  },
+  {
+    label: 'Breve',
+    shortLabel: 'letters',
+    type: 'letters',
+    icon: <MdMail />,
+  },
 ];
 
 async function SideMenu() {
@@ -33,22 +51,33 @@ async function SideMenu() {
             >
               <Link href="/bibliothek/galleri">Galleri</Link>
             </Button>
-            {categories.map((category: EventLabel) => (
-              <Button
-                key={category.shortLabel}
-                variant="ghost"
-                asChild
-                className="w-full justify-start flex gap-2"
-              >
-                <Link
-                  className="pl-8"
-                  href={`/bibliothek/galleri/${category.shortLabel}`}
+            {galleryCategories
+              .filter((category) => category.type === 'galleries')
+              .map((category: EventLabel) => (
+                <Button
+                  key={category.shortLabel}
+                  variant="ghost"
+                  asChild
+                  className="w-full justify-start flex gap-2"
                 >
-                  <div className="flex-grow-0">{category.icon}</div>
-                  <div>{category.label}</div>
-                </Link>
-              </Button>
-            ))}
+                  <Link
+                    className="pl-8"
+                    href={`/bibliothek/galleri/${category.shortLabel}`}
+                  >
+                    <div className="flex-grow-0">{category.icon}</div>
+                    <div>{category.label}</div>
+                  </Link>
+                </Button>
+              ))}
+          </div>
+          <div className="space-y-1">
+            <Button
+              asChild
+              variant="ghost"
+              className="w-full justify-start flex gap-2"
+            >
+              <Link href="/bibliothek/breve">Breve</Link>
+            </Button>
           </div>
         </div>
       </div>

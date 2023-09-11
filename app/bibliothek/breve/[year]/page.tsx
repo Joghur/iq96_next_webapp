@@ -1,0 +1,42 @@
+import cloudinary from 'cloudinary';
+
+import { SearchResult } from '@app/bibliothek/galleri/page';
+import UploadButton from '@components/library/gallery/UploadButton';
+import { ForceRefresh } from '@components/ui/force-refresh';
+
+import PdfGrid from './PdfGrid';
+
+export default async function EventsPage({
+  params: { year },
+}: {
+  params: {
+    year: string;
+  };
+}) {
+  const folder = 'letters';
+
+  const results = (await cloudinary.v2.search
+    .expression(
+      `resource_type:image AND public_id:${folder}/brev${year.slice(-2)}*`
+    )
+    .sort_by('public_id', 'desc')
+    .max_results(10)
+    .execute()) as { resources: SearchResult[] };
+
+  return (
+    <section>
+      <ForceRefresh />
+      <div className="flex flex-col">
+        <div className="flex justify-between">
+          <h1 className="text-4xl font-bold">{year}</h1>
+          <UploadButton folder={folder} />
+        </div>
+        {results.resources.length > 0 ? (
+          <PdfGrid pdfs={results.resources} />
+        ) : (
+          <p>Ingen pdf filer fundet</p>
+        )}
+      </div>
+    </section>
+  );
+}
