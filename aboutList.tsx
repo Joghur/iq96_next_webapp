@@ -1,6 +1,10 @@
 /* eslint-disable quotes */
 export const aboutList = [
   [
+    '0.8.2',
+    'Breve: Breve sektionen under bibliotheket er langsomt ved at komme op og køre igen. Der er breve fra 2022 og 23. Brevene kan nu oploades direkte på siden, så forhåbentlig er de mere uptodate i fremtiden.',
+  ],
+  [
     '0.8.1',
     'Galleri: Der er en Upload knap til hvert galleri nu. Derefter kan alle med-lemmer oploade til det rigtige galleri. Upload knap under Galleri giver mulighed for at uploade billeder hvis man ikke ved i hvilket galleri det bruges i',
   ],
