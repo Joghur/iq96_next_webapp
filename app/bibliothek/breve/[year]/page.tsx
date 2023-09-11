@@ -29,7 +29,15 @@ export default async function EventsPage({
       <div className="flex flex-col">
         <div className="flex justify-between">
           <h1 className="text-4xl font-bold">{year}</h1>
-          <UploadButton folder={folder} />
+          <div className="flex flex-col justify-center">
+            <div>
+              <UploadButton folder={folder} />
+            </div>
+            <div>
+              <p>OBS! syntaks</p>
+              <p>brev23-05-24_Tekst</p>
+            </div>
+          </div>
         </div>
         {results.resources.length > 0 ? (
           <PdfGrid pdfs={results.resources} />
