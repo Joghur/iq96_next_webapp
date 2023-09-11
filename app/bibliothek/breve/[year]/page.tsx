@@ -4,7 +4,9 @@ import { SearchResult } from '@app/bibliothek/galleri/page';
 import UploadButton from '@components/library/gallery/UploadButton';
 import { ForceRefresh } from '@components/ui/force-refresh';
 
-import PdfGrid from './PdfGrid';
+import PdfGrid from '../../../../components/library/PdfGrid';
+
+export const lettersFolder = 'letters';
 
 export default async function EventsPage({
   params: { year },
@@ -13,11 +15,11 @@ export default async function EventsPage({
     year: string;
   };
 }) {
-  const folder = 'letters';
-
   const results = (await cloudinary.v2.search
     .expression(
-      `resource_type:image AND public_id:${folder}/brev${year.slice(-2)}*`
+      `resource_type:image AND public_id:${lettersFolder}/brev${year.slice(
+        -2
+      )}*`
     )
     .sort_by('public_id', 'desc')
     .max_results(10)
@@ -31,11 +33,11 @@ export default async function EventsPage({
           <h1 className="text-4xl font-bold">{year}</h1>
           <div className="flex flex-col justify-center">
             <div>
-              <UploadButton folder={folder} />
+              <UploadButton folder={lettersFolder} />
             </div>
             <div>
-              <p>OBS! syntaks</p>
-              <p>brev23-05-24_Tekst</p>
+              <p>OBS! Filnavn eksempel</p>
+              <p>brevÅÅ-MM-DD_Evt. tekst</p>
             </div>
           </div>
         </div>

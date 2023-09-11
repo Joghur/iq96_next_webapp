@@ -79,6 +79,24 @@ async function SideMenu() {
               <Link href="/bibliothek/breve">Breve</Link>
             </Button>
           </div>
+          <div className="space-y-1">
+            <Button
+              asChild
+              variant="ghost"
+              className="w-full justify-start flex gap-2"
+            >
+              <Link href="/bibliothek/vedtaegter">Vedtægter</Link>
+            </Button>
+          </div>
+          <div className="space-y-1">
+            <Button
+              asChild
+              variant="ghost"
+              className="w-full justify-start flex gap-2"
+            >
+              <Link href="/bibliothek/sang">IQ sang</Link>
+            </Button>
+          </div>
         </div>
       </div>
     </div>

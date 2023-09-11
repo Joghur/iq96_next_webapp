@@ -16,7 +16,7 @@ export const buildUrlPdf = (folderAndPublicId: string, pagenumber?: string) => {
   }q_auto,f_auto/${folderAndPublicId}`;
 };
 
-const mapToNumberValue = (stringNumber?: string) => {
+export const mapToNumberValue = (stringNumber?: string) => {
   if (!stringNumber) {
     return [];
   }
@@ -63,7 +63,12 @@ const transformDateString = (input: string) => {
   return transformedDateString;
 };
 
-export default function PdfGrid({ pdfs }: { pdfs: SearchResult[] }) {
+interface Props {
+  pdfs: SearchResult[];
+  label?: boolean;
+}
+
+export default function PdfGrid({ pdfs, label = true }: Props) {
   const { authUser } = useContext(authContext);
 
   useEffect(() => {
@@ -77,9 +82,11 @@ export default function PdfGrid({ pdfs }: { pdfs: SearchResult[] }) {
     <div className="flex flex-col items-center">
       {pdfs.map((pdf) => (
         <div key={pdf.pages} className="mt-10">
-          <h1 className="text-2xl font-extrabold dark:text-white mb-1">
-            {transformDateString(pdf.filename)}
-          </h1>
+          {label && (
+            <h1 className="text-2xl font-extrabold dark:text-white mb-1">
+              {transformDateString(pdf.filename)}
+            </h1>
+          )}
           {pdf.pages &&
             mapToNumberValue(pdf.pages).map((page) => (
               <Card key={page}>
