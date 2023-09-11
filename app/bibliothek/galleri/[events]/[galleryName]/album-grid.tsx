@@ -4,7 +4,7 @@ import { buildUrl } from 'cloudinary-build-url';
 import Image from 'next/image';
 import { useContext, useEffect } from 'react';
 
-import { PdfGrid } from '@components/library/gallery/ImageGrid';
+import { ImageGrid } from '@components/library/gallery/ImageGrid';
 import { handleStartTheme } from '@components/member/ThemeToggle';
 import { authContext } from '@lib/store/auth-context';
 
@@ -22,7 +22,7 @@ export default function AlbumGrid({ images }: { images: SearchResult[] }) {
   }
 
   return (
-    <PdfGrid
+    <ImageGrid
       images={images}
       getImage={(imageData: SearchResult) => {
         return (
