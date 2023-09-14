@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { LibraryCard } from '@components/library/LibraryCard';
+import PageLayout from '@components/ui/PageLayout';
 
 export type Folder = { name: string; path: string };
 
@@ -15,7 +16,7 @@ export default async function LettersPage() {
   );
 
   return (
-    <section>
+    <PageLayout>
       <div className="flex flex-col gap-8">
         <div className="flex justify-between">
           <h1 className="text-4xl font-bold">Breve</h1>
@@ -29,6 +30,6 @@ export default async function LettersPage() {
           ))}
         </div>
       </div>
-    </section>
+    </PageLayout>
   );
 }
