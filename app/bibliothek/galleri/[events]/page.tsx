@@ -2,6 +2,7 @@ import cloudinary from 'cloudinary';
 import Link from 'next/link';
 
 import { LibraryCard } from '@components/library/LibraryCard';
+import PageLayout from '@components/ui/PageLayout';
 // eslint-disable-next-line prettier/prettier
 import { convertLabels, prettyImageFolderLabel, sortObjectArray } from '@lib/utils';
 
@@ -24,7 +25,7 @@ export default async function GalleryPage({
   });
 
   return (
-    <section>
+    <PageLayout>
       <div className="flex flex-col gap-8">
         <div className="flex justify-between">
           <h1 className="text-4xl font-bold">{convertLabels(events)}</h1>
@@ -41,6 +42,6 @@ export default async function GalleryPage({
           ))}
         </div>
       </div>
-    </section>
+    </PageLayout>
   );
 }

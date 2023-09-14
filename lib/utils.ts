@@ -153,3 +153,9 @@ export function sortObjectArray<T>(arr: T[], config: SortConfig<T>): T[] {
     return 0;
   });
 }
+
+export const isHorizontal = () => {
+  const isHorizontal = window.innerWidth > window.innerHeight;
+
+  return isHorizontal;
+};

@@ -6,7 +6,7 @@ import PageLayout from '@components/ui/PageLayout';
 const LibraryPage = () => {
   return (
     <PageLayout>
-      <div className="flex items-center justify-center pt-6 gap-4">
+      <div className="flex flex-col sm:flex-row items-center justify-center pt-6 gap-4">
         <Link href="/bibliothek/galleri">
           <LibraryCard cardTitle="Galleri" />
         </Link>

@@ -3,6 +3,7 @@ import cloudinary from 'cloudinary';
 import { SearchResult } from '@app/bibliothek/galleri/page';
 import UploadButton from '@components/library/gallery/UploadButton';
 import { ForceRefresh } from '@components/ui/force-refresh';
+import PageLayout from '@components/ui/PageLayout';
 
 import PdfGrid from '../../../../components/library/PdfGrid';
 
@@ -25,7 +26,7 @@ export default async function EventsPage({
     .execute()) as { resources: SearchResult[] };
 
   return (
-    <section>
+    <PageLayout>
       <ForceRefresh />
       <div className="flex flex-col">
         <div className="flex justify-between">
@@ -46,6 +47,6 @@ export default async function EventsPage({
           <p>Ingen pdf filer fundet</p>
         )}
       </div>
-    </section>
+    </PageLayout>
   );
 }

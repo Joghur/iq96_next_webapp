@@ -2,6 +2,7 @@ import cloudinary from 'cloudinary';
 
 import UploadButton from '@components/library/gallery/UploadButton';
 import { ForceRefresh } from '@components/ui/force-refresh';
+import PageLayout from '@components/ui/PageLayout';
 import { convertFromUrlSafe, prettyImageFolderLabel } from '@lib/utils';
 
 import { SearchResult } from '../../page';
@@ -24,7 +25,7 @@ export default async function EventsPage({
     .execute()) as { resources: SearchResult[] };
 
   return (
-    <section>
+    <PageLayout>
       <ForceRefresh />
       <div className="flex flex-col gap-8">
         <div className="flex justify-between">
@@ -35,6 +36,6 @@ export default async function EventsPage({
         </div>
         <AlbumGrid images={results.resources} />
       </div>
-    </section>
+    </PageLayout>
   );
 }

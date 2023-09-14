@@ -3,6 +3,7 @@ import cloudinary from 'cloudinary';
 import { SearchResult } from '@app/bibliothek/galleri/page';
 import PdfGrid from '@components/library/PdfGrid';
 import { ForceRefresh } from '@components/ui/force-refresh';
+import PageLayout from '@components/ui/PageLayout';
 
 export default async function VedtagterPage() {
   const results = (await cloudinary.v2.search
@@ -12,7 +13,7 @@ export default async function VedtagterPage() {
     .execute()) as { resources: SearchResult[] };
 
   return (
-    <section>
+    <PageLayout>
       <ForceRefresh />
       <div className="flex flex-col">
         <div className="flex justify-between">
@@ -24,6 +25,6 @@ export default async function VedtagterPage() {
           <p>Ingen vedtægter fundet</p>
         )}
       </div>
-    </section>
+    </PageLayout>
   );
 }
