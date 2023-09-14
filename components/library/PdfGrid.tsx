@@ -38,8 +38,9 @@ const transformDateString = (input: string) => {
     input = input.replace('brev', '');
   }
 
-  const textAndDateParts = input.split('_', 2);
+  const textAndDateParts = input.split('_');
   const dateParts = textAndDateParts[0].split('-');
+  const textParts = textAndDateParts.slice(1).join(' ').replace('_', ' ');
 
   if (dateParts.length < 3) {
     return 'Invalid input';
@@ -58,7 +59,7 @@ const transformDateString = (input: string) => {
   let transformedDateString = `${day}-${month}-${transformedYear}`;
 
   if (textAndDateParts[1]) {
-    transformedDateString += ` - ${textAndDateParts[1].replace('_', ' ')}`;
+    transformedDateString += ` - ${textParts}`;
   }
   return transformedDateString;
 };
