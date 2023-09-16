@@ -19,6 +19,7 @@ import MarkerSelect from './MarkerSelect';
 import MoiMarkers from './MoiMarkers';
 import UserMapButton from './UserMapButton';
 import UserMarker from './UserMarker';
+import { SavingBadgeStatusToLocalStorage } from '@components/ui/BottomNav';
 
 interface Coordinate {
   latitude: number;
@@ -79,6 +80,7 @@ const MapPage = () => {
 
   useEffect(() => {
     handleStartTheme();
+    SavingBadgeStatusToLocalStorage('kort');
   }, []);
 
   useEffect(() => {

@@ -10,12 +10,20 @@ import { authContext } from '@lib/store/auth-context';
 
 import { SearchResult } from '../../page';
 
-export default function AlbumGrid({ images }: { images: SearchResult[] }) {
+export default function AlbumGrid({
+  images,
+  event,
+  year,
+}: {
+  images: SearchResult[];
+  event: string;
+  year: string;
+}) {
   const { authUser } = useContext(authContext);
 
   useEffect(() => {
     handleStartTheme();
-  }, []);
+  }, [event, year]);
 
   if (!authUser) {
     return null;

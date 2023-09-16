@@ -14,6 +14,11 @@ import { convertEpochSecondsToDateString } from '@lib/dates';
 import { useFirestore } from '@lib/hooks/useFirestore';
 import { authContext } from '@lib/store/auth-context';
 import { cn } from '@lib/utils';
+import { setLocalStorage } from '@lib/localStorage';
+import {
+  BadgeNotification,
+  SavingBadgeStatusToLocalStorage,
+} from '@components/ui/BottomNav';
 
 type FirebaseTimestamp = {
   seconds: number;
@@ -49,6 +54,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     handleStartTheme();
+    SavingBadgeStatusToLocalStorage('chat-gen');
   }, []);
 
   if (!authUser) {
@@ -91,6 +97,10 @@ const ChatPage = () => {
 
   let dayAsMilliSeconds = 0;
   let showDay = true;
+
+  // console.log('chats', chats);
+  const dato = moment(1694342208 * 1000);
+  console.log('todate', dato.toDate());
 
   return (
     <PageLayout>
