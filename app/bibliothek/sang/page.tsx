@@ -36,12 +36,14 @@ export default async function VedtagterPage() {
           Æselridder og Kasseur
         </p>
         <p className="dynamic_text">
-          <span className="font-bold">1997-2002, 2005-2009, 2015-2022</span> –
-          Redacteur
+          <span className="font-bold">1997-2000, 2008-2009, 2018</span> –
+          Benjamin, Redacteur
         </p>
         <p className="dynamic_text">
-          <span className="font-bold">1997-1999, 2008, 2009, 2018</span> –
-          Benjamin
+          <span className="font-bold">
+            2001-2002, 2005-2007, 2015-2017, 2019-2022
+          </span>{' '}
+          – Redacteur
         </p>
       </div>
     </PageLayout>
