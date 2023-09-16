@@ -21,7 +21,7 @@ const UploadButton = ({ folder }: Props) => {
     const folderParts = folder?.split('/');
     if (folderParts && folderParts?.length > 0) {
       if (folderParts[0] === 'letters') {
-        SavingBadgeStatusToLocalStorage(`bib-${folderParts[0]}`);
+        SavingBadgeStatusToLocalStorage(`bib-brev`);
       } else {
         SavingBadgeStatusToLocalStorage(
           `bib-gal-${folderParts[0]}-${folderParts[1].split('-')[0]}`
