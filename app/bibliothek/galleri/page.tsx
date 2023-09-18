@@ -32,14 +32,16 @@ const GalleryPage = async () => {
           <UploadButton />
         </div>
         <div className="flex m-auto flex-col gap-4">
-          {galleryCategories.map((category: EventLabel) => (
-            <Link
-              key={category.shortLabel}
-              href={`/bibliothek/galleri/${category.shortLabel}`}
-            >
-              <LibraryCard cardTitle={category.label} />
-            </Link>
-          ))}
+          {galleryCategories
+            .filter((category) => category.type === 'galleries')
+            .map((category: EventLabel) => (
+              <Link
+                key={category.shortLabel}
+                href={`/bibliothek/galleri/${category.shortLabel}`}
+              >
+                <LibraryCard cardTitle={category.label} />
+              </Link>
+            ))}
         </div>
       </div>
     </PageLayout>

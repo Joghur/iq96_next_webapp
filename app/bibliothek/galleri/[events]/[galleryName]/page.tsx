@@ -34,7 +34,11 @@ export default async function EventsPage({
           </h1>
           <UploadButton folder={folder} />
         </div>
-        <AlbumGrid images={results.resources} />
+        <AlbumGrid
+          images={results.resources}
+          event={events}
+          year={galleryName.split('-')[0]}
+        />
       </div>
     </PageLayout>
   );

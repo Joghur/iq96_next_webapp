@@ -7,7 +7,7 @@ export type Folder = { name: string; path: string };
 
 export default async function LettersPage() {
   const currentYear = new Date().getFullYear();
-  const startYear = 1997;
+  const startYear = 1996;
 
   // Create an array of years from 1997 to the current year
   const folders = Array.from(

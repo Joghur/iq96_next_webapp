@@ -2,10 +2,12 @@
 
 import { CldUploadButton } from 'next-cloudinary';
 import { useRouter } from 'next/navigation';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { MdCloudUpload } from 'react-icons/md';
 
 import { Button } from '@components/ui/button';
+import { handleStartTheme } from '@components/member/ThemeToggle';
+import { SavingBadgeStatusToLocalStorage } from '@components/ui/BottomNav';
 
 interface Props {
   folder?: string;
@@ -13,6 +15,20 @@ interface Props {
 
 const UploadButton = ({ folder }: Props) => {
   const router = useRouter();
+
+  useEffect(() => {
+    handleStartTheme();
+    const folderParts = folder?.split('/');
+    if (folderParts && folderParts?.length > 0) {
+      if (folderParts[0] === 'letters') {
+        SavingBadgeStatusToLocalStorage(`bib-brev`);
+      } else {
+        SavingBadgeStatusToLocalStorage(
+          `bib-gal-${folderParts[0]}-${folderParts[1].split('-')[0]}`
+        );
+      }
+    }
+  }, [folder]);
 
   return (
     <Fragment>

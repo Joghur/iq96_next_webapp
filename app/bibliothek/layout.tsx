@@ -1,6 +1,11 @@
 import Link from 'next/link';
 // eslint-disable-next-line prettier/prettier
-import { MdAirplanemodeActive, MdEmojiEvents, MdMail, MdPeople } from 'react-icons/md';
+import {
+  MdAirplanemodeActive,
+  MdEmojiEvents,
+  MdMail,
+  MdPeople,
+} from 'react-icons/md';
 
 import { Button } from '@/components/ui/button';
 
@@ -33,7 +38,7 @@ export const galleryCategories: EventLabel[] = [
   },
 ];
 
-async function SideMenu() {
+const SideMenu = () => {
   // TODO: Button icons
 
   return (
@@ -101,7 +106,7 @@ async function SideMenu() {
       </div>
     </div>
   );
-}
+};
 
 export default function RootLayout({
   children,
