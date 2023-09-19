@@ -1,21 +1,18 @@
 'use client';
 
+import moment from 'moment';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { FaHome, FaMapMarkerAlt, FaUserNinja } from 'react-icons/fa';
 import { MdChatBubbleOutline, MdPhotoLibrary } from 'react-icons/md';
 
+// eslint-disable-next-line prettier/prettier
+import { getLocalStorage, LOCALSTORAGE_PREFIX, setLocalStorage } from '@lib/localStorage';
 import { authContext } from '@lib/store/auth-context';
 
 import LoadingSpinner from './LoadingSpinner';
 import NewContentBadge from './NewContentBadge';
-import {
-  getLocalStorage,
-  LOCALSTORAGE_PREFIX,
-  setLocalStorage,
-} from '@lib/localStorage';
-import moment from 'moment';
 
 export const BADGE_NOTIFICATION = `${LOCALSTORAGE_PREFIX}-badgeNotification`;
 
@@ -46,9 +43,9 @@ const cloudBadgeNotifs: BadgeNotification[] = [
 const BottomNav = () => {
   const pathname = usePathname();
   const { authUser, loading } = useContext(authContext);
-  const [newContentMap, setNewContentMap] = useState(false);
-  const [newContentLib, setNewContentLib] = useState(false);
-  const [newContentChat, setNewContentChat] = useState(false);
+  const [newContentMap, setNewContentMap] = useState<string[]>([]);
+  const [newContentLib, setNewContentLib] = useState<string[]>([]);
+  const [newContentChat, setNewContentChat] = useState<string[]>([]);
 
   const handleBadgeNotifications = useCallback(() => {
     cloudBadgeNotifs?.map((cloudBadgeNotif) => {
@@ -62,14 +59,16 @@ const BottomNav = () => {
         ? moment(cloudBadgeNotif.date).isAfter(new Date(lastSeen.date))
         : true;
 
-      if (cloudBadgeNotif.badgeString.includes('kort')) {
-        setNewContentMap(() => showBadge);
-      }
-      if (cloudBadgeNotif.badgeString.includes('bib')) {
-        setNewContentLib(() => showBadge);
-      }
-      if (cloudBadgeNotif.badgeString.includes('chat')) {
-        setNewContentChat(() => showBadge);
+      if (showBadge) {
+        if (cloudBadgeNotif.badgeString.includes('kort')) {
+          setNewContentMap((old) => [...old, cloudBadgeNotif.badgeString]);
+        }
+        if (cloudBadgeNotif.badgeString.includes('bib')) {
+          setNewContentLib((old) => [...old, cloudBadgeNotif.badgeString]);
+        }
+        if (cloudBadgeNotif.badgeString.includes('chat')) {
+          setNewContentChat((old) => [...old, cloudBadgeNotif.badgeString]);
+        }
       }
     });
   }, []);
@@ -103,7 +102,10 @@ const BottomNav = () => {
       </div>
       <div className="relative z-40">
         <Link
-          href="/kort"
+          href={{
+            pathname: '/kort',
+            query: { badge: JSON.stringify(newContentMap) },
+          }}
           className={`dynamic_text ${
             pathname === '/kort'
               ? 'bottom_nav_link_selected'
@@ -117,7 +119,10 @@ const BottomNav = () => {
       </div>
       <div className="relative z-40">
         <Link
-          href="/bibliothek"
+          href={{
+            pathname: '/bibliothek',
+            query: { badge: JSON.stringify(newContentLib) },
+          }}
           className={`dynamic_text ${
             pathname === '/bibliothek'
               ? 'bottom_nav_link_selected'
@@ -131,7 +136,10 @@ const BottomNav = () => {
       </div>
       <div className="relative z-40">
         <Link
-          href="/chat"
+          href={{
+            pathname: '/chat',
+            query: { badge: JSON.stringify(newContentChat) },
+          }}
           className={`dynamic_text ${
             pathname === '/chat'
               ? 'bottom_nav_link_selected'

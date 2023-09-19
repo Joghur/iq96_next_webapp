@@ -2,6 +2,7 @@ import cloudinary from 'cloudinary';
 import Link from 'next/link';
 
 import { LibraryCard } from '@components/library/LibraryCard';
+import NewContentBadge from '@components/ui/NewContentBadge';
 import PageLayout from '@components/ui/PageLayout';
 // eslint-disable-next-line prettier/prettier
 import { convertLabels, prettyImageFolderLabel, sortObjectArray } from '@lib/utils';
@@ -10,14 +11,25 @@ export type Folder = { name: string; path: string };
 
 export default async function GalleryPage({
   params: { events },
+  searchParams: { badge },
 }: {
   params: {
     events: string;
   };
+  searchParams: { [key: string]: string | undefined };
 }) {
   const { folders } = (await cloudinary.v2.api.sub_folders(events)) as {
     folders: Folder[];
   };
+
+  let newEventYearBadgeStrings: string[] = [];
+
+  if (badge) {
+    const badgeObj: string[] = JSON.parse(badge);
+    newEventYearBadgeStrings = badgeObj.map((badgeString) =>
+      badgeString.slice(-4)
+    );
+  }
 
   const sortedArray = sortObjectArray<Folder>(folders, {
     property: 'name',
@@ -33,12 +45,15 @@ export default async function GalleryPage({
 
         <div className="grid sm:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-4">
           {sortedArray.map((folder) => (
-            <Link
-              href={`/bibliothek/galleri/${events}/${folder.name}`}
-              key={folder.path}
-            >
-              <LibraryCard cardTitle={prettyImageFolderLabel(folder.name)} />
-            </Link>
+            <div key={folder.path} className="relative">
+              {newEventYearBadgeStrings.length > 0 &&
+                newEventYearBadgeStrings.includes(folder.name.slice(0, 4)) && (
+                  <NewContentBadge text="Nyt" />
+                )}
+              <Link href={`/bibliothek/galleri/${events}/${folder.name}`}>
+                <LibraryCard cardTitle={prettyImageFolderLabel(folder.name)} />
+              </Link>
+            </div>
           ))}
         </div>
       </div>

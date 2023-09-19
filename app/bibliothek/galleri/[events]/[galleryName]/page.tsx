@@ -10,11 +10,13 @@ import AlbumGrid from './album-grid';
 
 export default async function EventsPage({
   params: { galleryName, events },
+  searchParams: { badge },
 }: {
   params: {
     events: string;
     galleryName: string;
   };
+  searchParams: { [key: string]: string | undefined };
 }) {
   const folder = `${events}/${convertFromUrlSafe(galleryName)}`;
 
