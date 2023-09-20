@@ -45,7 +45,7 @@ const LibraryPage = ({
           >
             <LibraryCard cardTitle="Breve"></LibraryCard>
           </Link>
-          {newGalleryBadgeStrings.length > 0 && <NewContentBadge text="Nyt" />}
+          {newLetterBadgeStrings.length > 0 && <NewContentBadge text="Nyt" />}
         </div>
         <Link href="/bibliothek/vedtaegter">
           <LibraryCard cardTitle="Vedtægter" />

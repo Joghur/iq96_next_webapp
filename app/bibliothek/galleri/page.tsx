@@ -41,7 +41,7 @@ const GalleryPage = async ({
       badgeString.includes('gf')
     );
     newEventBadgeStrings = badgeObj.filter((badgeString) =>
-      badgeString.includes('st')
+      badgeString.includes('events')
     );
   }
 

@@ -35,7 +35,7 @@ const cloudBadgeNotifs: BadgeNotification[] = [
   { badgeString: 'kort', date: new Date(1694894239000) },
   { badgeString: 'bib-gal-tour-2023', date: new Date(1694894239000) },
   { badgeString: 'bib-gal-gf-2023', date: new Date(1694894239000) },
-  { badgeString: 'bib-gal-st-2023', date: new Date(1694894239000) },
+  { badgeString: 'bib-gal-events-2023', date: new Date(1694894239000) },
   { badgeString: 'bib-brev-2023', date: new Date(1694894239000) },
   { badgeString: 'chat-gen', date: new Date(1694894239000) },
 ];
@@ -112,7 +112,7 @@ const BottomNav = () => {
               : 'bottom_nav_link_container'
           }`}
         >
-          {newContentMap && <NewContentBadge />}
+          {newContentMap.length > 0 && <NewContentBadge />}
           <FaMapMarkerAlt />
           Kort
         </Link>
@@ -129,7 +129,7 @@ const BottomNav = () => {
               : 'bottom_nav_link_container'
           }`}
         >
-          {newContentLib && <NewContentBadge />}
+          {newContentLib.length > 0 && <NewContentBadge />}
           <MdPhotoLibrary />
           Bibliothek
         </Link>
@@ -146,7 +146,7 @@ const BottomNav = () => {
               : 'bottom_nav_link_container'
           }`}
         >
-          {newContentChat && <NewContentBadge />}
+          {newContentChat.length > 0 && <NewContentBadge />}
           <MdChatBubbleOutline />
           Chat
         </Link>
@@ -196,7 +196,7 @@ export default BottomNav;
 // const badgestring1cObj: BadgeNotification = {
 //   navBar: 'bib',
 //   library: 'gal',
-//   gallery: 'st',
+//   gallery: 'events',
 //   year: 2023,
 // };
 // const badgestring1cStr = makeBadgeNotifString(badgestring1cObj);
@@ -249,8 +249,8 @@ export default BottomNav;
 //   // kort
 //   // bib-gal-tour-(1997-2023)
 //   // bib-gal-gf-(1997-2023)
-//   // bib-gal-st-(1997-2023)
-//   // bib-gal-st-(1997-2023)
+//   // bib-gal-events-(1997-2023)
+//   // bib-gal-events-(1997-2023)
 //   // bib-bre-(1997-2023)
 //   // chat-gen
 
@@ -324,5 +324,5 @@ export default BottomNav;
 
 // type BadgeNotificationNavBar = 'kort' | 'bib' | 'chat';
 // type BadgeNotificationLibrary = 'gal' | 'brev';
-// type BadgeNotificationGallery = 'tour' | 'gf' | 'st';
+// type BadgeNotificationGallery = 'tour' | 'gf' | 'events';
 // type BadgeNotificationChat = 'gen';

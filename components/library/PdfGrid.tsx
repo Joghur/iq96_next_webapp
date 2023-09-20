@@ -82,7 +82,7 @@ export default function PdfGrid({ pdfs, label = true }: Props) {
   return (
     <div className="flex flex-col items-center">
       {pdfs.map((pdf) => (
-        <div key={pdf.pages} className="mt-10">
+        <div key={pdf.filename} className="mt-10">
           {label && (
             <h1 className="text-2xl font-extrabold dark:text-white mb-1">
               {transformDateString(pdf.filename)}
