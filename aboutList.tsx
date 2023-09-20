@@ -1,6 +1,10 @@
 /* eslint-disable quotes */
 export const aboutList = [
   [
+    '0.8.4',
+    'Nyt indhold notifikation: Det er snart muligt at se om der er kommet nyt indhold i Chat. galleri, breve og kortet ved hjælp af små orange prikker og badges med Nyt skrevet indeni. Det er ikke helt live endnu, men du kan allerede se det i sving på nogle falske nye sider. Senere kommer der automatisk et badge op når der bliver uploadet til galleriet eller skrevet i chat.',
+  ],
+  [
     '0.8.2',
     'Breve: Breve sektionen under bibliotheket er langsomt ved at komme op og køre igen. Der er breve fra 2022 og 23. Brevene kan nu oploades direkte på siden, så forhåbentlig er de mere uptodate i fremtiden.',
   ],

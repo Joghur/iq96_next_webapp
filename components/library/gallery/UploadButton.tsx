@@ -22,9 +22,6 @@ const UploadButton = ({ folder }: Props) => {
   const router = useRouter();
   const currentPage = usePathname();
 
-  console.log('folder', folder);
-  console.log('currentPage', currentPage);
-
   useEffect(() => {
     handleStartTheme();
     const folderParts = folder?.split('/');
@@ -38,7 +35,7 @@ const UploadButton = ({ folder }: Props) => {
         SavingBadgeStatusToLocalStorage(`bib-gal-${folderParts[0]}-${year}`);
       }
     }
-  }, [folder]);
+  }, [currentPage, folder]);
 
   return (
     <Fragment>
