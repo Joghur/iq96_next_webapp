@@ -1,34 +1,41 @@
 'use client';
 
 import { CldUploadButton } from 'next-cloudinary';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Fragment, useEffect } from 'react';
 import { MdCloudUpload } from 'react-icons/md';
 
-import { Button } from '@components/ui/button';
 import { handleStartTheme } from '@components/member/ThemeToggle';
 import { SavingBadgeStatusToLocalStorage } from '@components/ui/BottomNav';
+import { Button } from '@components/ui/button';
 
 interface Props {
   folder?: string;
 }
 
+function getStringAfterLastSlash(inputString: string): string {
+  const parts = inputString.split('/');
+  return parts.pop() || '';
+}
+
 const UploadButton = ({ folder }: Props) => {
   const router = useRouter();
+  const currentPage = usePathname();
 
   useEffect(() => {
     handleStartTheme();
     const folderParts = folder?.split('/');
     if (folderParts && folderParts?.length > 0) {
+      console.log('folderParts', folderParts);
       if (folderParts[0] === 'letters') {
-        SavingBadgeStatusToLocalStorage(`bib-brev`);
+        const year = getStringAfterLastSlash(currentPage);
+        SavingBadgeStatusToLocalStorage(`bib-brev-${year}`);
       } else {
-        SavingBadgeStatusToLocalStorage(
-          `bib-gal-${folderParts[0]}-${folderParts[1].split('-')[0]}`
-        );
+        const year = folderParts[1]?.split('-')[0];
+        SavingBadgeStatusToLocalStorage(`bib-gal-${folderParts[0]}-${year}`);
       }
     }
-  }, [folder]);
+  }, [currentPage, folder]);
 
   return (
     <Fragment>

@@ -41,7 +41,7 @@ export default async function VedtagterPage() {
         </p>
         <p className="dynamic_text">
           <span className="font-bold">
-            2001-2002, 2005-2007, 2015-2017, 2019-2022
+            2001-2002, 2005-2007, 2010-2011, 2015-2017, 2019-2022
           </span>{' '}
           – Redacteur
         </p>
