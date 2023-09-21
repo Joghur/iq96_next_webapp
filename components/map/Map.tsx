@@ -5,8 +5,9 @@ import { useContext, useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 
 import { handleStartTheme } from '@components/member/ThemeToggle';
+import { SavingBadgeStatusToLocalStorage } from '@components/ui/BottomNav';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
-import { useCityData, useMapData } from '@lib/hooks/useFirestore';
+import { useCityData, useFirestore, useMapData } from '@lib/hooks/useFirestore';
 import { authContext } from '@lib/store/auth-context';
 import { compareNick } from '@lib/utils';
 
@@ -19,7 +20,6 @@ import MarkerSelect from './MarkerSelect';
 import MoiMarkers from './MoiMarkers';
 import UserMapButton from './UserMapButton';
 import UserMarker from './UserMarker';
-import { SavingBadgeStatusToLocalStorage } from '@components/ui/BottomNav';
 
 interface Coordinate {
   latitude: number;

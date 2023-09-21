@@ -1,23 +1,8 @@
+/* eslint-disable prettier/prettier */
 import { onAuthStateChanged, User } from 'firebase/auth';
 import {
-  addDoc,
-  collection,
-  CollectionReference,
-  deleteDoc,
-  doc,
-  DocumentData,
-  getDoc,
-  getDocs,
-  getFirestore,
-  limit,
-  onSnapshot,
-  orderBy,
-  query,
-  Query,
-  setDoc,
-  Timestamp,
-  updateDoc,
-  where,
+    addDoc, collection, CollectionReference, deleteDoc, doc, DocumentData, getDoc, getDocs,
+    getFirestore, limit, onSnapshot, orderBy, query, Query, setDoc, Timestamp, updateDoc, where
 } from 'firebase/firestore';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -42,7 +27,12 @@ export interface DocumentUser {
   birthday?: string;
 }
 
-export type CollectionName = 'users' | 'events' | 'map' | 'chats';
+export type CollectionName =
+  | 'users'
+  | 'events'
+  | 'map'
+  | 'chats'
+  | 'notification';
 
 export const useFirestore = <T extends DocumentData>(
   collectionName: CollectionName,
@@ -55,8 +45,21 @@ export const useFirestore = <T extends DocumentData>(
 
   const collectionRef = collection(db, collectionName);
 
-  const addingDoc = async (document: T) => {
-    await addDoc(collectionRef, document);
+  const addingDoc = async (document: T, id?: string) => {
+    try {
+      if (id) {
+        const docRef = doc(db, collectionName, id);
+        await setDoc(docRef, {
+          ...document,
+          id: id,
+        });
+      } else {
+        await addDoc(collectionRef, document);
+      }
+    } catch (error) {
+      // TODO: proper errorhandling
+      console.error('Error adding document:', error);
+    }
   };
 
   const updatingDoc = async (id: string, document: T) => {
@@ -449,4 +452,21 @@ export const useDocumentUser = (): [
   }, [db, _authUser, _loading]);
 
   return [authUser, documentUser, loading, updatingDoc];
+};
+
+export const checkDoc = async (collectionName: string, documentId: string) => {
+  const docRef = doc(db, collectionName, documentId);
+
+  try {
+    const docSnapshot = await getDoc(docRef);
+
+    if (docSnapshot.exists()) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error('Error getting document:', error);
+    throw error;
+  }
 };

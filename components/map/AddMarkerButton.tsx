@@ -1,8 +1,12 @@
 import L from 'leaflet';
 import { ChangeEvent, useState } from 'react';
 import { MdAdd } from 'react-icons/md';
-import { MarkerData } from './Map';
+
+import { NotificationDbType } from '@components/ui/BottomNav';
 import Modal from '@components/ui/Modal';
+import { useFirestore } from '@lib/hooks/useFirestore';
+
+import { MarkerData } from './Map';
 
 const initialMarker: MarkerData = {
   id: '',
@@ -66,6 +70,11 @@ export const NewMarkerForm = ({
   const [changedMarker, setChangingMarker] =
     useState<MarkerData>(initialMarker);
 
+  const { addingDoc: addingMapBadge } = useFirestore<NotificationDbType>(
+    'notification',
+    'updatedAt'
+  );
+
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     if (event) {
       const { id, value } = event.target;
@@ -87,6 +96,13 @@ export const NewMarkerForm = ({
       title: changedMarker.title,
       type: changedMarker.type,
     });
+
+    await addingMapBadge(
+      {
+        updatedAt: new Date(),
+      },
+      'kort'
+    );
     onClose();
   };
 

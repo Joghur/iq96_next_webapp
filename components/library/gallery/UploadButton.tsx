@@ -6,36 +6,68 @@ import { Fragment, useEffect } from 'react';
 import { MdCloudUpload } from 'react-icons/md';
 
 import { handleStartTheme } from '@components/member/ThemeToggle';
-import { SavingBadgeStatusToLocalStorage } from '@components/ui/BottomNav';
+// eslint-disable-next-line prettier/prettier
+import { NotificationDbType, SavingBadgeStatusToLocalStorage } from '@components/ui/BottomNav';
 import { Button } from '@components/ui/button';
+import { useFirestore } from '@lib/hooks/useFirestore';
 
 interface Props {
   folder?: string;
 }
 
-function getStringAfterLastSlash(inputString: string): string {
+const getStringAfterLastSlash = (inputString: string): string => {
   const parts = inputString.split('/');
   return parts.pop() || '';
-}
+};
+
+const getBadgeString = (
+  folder: string | undefined,
+  currentPage: string
+): string => {
+  const folderParts = folder?.split('/');
+  if (folderParts && folderParts?.length > 0) {
+    if (folderParts[0] === 'letters') {
+      const year = getStringAfterLastSlash(currentPage);
+      return `bib-brev-${year}`;
+    } else {
+      const year = folderParts[1]?.split('-')[0];
+      return `bib-gal-${folderParts[0]}-${year}`;
+    }
+  }
+  return '';
+};
 
 const UploadButton = ({ folder }: Props) => {
   const router = useRouter();
   const currentPage = usePathname();
 
+  const { addingDoc } = useFirestore<NotificationDbType>(
+    'notification',
+    'updatedAt'
+  );
+
   useEffect(() => {
     handleStartTheme();
-    const folderParts = folder?.split('/');
-    if (folderParts && folderParts?.length > 0) {
-      console.log('folderParts', folderParts);
-      if (folderParts[0] === 'letters') {
-        const year = getStringAfterLastSlash(currentPage);
-        SavingBadgeStatusToLocalStorage(`bib-brev-${year}`);
-      } else {
-        const year = folderParts[1]?.split('-')[0];
-        SavingBadgeStatusToLocalStorage(`bib-gal-${folderParts[0]}-${year}`);
-      }
+    const badgeString = getBadgeString(folder, currentPage);
+    if (badgeString !== '') {
+      SavingBadgeStatusToLocalStorage(badgeString);
     }
   }, [currentPage, folder]);
+
+  const handleUpload = async () => {
+    const badgeString = getBadgeString(folder, currentPage);
+    await addingDoc(
+      {
+        updatedAt: new Date(),
+      },
+      badgeString
+    );
+    async () => {
+      setTimeout(() => {
+        router.refresh();
+      }, 1000);
+    };
+  };
 
   return (
     <Fragment>
@@ -48,11 +80,7 @@ const UploadButton = ({ folder }: Props) => {
             }}
             uploadPreset="mihetffc"
             public-id={folder}
-            onUpload={() => {
-              setTimeout(() => {
-                router.refresh();
-              }, 1000);
-            }}
+            onUpload={handleUpload}
           />
         </div>
       </Button>

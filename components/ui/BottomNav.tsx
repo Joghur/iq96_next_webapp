@@ -7,6 +7,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { FaHome, FaMapMarkerAlt, FaUserNinja } from 'react-icons/fa';
 import { MdChatBubbleOutline, MdPhotoLibrary } from 'react-icons/md';
 
+import { useFirestore } from '@lib/hooks/useFirestore';
 // eslint-disable-next-line prettier/prettier
 import { getLocalStorage, LOCALSTORAGE_PREFIX, setLocalStorage } from '@lib/localStorage';
 import { authContext } from '@lib/store/auth-context';
@@ -21,6 +22,16 @@ export type BadgeNotification = {
   date?: Date;
 };
 
+// type FirebaseDate = {
+//   seconds: number;
+// };
+
+// TODO: fix any Mixup between docs return type and updating types
+export interface NotificationDbType {
+  id?: string;
+  updatedAt: any;
+}
+
 export const SavingBadgeStatusToLocalStorage = (notifString: string) => {
   if (!notifString || notifString === '') {
     return;
@@ -31,14 +42,14 @@ export const SavingBadgeStatusToLocalStorage = (notifString: string) => {
   });
 };
 
-const cloudBadgeNotifs: BadgeNotification[] = [
-  { badgeString: 'kort', date: new Date(1694894239000) },
-  { badgeString: 'bib-gal-tour-2023', date: new Date(1694894239000) },
-  { badgeString: 'bib-gal-gf-2023', date: new Date(1694894239000) },
-  { badgeString: 'bib-gal-events-2023', date: new Date(1694894239000) },
-  { badgeString: 'bib-brev-2023', date: new Date(1694894239000) },
-  { badgeString: 'chat-gen', date: new Date(1694894239000) },
-];
+// const cloudBadgeNotifs: BadgeNotification[] = [
+//   { badgeString: 'kort', date: new Date(1694894239000) },
+//   { badgeString: 'bib-gal-tour-2023', date: new Date(1694894239000) },
+//   { badgeString: 'bib-gal-gf-2023', date: new Date(1694894239000) },
+//   { badgeString: 'bib-gal-events-2023', date: new Date(1694894239000) },
+//   { badgeString: 'bib-brev-2023', date: new Date(1694894239000) },
+//   { badgeString: 'chat-gen', date: new Date(1694894239000) },
+// ];
 
 const BottomNav = () => {
   const pathname = usePathname();
@@ -47,31 +58,40 @@ const BottomNav = () => {
   const [newContentLib, setNewContentLib] = useState<string[]>([]);
   const [newContentChat, setNewContentChat] = useState<string[]>([]);
 
+  const { docs: badges } = useFirestore<NotificationDbType>(
+    'notification',
+    'updatedAt'
+  );
+
   const handleBadgeNotifications = useCallback(() => {
-    cloudBadgeNotifs?.map((cloudBadgeNotif) => {
-      // Compare cloud status with localstorage
-      // Turn on badge if local date value is older than cloud
-      const lastSeen = getLocalStorage<BadgeNotification>(
-        `${BADGE_NOTIFICATION}_${cloudBadgeNotif.badgeString}`
-      );
+    if (badges) {
+      badges.map((cloudBadgeNotif) => {
+        // Compare cloud status with localstorage
+        // Turn on badge if local date value is older than cloud
+        const lastSeen = getLocalStorage<BadgeNotification>(
+          `${BADGE_NOTIFICATION}_${cloudBadgeNotif.id}`
+        );
 
-      const showBadge = lastSeen?.date
-        ? moment(cloudBadgeNotif.date).isAfter(new Date(lastSeen.date))
-        : true;
+        const showBadge = lastSeen?.date
+          ? moment(cloudBadgeNotif.updatedAt.seconds * 1000).isAfter(
+              new Date(lastSeen.date)
+            )
+          : true;
 
-      if (showBadge) {
-        if (cloudBadgeNotif.badgeString.includes('kort')) {
-          setNewContentMap((old) => [...old, cloudBadgeNotif.badgeString]);
+        if (showBadge) {
+          if ((cloudBadgeNotif.id || '').includes('kort')) {
+            setNewContentMap((old) => [...old, cloudBadgeNotif.id || '']);
+          }
+          if ((cloudBadgeNotif.id || '').includes('bib')) {
+            setNewContentLib((old) => [...old, cloudBadgeNotif.id || '']);
+          }
+          if ((cloudBadgeNotif.id || '').includes('chat')) {
+            setNewContentChat((old) => [...old, cloudBadgeNotif.id || '']);
+          }
         }
-        if (cloudBadgeNotif.badgeString.includes('bib')) {
-          setNewContentLib((old) => [...old, cloudBadgeNotif.badgeString]);
-        }
-        if (cloudBadgeNotif.badgeString.includes('chat')) {
-          setNewContentChat((old) => [...old, cloudBadgeNotif.badgeString]);
-        }
-      }
-    });
-  }, []);
+      });
+    }
+  }, [badges]);
 
   useEffect(() => {
     handleBadgeNotifications();
