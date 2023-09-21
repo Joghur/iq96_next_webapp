@@ -3,10 +3,11 @@
 import { Icon } from 'leaflet';
 import { ChangeEvent, useState } from 'react';
 import { MdDelete, MdEdit } from 'react-icons/md';
-import { Tooltip as MapToolip, Marker, Popup } from 'react-leaflet';
+import { Marker, Popup, Tooltip as MapToolip } from 'react-leaflet';
 
+import { NotificationDbType } from '@components/ui/BottomNav';
 import Select from '@components/ui/Select';
-import { DocumentUser } from '@lib/hooks/useFirestore';
+import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 
 import { MarkerData } from './Map';
 
@@ -67,6 +68,11 @@ const MoiMarkers = ({
     undefined
   );
 
+  const { addingDoc: addingMapBadge } = useFirestore<NotificationDbType>(
+    'notification',
+    'updatedAt'
+  );
+
   const handleOpenEditMarker = (marker: MarkerData) => {
     setShowEdit(() => true);
     setCurrentMarker(() => marker);
@@ -92,6 +98,13 @@ const MoiMarkers = ({
         madeBy: !documentUser.isSuperAdmin ? 'user' : currentMarker.madeBy,
       });
     }
+
+    await addingMapBadge(
+      {
+        updatedAt: new Date(),
+      },
+      'kort'
+    );
     setShowEdit(() => false);
     setCurrentMarker(() => undefined);
   };

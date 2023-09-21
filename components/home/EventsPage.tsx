@@ -1,13 +1,14 @@
-import { User } from 'firebase/auth';
+// import { User } from 'firebase/auth';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { MdEdit } from 'react-icons/md';
 
-import EventForm from './EventForm';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { eventTransitionVariants } from '@lib/animations';
 import { handleType } from '@lib/convertEventType';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
+
+import EventForm from './EventForm';
 
 interface FirebaseDate {
   seconds: number;

@@ -8,21 +8,18 @@ import { useContext, useEffect, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 
 import { handleStartTheme } from '@components/member/ThemeToggle';
+// eslint-disable-next-line prettier/prettier
+import { NotificationDbType, SavingBadgeStatusToLocalStorage } from '@components/ui/BottomNav';
 import PageLayout from '@components/ui/PageLayout';
 import { eventTransitionVariants } from '@lib/animations';
 import { convertEpochSecondsToDateString } from '@lib/dates';
 import { useFirestore } from '@lib/hooks/useFirestore';
 import { authContext } from '@lib/store/auth-context';
 import { cn } from '@lib/utils';
-import { setLocalStorage } from '@lib/localStorage';
-import {
-  BadgeNotification,
-  SavingBadgeStatusToLocalStorage,
-} from '@components/ui/BottomNav';
 
-type FirebaseTimestamp = {
-  seconds: number;
-};
+// type FirebaseTimestamp = {
+//   seconds: number;
+// };
 
 interface ChatUser {
   id: string;
@@ -34,6 +31,7 @@ interface ChatUser {
 export interface ChatType {
   // createdAt: FirebaseTimestamp | Date;
   id?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createdAt: any;
   group: string;
   text: string;
@@ -51,6 +49,11 @@ const ChatPage = () => {
     updatingDoc,
     deletingDoc,
   } = useFirestore<ChatType>('chats', 'createdAt', 'desc', limitBy);
+
+  const { addingDoc: addingChatBadge } = useFirestore<NotificationDbType>(
+    'notification',
+    'updatedAt'
+  );
 
   useEffect(() => {
     handleStartTheme();
@@ -90,6 +93,12 @@ const ChatPage = () => {
             avatar: documentUser?.avatar,
           },
         });
+        await addingChatBadge(
+          {
+            updatedAt: new Date(),
+          },
+          'chat-gen'
+        );
         setInput(() => '');
       }
     }
@@ -99,8 +108,8 @@ const ChatPage = () => {
   let showDay = true;
 
   // console.log('chats', chats);
-  const dato = moment(1694342208 * 1000);
-  console.log('todate', dato.toDate());
+  // const dato = moment(1694342208 * 1000);
+  // console.log('todate', dato.toDate());
 
   return (
     <PageLayout>
