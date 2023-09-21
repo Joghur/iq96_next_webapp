@@ -29,6 +29,7 @@ export type BadgeNotification = {
 // TODO: fix any Mixup between docs return type and updating types
 export interface NotificationDbType {
   id?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updatedAt: any;
 }
 

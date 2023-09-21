@@ -98,6 +98,7 @@ export const useFirestore = <T extends DocumentData>(
   return { docs, loading, addingDoc, updatingDoc, deletingDoc };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const useCityData = <T extends DocumentData>(
   collectionName: CollectionName
 ) => {

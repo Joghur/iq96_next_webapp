@@ -17,9 +17,9 @@ import { useFirestore } from '@lib/hooks/useFirestore';
 import { authContext } from '@lib/store/auth-context';
 import { cn } from '@lib/utils';
 
-type FirebaseTimestamp = {
-  seconds: number;
-};
+// type FirebaseTimestamp = {
+//   seconds: number;
+// };
 
 interface ChatUser {
   id: string;
@@ -31,6 +31,7 @@ interface ChatUser {
 export interface ChatType {
   // createdAt: FirebaseTimestamp | Date;
   id?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createdAt: any;
   group: string;
   text: string;

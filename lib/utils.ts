@@ -24,6 +24,7 @@ const addNameToArray = (textValue: string, list: string[]): string[] => {
 };
 
 // TODO fix any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function compareObjects(obj1: any, obj2: any): string[] {
   if (obj1?.length === 0 || obj2?.length === 0) {
     return [];
@@ -80,6 +81,7 @@ function arraysAreEqual(arr1: string[], arr2: string[]): boolean {
 }
 
 // TODO fix any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function compareNick(a: any, b: any) {
   if (a.nick < b.nick) {
     return -1;

@@ -7,7 +7,7 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import { handleStartTheme } from '@components/member/ThemeToggle';
 import { SavingBadgeStatusToLocalStorage } from '@components/ui/BottomNav';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
-import { useCityData, useFirestore, useMapData } from '@lib/hooks/useFirestore';
+import { useCityData, useMapData } from '@lib/hooks/useFirestore';
 import { authContext } from '@lib/store/auth-context';
 import { compareNick } from '@lib/utils';
 
