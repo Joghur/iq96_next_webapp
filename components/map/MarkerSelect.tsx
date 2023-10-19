@@ -1,6 +1,7 @@
 import L from 'leaflet';
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useMap } from 'react-leaflet';
+
 import { MarkerData } from '@components/map/Map';
 import Select, { SelectGroup } from '@components/ui/Select';
 
@@ -18,12 +19,12 @@ export const MarkerSelect: FC<Props> = ({ markers }) => {
   ]);
 
   const [selection, setSelection] = useState<string | undefined>(
-    markers[0]?.title
+    markers[0]?.nick
   );
 
   const handleSelectChange = (event: string) => {
     const selectedMarker = markers.filter(
-      (d: MarkerData) => d.title === event
+      (d: MarkerData) => d.nick === event
     )[0];
     setCenter(() => [
       selectedMarker.location.latitude,
@@ -55,17 +56,17 @@ export const MarkerSelect: FC<Props> = ({ markers }) => {
 
   const appMarkers = markers
     ?.filter((o) => o.madeBy === 'app')
-    .map((s) => s.title);
+    .map((s) => s.nick);
   const userMarkers = markers?.filter((o) => o.madeBy === 'user');
   const restaurantMarkers = userMarkers
     ?.filter((o) => o.type === 'restaurant')
-    .map((s) => s.title);
+    .map((s) => s.nick);
   const barMarkers = userMarkers
     ?.filter((o) => o.type === 'bar')
-    .map((s) => s.title);
+    .map((s) => s.nick);
   const restMarkers = userMarkers
     ?.filter((o) => o.type !== 'bar' && o.type !== 'restaurant')
-    .map((s) => s.title);
+    .map((s) => s.nick);
 
   const selectGroups: SelectGroup[] = [
     { label: 'IQ96 steder', groupItems: appMarkers },

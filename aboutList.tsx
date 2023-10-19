@@ -1,6 +1,10 @@
 /* eslint-disable quotes */
 export const aboutList = [
   [
+    '0.8.6',
+    'Kortets dropdown liste bruger nu det korte navn for en markør. Flere animationer.',
+  ],
+  [
     '0.8.5',
     'Nyt indhold notifikation: Kortet, gallerier, officielle breve og chatten er nu tilsluttet databasen, så man får en notifikations badge (orange prik i menuen eller Nyt-tekst i boksene indeni Bibliotheket). De forsvinder når man har set siderne.',
   ],

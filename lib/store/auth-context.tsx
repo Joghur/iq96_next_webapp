@@ -1,12 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 'use client';
 
-import {
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-  signOut,
-  User,
-} from 'firebase/auth';
+// eslint-disable-next-line prettier/prettier
+import { sendPasswordResetEmail, signInWithEmailAndPassword, signOut, User } from 'firebase/auth';
 import { DocumentData } from 'firebase/firestore';
 import { createContext, ReactNode } from 'react';
 
@@ -82,11 +78,3 @@ export default function AuthContextProvider({
 
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
 }
-
-// Whole collection
-// const [documentUsers, loadingCol, errorCol] = useCollection(
-//   collection(getFirestore(app), 'users'),
-//   {
-//     snapshotListenOptions: {includeMetadataChanges: true},
-//   },
-// );

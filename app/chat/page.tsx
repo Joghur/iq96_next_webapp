@@ -17,10 +17,6 @@ import { useFirestore } from '@lib/hooks/useFirestore';
 import { authContext } from '@lib/store/auth-context';
 import { cn } from '@lib/utils';
 
-// type FirebaseTimestamp = {
-//   seconds: number;
-// };
-
 interface ChatUser {
   id: string;
   name: string;
@@ -29,7 +25,6 @@ interface ChatUser {
 
 // TODO fix firebase dates
 export interface ChatType {
-  // createdAt: FirebaseTimestamp | Date;
   id?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createdAt: any;
@@ -106,10 +101,6 @@ const ChatPage = () => {
 
   let dayAsMilliSeconds = 0;
   let showDay = true;
-
-  // console.log('chats', chats);
-  // const dato = moment(1694342208 * 1000);
-  // console.log('todate', dato.toDate());
 
   return (
     <PageLayout>

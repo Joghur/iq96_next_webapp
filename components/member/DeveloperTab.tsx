@@ -1,24 +1,21 @@
+/* eslint-disable prettier/prettier */
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { IqMemberTable } from './IqMemberTable';
-import { getGmailContacts } from './MemberTable';
+
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { Separator } from '@components/ui/separator';
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow
 } from '@components/ui/table';
 import {
-  copyDocumentsToNestedCollection,
-  deleteMapMarkers,
   DocumentUser,
-  useFirestore,
+  copyDocumentsToNestedCollection, deleteMapMarkers,
+  useFirestore
 } from '@lib/hooks/useFirestore';
+
+import { IqMemberTable } from './IqMemberTable';
+import { getGmailContacts } from './MemberTable';
 
 export interface ContactName {
   displayName?: string;
@@ -89,10 +86,9 @@ const DeveloperTab = () => {
     return null;
   }
 
-  const sortedConnections = connections
+  const sortedGmailContacts = connections
     .filter(
-      (o: Connection, index: number) =>
-        index < 26 &&
+      (o: Connection) =>
         o?.emailAddresses?.[0]?.value !== process.env.NEXT_PUBLIC_NEWSMAIL
     )
     .sort((a: Connection, b: Connection) => {
@@ -102,10 +98,8 @@ const DeveloperTab = () => {
       return displayNameA.localeCompare(displayNameB);
     });
 
-  const sortedIqUsers = users
-    .filter(
-      (o: DocumentUser, index: number) => index < 26 && o?.name !== 'IQ96'
-    )
+  const sortedFirebaseMembers = users
+    .filter((o: DocumentUser) => o?.name !== 'IQ96')
     .sort((a: DocumentUser, b: DocumentUser) => {
       const displayNameA = a?.name ?? '';
       const displayNameB = b?.name ?? '';
@@ -120,8 +114,8 @@ const DeveloperTab = () => {
           Med-lemmer
         </p>
         <IqMemberTable
-          iqUsers={sortedIqUsers}
-          connections={sortedConnections}
+          iqUsers={sortedFirebaseMembers}
+          connections={sortedGmailContacts}
           updatingDoc={updatingDoc}
           isEditable
           showAll
@@ -134,7 +128,7 @@ const DeveloperTab = () => {
             <p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
               Gmail kontakter
             </p>
-            <GmailContacts connections={sortedConnections} />
+            <GmailContacts connections={sortedGmailContacts} />
           </>
         )}
         <div>

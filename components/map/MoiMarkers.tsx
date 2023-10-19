@@ -49,7 +49,6 @@ interface Props {
   index: number;
   marker: MarkerData;
   documentUser: DocumentUser;
-  // canEdit: boolean;
   updatingDoc: (id: string, document: MarkerData) => Promise<void>;
   deletingDoc: (id: string) => Promise<void>;
 }
@@ -58,7 +57,6 @@ const MoiMarkers = ({
   index,
   marker,
   documentUser,
-  // canEdit,
   updatingDoc,
   deletingDoc,
 }: Props) => {

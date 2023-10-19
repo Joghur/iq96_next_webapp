@@ -1,4 +1,3 @@
-// import { User } from 'firebase/auth';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { MdEdit } from 'react-icons/md';
