@@ -12,6 +12,7 @@ export default async function VedtagterPage() {
     .max_results(10)
     .execute()) as { resources: SearchResult[] };
 
+  // TODO: Export  authors to PDF file
   return (
     <PageLayout>
       <ForceRefresh />

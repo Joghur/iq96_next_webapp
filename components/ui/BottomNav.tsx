@@ -43,15 +43,6 @@ export const SavingBadgeStatusToLocalStorage = (notifString: string) => {
   });
 };
 
-// const cloudBadgeNotifs: BadgeNotification[] = [
-//   { badgeString: 'kort', date: new Date(1694894239000) },
-//   { badgeString: 'bib-gal-tour-2023', date: new Date(1694894239000) },
-//   { badgeString: 'bib-gal-gf-2023', date: new Date(1694894239000) },
-//   { badgeString: 'bib-gal-events-2023', date: new Date(1694894239000) },
-//   { badgeString: 'bib-brev-2023', date: new Date(1694894239000) },
-//   { badgeString: 'chat-gen', date: new Date(1694894239000) },
-// ];
-
 const BottomNav = () => {
   const pathname = usePathname();
   const { authUser, loading } = useContext(authContext);

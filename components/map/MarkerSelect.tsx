@@ -19,12 +19,12 @@ export const MarkerSelect: FC<Props> = ({ markers }) => {
   ]);
 
   const [selection, setSelection] = useState<string | undefined>(
-    markers[0]?.title
+    markers[0]?.nick
   );
 
   const handleSelectChange = (event: string) => {
     const selectedMarker = markers.filter(
-      (d: MarkerData) => d.title === event
+      (d: MarkerData) => d.nick === event
     )[0];
     setCenter(() => [
       selectedMarker.location.latitude,
