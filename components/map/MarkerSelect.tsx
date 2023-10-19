@@ -1,6 +1,7 @@
 import L from 'leaflet';
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useMap } from 'react-leaflet';
+
 import { MarkerData } from '@components/map/Map';
 import Select, { SelectGroup } from '@components/ui/Select';
 
@@ -55,17 +56,17 @@ export const MarkerSelect: FC<Props> = ({ markers }) => {
 
   const appMarkers = markers
     ?.filter((o) => o.madeBy === 'app')
-    .map((s) => s.title);
+    .map((s) => s.nick);
   const userMarkers = markers?.filter((o) => o.madeBy === 'user');
   const restaurantMarkers = userMarkers
     ?.filter((o) => o.type === 'restaurant')
-    .map((s) => s.title);
+    .map((s) => s.nick);
   const barMarkers = userMarkers
     ?.filter((o) => o.type === 'bar')
-    .map((s) => s.title);
+    .map((s) => s.nick);
   const restMarkers = userMarkers
     ?.filter((o) => o.type !== 'bar' && o.type !== 'restaurant')
-    .map((s) => s.title);
+    .map((s) => s.nick);
 
   const selectGroups: SelectGroup[] = [
     { label: 'IQ96 steder', groupItems: appMarkers },
