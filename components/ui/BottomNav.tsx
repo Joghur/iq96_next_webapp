@@ -3,7 +3,7 @@
 import moment from 'moment';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FaHome, FaMapMarkerAlt, FaUserNinja } from 'react-icons/fa';
 import { MdChatBubbleOutline, MdPhotoLibrary } from 'react-icons/md';
 
@@ -57,7 +57,7 @@ const BottomNav = () => {
     'updatedAt'
   );
 
-  const handleBadgeNotifications = useCallback(() => {
+  const handleBadgeNotifications = () => {
     if (badges) {
       badges.map((cloudBadgeNotif) => {
         // Compare cloud status with localstorage
@@ -85,11 +85,12 @@ const BottomNav = () => {
         }
       });
     }
-  }, [badges]);
+  };
 
   useEffect(() => {
     handleBadgeNotifications();
-  }, [handleBadgeNotifications]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [badges]);
 
   if (loading) {
     return <LoadingSpinner />;
