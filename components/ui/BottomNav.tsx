@@ -9,7 +9,11 @@ import { MdChatBubbleOutline, MdPhotoLibrary } from 'react-icons/md';
 
 import { useFirestore } from '@lib/hooks/useFirestore';
 // eslint-disable-next-line prettier/prettier
-import { getLocalStorage, LOCALSTORAGE_PREFIX, setLocalStorage } from '@lib/localStorage';
+import {
+  getLocalStorage,
+  LOCALSTORAGE_PREFIX,
+  setLocalStorage,
+} from '@lib/localStorage';
 import { authContext } from '@lib/store/auth-context';
 
 import LoadingSpinner from './LoadingSpinner';
@@ -120,7 +124,7 @@ const BottomNav = () => {
               : 'bottom_nav_link_container'
           }`}
         >
-          {newContentMap.length > 0 && <NewContentBadge />}
+          {newContentMap.length > 0 && <NewContentBadge text="nyt" />}
           <FaMapMarkerAlt />
           Kort
         </Link>
@@ -137,7 +141,7 @@ const BottomNav = () => {
               : 'bottom_nav_link_container'
           }`}
         >
-          {newContentLib.length > 0 && <NewContentBadge />}
+          {newContentLib.length > 0 && <NewContentBadge text="nyt" />}
           <MdPhotoLibrary />
           Bibliothek
         </Link>
@@ -154,7 +158,7 @@ const BottomNav = () => {
               : 'bottom_nav_link_container'
           }`}
         >
-          {newContentChat.length > 0 && <NewContentBadge />}
+          {newContentChat.length > 0 && <NewContentBadge text="nyt" />}
           <MdChatBubbleOutline />
           Chat
         </Link>
