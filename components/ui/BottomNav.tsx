@@ -3,7 +3,7 @@
 import moment from 'moment';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FaHome, FaMapMarkerAlt, FaUserNinja } from 'react-icons/fa';
 import { MdChatBubbleOutline, MdPhotoLibrary } from 'react-icons/md';
 
