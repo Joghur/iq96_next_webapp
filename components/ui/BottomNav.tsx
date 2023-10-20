@@ -33,6 +33,8 @@ export interface NotificationDbType {
   updatedAt: any;
 }
 
+const newContentBadge = <NewContentBadge text="nyt" absolute main />;
+
 export const SavingBadgeStatusToLocalStorage = (notifString: string) => {
   if (!notifString || notifString === '') {
     return;
@@ -108,21 +110,21 @@ const BottomNav = () => {
       href: '/kort',
       badge: newContentMap,
       icon: <FaMapMarkerAlt />,
-      notification: newContentMap.length > 0 && <NewContentBadge text="nyt" />,
+      notification: newContentMap.length > 0 && newContentBadge,
     },
     {
       label: 'Bibliothek',
       href: '/bibliothek',
       badge: newContentLib,
       icon: <MdPhotoLibrary />,
-      notification: newContentLib.length > 0 && <NewContentBadge text="nyt" />,
+      notification: newContentLib.length > 0 && newContentBadge,
     },
     {
       label: 'Chat',
       href: '/chat',
       badge: newContentChat,
       icon: <MdChatBubbleOutline />,
-      notification: newContentChat.length > 0 && <NewContentBadge text="nyt" />,
+      notification: newContentChat.length > 0 && newContentBadge,
     },
     {
       label: 'IQ96',
