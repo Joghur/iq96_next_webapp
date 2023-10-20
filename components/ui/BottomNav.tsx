@@ -97,85 +97,61 @@ const BottomNav = () => {
     return null;
   }
 
+  const menuItems = [
+    {
+      label: 'Hjem',
+      href: '/',
+      icon: <FaHome />,
+    },
+    {
+      label: 'Kort',
+      href: '/kort',
+      badge: newContentMap,
+      icon: <FaMapMarkerAlt />,
+      notification: newContentMap.length > 0 && <NewContentBadge text="nyt" />,
+    },
+    {
+      label: 'Bibliothek',
+      href: '/bibliothek',
+      badge: newContentLib,
+      icon: <MdPhotoLibrary />,
+      notification: newContentLib.length > 0 && <NewContentBadge text="nyt" />,
+    },
+    {
+      label: 'Chat',
+      href: '/chat',
+      badge: newContentChat,
+      icon: <MdChatBubbleOutline />,
+      notification: newContentChat.length > 0 && <NewContentBadge text="nyt" />,
+    },
+    {
+      label: 'IQ96',
+      href: '/iq96',
+      icon: <FaUserNinja />,
+    },
+  ];
+
   return (
     <nav className="bottom_nav overflow-hidden">
-      <div className="z-40">
-        <Link
-          href="/"
-          className={`dynamic_text ${
-            pathname === '/'
-              ? 'bottom_nav_link_selected'
-              : 'bottom_nav_link_container'
-          }`}
-        >
-          <FaHome />
-          Hjem
-        </Link>
-      </div>
-      <div className="relative z-40">
-        <Link
-          href={{
-            pathname: '/kort',
-            query: { badge: JSON.stringify(newContentMap) },
-          }}
-          className={`dynamic_text ${
-            pathname === '/kort'
-              ? 'bottom_nav_link_selected'
-              : 'bottom_nav_link_container'
-          }`}
-        >
-          {newContentMap.length > 0 && <NewContentBadge text="nyt" />}
-          <FaMapMarkerAlt />
-          Kort
-        </Link>
-      </div>
-      <div className="relative z-40">
-        <Link
-          href={{
-            pathname: '/bibliothek',
-            query: { badge: JSON.stringify(newContentLib) },
-          }}
-          className={`dynamic_text ${
-            pathname === '/bibliothek'
-              ? 'bottom_nav_link_selected'
-              : 'bottom_nav_link_container'
-          }`}
-        >
-          {newContentLib.length > 0 && <NewContentBadge text="nyt" />}
-          <MdPhotoLibrary />
-          Bibliothek
-        </Link>
-      </div>
-      <div className="relative z-40">
-        <Link
-          href={{
-            pathname: '/chat',
-            query: { badge: JSON.stringify(newContentChat) },
-          }}
-          className={`dynamic_text ${
-            pathname === '/chat'
-              ? 'bottom_nav_link_selected'
-              : 'bottom_nav_link_container'
-          }`}
-        >
-          {newContentChat.length > 0 && <NewContentBadge text="nyt" />}
-          <MdChatBubbleOutline />
-          Chat
-        </Link>
-      </div>
-      <div className="z-40">
-        <Link
-          href="/iq96"
-          className={`dynamic_text ${
-            pathname === '/iq96'
-              ? 'bottom_nav_link_selected'
-              : 'bottom_nav_link_container'
-          }`}
-        >
-          <FaUserNinja />
-          IQ96
-        </Link>
-      </div>
+      {menuItems.map((item, index) => (
+        <div key={index} className="relative z-40">
+          <Link
+            href={{
+              pathname: item.href,
+              query: { badge: JSON.stringify(item.badge) },
+            }}
+            className={`dynamic_text ${
+              pathname === item.href
+                ? 'bottom_nav_link_selected'
+                : 'bottom_nav_link_container'
+            }`}
+          >
+            {item?.notification && item.notification}
+            {item.icon}
+            {item.label}
+          </Link>
+        </div>
+      ))}
     </nav>
   );
 };
