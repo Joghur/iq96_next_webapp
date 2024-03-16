@@ -1,8 +1,24 @@
 /* eslint-disable prettier/prettier */
 import { onAuthStateChanged, User } from 'firebase/auth';
 import {
-    addDoc, collection, CollectionReference, deleteDoc, doc, DocumentData, getDoc, getDocs,
-    getFirestore, limit, onSnapshot, orderBy, query, Query, setDoc, Timestamp, updateDoc, where
+  addDoc,
+  collection,
+  CollectionReference,
+  deleteDoc,
+  doc,
+  DocumentData,
+  getDoc,
+  getDocs,
+  getFirestore,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+  Query,
+  setDoc,
+  Timestamp,
+  updateDoc,
+  where,
 } from 'firebase/firestore';
 import { useCallback, useEffect, useState } from 'react';
 

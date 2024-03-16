@@ -2,7 +2,12 @@
 import { ReactNode } from 'react';
 
 import {
-    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from '@/components/ui/card';
 
 export function LibraryCard({

@@ -2,7 +2,12 @@
 'use client';
 
 // eslint-disable-next-line prettier/prettier
-import { sendPasswordResetEmail, signInWithEmailAndPassword, signOut, User } from 'firebase/auth';
+import {
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signOut,
+  User,
+} from 'firebase/auth';
 import { DocumentData } from 'firebase/firestore';
 import { createContext, ReactNode } from 'react';
 
@@ -59,7 +64,8 @@ export default function AuthContextProvider({
 
   const resetPassword = async (email: string) => {
     try {
-      await sendPasswordResetEmail(auth, email);
+      const emailSend = await sendPasswordResetEmail(auth, email);
+      console.log('emailSend', emailSend);
     } catch (error) {
       console.error('Logout error: ', error);
       alert('Der er skete en fejl under reset kodeord!');

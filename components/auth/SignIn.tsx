@@ -4,19 +4,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import { useContext, useState } from 'react';
 
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { MdInfo } from 'react-icons/md';
-import { z as zod } from 'zod';
 import { authContext } from '@/lib/store/auth-context';
 import ThemeToggle from '@components/member/ThemeToggle';
 import BottomSpacer from '@components/ui/BottomSpacer';
 import OldPageButton from '@components/ui/OldPageButton';
 import Tooltip from '@components/ui/Tooltip';
 import {
-  getLocalStorage,
   LOCALSTORAGE_PREFIX,
+  getLocalStorage,
   setLocalStorage,
 } from '@lib/localStorage';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { MdInfo } from 'react-icons/md';
+import { z as zod } from 'zod';
 
 export const LOCALSTORAGE_EMAIL = `${LOCALSTORAGE_PREFIX}-email`;
 
@@ -39,7 +39,9 @@ function SignIn() {
     })
     .refine(
       (data) =>
-        reset ? data.password === data.confirmPassword : Boolean(data.password),
+        resetStep === 3
+          ? data.password === data.confirmPassword
+          : Boolean(data.password),
       {
         path: ['confirmPassword'],
         message: 'Kodeord skal være ens',
@@ -58,18 +60,44 @@ function SignIn() {
   });
   type FormSchemaType = zod.infer<typeof formSchema>;
   const { emailLoginHandler, resetPassword } = useContext(authContext);
-  const [reset, setReset] = useState(false);
-  const [showResetInfo, setShowResetInfo] = useState(false);
+
+  /**
+   * Reset steps:
+   * 0 - no reset - normal login
+   * 1 - Reset startet - viser tekst omkring skriv email i felt
+   * 2 - Trykket på Reset - Venter på email
+   * 3 - Enter new passwords
+   */
+  const [resetStep, setResetStep] = useState(0);
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
-    if (reset) {
-      setReset(() => false);
-      await resetPassword(data.email);
-    } else {
-      await emailLoginHandler(data.email, data.password);
+    switch (resetStep) {
+      case 0:
+        await emailLoginHandler(data.email, data.password);
+        setLocalStorage(LOCALSTORAGE_EMAIL, data.email);
+        break;
+
+      case 1:
+        setResetStep(() => 2);
+        break;
+
+      case 2:
+        setResetStep(() => 3);
+        break;
+
+      case 3:
+        setResetStep(() => 0);
+        setLocalStorage(LOCALSTORAGE_EMAIL, data.email);
+        await resetPassword(data.email);
+        break;
+
+      default:
+        setResetStep(() => 0);
+        break;
     }
-    setLocalStorage(LOCALSTORAGE_EMAIL, data.email);
   };
+
+  console.log('resetStep', resetStep);
 
   return (
     <main className="dynamic_text container mx-auto max-w-2xl px-6">
@@ -101,7 +129,7 @@ function SignIn() {
           />
         </div>
         <div className="px-4 py-4">
-          <form onSubmit={handleSubmit(reset ? onSubmit : onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4 flex flex-col">
               <div className="flex flex-row gap-2 text-center">
                 <div className="flex gap-1 text-center">
@@ -134,26 +162,28 @@ function SignIn() {
                 {...register('email')}
               />
             </div>
-            <div className="mb-6">
-              <label
-                htmlFor="password"
-                className="orange_gradient  mb-2 block font-medium"
-              >
-                Kodeord
-              </label>
-              <input
-                type="password"
-                id="password"
-                className="w-full rounded border border-gray-300 px-4 py-2"
-                {...register('password')}
-              />
-              {errors.password && (
-                <span className="mt-2 block text-red-500">
-                  {errors.password?.message}
-                </span>
-              )}
-            </div>
-            {reset && (
+            {(resetStep === 0 || resetStep === 3) && (
+              <div className="mb-6">
+                <label
+                  htmlFor="password"
+                  className="orange_gradient  mb-2 block font-medium"
+                >
+                  Kodeord
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  className="w-full rounded border border-gray-300 px-4 py-2"
+                  {...register('password')}
+                />
+                {errors.password && (
+                  <span className="mt-2 block text-red-500">
+                    {errors.password?.message}
+                  </span>
+                )}
+              </div>
+            )}
+            {resetStep === 3 && (
               <div className="mb-6">
                 <label
                   htmlFor="confirmPassword"
@@ -185,17 +215,20 @@ function SignIn() {
                 width={37}
                 height={37}
               />
-              {reset ? 'Reset' : 'Login'}
+              {resetStep === 0 && 'Login'}
+              {resetStep === 1 && 'Send Reset mail'}
+              {resetStep === 2 &&
+                'Tryk når du har checket din email og skiftet kodeord'}
+              {resetStep === 3 && 'Reset'}
             </button>
           </form>
         </div>
       </div>
-      {!reset && (
+      {resetStep === 0 && (
         <div className="flex flex-col items-center pl-2 pt-4 text-lg">
           <button
             onClick={async () => {
-              setReset(() => true);
-              setShowResetInfo(() => true);
+              setResetStep(() => 1);
             }}
             className="orange_gradient"
           >
@@ -203,26 +236,56 @@ function SignIn() {
           </button>
         </div>
       )}
-      {showResetInfo && (
+      {resetStep === 1 && (
         <div className="flex flex-col items-center gap-2 pt-4">
           <ul className="list-decimal">
             <li>
-              <p>Indtast din email ovenover og tryk Reset</p>
+              <p>
+                Indtast din IQ96 email ovenover og tryk <b>Send Reset mail</b>
+              </p>
             </li>
+            <li>
+              <p>
+                <b>OBS!</b> Email skal være kendt af admin. Skriv til{' '}
+                <i>webmaster@iq96.dk</i>, hvis du har ny email
+              </p>
+            </li>
+          </ul>
+        </div>
+      )}
+      {resetStep === 2 && (
+        <div className="flex flex-col items-center gap-2 pt-4">
+          <ul className="list-decimal">
             <li>
               <p>Gå til din email indboks</p>
             </li>
             <li>
               <p>
-                Find reset mailen. Den kommer fra
-                noreply@iq96-20418.firebaseapp.com
+                Find reset mailen. Den kommer fra{' '}
+                <i>noreply@iq96-20418.firebaseapp.com</i>
               </p>
             </li>
             <li>
               <p>
-                Tryk på linket i mail -{'>'} vælg nyt kodeord -{'>'} kom tilbage
-                hertil, og tast nyt kodeord ind
+                Tryk på linket i mail. <b>OBS!</b> Kommer der ikke en email
+                efter flere forsøg og ventetid, så skriv til{' '}
+                <i>webmaster@iq96.dk</i>
               </p>
+            </li>
+            <li>
+              <p>Vælg nyt kodeord</p>
+            </li>
+            <li>
+              <p>Kom tilbage hertil, og tryk på knappen</p>
+            </li>
+          </ul>
+        </div>
+      )}
+      {resetStep === 3 && (
+        <div className="flex flex-col items-center gap-2 pt-4">
+          <ul className="list-decimal">
+            <li>
+              <p>Tast nyt kodeord ind i begge felter</p>
             </li>
           </ul>
         </div>

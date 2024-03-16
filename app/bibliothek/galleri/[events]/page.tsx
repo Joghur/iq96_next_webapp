@@ -5,7 +5,11 @@ import { LibraryCard } from '@components/library/LibraryCard';
 import NewContentBadge from '@components/ui/NewContentBadge';
 import PageLayout from '@components/ui/PageLayout';
 // eslint-disable-next-line prettier/prettier
-import { convertLabels, prettyImageFolderLabel, sortObjectArray } from '@lib/utils';
+import {
+  convertLabels,
+  prettyImageFolderLabel,
+  sortObjectArray,
+} from '@lib/utils';
 
 export type Folder = { name: string; path: string };
 
