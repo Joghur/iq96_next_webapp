@@ -1,9 +1,43 @@
 import Link from 'next/link';
+// eslint-disable-next-line prettier/prettier
+import {
+  MdAirplanemodeActive,
+  MdEmojiEvents,
+  MdMail,
+  MdPeople,
+} from 'react-icons/md';
 
 import { Button } from '@/components/ui/button';
 
 import { EventLabel } from './galleri/page';
-import { galleryCategories } from '@lib/menu';
+
+export const galleryCategories: EventLabel[] = [
+  {
+    label: 'Tour',
+    shortLabel: 'tour',
+    type: 'galleries',
+    icon: <MdAirplanemodeActive />,
+  },
+  {
+    label: 'GF',
+    shortLabel: 'gf',
+    type: 'galleries',
+    icon: <MdPeople />,
+  },
+  {
+    label: 'Stævner',
+    shortLabel: 'events',
+    type: 'galleries',
+    icon: <MdEmojiEvents />,
+  },
+  {
+    label: 'Breve',
+    shortLabel: 'letters',
+    type: 'letters',
+    icon: <MdMail />,
+  },
+];
+
 const SideMenu = () => {
   // TODO: Button icons
 
@@ -74,7 +108,7 @@ const SideMenu = () => {
   );
 };
 
-export default function MenuLayout({
+export default function GalleryLayout({
   children,
 }: {
   children: React.ReactNode;
