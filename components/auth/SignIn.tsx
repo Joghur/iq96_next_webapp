@@ -57,13 +57,13 @@ function SignIn() {
     switch (resetStep) {
       case 0:
         await emailLoginHandler(data.email, data.password);
-        setLocalStorage(LOCALSTORAGE_EMAIL, data.email);
+        setLocalStorage(LOCALSTORAGE_EMAIL, data.email.trim());
         break;
 
       case 1:
         setResetStep(() => 2);
         await resetPassword(data.email);
-        setLocalStorage(LOCALSTORAGE_EMAIL, data.email);
+        setLocalStorage(LOCALSTORAGE_EMAIL, data.email.trim());
         break;
 
       case 2:

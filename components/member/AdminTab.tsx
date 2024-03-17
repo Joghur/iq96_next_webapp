@@ -31,6 +31,7 @@ const AdminTab = () => {
       return displayNameA.localeCompare(displayNameB);
     });
 
+
   return (
     <div className="overflow-y-scroll">
       <div className="px-1 sm:py-4 lg:px-10">
@@ -38,8 +39,8 @@ const AdminTab = () => {
           Med-lemmer
         </p>
         <div className="items-start">
-          <IqDataTable />
-          <IqMemberTable iqUsers={sortedIqUsers} isEditable={false} showAll />
+          <IqDataTable data={sortedIqUsers} />
+          {/* <IqMemberTable iqUsers={sortedIqUsers} isEditable={false} showAll /> */}
         </div>
       </div>
     </div>
