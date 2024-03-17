@@ -1,6 +1,5 @@
 'use client';
 
-import { IqMemberTable } from './IqMemberTable';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 import { IqDataTable } from './IqDataTable';
@@ -30,7 +29,6 @@ const AdminTab = () => {
 
       return displayNameA.localeCompare(displayNameB);
     });
-
 
   return (
     <div className="overflow-y-scroll">

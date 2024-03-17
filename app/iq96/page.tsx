@@ -14,8 +14,8 @@ import { authContext } from '@lib/store/auth-context';
 
 const MemberPage = () => {
   const { authUser, documentUser } = useContext(authContext);
-  // const [value, setValue] = useState<MemberTabs>('member');
-  const [value, setValue] = useState<MemberTabs>('admin');
+  const [value, setValue] = useState<MemberTabs>('member');
+  // const [value, setValue] = useState<MemberTabs>('admin');
 
   useEffect(() => {
     handleStartTheme();

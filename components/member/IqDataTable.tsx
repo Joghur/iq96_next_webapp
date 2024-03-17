@@ -274,7 +274,7 @@ export function IqDataTable({ data }: Props) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
+              Kolonner <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -341,7 +341,7 @@ export function IqDataTable({ data }: Props) {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Ingen resultater.
                 </TableCell>
               </TableRow>
             )}
