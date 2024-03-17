@@ -1,46 +1,14 @@
 import Link from 'next/link';
-// eslint-disable-next-line prettier/prettier
-import {
-  MdAirplanemodeActive,
-  MdEmojiEvents,
-  MdMail,
-  MdPeople,
-} from 'react-icons/md';
 
 import { Button } from '@/components/ui/button';
 
-import { EventLabel } from './galleri/page';
+import { ReactNode } from 'react';
 
-export const galleryCategories: EventLabel[] = [
-  {
-    label: 'Tour',
-    shortLabel: 'tour',
-    type: 'galleries',
-    icon: <MdAirplanemodeActive />,
-  },
-  {
-    label: 'GF',
-    shortLabel: 'gf',
-    type: 'galleries',
-    icon: <MdPeople />,
-  },
-  {
-    label: 'Stævner',
-    shortLabel: 'events',
-    type: 'galleries',
-    icon: <MdEmojiEvents />,
-  },
-  {
-    label: 'Breve',
-    shortLabel: 'letters',
-    type: 'letters',
-    icon: <MdMail />,
-  },
-];
+import { EventLabel } from '@app/bibliothek/galleri/page';
+import { galleryCategories } from '@lib/galleryMenu';
 
 const SideMenu = () => {
   // TODO: Button icons
-
   return (
     <div className="pt-10 sm:pt-28 sm:fixed h-full">
       <div className="space-y-4 py-4">
@@ -108,11 +76,7 @@ const SideMenu = () => {
   );
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function GalleryLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-col sm:flex-row ">
       <div className="w-full sm:w-1/4 justify-start">

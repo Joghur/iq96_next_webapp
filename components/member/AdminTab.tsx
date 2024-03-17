@@ -1,8 +1,8 @@
 'use client';
 
-import { IqMemberTable } from './IqMemberTable';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
+import { IqDataTable } from './IqDataTable';
 
 const AdminTab = () => {
   const { docs: users, loading } = useFirestore<DocumentUser>(
@@ -37,7 +37,8 @@ const AdminTab = () => {
           Med-lemmer
         </p>
         <div className="items-start">
-          <IqMemberTable iqUsers={sortedIqUsers} isEditable={false} showAll />
+          <IqDataTable data={sortedIqUsers} />
+          {/* <IqMemberTable iqUsers={sortedIqUsers} isEditable={false} showAll /> */}
         </div>
       </div>
     </div>

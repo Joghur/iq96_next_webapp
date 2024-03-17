@@ -7,7 +7,10 @@ import { MdCloudUpload } from 'react-icons/md';
 
 import { handleStartTheme } from '@components/member/ThemeToggle';
 // eslint-disable-next-line prettier/prettier
-import { NotificationDbType, SavingBadgeStatusToLocalStorage } from '@components/ui/BottomNav';
+import {
+  NotificationDbType,
+  SavingBadgeStatusToLocalStorage,
+} from '@components/ui/BottomNav';
 import { Button } from '@components/ui/button';
 import { useFirestore } from '@lib/hooks/useFirestore';
 

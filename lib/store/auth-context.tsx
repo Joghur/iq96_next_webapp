@@ -2,7 +2,12 @@
 'use client';
 
 // eslint-disable-next-line prettier/prettier
-import { sendPasswordResetEmail, signInWithEmailAndPassword, signOut, User } from 'firebase/auth';
+import {
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signOut,
+  User,
+} from 'firebase/auth';
 import { DocumentData } from 'firebase/firestore';
 import { createContext, ReactNode } from 'react';
 

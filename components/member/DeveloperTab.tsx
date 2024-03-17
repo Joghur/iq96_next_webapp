@@ -6,12 +6,18 @@ import { useCallback, useEffect, useState } from 'react';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { Separator } from '@components/ui/separator';
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@components/ui/table';
 import {
   DocumentUser,
-  copyDocumentsToNestedCollection, deleteMapMarkers,
-  useFirestore
+  copyDocumentsToNestedCollection,
+  deleteMapMarkers,
+  useFirestore,
 } from '@lib/hooks/useFirestore';
 
 import { IqMemberTable } from './IqMemberTable';

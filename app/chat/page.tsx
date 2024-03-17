@@ -9,7 +9,10 @@ import { MdDelete } from 'react-icons/md';
 
 import { handleStartTheme } from '@components/member/ThemeToggle';
 // eslint-disable-next-line prettier/prettier
-import { NotificationDbType, SavingBadgeStatusToLocalStorage } from '@components/ui/BottomNav';
+import {
+  NotificationDbType,
+  SavingBadgeStatusToLocalStorage,
+} from '@components/ui/BottomNav';
 import PageLayout from '@components/ui/PageLayout';
 import { eventTransitionVariants } from '@lib/animations';
 import { convertEpochSecondsToDateString } from '@lib/dates';

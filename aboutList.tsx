@@ -1,6 +1,10 @@
 /* eslint-disable quotes */
 export const aboutList = [
   [
+    '0.8.7',
+    'Forbedret reset kodeord flow. Forbedret Admin med-lemsliste. Forsøg på at få info hover til at virke på telefoner (det lille grønne I).',
+  ],
+  [
     '0.8.6',
     'Kortets dropdown liste bruger nu det korte navn for en markør. Flere animationer.',
   ],
