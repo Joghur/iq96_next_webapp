@@ -1,5 +1,4 @@
 import { EventLabel } from '@app/bibliothek/galleri/page';
-
 import {
   MdAirplanemodeActive,
   MdEmojiEvents,
