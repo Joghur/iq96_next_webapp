@@ -64,8 +64,7 @@ export default function AuthContextProvider({
 
   const resetPassword = async (email: string) => {
     try {
-      const emailSend = await sendPasswordResetEmail(auth, email);
-      console.log('emailSend', emailSend);
+      await sendPasswordResetEmail(auth, email);
     } catch (error) {
       console.error('Logout error: ', error);
       alert('Der er skete en fejl under reset kodeord!');

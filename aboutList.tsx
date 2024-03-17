@@ -1,5 +1,6 @@
 /* eslint-disable quotes */
 export const aboutList = [
+  ['0.8.7', 'Forbedret reset kodeord flow.'],
   [
     '0.8.6',
     'Kortets dropdown liste bruger nu det korte navn for en markør. Flere animationer.',

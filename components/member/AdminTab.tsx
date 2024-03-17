@@ -3,6 +3,7 @@
 import { IqMemberTable } from './IqMemberTable';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
+import { IqDataTable } from './IqDataTable';
 
 const AdminTab = () => {
   const { docs: users, loading } = useFirestore<DocumentUser>(
@@ -37,6 +38,7 @@ const AdminTab = () => {
           Med-lemmer
         </p>
         <div className="items-start">
+          <IqDataTable />
           <IqMemberTable iqUsers={sortedIqUsers} isEditable={false} showAll />
         </div>
       </div>

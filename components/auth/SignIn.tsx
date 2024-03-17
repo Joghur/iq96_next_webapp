@@ -21,32 +21,16 @@ import { z as zod } from 'zod';
 export const LOCALSTORAGE_EMAIL = `${LOCALSTORAGE_PREFIX}-email`;
 
 function SignIn() {
-  const formSchema = zod
-    .object({
-      email: zod
-        .string()
-        .email('Dette er ikke en brugbar email adresse')
-        .min(1, 'En registreret email adresse er påkrævet'),
-      password: zod
-        .string()
-        .min(1, 'Kodeord er påkrævet')
-        .min(8, 'Kodeord skal være på mindst 8 tegn'),
-      confirmPassword: zod
-        .string()
-        .min(1, 'Bekræftelses kodeord er påkrævet')
-        .min(8, 'Bekræftelses kodeord skal være på mindst 8 tegn')
-        .optional(),
-    })
-    .refine(
-      (data) =>
-        resetStep === 3
-          ? data.password === data.confirmPassword
-          : Boolean(data.password),
-      {
-        path: ['confirmPassword'],
-        message: 'Kodeord skal være ens',
-      }
-    );
+  const formSchema = zod.object({
+    email: zod
+      .string()
+      .email('Dette er ikke en brugbar email adresse')
+      .min(1, 'En registreret email adresse er påkrævet'),
+    password: zod
+      .string()
+      .min(1, 'Kodeord er påkrævet')
+      .min(8, 'Kodeord skal være på mindst 8 tegn'),
+  });
 
   const {
     register,
@@ -65,8 +49,7 @@ function SignIn() {
    * Reset steps:
    * 0 - no reset - normal login
    * 1 - Reset startet - viser tekst omkring skriv email i felt
-   * 2 - Trykket på Reset - Venter på email
-   * 3 - Enter new passwords
+   * 2 - Venter på email
    */
   const [resetStep, setResetStep] = useState(0);
 
@@ -79,16 +62,12 @@ function SignIn() {
 
       case 1:
         setResetStep(() => 2);
+        await resetPassword(data.email);
+        setLocalStorage(LOCALSTORAGE_EMAIL, data.email);
         break;
 
       case 2:
-        setResetStep(() => 3);
-        break;
-
-      case 3:
         setResetStep(() => 0);
-        setLocalStorage(LOCALSTORAGE_EMAIL, data.email);
-        await resetPassword(data.email);
         break;
 
       default:
@@ -96,8 +75,6 @@ function SignIn() {
         break;
     }
   };
-
-  console.log('resetStep', resetStep);
 
   return (
     <main className="dynamic_text container mx-auto max-w-2xl px-6">
@@ -162,7 +139,7 @@ function SignIn() {
                 {...register('email')}
               />
             </div>
-            {(resetStep === 0 || resetStep === 3) && (
+            {resetStep === 0 && (
               <div className="mb-6">
                 <label
                   htmlFor="password"
@@ -183,27 +160,6 @@ function SignIn() {
                 )}
               </div>
             )}
-            {resetStep === 3 && (
-              <div className="mb-6">
-                <label
-                  htmlFor="confirmPassword"
-                  className="orange_gradient  mb-2 block font-medium"
-                >
-                  Bekræft kodeord
-                </label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  className="w-full rounded border border-gray-300 px-4 py-2"
-                  {...register('confirmPassword')}
-                />
-                {errors.confirmPassword && (
-                  <span className="mt-2 block text-red-500">
-                    {errors.confirmPassword?.message}
-                  </span>
-                )}
-              </div>
-            )}
             <button
               type="submit"
               disabled={isSubmitting}
@@ -219,7 +175,6 @@ function SignIn() {
               {resetStep === 1 && 'Send Reset mail'}
               {resetStep === 2 &&
                 'Tryk når du har checket din email og skiftet kodeord'}
-              {resetStep === 3 && 'Reset'}
             </button>
           </form>
         </div>
@@ -268,7 +223,7 @@ function SignIn() {
             <li>
               <p>
                 Tryk på linket i mail. <b>OBS!</b> Kommer der ikke en email
-                efter flere forsøg og ventetid, så skriv til{' '}
+                efter flere forsøg og ventetid (spamfilter?), så skriv til{' '}
                 <i>webmaster@iq96.dk</i>
               </p>
             </li>
@@ -277,15 +232,6 @@ function SignIn() {
             </li>
             <li>
               <p>Kom tilbage hertil, og tryk på knappen</p>
-            </li>
-          </ul>
-        </div>
-      )}
-      {resetStep === 3 && (
-        <div className="flex flex-col items-center gap-2 pt-4">
-          <ul className="list-decimal">
-            <li>
-              <p>Tast nyt kodeord ind i begge felter</p>
             </li>
           </ul>
         </div>
