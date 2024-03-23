@@ -64,9 +64,7 @@ const EventsPage = ({ documentUser }: Props) => {
       </div>
     );
   }
-  console.log('currentEvent :>> ', currentEvent);
-  console.log('events[0] :>> ', events[0]);
-
+  
   const handleUpdate = async (
     _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: string | undefined
@@ -122,8 +120,8 @@ const EventsPage = ({ documentUser }: Props) => {
                           key={index}
                           href={
                             event.moreInfoLink.trim().includes('/')
-                              ? `/bibliothek/breve/${event.moreInfoLink.trim()}`
-                              : event.moreInfoLink.trim()
+                              ?  event.moreInfoLink.trim()
+                              : `/bibliothek/breve/${event.moreInfoLink.trim()}`
                           }
                         >
                           <EventInfoBadge>
@@ -136,9 +134,7 @@ const EventsPage = ({ documentUser }: Props) => {
                         <Link
                           key={index}
                           href={
-                            event.imagesLink.trim().includes('/')
-                              ? `/bibliothek/galleri/${event.imagesLink.trim()}`
-                              : event.imagesLink.trim()
+                            `/bibliothek/galleri/${event.imagesLink.trim()}`
                           }
                         >
                           <EventInfoBadge>
