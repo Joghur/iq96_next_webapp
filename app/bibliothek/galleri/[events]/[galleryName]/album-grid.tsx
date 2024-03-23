@@ -1,7 +1,6 @@
 'use client';
 
 import { buildUrl } from 'cloudinary-build-url';
-import Image from 'next/image';
 import { useContext, useEffect } from 'react';
 
 import { ImageGrid } from '@components/library/gallery/ImageGrid';
