@@ -67,7 +67,7 @@ const EventForm = ({
       <div>
         <div className="pt-5">
           <label
-            htmlFor="password"
+            htmlFor="start"
             className="dynamic_text green_gradient mb-2 block font-medium"
           >
             Start dato
@@ -82,7 +82,7 @@ const EventForm = ({
         </div>
         <div className="pt-5">
           <label
-            htmlFor="password"
+            htmlFor="end"
             className="dynamic_text green_gradient mb-2 block font-medium"
           >
             Slut dato
@@ -102,7 +102,7 @@ const EventForm = ({
         </div>
         <div className="pt-5">
           <label
-            htmlFor="password"
+            htmlFor="notes"
             className="dynamic_text green_gradient mb-2 block font-medium"
           >
             OBS!
@@ -117,7 +117,7 @@ const EventForm = ({
         </div>
         <div className="pt-5">
           <label
-            htmlFor="password"
+            htmlFor="meetingPoints"
             className="dynamic_text green_gradient mb-2 block font-medium"
           >
             Mødesteder
@@ -132,7 +132,7 @@ const EventForm = ({
         </div>
         <div className="pt-5">
           <label
-            htmlFor="password"
+            htmlFor="activities"
             className="dynamic_text green_gradient mb-2 block font-medium"
           >
             Aktiviteter
@@ -142,6 +142,128 @@ const EventForm = ({
             value={changedEvent.activities}
             onChange={handleChange}
             placeholder={changedEvent?.activities || 'Aktiviteter'}
+            className="dynamic_text textarea-bordered textarea"
+          />
+        </div>
+        <div className="pt-5">
+          <label
+            htmlFor="notesActivities"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            OBS. Aktiviteter
+          </label>
+          <textarea
+            id="notesActivities"
+            value={changedEvent.notesActivities}
+            onChange={handleChange}
+            placeholder={changedEvent?.notesActivities || 'OBS! aktiviteter'}
+            className="dynamic_text textarea-bordered textarea"
+          />
+        </div>
+        <div className="pt-5">
+          <label
+            htmlFor="moreInfoLink"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            Mere info link (Skriv bare år ellers relativt link)
+          </label>
+          <textarea
+            id="moreInfoLink"
+            value={changedEvent.moreInfoLink}
+            onChange={handleChange}
+            placeholder={changedEvent?.moreInfoLink || 'Link til mere info'}
+            className="dynamic_text textarea-bordered textarea"
+          />
+        </div>
+        <div className="pt-5">
+          <label
+            htmlFor="imagesLink"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            Billed galleri link (/bibliothek/galleri/ er inkluderet)
+          </label>
+          <textarea
+            id="imagesLink"
+            value={changedEvent.imagesLink}
+            onChange={handleChange}
+            placeholder={changedEvent?.imagesLink || 'Link til billede galleri'}
+            className="dynamic_text textarea-bordered textarea"
+          />
+        </div>
+        <div className="pt-5">
+          <label
+            htmlFor="hotelLocation"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            Hotel lokation
+          </label>
+          <textarea
+            id="hotelLocation"
+            value={changedEvent.hotelLocation}
+            onChange={handleChange}
+            placeholder={changedEvent?.hotelLocation || 'Hotel lokation'}
+            className="dynamic_text textarea-bordered textarea"
+          />
+        </div>
+        <div className="pt-5">
+          <label
+            htmlFor="restaurantLocation"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            Restaurant lokation
+          </label>
+          <textarea
+            id="restaurantLocation"
+            value={changedEvent.restaurantLocation}
+            onChange={handleChange}
+            placeholder={
+              changedEvent?.restaurantLocation || 'Restaurant lokation'
+            }
+            className="dynamic_text textarea-bordered textarea"
+          />
+        </div>
+        <div className="pt-5">
+          <label
+            htmlFor="lunchLocation"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            Frokost lokation
+          </label>
+          <textarea
+            id="lunchLocation"
+            value={changedEvent.lunchLocation}
+            onChange={handleChange}
+            placeholder={changedEvent?.lunchLocation || 'Frokost lokation'}
+            className="dynamic_text textarea-bordered textarea"
+          />
+        </div>
+        <div className="pt-5">
+          <label
+            htmlFor="extra1Location"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            Extra 1 lokation
+          </label>
+          <textarea
+            id="extra1Location"
+            value={changedEvent.extra1Location}
+            onChange={handleChange}
+            placeholder={changedEvent?.extra1Location || 'Ekstra 1 lokation'}
+            className="dynamic_text textarea-bordered textarea"
+          />
+        </div>
+        <div className="pt-5">
+          <label
+            htmlFor="extra2Location"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            Extra 2 lokation
+          </label>
+          <textarea
+            id="extra2Location"
+            value={changedEvent.extra2Location}
+            onChange={handleChange}
+            placeholder={changedEvent?.extra2Location || 'Ekstra 2 lokation'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
