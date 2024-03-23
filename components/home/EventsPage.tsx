@@ -6,8 +6,11 @@ import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { eventTransitionVariants } from '@lib/animations';
 import { handleType } from '@lib/convertEventType';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
+import { InfoCircledIcon, ImageIcon } from '@radix-ui/react-icons';
 
 import EventForm from './EventForm';
+import Link from 'next/link';
+import EventInfoBadge from '@components/ui/MoreInfoBadge';
 
 interface FirebaseDate {
   seconds: number;
@@ -27,6 +30,14 @@ export type EventType = {
   activities?: string;
   meetingPoints: string;
   notes?: string;
+  notesActivities?: string;
+  hotelLocation?: string;
+  restaurantLocation?: string;
+  lunchLocation?: string;
+  extra1Location?: string;
+  extra2Location?: string;
+  imagesLink?: string;
+  moreInfoLink?: string;
 };
 
 interface Props {
@@ -53,6 +64,8 @@ const EventsPage = ({ documentUser }: Props) => {
       </div>
     );
   }
+  console.log('currentEvent :>> ', currentEvent);
+  console.log('events[0] :>> ', events[0]);
 
   const handleUpdate = async (
     _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -104,6 +117,36 @@ const EventsPage = ({ documentUser }: Props) => {
                           ? `${handleType(event?.type)} de ${event.city}`
                           : handleType(event?.type)}
                       </p>
+                      {event?.moreInfoLink && (
+                        <Link
+                          key={index}
+                          href={
+                            event.moreInfoLink.trim().includes('/')
+                              ? `/bibliothek/breve/${event.moreInfoLink.trim()}`
+                              : event.moreInfoLink.trim()
+                          }
+                        >
+                          <EventInfoBadge>
+                            <InfoCircledIcon className="mr-1" />
+                            IQ-brev
+                          </EventInfoBadge>
+                        </Link>
+                      )}
+                      {event?.imagesLink && (
+                        <Link
+                          key={index}
+                          href={
+                            event.imagesLink.trim().includes('/')
+                              ? `/bibliothek/galleri/${event.imagesLink.trim()}`
+                              : event.imagesLink.trim()
+                          }
+                        >
+                          <EventInfoBadge>
+                            <ImageIcon className="mr-1" />
+                            Galleri
+                          </EventInfoBadge>
+                        </Link>
+                      )}
                       {canEdit && event.id && (
                         <button onClick={(e) => handleUpdate(e, event.id)}>
                           <MdEdit />
@@ -154,17 +197,115 @@ const EventsPage = ({ documentUser }: Props) => {
                       </div>
                     )}
                     {event?.activities?.trim() && (
-                      <div>
-                        Aktiviteter:
-                        {event.activities
-                          .split('--')
-                          .map((f: string, index) => {
-                            return (
-                              <div key={index} className="ml-4">
-                                <li>{f.trim()}</li>
-                              </div>
-                            );
-                          })}
+                      <div className="flex flex-col">
+                        <div className="mt-4">Aktiviteter:</div>
+                        <div>
+                          {event.activities
+                            .split('--')
+                            .map((f: string, index) => {
+                              return (
+                                <div key={index} className="ml-4">
+                                  <li>{f.trim()}</li>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
+                    {event?.notesActivities?.trim() && (
+                      <div className="flex flex-col">
+                        <div className="mt-4">OBS:</div>
+                        <div>
+                          {event.notesActivities
+                            .split('--')
+                            .map((f: string, index) => {
+                              return (
+                                <div key={index} className="ml-4">
+                                  <li>{f.trim()}</li>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
+                    {event?.hotelLocation?.trim() && (
+                      <div className="flex flex-col">
+                        <div className="mt-4">Hotel lokation:</div>
+                        <div>
+                          {event.hotelLocation
+                            .split('--')
+                            .map((f: string, index) => {
+                              return (
+                                <div key={index} className="ml-4">
+                                  <li>{f.trim()}</li>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
+                    {event?.restaurantLocation?.trim() && (
+                      <div className="flex flex-col">
+                        <div className="mt-4">Restaurant lokation:</div>
+                        <div>
+                          {event.restaurantLocation
+                            .split('--')
+                            .map((f: string, index) => {
+                              return (
+                                <div key={index} className="ml-4">
+                                  <li>{f.trim()}</li>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
+                    {event?.lunchLocation?.trim() && (
+                      <div className="flex flex-col">
+                        <div className="mt-4">Frokost lokation:</div>
+                        <div>
+                          {event.lunchLocation
+                            .split('--')
+                            .map((f: string, index) => {
+                              return (
+                                <div key={index} className="ml-4">
+                                  <li>{f.trim()}</li>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
+                    {event?.extra1Location?.trim() && (
+                      <div className="flex flex-col">
+                        <div className="mt-4">Extra 1 lokation:</div>
+                        <div>
+                          {event.extra1Location
+                            .split('--')
+                            .map((f: string, index) => {
+                              return (
+                                <div key={index} className="ml-4">
+                                  <li>{f.trim()}</li>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
+                    {event?.extra2Location?.trim() && (
+                      <div className="flex flex-col">
+                        <div className="mt-4">Extra 2 lokation:</div>
+                        <div>
+                          {event.extra2Location
+                            .split('--')
+                            .map((f: string, index) => {
+                              return (
+                                <div key={index} className="ml-4">
+                                  <li>{f.trim()}</li>
+                                </div>
+                              );
+                            })}
+                        </div>
                       </div>
                     )}
                   </div>
