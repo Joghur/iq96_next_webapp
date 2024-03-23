@@ -64,7 +64,7 @@ const EventsPage = ({ documentUser }: Props) => {
       </div>
     );
   }
-  
+
   const handleUpdate = async (
     _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: string | undefined
@@ -120,7 +120,7 @@ const EventsPage = ({ documentUser }: Props) => {
                           key={index}
                           href={
                             event.moreInfoLink.trim().includes('/')
-                              ?  event.moreInfoLink.trim()
+                              ? event.moreInfoLink.trim()
                               : `/bibliothek/breve/${event.moreInfoLink.trim()}`
                           }
                         >
@@ -133,9 +133,7 @@ const EventsPage = ({ documentUser }: Props) => {
                       {event?.imagesLink && (
                         <Link
                           key={index}
-                          href={
-                            `/bibliothek/galleri/${event.imagesLink.trim()}`
-                          }
+                          href={`/bibliothek/galleri/${event.imagesLink.trim()}`}
                         >
                           <EventInfoBadge>
                             <ImageIcon className="mr-1" />
