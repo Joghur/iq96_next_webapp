@@ -10,7 +10,7 @@ import { InfoCircledIcon, ImageIcon } from '@radix-ui/react-icons';
 
 import EventForm from './EventForm';
 import Link from 'next/link';
-import EventInfoBadge from '@components/ui/MoreInfoBadge';
+import EventInfoBadge from '@components/ui/EventInfoBadge';
 
 interface FirebaseDate {
   seconds: number;
@@ -109,38 +109,12 @@ const EventsPage = ({ documentUser }: Props) => {
                     key={index}
                     className="sm:px-15 paper flex flex-col gap-2 overflow-hidden rounded-xl px-10"
                   >
-                    <div className="flex justify-between">
+                    <div className="flex justify-between align-middle">
                       <p className="font-semibold">
                         {event?.type === 'tour'
                           ? `${handleType(event?.type)} de ${event.city}`
                           : handleType(event?.type)}
                       </p>
-                      {event?.moreInfoLink && (
-                        <Link
-                          key={index}
-                          href={
-                            event.moreInfoLink.trim().includes('/')
-                              ? event.moreInfoLink.trim()
-                              : `/bibliothek/breve/${event.moreInfoLink.trim()}`
-                          }
-                        >
-                          <EventInfoBadge>
-                            <InfoCircledIcon className="mr-1" />
-                            IQ-brev
-                          </EventInfoBadge>
-                        </Link>
-                      )}
-                      {event?.imagesLink && (
-                        <Link
-                          key={index}
-                          href={`/bibliothek/galleri/${event.imagesLink.trim()}`}
-                        >
-                          <EventInfoBadge>
-                            <ImageIcon className="mr-1" />
-                            Galleri
-                          </EventInfoBadge>
-                        </Link>
-                      )}
                       {canEdit && event.id && (
                         <button onClick={(e) => handleUpdate(e, event.id)}>
                           <MdEdit />
@@ -160,6 +134,82 @@ const EventsPage = ({ documentUser }: Props) => {
                         </div>
                       </div>
                     )}
+                    <div className="flex justify-evenly">
+                      {event?.hotelLocation?.trim() && (
+                        <div className="flex flex-col">
+                          <div className="mt-4">Hotel lokation:</div>
+                          <div>
+                            {event.hotelLocation
+                              .split('--')
+                              .map((f: string, index) => {
+                                return (
+                                  <div key={index} className="ml-4">
+                                    <li>{f.trim()}</li>
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        </div>
+                      )}
+                      {event?.restaurantLocation?.trim() && (
+                        <div className="flex flex-col">
+                          <div className="mt-4">Restaurant lokation:</div>
+                          <div>
+                            {event.restaurantLocation
+                              .split('--')
+                              .map((f: string, index) => {
+                                return (
+                                  <div key={index} className="ml-4">
+                                    <li>{f.trim()}</li>
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        </div>
+                      )}
+                      {event?.lunchLocation?.trim() && (
+                        <div className="flex flex-col">
+                          <div className="mt-4">Frokost lokation:</div>
+                          <div>
+                            {event.lunchLocation
+                              .split('--')
+                              .map((f: string, index) => {
+                                return (
+                                  <div key={index} className="ml-4">
+                                    <li>{f.trim()}</li>
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        </div>
+                      )}
+                      {event?.moreInfoLink && (
+                        <Link
+                          href={
+                            event.moreInfoLink.trim().includes('/')
+                              ? event.moreInfoLink.trim()
+                              : `/bibliothek/breve/${event.moreInfoLink.trim()}`
+                          }
+                          className="whitespace-nowrap"
+                        >
+                          <EventInfoBadge>
+                            <InfoCircledIcon className="mr-1" />
+                            IQ-brev
+                          </EventInfoBadge>
+                        </Link>
+                      )}
+                      {event?.imagesLink && (
+                        <Link
+                          href={`/bibliothek/galleri/${event.imagesLink.trim()}`}
+                          className="whitespace-nowrap"
+                        >
+                          <EventInfoBadge>
+                            <ImageIcon className="mr-1" />
+                            Galleri
+                          </EventInfoBadge>
+                        </Link>
+                      )}
+                    </div>
                     {event.meetingPoints.trim() && (
                       <div className="flex flex-col">
                         <p className="mt-4">Mødesteder:</p>
@@ -211,54 +261,6 @@ const EventsPage = ({ documentUser }: Props) => {
                         <div className="mt-4">OBS:</div>
                         <div>
                           {event.notesActivities
-                            .split('--')
-                            .map((f: string, index) => {
-                              return (
-                                <div key={index} className="ml-4">
-                                  <li>{f.trim()}</li>
-                                </div>
-                              );
-                            })}
-                        </div>
-                      </div>
-                    )}
-                    {event?.hotelLocation?.trim() && (
-                      <div className="flex flex-col">
-                        <div className="mt-4">Hotel lokation:</div>
-                        <div>
-                          {event.hotelLocation
-                            .split('--')
-                            .map((f: string, index) => {
-                              return (
-                                <div key={index} className="ml-4">
-                                  <li>{f.trim()}</li>
-                                </div>
-                              );
-                            })}
-                        </div>
-                      </div>
-                    )}
-                    {event?.restaurantLocation?.trim() && (
-                      <div className="flex flex-col">
-                        <div className="mt-4">Restaurant lokation:</div>
-                        <div>
-                          {event.restaurantLocation
-                            .split('--')
-                            .map((f: string, index) => {
-                              return (
-                                <div key={index} className="ml-4">
-                                  <li>{f.trim()}</li>
-                                </div>
-                              );
-                            })}
-                        </div>
-                      </div>
-                    )}
-                    {event?.lunchLocation?.trim() && (
-                      <div className="flex flex-col">
-                        <div className="mt-4">Frokost lokation:</div>
-                        <div>
-                          {event.lunchLocation
                             .split('--')
                             .map((f: string, index) => {
                               return (
