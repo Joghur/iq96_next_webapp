@@ -1,6 +1,11 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { MdEdit } from 'react-icons/md';
+import {
+  MdEdit,
+  MdOutlineDining,
+  MdOutlineHotel,
+  MdOutlineLunchDining,
+} from 'react-icons/md';
 
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { eventTransitionVariants } from '@lib/animations';
@@ -135,53 +140,41 @@ const EventsPage = ({ documentUser }: Props) => {
                       </div>
                     )}
                     <div className="flex justify-evenly">
-                      {event?.hotelLocation?.trim() && (
-                        <div className="flex flex-col">
-                          <div className="mt-4">Hotel lokation:</div>
-                          <div>
-                            {event.hotelLocation
-                              .split('--')
-                              .map((f: string, index) => {
-                                return (
-                                  <div key={index} className="ml-4">
-                                    <li>{f.trim()}</li>
-                                  </div>
-                                );
-                              })}
-                          </div>
-                        </div>
+                      {event?.hotelLocation && (
+                        <Link
+                          href={`/kort?aar-by=${event?.hotelLocation?.trim()}&sted=Vores hotel`}
+                          prefetch={false}
+                          className="whitespace-nowrap"
+                        >
+                          <EventInfoBadge>
+                            <MdOutlineHotel className="mr-1" />
+                            Hotel
+                          </EventInfoBadge>
+                        </Link>
                       )}
-                      {event?.restaurantLocation?.trim() && (
-                        <div className="flex flex-col">
-                          <div className="mt-4">Restaurant lokation:</div>
-                          <div>
-                            {event.restaurantLocation
-                              .split('--')
-                              .map((f: string, index) => {
-                                return (
-                                  <div key={index} className="ml-4">
-                                    <li>{f.trim()}</li>
-                                  </div>
-                                );
-                              })}
-                          </div>
-                        </div>
+                      {event?.restaurantLocation && (
+                        <Link
+                          href={`/kort?aar-by=${event?.restaurantLocation?.trim()}&sted=Vores middag`}
+                          prefetch={false}
+                          className="whitespace-nowrap"
+                        >
+                          <EventInfoBadge>
+                            <MdOutlineDining className="mr-1" />
+                            Middag
+                          </EventInfoBadge>
+                        </Link>
                       )}
-                      {event?.lunchLocation?.trim() && (
-                        <div className="flex flex-col">
-                          <div className="mt-4">Frokost lokation:</div>
-                          <div>
-                            {event.lunchLocation
-                              .split('--')
-                              .map((f: string, index) => {
-                                return (
-                                  <div key={index} className="ml-4">
-                                    <li>{f.trim()}</li>
-                                  </div>
-                                );
-                              })}
-                          </div>
-                        </div>
+                      {event?.lunchLocation && (
+                        <Link
+                          href={`/kort?aar-by=${event?.lunchLocation?.trim()}&sted=Vores frokost`}
+                          prefetch={false}
+                          className="whitespace-nowrap"
+                        >
+                          <EventInfoBadge>
+                            <MdOutlineLunchDining className="mr-1" />
+                            Frokost
+                          </EventInfoBadge>
+                        </Link>
                       )}
                       {event?.moreInfoLink && (
                         <Link
@@ -190,22 +183,24 @@ const EventsPage = ({ documentUser }: Props) => {
                               ? event.moreInfoLink.trim()
                               : `/bibliothek/breve/${event.moreInfoLink.trim()}`
                           }
+                          prefetch={false}
                           className="whitespace-nowrap"
                         >
                           <EventInfoBadge>
                             <InfoCircledIcon className="mr-1" />
-                            IQ-brev
+                            Info
                           </EventInfoBadge>
                         </Link>
                       )}
                       {event?.imagesLink && (
                         <Link
                           href={`/bibliothek/galleri/${event.imagesLink.trim()}`}
+                          prefetch={false}
                           className="whitespace-nowrap"
                         >
                           <EventInfoBadge>
                             <ImageIcon className="mr-1" />
-                            Galleri
+                            Upload
                           </EventInfoBadge>
                         </Link>
                       )}

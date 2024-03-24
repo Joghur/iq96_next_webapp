@@ -180,13 +180,16 @@ const EventForm = ({
             htmlFor="imagesLink"
             className="dynamic_text green_gradient mb-2 block font-medium"
           >
-            Billed galleri link (/bibliothek/galleri/ er inkluderet)
+            Billed galleri link
           </label>
           <textarea
             id="imagesLink"
             value={changedEvent.imagesLink}
             onChange={handleChange}
-            placeholder={changedEvent?.imagesLink || 'Link til billede galleri'}
+            placeholder={
+              changedEvent?.imagesLink ||
+              'Link  (/bibliothek/galleri/ er inkluderet)'
+            }
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
@@ -201,7 +204,7 @@ const EventForm = ({
             id="hotelLocation"
             value={changedEvent.hotelLocation}
             onChange={handleChange}
-            placeholder={changedEvent?.hotelLocation || 'Hotel lokation'}
+            placeholder={changedEvent?.hotelLocation || 'År-By er nok'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
@@ -216,9 +219,7 @@ const EventForm = ({
             id="restaurantLocation"
             value={changedEvent.restaurantLocation}
             onChange={handleChange}
-            placeholder={
-              changedEvent?.restaurantLocation || 'Restaurant lokation'
-            }
+            placeholder={changedEvent?.restaurantLocation || 'År-By er nok'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
@@ -233,7 +234,7 @@ const EventForm = ({
             id="lunchLocation"
             value={changedEvent.lunchLocation}
             onChange={handleChange}
-            placeholder={changedEvent?.lunchLocation || 'Frokost lokation'}
+            placeholder={changedEvent?.lunchLocation || 'År-By er nok'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
@@ -248,7 +249,7 @@ const EventForm = ({
             id="extra1Location"
             value={changedEvent.extra1Location}
             onChange={handleChange}
-            placeholder={changedEvent?.extra1Location || 'Ekstra 1 lokation'}
+            placeholder={changedEvent?.extra1Location || 'År-By og sted'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
@@ -263,7 +264,7 @@ const EventForm = ({
             id="extra2Location"
             value={changedEvent.extra2Location}
             onChange={handleChange}
-            placeholder={changedEvent?.extra2Location || 'Ekstra 2 lokation'}
+            placeholder={changedEvent?.extra2Location || 'År-By og sted'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>

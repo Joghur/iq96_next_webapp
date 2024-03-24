@@ -20,6 +20,7 @@ import MarkerSelect from './MarkerSelect';
 import MoiMarkers from './MoiMarkers';
 import UserMapButton from './UserMapButton';
 import UserMarker from './UserMarker';
+import { useSearchParams } from 'next/navigation';
 
 interface Coordinate {
   latitude: number;
@@ -47,7 +48,7 @@ const MapPage = () => {
     documentUser,
     loading: loadingUser,
   } = useContext(authContext);
-
+  const searchParams = useSearchParams();
   const [selectedCity, setSelectedCity] = useState<MapCityType>({
     city: '',
     year: '',
@@ -72,9 +73,16 @@ const MapPage = () => {
 
   useEffect(() => {
     if (cities && cities?.length > 0 && cities[0].includes('-')) {
-      // eslint-disable-next-line no-unsafe-optional-chaining
-      const [year, city] = cities.reverse()[0]?.split('-');
-      setSelectedCity(() => ({ city, year }));
+      const yearCityParam = searchParams.get('aar-by');
+      const initCity = yearCityParam?.split('-');
+
+      if (initCity && initCity?.length > 1) {
+        setSelectedCity(() => ({ city: initCity[1], year: initCity[0] }));
+      } else {
+        // eslint-disable-next-line no-unsafe-optional-chaining
+        const [year, city] = cities.reverse()[0]?.split(' -');
+        setSelectedCity(() => ({ city, year }));
+      }
     }
   }, [cities]);
 
@@ -121,11 +129,13 @@ const MapPage = () => {
   markers?.sort(compareNick);
   const appMarkers = markers?.filter((o) => o.madeBy === 'app');
   const userMarkers = markers?.filter((o) => o.madeBy === 'user');
+
   let appFirstMarkers: MarkerData[] = [];
   if (userMarkers && appMarkers) {
     appFirstMarkers = appMarkers.concat(userMarkers);
   }
 
+  // const startLocation = paramPosition ||userPosition || L.latLng(55.6660739, 12.5256102);
   const startLocation = userPosition || L.latLng(55.6660739, 12.5256102);
 
   return (
@@ -178,7 +188,10 @@ const MapPage = () => {
                 onChange={setSelectedCity}
               />
             )}
-            <MarkerSelect markers={appFirstMarkers} />
+            <MarkerSelect
+              markers={appFirstMarkers}
+              paramPlace={searchParams.get('sted')}
+            />
           </div>
         </div>
         {appFirstMarkers.length > 0 &&

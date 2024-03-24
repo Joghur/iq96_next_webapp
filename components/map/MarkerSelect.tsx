@@ -7,19 +7,31 @@ import Select, { SelectGroup } from '@components/ui/Select';
 
 interface Props {
   markers: MarkerData[];
+  paramPlace?: string | null;
 }
 
-export const MarkerSelect: FC<Props> = ({ markers }) => {
+export const MarkerSelect: FC<Props> = ({ markers, paramPlace }) => {
   const map = useMap();
 
-  // TODO - logic needs some rewiring
+  let marker: MarkerData | undefined;
+  if (markers.length > 0) {
+    if (paramPlace) {
+      const paramMarker = markers.filter(
+        (_marker) => _marker.nick === paramPlace
+      );
+      marker = paramMarker[0];
+    } else {
+      marker = markers[0];
+    }
+  }
+
   const [center, setCenter] = useState([
-    markers.length > 0 ? markers[0].location.latitude : 0,
-    markers.length > 0 ? markers[0].location.longitude : 0,
+    marker ? marker.location.latitude : 0,
+    marker ? marker.location.longitude : 0,
   ]);
 
   const [selection, setSelection] = useState<string | undefined>(
-    markers[0]?.nick
+    marker && marker.nick
   );
 
   const handleSelectChange = (event: string) => {
@@ -48,8 +60,8 @@ export const MarkerSelect: FC<Props> = ({ markers }) => {
   useEffect(() => {
     if (markers.length > 0) {
       setCenter(() => [
-        markers[0].location.latitude,
-        markers[0].location.longitude,
+        marker ? marker.location.latitude : 0,
+        marker ? marker.location.longitude : 0,
       ]);
     }
   }, [markers, lat]);
