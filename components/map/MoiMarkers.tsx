@@ -230,7 +230,10 @@ const MoiMarkers = ({
                     id="title"
                     value={currentMarker?.title}
                     onChange={handleChangeMarker}
-                    placeholder={currentMarker?.title || 'Lang titel - Ses når man trykker på markør'}
+                    placeholder={
+                      currentMarker?.title ||
+                      'Lang titel - Ses når man trykker på markør'
+                    }
                     className="dynamic_text textarea-bordered textarea bg-white"
                   />
                 </div>
@@ -245,7 +248,9 @@ const MoiMarkers = ({
                     id="nick"
                     value={currentMarker?.nick}
                     onChange={handleChangeMarker}
-                    placeholder={currentMarker?.title || 'Kort titel - Til dropdown menu'}
+                    placeholder={
+                      currentMarker?.title || 'Kort titel - Til dropdown menu'
+                    }
                     className="dynamic_text textarea-bordered textarea bg-white"
                   />
                 </div>
