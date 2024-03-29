@@ -3,6 +3,7 @@
 import { ChangeEvent, useState } from 'react';
 import { EventType } from './EventsPage';
 import Modal from '@components/ui/Modal';
+import { CopyButton } from '@components/ui/CopyButton';
 
 const initialEvent: EventType = {
   type: '',
@@ -95,10 +96,22 @@ const EventForm = ({
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
-        <div>
-          <p className="dynamic_text">
+        <div className="flex flex-col gap-2">
+          <div className="dynamic_text">
             Brug &quot;--&quot; til at separere emner
-          </p>
+          </div>
+          <div className="dynamic_text">
+            <CopyButton text="<link:hotel>" />
+          </div>
+          <div className="dynamic_text">
+            <CopyButton text="<link:middag>" />
+          </div>
+          <div className="dynamic_text">
+            <CopyButton text="<link:frokost>" />
+          </div>
+          <div className="dynamic_text">
+            <CopyButton text="<link:tour>" />
+          </div>
         </div>
         <div className="pt-5">
           <label
@@ -157,84 +170,6 @@ const EventForm = ({
             value={changedEvent.notesActivities}
             onChange={handleChange}
             placeholder={changedEvent?.notesActivities || 'OBS! aktiviteter'}
-            className="dynamic_text textarea-bordered textarea"
-          />
-        </div>
-        <div className="pt-5">
-          <label
-            htmlFor="moreInfoLink"
-            className="dynamic_text green_gradient mb-2 block font-medium"
-          >
-            Mere info link (Skriv bare år ellers relativt link)
-          </label>
-          <textarea
-            id="moreInfoLink"
-            value={changedEvent.moreInfoLink}
-            onChange={handleChange}
-            placeholder={changedEvent?.moreInfoLink || 'Link til mere info'}
-            className="dynamic_text textarea-bordered textarea"
-          />
-        </div>
-        <div className="pt-5">
-          <label
-            htmlFor="imagesLink"
-            className="dynamic_text green_gradient mb-2 block font-medium"
-          >
-            Billed galleri link
-          </label>
-          <textarea
-            id="imagesLink"
-            value={changedEvent.imagesLink}
-            onChange={handleChange}
-            placeholder={
-              changedEvent?.imagesLink ||
-              'Link  (/bibliothek/galleri/ er inkluderet)'
-            }
-            className="dynamic_text textarea-bordered textarea"
-          />
-        </div>
-        <div className="pt-5">
-          <label
-            htmlFor="hotelLocation"
-            className="dynamic_text green_gradient mb-2 block font-medium"
-          >
-            Hotel lokation
-          </label>
-          <textarea
-            id="hotelLocation"
-            value={changedEvent.hotelLocation}
-            onChange={handleChange}
-            placeholder={changedEvent?.hotelLocation || 'År-By er nok'}
-            className="dynamic_text textarea-bordered textarea"
-          />
-        </div>
-        <div className="pt-5">
-          <label
-            htmlFor="restaurantLocation"
-            className="dynamic_text green_gradient mb-2 block font-medium"
-          >
-            Restaurant lokation
-          </label>
-          <textarea
-            id="restaurantLocation"
-            value={changedEvent.restaurantLocation}
-            onChange={handleChange}
-            placeholder={changedEvent?.restaurantLocation || 'År-By er nok'}
-            className="dynamic_text textarea-bordered textarea"
-          />
-        </div>
-        <div className="pt-5">
-          <label
-            htmlFor="lunchLocation"
-            className="dynamic_text green_gradient mb-2 block font-medium"
-          >
-            Frokost lokation
-          </label>
-          <textarea
-            id="lunchLocation"
-            value={changedEvent.lunchLocation}
-            onChange={handleChange}
-            placeholder={changedEvent?.lunchLocation || 'År-By er nok'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>

@@ -1,11 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import {
-  MdEdit,
-  MdOutlineDining,
-  MdOutlineHotel,
-  MdOutlineLunchDining,
-} from 'react-icons/md';
+import { MdEdit, MdOutlineHotel } from 'react-icons/md';
 
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { eventTransitionVariants } from '@lib/animations';
@@ -16,10 +11,13 @@ import { InfoCircledIcon, ImageIcon } from '@radix-ui/react-icons';
 import EventForm from './EventForm';
 import Link from 'next/link';
 import EventInfoBadge from '@components/ui/EventInfoBadge';
+import EventBulletPoints from './EventBulletPoints';
 
 interface FirebaseDate {
   seconds: number;
 }
+
+type Type = 'tour' | 'gf' | 'oel' | 'golf' | 'other' | '';
 
 export type EventType = {
   id?: string;
@@ -30,19 +28,14 @@ export type EventType = {
   start: string;
   startDate?: FirebaseDate;
   timezone: string;
-  type: string;
+  type: Type;
   year: number;
   activities?: string;
   meetingPoints: string;
   notes?: string;
   notesActivities?: string;
-  hotelLocation?: string;
-  restaurantLocation?: string;
-  lunchLocation?: string;
   extra1Location?: string;
   extra2Location?: string;
-  imagesLink?: string;
-  moreInfoLink?: string;
 };
 
 interface Props {
@@ -140,9 +133,9 @@ const EventsPage = ({ documentUser }: Props) => {
                       </div>
                     )}
                     <div className="flex justify-evenly">
-                      {event?.hotelLocation && (
+                      {event.type === 'tour' && event?.city && (
                         <Link
-                          href={`/kort?aar-by=${event?.hotelLocation?.trim()}&sted=Vores hotel`}
+                          href={`/kort?aar-by=${event?.year}-${event?.city?.trim()}&sted=Vores hotel`}
                           prefetch={false}
                           className="whitespace-nowrap"
                         >
@@ -152,37 +145,9 @@ const EventsPage = ({ documentUser }: Props) => {
                           </EventInfoBadge>
                         </Link>
                       )}
-                      {event?.restaurantLocation && (
+                      {event?.year && (
                         <Link
-                          href={`/kort?aar-by=${event?.restaurantLocation?.trim()}&sted=Vores middag`}
-                          prefetch={false}
-                          className="whitespace-nowrap"
-                        >
-                          <EventInfoBadge>
-                            <MdOutlineDining className="mr-1" />
-                            Middag
-                          </EventInfoBadge>
-                        </Link>
-                      )}
-                      {event?.lunchLocation && (
-                        <Link
-                          href={`/kort?aar-by=${event?.lunchLocation?.trim()}&sted=Vores frokost`}
-                          prefetch={false}
-                          className="whitespace-nowrap"
-                        >
-                          <EventInfoBadge>
-                            <MdOutlineLunchDining className="mr-1" />
-                            Frokost
-                          </EventInfoBadge>
-                        </Link>
-                      )}
-                      {event?.moreInfoLink && (
-                        <Link
-                          href={
-                            event.moreInfoLink.trim().includes('/')
-                              ? event.moreInfoLink.trim()
-                              : `/bibliothek/breve/${event.moreInfoLink.trim()}`
-                          }
+                          href={`/bibliothek/breve/${event.year}`}
                           prefetch={false}
                           className="whitespace-nowrap"
                         >
@@ -192,9 +157,45 @@ const EventsPage = ({ documentUser }: Props) => {
                           </EventInfoBadge>
                         </Link>
                       )}
-                      {event?.imagesLink && (
+                      {event?.type === 'tour' && event?.year && event?.city && (
                         <Link
-                          href={`/bibliothek/galleri/${event.imagesLink.trim()}`}
+                          href={`/bibliothek/galleri/tour/${event.year}-${event.city.toLocaleLowerCase()}`}
+                          prefetch={false}
+                          className="whitespace-nowrap"
+                        >
+                          <EventInfoBadge>
+                            <ImageIcon className="mr-1" />
+                            Upload
+                          </EventInfoBadge>
+                        </Link>
+                      )}
+                      {event?.type === 'gf' && event?.year && (
+                        <Link
+                          href={`/bibliothek/galleri/gf/${event.year}`}
+                          prefetch={false}
+                          className="whitespace-nowrap"
+                        >
+                          <EventInfoBadge>
+                            <ImageIcon className="mr-1" />
+                            Upload
+                          </EventInfoBadge>
+                        </Link>
+                      )}
+                      {event?.type === 'oel' && event?.year && (
+                        <Link
+                          href={`/bibliothek/galleri/events/${event.year}-øl`}
+                          prefetch={false}
+                          className="whitespace-nowrap"
+                        >
+                          <EventInfoBadge>
+                            <ImageIcon className="mr-1" />
+                            Upload
+                          </EventInfoBadge>
+                        </Link>
+                      )}
+                      {event?.type === 'golf' && event?.year && (
+                        <Link
+                          href={`/bibliothek/galleri/events/${event.year}-frisbee`}
                           prefetch={false}
                           className="whitespace-nowrap"
                         >
@@ -205,97 +206,69 @@ const EventsPage = ({ documentUser }: Props) => {
                         </Link>
                       )}
                     </div>
-                    {event.meetingPoints.trim() && (
+                    {event.meetingPoints && (
                       <div className="flex flex-col">
                         <p className="mt-4">Mødesteder:</p>
                         <div>
-                          {event.meetingPoints
-                            .split('--')
-                            .map((f: string, index) => {
-                              return (
-                                <div key={index} className="ml-4">
-                                  <li>{f.trim()}</li>
-                                </div>
-                              );
-                            })}
+                          <EventBulletPoints
+                            pointsString={event.meetingPoints.trim()}
+                            event={event}
+                          />
                         </div>
                       </div>
                     )}
-                    {event?.notes?.trim() && (
+                    {event?.notes && (
                       <div className="flex flex-col">
                         <div className="mt-4">OBS:</div>
                         <div>
-                          {event.notes.split('--').map((f: string, index) => {
-                            return (
-                              <div key={index} className="ml-4">
-                                <li>{f.trim()}</li>
-                              </div>
-                            );
-                          })}
+                          <EventBulletPoints
+                            pointsString={event.notes?.trim()}
+                            event={event}
+                          />
                         </div>
                       </div>
                     )}
-                    {event?.activities?.trim() && (
+                    {event?.activities && (
                       <div className="flex flex-col">
                         <div className="mt-4">Aktiviteter:</div>
                         <div>
-                          {event.activities
-                            .split('--')
-                            .map((f: string, index) => {
-                              return (
-                                <div key={index} className="ml-4">
-                                  <li>{f.trim()}</li>
-                                </div>
-                              );
-                            })}
+                          <EventBulletPoints
+                            pointsString={event.activities.trim()}
+                            event={event}
+                          />
                         </div>
                       </div>
                     )}
-                    {event?.notesActivities?.trim() && (
+                    {event?.notesActivities && (
                       <div className="flex flex-col">
                         <div className="mt-4">OBS:</div>
                         <div>
-                          {event.notesActivities
-                            .split('--')
-                            .map((f: string, index) => {
-                              return (
-                                <div key={index} className="ml-4">
-                                  <li>{f.trim()}</li>
-                                </div>
-                              );
-                            })}
+                          <EventBulletPoints
+                            pointsString={event.notesActivities.trim()}
+                            event={event}
+                          />
                         </div>
                       </div>
                     )}
-                    {event?.extra1Location?.trim() && (
+                    {event?.extra1Location && (
                       <div className="flex flex-col">
                         <div className="mt-4">Extra 1 lokation:</div>
                         <div>
-                          {event.extra1Location
-                            .split('--')
-                            .map((f: string, index) => {
-                              return (
-                                <div key={index} className="ml-4">
-                                  <li>{f.trim()}</li>
-                                </div>
-                              );
-                            })}
+                          <EventBulletPoints
+                            pointsString={event.extra1Location.trim()}
+                            event={event}
+                          />
                         </div>
                       </div>
                     )}
-                    {event?.extra2Location?.trim() && (
+                    {event?.extra2Location && (
                       <div className="flex flex-col">
                         <div className="mt-4">Extra 2 lokation:</div>
                         <div>
-                          {event.extra2Location
-                            .split('--')
-                            .map((f: string, index) => {
-                              return (
-                                <div key={index} className="ml-4">
-                                  <li>{f.trim()}</li>
-                                </div>
-                              );
-                            })}
+                          <EventBulletPoints
+                            pointsString={event.extra2Location.trim()}
+                            event={event}
+                          />
                         </div>
                       </div>
                     )}

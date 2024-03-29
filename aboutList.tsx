@@ -1,6 +1,10 @@
 /* eslint-disable quotes */
 export const aboutList = [
   [
+    '0.8.8',
+    'Event siden (første side) kan nu lave links to kortet og bibliotheket.',
+  ],
+  [
     '0.8.7',
     'Forbedret reset kodeord flow. Forbedret Admin med-lemsliste. Forsøg på at få info hover til at virke på telefoner (det lille grønne I).',
   ],
