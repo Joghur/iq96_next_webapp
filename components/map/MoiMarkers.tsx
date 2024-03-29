@@ -224,13 +224,13 @@ const MoiMarkers = ({
                     htmlFor="password"
                     className="dynamic_text green_gradient mb-2 block font-medium"
                   >
-                    Titel
+                    Lang Titel
                   </label>
                   <textarea
                     id="title"
                     value={currentMarker?.title}
                     onChange={handleChangeMarker}
-                    placeholder={currentMarker?.title || 'Titel'}
+                    placeholder={currentMarker?.title || 'Lang Titel'}
                     className="dynamic_text textarea-bordered textarea bg-white"
                   />
                 </div>
@@ -239,13 +239,13 @@ const MoiMarkers = ({
                     htmlFor="password"
                     className="dynamic_text green_gradient mb-2 block font-medium"
                   >
-                    Nick
+                    Kort Titel
                   </label>
                   <textarea
                     id="nick"
                     value={currentMarker?.nick}
                     onChange={handleChangeMarker}
-                    placeholder={currentMarker?.title || 'Nick'}
+                    placeholder={currentMarker?.title || 'Kort Titel'}
                     className="dynamic_text textarea-bordered textarea bg-white"
                   />
                 </div>

@@ -15,8 +15,8 @@ function ManualMarker({ addingMarker }: Props) {
           location: { latitude: lat, longitude: lng },
           description: '',
           madeBy: 'user',
-          nick: `Kort titel - Dukker op når man hover med mus eller trykker på telefon - ${Math.floor(Math.random() * 10000)}`,
-          title: 'Lang titel - Dukker op når man trykker på lokation',
+          nick: `Kort titel - Til dropdown menu - ${Math.floor(Math.random() * 10000)}`,
+          title: 'Lang titel - Ses når man trykker på markør',
           type: 'unknown',
         });
       },
