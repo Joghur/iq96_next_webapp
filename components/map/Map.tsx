@@ -75,12 +75,11 @@ const MapPage = () => {
     if (cities && cities?.length > 0 && cities[0].includes('-')) {
       const yearCityParam = searchParams.get('aar-by');
       const initCity = yearCityParam?.split('-');
-
       if (initCity && initCity?.length > 1) {
         setSelectedCity(() => ({ city: initCity[1], year: initCity[0] }));
       } else {
         // eslint-disable-next-line no-unsafe-optional-chaining
-        const [year, city] = cities.reverse()[0]?.split(' -');
+        const [year, city] = cities.reverse()[0]?.split('-');
         setSelectedCity(() => ({ city, year }));
       }
     }
