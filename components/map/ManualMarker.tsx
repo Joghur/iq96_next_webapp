@@ -16,7 +16,7 @@ function ManualMarker({ addingMarker }: Props) {
           description: '',
           madeBy: 'user',
           nick: `Kort titel - Til dropdown menu - ${Math.floor(Math.random() * 10000)}`,
-          title: 'Lang titel - Ses når man trykker på markør',
+          title: '',
           type: 'unknown',
         });
       },
