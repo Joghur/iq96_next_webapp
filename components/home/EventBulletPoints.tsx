@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import {
   MdOutlineDining,
   MdOutlineHotel,
+  MdOutlineLocalSee,
   MdOutlineLunchDining,
 } from 'react-icons/md';
 import { EventType } from './EventsPage';
@@ -143,7 +144,7 @@ const handleBulletPoint = (
           className="whitespace-nowrap"
         >
           <EventInfoBadge>
-            <MdOutlineLunchDining className="mr-1" />
+            <MdOutlineLocalSee className="mr-1" />
             Guided tour
           </EventInfoBadge>
         </Link>
