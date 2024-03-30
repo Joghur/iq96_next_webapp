@@ -94,6 +94,9 @@ const MoiMarkers = ({
       await updatingDoc(currentMarker.id, {
         ...currentMarker,
         madeBy: !documentUser.isSuperAdmin ? 'user' : currentMarker.madeBy,
+        nick:
+          currentMarker.nick ||
+          `Kort label er påkrævet - ${Math.floor(Math.random() * 10000)}`,
       });
     }
 
@@ -114,6 +117,7 @@ const MoiMarkers = ({
       if (old) {
         return {
           ...old,
+          nick: id === 'title' ? old.title : old.nick,
           [id]: value,
         };
       }

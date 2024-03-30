@@ -2,10 +2,18 @@ import EventInfoBadge from '@components/ui/EventInfoBadge';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import {
+  MdOutlineBusAlert,
+  MdOutlineCoffee,
   MdOutlineDining,
   MdOutlineHotel,
   MdOutlineLocalSee,
   MdOutlineLunchDining,
+  MdOutlineMuseum,
+  MdOutlineMusicNote,
+  MdOutlineQuestionMark,
+  MdOutlineRestaurant,
+  MdOutlineTrain,
+  MdOutlineWineBar,
 } from 'react-icons/md';
 import { EventType } from './EventsPage';
 
@@ -70,6 +78,28 @@ const EventBulletPoints = ({ pointsString, event }: Props) => {
           );
         }
 
+        const regexPattern = /([^<]*)<link:extra:([^:]+):([^>]+)>([^>]*)/;
+        const match = new RegExp(regexPattern).exec(point);
+        if (match) {
+          const firstText = match[1];
+          const markerNick = match[2];
+          const markerType = match[3];
+          const lastText = match[4];
+          return (
+            <div key={index} className="ml-4">
+              <li>
+                {firstText}
+                {handleBulletPoint(
+                  yearCity,
+                  markerType as BulletPointLinkTypes,
+                  markerNick
+                )}
+                {lastText && lastText}
+              </li>
+            </div>
+          );
+        }
+
         return (
           <div key={index} className="ml-4">
             <li>{handleBulletPoint(point.trim())}</li>
@@ -82,16 +112,29 @@ const EventBulletPoints = ({ pointsString, event }: Props) => {
 
 export default EventBulletPoints;
 
+const bulletPointLinkTypes = [
+  'string',
+  'hotel',
+  'frokost',
+  'middag',
+  'tour',
+  'bar',
+  'bus',
+  'restaurant',
+  'cafe',
+  'museum',
+  'music',
+  'question',
+  'train',
+  'unknown',
+] as const;
+
+export type BulletPointLinkTypes = (typeof bulletPointLinkTypes)[number];
+
 const handleBulletPoint = (
   yearCity: string | undefined,
-  type?:
-    | 'string'
-    | 'hotel'
-    | 'frokost'
-    | 'middag'
-    | 'tour'
-    | 'extra1'
-    | 'extra2'
+  type?: BulletPointLinkTypes,
+  place?: string
 ): ReactNode => {
   switch (type) {
     case 'hotel':
@@ -150,7 +193,57 @@ const handleBulletPoint = (
         </Link>
       );
 
+    case 'bar':
+    case 'bus':
+    case 'cafe':
+    case 'museum':
+    case 'music':
+    case 'question':
+    case 'restaurant':
+    case 'train':
+    case 'unknown':
+      return (
+        <Link
+          href={`/kort?aar-by=${yearCity}&sted=${place}`}
+          prefetch={false}
+          className="whitespace-nowrap"
+        >
+          <EventInfoBadge>
+            {iconText(type)}
+            {place}
+          </EventInfoBadge>
+        </Link>
+      );
+
     default:
       return yearCity;
+  }
+};
+
+const iconText = (icon: string) => {
+  switch (icon) {
+    case 'bar':
+      return <MdOutlineWineBar className="mr-1" />;
+
+    case 'bus':
+      return <MdOutlineBusAlert className="mr-1" />;
+
+    case 'cafe':
+      return <MdOutlineCoffee className="mr-1" />;
+
+    case 'museum':
+      return <MdOutlineMuseum className="mr-1" />;
+
+    case 'music':
+      return <MdOutlineMusicNote className="mr-1" />;
+
+    case 'restaurant':
+      return <MdOutlineRestaurant className="mr-1" />;
+
+    case 'train':
+      return <MdOutlineTrain className="mr-1" />;
+
+    default:
+      return <MdOutlineQuestionMark className="mr-1" />;
   }
 };

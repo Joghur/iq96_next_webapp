@@ -34,8 +34,6 @@ export type EventType = {
   meetingPoints: string;
   notes?: string;
   notesActivities?: string;
-  extra1Location?: string;
-  extra2Location?: string;
 };
 
 interface Props {
@@ -245,28 +243,6 @@ const EventsPage = ({ documentUser }: Props) => {
                         <div>
                           <EventBulletPoints
                             pointsString={event.notesActivities.trim()}
-                            event={event}
-                          />
-                        </div>
-                      </div>
-                    )}
-                    {event?.extra1Location && (
-                      <div className="flex flex-col">
-                        <div className="mt-4">Extra 1 lokation:</div>
-                        <div>
-                          <EventBulletPoints
-                            pointsString={event.extra1Location.trim()}
-                            event={event}
-                          />
-                        </div>
-                      </div>
-                    )}
-                    {event?.extra2Location && (
-                      <div className="flex flex-col">
-                        <div className="mt-4">Extra 2 lokation:</div>
-                        <div>
-                          <EventBulletPoints
-                            pointsString={event.extra2Location.trim()}
                             event={event}
                           />
                         </div>
