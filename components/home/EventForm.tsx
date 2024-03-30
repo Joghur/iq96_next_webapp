@@ -112,6 +112,9 @@ const EventForm = ({
           <div className="dynamic_text">
             <CopyButton text="<link:tour>" />
           </div>
+          <div className="dynamic_text">
+            <CopyButton text="<link:extra:Depeche Mode:bar>" />
+          </div>
         </div>
         <div className="pt-5">
           <label
@@ -170,36 +173,6 @@ const EventForm = ({
             value={changedEvent.notesActivities}
             onChange={handleChange}
             placeholder={changedEvent?.notesActivities || 'OBS! aktiviteter'}
-            className="dynamic_text textarea-bordered textarea"
-          />
-        </div>
-        <div className="pt-5">
-          <label
-            htmlFor="extra1Location"
-            className="dynamic_text green_gradient mb-2 block font-medium"
-          >
-            Extra 1 lokation
-          </label>
-          <textarea
-            id="extra1Location"
-            value={changedEvent.extra1Location}
-            onChange={handleChange}
-            placeholder={changedEvent?.extra1Location || 'År-By og sted'}
-            className="dynamic_text textarea-bordered textarea"
-          />
-        </div>
-        <div className="pt-5">
-          <label
-            htmlFor="extra2Location"
-            className="dynamic_text green_gradient mb-2 block font-medium"
-          >
-            Extra 2 lokation
-          </label>
-          <textarea
-            id="extra2Location"
-            value={changedEvent.extra2Location}
-            onChange={handleChange}
-            placeholder={changedEvent?.extra2Location || 'År-By og sted'}
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
