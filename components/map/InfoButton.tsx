@@ -134,9 +134,10 @@ const InfoModal = ({ open, onClose, documentUser }: InfoModalProps) => {
               <MdWarning fontSize="large" />
             </div>
             <p>
-              <span className="font-semibold">OBS!</span> Hvis du er på Android+Firefox
-              er det muligt at du ikke bliver spurgt om din position: Tryk på
-              lås-ikon til venstre for adresse-feltet. Udfor position tryk på{' '}
+              <span className="font-semibold">OBS!</span> Hvis du er på
+              Android+Firefox er det muligt at du ikke bliver spurgt om din
+              position: Tryk på lås-ikon til venstre for adresse-feltet. Udfor
+              position tryk på{' '}
               <i>
                 <b>Blokeret</b>
               </i>
