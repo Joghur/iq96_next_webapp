@@ -19,7 +19,7 @@ export const MarkerSelect: FC<Props> = ({ markers, paramPlace }) => {
       const paramMarker = markers.filter(
         (_marker) => _marker.nick === paramPlace
       );
-      marker = paramMarker[0];
+      marker = paramMarker[0] || markers[0];
     } else {
       marker = markers[0];
     }
