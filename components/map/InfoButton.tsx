@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { MdAdd, MdInfo, MdLocationCity, MdMyLocation } from 'react-icons/md';
+import {
+  MdAdd,
+  MdInfo,
+  MdLocationCity,
+  MdMyLocation,
+  MdWarning,
+} from 'react-icons/md';
 import { Separator } from '@/components/ui/separator';
 import Modal from '@components/ui/Modal';
 import { DocumentUser } from '@lib/hooks/useFirestore';
@@ -120,6 +126,28 @@ const InfoModal = ({ open, onClose, documentUser }: InfoModalProps) => {
               <p>Opretter en ny by i databasen</p>
             </div>
           )}
+          <div>
+            <Separator className="my-2 bg-gray-500 sm:my-5" />
+          </div>
+          <div className="flex gap-2">
+            <div className="flex-shrink-0">
+              <MdWarning fontSize="large" />
+            </div>
+            <p>
+              <span className="font-semibold">OBS!</span> Hvis du er på
+              Android+Firefox er det muligt at du ikke bliver spurgt om din
+              position: Tryk på lås-ikon til venstre for adresse-feltet. Udfor
+              position tryk på{' '}
+              <i>
+                <b>Blokeret</b>
+              </i>
+              , så den skifter til{' '}
+              <i>
+                <b>Tilladt</b>
+              </i>
+              . Nu kan du se hvor du er henne på kortet.
+            </p>
+          </div>
         </div>
       </div>
     </Modal>
