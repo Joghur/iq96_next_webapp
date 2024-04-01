@@ -102,7 +102,7 @@ const capitalizeFirstLetter = (str: string) =>
  */
 export const prettyImageFolderLabel = (label: string) => {
   if (label.includes('-')) {
-    // Image label folder has this syntaxc 2023-edinbourgh
+    // Image label folder has this syntax 2023-edinbourgh
     const labelParts = label.split('-');
     return `${labelParts[0]} - ${capitalizeFirstLetter(labelParts[1])}`;
   }

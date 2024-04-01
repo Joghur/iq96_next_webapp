@@ -1,8 +1,12 @@
 /* eslint-disable quotes */
 export const aboutList = [
   [
+    '0.8.9',
+    'Bug fix: Nyt-skiltet skulle nu forhåbentlig virke efter hensigten. Navigeringsbar viser nu aktive side også for Bibliotheket.',
+  ],
+  [
     '0.8.8',
-    'Event siden (første side) kan nu lave links to kortet og bibliotheket.',
+    'Event siden (første side) kan nu lave links til kortet og bibliotheket.',
   ],
   [
     '0.8.7',

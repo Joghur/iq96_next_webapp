@@ -57,6 +57,17 @@ const BottomNav = () => {
     'updatedAt'
   );
 
+  const streamLinedBadges = badges
+    ?.filter((badge) => badge?.id)
+    .sort((a: NotificationDbType, b: NotificationDbType) => {
+      const idA = a?.id ?? '';
+      const idB = b?.id ?? '';
+
+      return idA.localeCompare(idB);
+    })
+    .map((badge) => badge.id)
+    .join('');
+
   const handleBadgeNotifications = () => {
     if (badges) {
       badges.map((cloudBadgeNotif) => {
@@ -90,7 +101,7 @@ const BottomNav = () => {
   useEffect(() => {
     handleBadgeNotifications();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [badges]);
+  }, [streamLinedBadges]);
 
   if (loading) {
     return <LoadingSpinner />;
@@ -134,6 +145,8 @@ const BottomNav = () => {
     },
   ];
 
+  const basePathname = `/${pathname.split('/')[1]}`;
+
   return (
     <nav className="bottom_nav overflow-hidden">
       {menuItems.map((item, index) => (
@@ -144,7 +157,7 @@ const BottomNav = () => {
               query: { badge: JSON.stringify(item.badge) },
             }}
             className={`dynamic_text ${
-              pathname === item.href
+              basePathname === item.href
                 ? 'bottom_nav_link_selected'
                 : 'bottom_nav_link_container'
             }`}
