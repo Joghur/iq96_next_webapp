@@ -1,7 +1,6 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import Image from 'next/image';
 import { useContext, useState } from 'react';
 
 import { authContext } from '@/lib/store/auth-context';
@@ -97,11 +96,18 @@ function SignIn() {
       </div>
       <div className="flex flex-col overflow-hidden rounded-2xl bg-slate-800 shadow-md shadow-slate-500">
         <div className="h-42">
-          <Image
+          {/* <Image
             src="/images/iq_all_third.jpg"
             alt="iq_all"
             width={650}
             height={100}
+            className="text-2xl"
+          /> */}
+          <img
+            src="/images/iq_all_third.jpg"
+            width="650"
+            height="100"
+            alt="iq_all"
             className="text-2xl"
           />
         </div>
@@ -165,11 +171,18 @@ function SignIn() {
               disabled={isSubmitting}
               className=" mx-auto mt-6 flex items-center gap-2 rounded-lg bg-gray-700 p-4 font-medium text-white"
             >
-              <Image
+              {/* <Image
                 src="/images/logo/iqlogo_180.png"
                 alt="logo"
                 width={37}
                 height={37}
+              /> */}
+              <img
+                src="/images/logo/iqlogo_180.png"
+                width="37"
+                height="37"
+                alt="logo"
+                className="flex object-contain sm:hidden"
               />
               {resetStep === 0 && 'Login'}
               {resetStep === 1 && 'Send Reset mail'}

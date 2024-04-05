@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useContext, useEffect } from 'react';
 
 import { SearchResult } from '@app/bibliothek/galleri/page';
@@ -91,11 +90,18 @@ export default function PdfGrid({ pdfs, label = true }: Props) {
           {pdf.pages &&
             mapToNumberValue(pdf.pages).map((page) => (
               <Card key={page}>
-                <Image
+                {/* <Image
                   src={buildUrlPdf(pdf.public_id, page)}
                   width={650}
                   height={356}
                   sizes="(min-width: 720px) 650px, calc(95.5vw - 19px)"
+                  alt="Her skulle være et sejt PDF dokument"
+                  className="rounded-lg"
+                /> */}
+                <img
+                  src={buildUrlPdf(pdf.public_id, page)}
+                  width="650"
+                  height="356"
                   alt="Her skulle være et sejt PDF dokument"
                   className="rounded-lg"
                 />

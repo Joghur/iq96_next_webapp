@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { Fragment, useState } from 'react';
 
 import { eventTransitionVariants } from '@lib/animations';
@@ -50,7 +49,14 @@ const Iq96Tab = () => {
               onClick={() => setShowProfile(o.name)}
             >
               <div className="justify-left flex flex-col items-center gap-3 overflow-hidden">
-                <Image
+                {/* <Image
+                  src={`/images/avatars/${o.avatar}.png`}
+                  width={50}
+                  height={50}
+                  alt={o.avatar}
+                  className="h-auto w-auto"
+                /> */}
+                <img
                   src={`/images/avatars/${o.avatar}.png`}
                   width={50}
                   height={50}
