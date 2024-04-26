@@ -5,12 +5,13 @@ import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 import { IqDataTable } from './IqDataTable';
 
 const AdminTab = () => {
-  const { docs: users, loading } = useFirestore<DocumentUser>(
-    'users',
-    'name',
-    'asc',
-    26
-  );
+  const {
+    docs: users,
+    loading,
+    addingDoc,
+    deletingDoc,
+    updatingDoc,
+  } = useFirestore<DocumentUser>('users', 'name', 'asc', 26);
 
   if (loading) {
     return <LoadingSpinner text={'Henter med-lemmer...'} />;
@@ -18,6 +19,21 @@ const AdminTab = () => {
   if (!users) {
     return null;
   }
+
+  const handleCreateUser = async (user: DocumentUser) => {
+    console.log('handleCreateUser');
+    await addingDoc(user);
+  };
+
+  const handleUpdateUser = async (user: DocumentUser) => {
+    console.log('handleUpdateUser');
+    await updatingDoc(user.id, user);
+  };
+
+  const handleDeleteUser = async (id: string) => {
+    console.log('handleDeleteUser');
+    await deletingDoc(id);
+  };
 
   const sortedIqUsers = users
     .filter(
@@ -37,7 +53,12 @@ const AdminTab = () => {
           Med-lemmer
         </p>
         <div className="items-start">
-          <IqDataTable data={sortedIqUsers} />
+          <IqDataTable
+            data={sortedIqUsers}
+            onCreate={handleCreateUser}
+            onUpdate={handleUpdateUser}
+            onDelete={handleDeleteUser}
+          />
           {/* <IqMemberTable iqUsers={sortedIqUsers} isEditable={false} showAll /> */}
         </div>
       </div>

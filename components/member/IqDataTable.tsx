@@ -5,6 +5,7 @@ import { CaretSortIcon, ChevronDownIcon } from '@radix-ui/react-icons';
 import {
   ColumnDef,
   ColumnFiltersState,
+  Row,
   SortingState,
   VisibilityState,
   flexRender,
@@ -32,6 +33,8 @@ import {
 import { DocumentUser } from '@lib/hooks/useFirestore';
 import { Checkbox } from '@components/ui/checkbox';
 import CsvDownloader from 'react-csv-downloader';
+import { MdOutlineAdd } from 'react-icons/md';
+import UserForm from './UserForm';
 
 export const columns: ColumnDef<DocumentUser>[] = [
   {
@@ -189,12 +192,37 @@ export const columns: ColumnDef<DocumentUser>[] = [
   // },
 ];
 
-type Props = {
-  data: DocumentUser[];
+const defaultUser: DocumentUser = {
+  id: '',
+  uid: '',
+  email: '',
+  avatar: '',
+  isAdmin: false,
+  isBoard: false,
+  isSuperAdmin: false,
+  name: '',
+  nick: '',
+  title: '',
+  tshirt: undefined,
+  address: undefined,
+  phones: [],
+  iqEmail: undefined,
+  birthday: undefined,
 };
 
-export function IqDataTable({ data }: Props) {
+type Props = {
+  data: DocumentUser[];
+  onCreate: (arg1: DocumentUser) => void;
+  onUpdate: (arg1: DocumentUser) => void;
+  onDelete: (id: string) => void;
+};
+
+export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [formOverlay, setFormOverlay] = React.useState(false);
+  const [activeUser, setActiveUser] = React.useState<DocumentUser>({
+    ...defaultUser,
+  });
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
@@ -220,49 +248,77 @@ export function IqDataTable({ data }: Props) {
     },
   });
 
-  // TODO optimize this
+  const handleSubmit = (userData: DocumentUser) => {
+    console.log('userData', userData);
+    if (!userData) {
+      return;
+    }
+    if (userData?.id) {
+      onUpdate({ ...userData });
+    } else {
+      onCreate({ ...userData });
+    }
+    setFormOverlay(false);
+    setActiveUser({ ...defaultUser });
+  };
 
+  const handleClickRow = (row: Row<DocumentUser>) => {
+    const user = data.filter((usr) => usr.name === row.getValue('name'))[0];
+    setActiveUser(() => user);
+    setFormOverlay(true);
+  };
+
+  // TODO optimize this
+  console.log('activeUser', activeUser);
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
-        <CsvDownloader
-          filename="dev"
-          extension=".csv"
-          separator=";"
-          columns={table
-            .getAllColumns()
-            .filter((column) => column.getCanHide() && column.getIsVisible())}
-          datas={
-            table.getFilteredSelectedRowModel().rows.length > 0
-              ? table.getFilteredSelectedRowModel().rows.map((row) =>
-                  row
-                    .getVisibleCells()
-                    .filter((cell) => cell.getValue())
-                    .map((cell) =>
-                      Array.isArray(cell.getValue())
-                        ? (cell.getValue() as string[]).join(' ')
-                        : (cell.getValue() as string)
-                            .replace('\n', ' ')
-                            .replace(',', '')
-                    )
-                )
-              : table.getFilteredRowModel().rows.map((row) =>
-                  row
-                    .getVisibleCells()
-                    .filter((cell) => cell.getValue())
-                    .map((cell) =>
-                      Array.isArray(cell.getValue())
-                        ? (cell.getValue() as string[]).join(' ')
-                        : (cell.getValue() as string)
-                            .replace('\n', ' ')
-                            .replace(',', '')
-                    )
-                )
-          }
-          text="DOWNLOAD"
-        >
-          <Button>CSV</Button>
-        </CsvDownloader>
+        <div className="flex gap-4">
+          <CsvDownloader
+            filename="dev"
+            extension=".csv"
+            separator=";"
+            columns={table
+              .getAllColumns()
+              .filter((column) => column.getCanHide() && column.getIsVisible())}
+            datas={
+              table.getFilteredSelectedRowModel().rows.length > 0
+                ? table.getFilteredSelectedRowModel().rows.map((row) =>
+                    row
+                      .getVisibleCells()
+                      .filter((cell) => cell.getValue())
+                      .map((cell) =>
+                        Array.isArray(cell.getValue())
+                          ? (cell.getValue() as string[]).join(' ')
+                          : (cell.getValue() as string)
+                              .replace('\n', ' ')
+                              .replace(',', '')
+                      )
+                  )
+                : table.getFilteredRowModel().rows.map((row) =>
+                    row
+                      .getVisibleCells()
+                      .filter((cell) => cell.getValue())
+                      .map((cell) =>
+                        Array.isArray(cell.getValue())
+                          ? (cell.getValue() as string[]).join(' ')
+                          : (cell.getValue() as string)
+                              .replace('\n', ' ')
+                              .replace(',', '')
+                      )
+                  )
+            }
+            text="DOWNLOAD"
+          >
+            <Button>CSV</Button>
+          </CsvDownloader>
+          <Button>
+            <MdOutlineAdd size={32} onClick={() => setFormOverlay(true)} />
+          </Button>
+          {/* <Button>
+            <MdOutlineDelete size={32} onClick={onDelete} />
+          </Button> */}
+        </div>
         {/* <Input
           placeholder="Filter emails..."
           value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
@@ -298,7 +354,7 @@ export function IqDataTable({ data }: Props) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border hover:cursor-pointer">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -324,6 +380,7 @@ export function IqDataTable({ data }: Props) {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
+                  onClick={() => handleClickRow(row)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -347,6 +404,18 @@ export function IqDataTable({ data }: Props) {
             )}
           </TableBody>
         </Table>
+        {formOverlay && activeUser && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white p-4 rounded-lg">
+              <UserForm
+                user={activeUser}
+                onSubmit={handleSubmit}
+                onDelete={onDelete}
+                onCancel={() => setFormOverlay(false)}
+              />
+            </div>
+          </div>
+        )}
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
