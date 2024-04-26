@@ -1,5 +1,6 @@
 /* eslint-disable quotes */
 export const aboutList = [
+  ['0.9.0', 'Det er blevet lettere at tilføje, ændre og slette med-lemmer'],
   [
     '0.8.9',
     'Bug fix: Nyt-skiltet skulle nu forhåbentlig virke efter hensigten. Navigeringsbar viser nu aktive side også for Bibliotheket.',
