@@ -249,7 +249,6 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
   });
 
   const handleSubmit = (userData: DocumentUser) => {
-    console.log('userData', userData);
     if (!userData) {
       return;
     }
@@ -269,7 +268,6 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
   };
 
   // TODO optimize this
-  console.log('activeUser', activeUser);
   return (
     <div className="w-full">
       <div className="flex items-center py-4">

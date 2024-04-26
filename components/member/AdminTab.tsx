@@ -21,17 +21,14 @@ const AdminTab = () => {
   }
 
   const handleCreateUser = async (user: DocumentUser) => {
-    console.log('handleCreateUser');
     await addingDoc(user);
   };
 
   const handleUpdateUser = async (user: DocumentUser) => {
-    console.log('handleUpdateUser');
     await updatingDoc(user.id, user);
   };
 
   const handleDeleteUser = async (id: string) => {
-    console.log('handleDeleteUser');
     await deletingDoc(id);
   };
 
