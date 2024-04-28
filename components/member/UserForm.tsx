@@ -1,4 +1,5 @@
 import { DocumentUser } from '@lib/hooks/useFirestore';
+
 import { useState } from 'react';
 
 type Props = {
@@ -46,7 +47,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
       >
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Name:
+            Navn:
             <input
               type="text"
               name="name"
@@ -60,7 +61,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Email:
+            Login Email:
             <input
               type="email"
               name="email"
@@ -86,7 +87,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Nick:
+            Øgenavn:
             <input
               type="text"
               name="nick"
@@ -99,7 +100,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Avatar:
+            Billednavn:
             <input
               type="text"
               name="avatar"
@@ -112,7 +113,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Title:
+            Titel:
             <input
               type="text"
               name="title"
@@ -125,7 +126,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            T-Shirt:
+            T-Shirt størrelse:
             <input
               type="text"
               name="tshirt"
@@ -138,12 +139,11 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Address:
+            Adresse:
             <input
               type="text"
               name="address"
               value={formData.address || ''}
-              disabled={!!user.id}
               onChange={handleChange}
               required
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -152,12 +152,11 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Phones:
+            Telefon:
             <input
               type="text"
               name="phones"
-              value={formData.phones?.join(', ') || ''}
-              disabled={!!user.id}
+              value={formData.phones}
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
@@ -165,12 +164,11 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Birthday:
+            Fødseldag:
             <input
               type="text"
               name="birthday"
               value={formData.birthday || ''}
-              disabled={!!user.id}
               onChange={handleChange}
               required
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -209,31 +207,19 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               name="isAdmin"
               checked={formData.isAdmin}
               onChange={handleChange}
-              className="mr-2 leading-tight"
+              className="ml-2 leading-tight"
             />
           </label>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block text-gray-700 text-sm font-bold mb-2 gap-2">
             isBoard:
             <input
               type="checkbox"
               name="isBoard"
               checked={formData.isBoard}
               onChange={handleChange}
-              className="mr-2 leading-tight"
-            />
-          </label>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            isSuperAdmin:
-            <input
-              type="checkbox"
-              name="isSuperAdmin"
-              checked={formData.isSuperAdmin}
-              onChange={handleChange}
-              className="mr-2 leading-tight"
+              className="ml-2 leading-tight"
             />
           </label>
         </div>
@@ -243,6 +229,13 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
             Gem
+          </button>
+          <button
+            type="button"
+            onClick={onCancel}
+            className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Fortryd
           </button>
           {formData.id && (
             <button
@@ -272,13 +265,6 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               </button>
             </>
           )}
-          <button
-            type="button"
-            onClick={onCancel}
-            className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Fortryd
-          </button>
         </div>
       </form>
     </>

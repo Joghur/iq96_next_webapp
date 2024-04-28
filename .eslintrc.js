@@ -26,6 +26,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint'],
   rules: {
     quotes: ['error', 'single'],
+    '@next/next/no-img-element': 'off',
     // 'import/order': [
     //   'error',
     //   {

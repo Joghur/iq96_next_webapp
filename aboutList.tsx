@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 export const aboutList = [
-  ['0.9.0', 'Det er blevet lettere at tilføje, ændre og slette med-lemmer'],
+  ['0.9.0', 'Admin: Det er blevet lettere at tilføje, ændre og slette med-lemmer'],
   [
     '0.8.9',
     'Bug fix: Nyt-skiltet skulle nu forhåbentlig virke efter hensigten. Navigeringsbar viser nu aktive side også for Bibliotheket.',
@@ -11,7 +11,7 @@ export const aboutList = [
   ],
   [
     '0.8.7',
-    'Forbedret reset kodeord flow. Forbedret Admin med-lemsliste. Forsøg på at få info hover til at virke på telefoner (det lille grønne I).',
+    'Forbedret reset kodeord flow. Admin: Forbedret med-lemsliste. Forsøg på at få info hover til at virke på telefoner (det lille grønne I).',
   ],
   [
     '0.8.6',
