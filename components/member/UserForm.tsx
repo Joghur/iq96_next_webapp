@@ -1,7 +1,6 @@
-import Select from '@components/ui/Select';
 import { DocumentUser } from '@lib/hooks/useFirestore';
+
 import { useState } from 'react';
-import { TshirtSizes } from './TshirtSelect';
 
 type Props = {
   user: DocumentUser;
