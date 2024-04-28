@@ -403,7 +403,7 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
           </TableBody>
         </Table>
         {formOverlay && activeUser && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center overflow-y-auto">
             <div className="bg-white p-4 rounded-lg">
               <UserForm
                 user={activeUser}
