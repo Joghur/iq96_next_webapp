@@ -42,13 +42,14 @@ export const IqMemberTable = ({
     if (!contact || !updatingDoc) {
       return null;
     }
+
     await updatingDoc(person.id, {
       id: person?.id || '',
       isAdmin: person?.isAdmin || false,
       isBoard: person?.isBoard || false,
       isSuperAdmin: person?.isSuperAdmin || false,
-      nick: person?.nick || '',
-      title: person?.title || '',
+      nick: contact.nicknames?.[0].value || '',
+      title: contact?.organizations?.[0].title || '',
       uid: person?.uid || '',
       avatar: person.avatar || '',
       tshirt: person.tshirt || '',
@@ -75,6 +76,7 @@ export const IqMemberTable = ({
           <TableHead className="p-1">Telefon</TableHead>
           {showAll && <TableHead className="p-1">Adresse</TableHead>}
           {showAll && <TableHead className="p-1">T-Shirt</TableHead>}
+          {showAll && <TableHead className="p-1">Fødselsdag</TableHead>}
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -88,6 +90,10 @@ export const IqMemberTable = ({
             const isNameDiff = Boolean(
               connections && diffArray?.includes('name')
             );
+            const nick = person?.nick?.trim();
+            const isNickDiff = Boolean(
+              connections && diffArray?.includes('nick')
+            );
             const email = person?.email || '';
             const isEmailDiff = Boolean(
               connections && diffArray?.includes('email')
@@ -99,6 +105,14 @@ export const IqMemberTable = ({
             const address = person?.address?.replace('DK', '').trim();
             const isAddressDiff = Boolean(
               connections && diffArray?.includes('address')
+            );
+            const birthday = person?.birthday?.trim();
+            const isBirthdayDiff = Boolean(
+              connections && diffArray?.includes('birthday')
+            );
+            const title = person?.title?.trim();
+            const isTitleDiff = Boolean(
+              connections && diffArray?.includes('title')
             );
 
             return (
@@ -123,8 +137,18 @@ export const IqMemberTable = ({
                 >
                   {name}
                 </TableCell>
-                <TableCell className="p-1">{person.nick}</TableCell>
-                <TableCell className="p-1">{person.title}</TableCell>
+                <TableCell
+                  className={`${isNickDiff ? 'bg-red-500 text-white' : ''} p-1`}
+                >
+                  {nick}
+                </TableCell>
+                <TableCell
+                  className={`${
+                    isTitleDiff ? 'bg-red-500 text-white' : ''
+                  } p-1`}
+                >
+                  {title}
+                </TableCell>
                 <TableCell
                   className={`${
                     isEmailDiff ? 'bg-red-500 text-white' : ''
@@ -151,6 +175,15 @@ export const IqMemberTable = ({
                 {showAll && (
                   <TableCell className="p-1 text-center">
                     {person.tshirt}
+                  </TableCell>
+                )}
+                {showAll && (
+                  <TableCell
+                    className={`${
+                      isBirthdayDiff ? 'bg-red-500 text-white' : ''
+                    } p-1`}
+                  >
+                    {birthday}
                   </TableCell>
                 )}
               </TableRow>

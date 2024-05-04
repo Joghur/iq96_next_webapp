@@ -206,7 +206,6 @@ const defaultUser: DocumentUser = {
   tshirt: undefined,
   address: undefined,
   phones: [],
-  iqEmail: undefined,
   birthday: undefined,
 };
 

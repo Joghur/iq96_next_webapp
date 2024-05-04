@@ -27,6 +27,7 @@ module.exports = {
   rules: {
     quotes: ['error', 'single'],
     '@next/next/no-img-element': 'off',
+    '@typescript-eslint/no-explicit-any': 'warn',
     // 'import/order': [
     //   'error',
     //   {

@@ -74,19 +74,6 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            IQ Email:
-            <input
-              type="text"
-              name="iqEmail"
-              value={formData.iqEmail || ''}
-              onChange={handleChange}
-              required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-          </label>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
             Øgenavn:
             <input
               type="text"
