@@ -13,7 +13,11 @@ import { handleStartTheme } from '@components/member/ThemeToggle';
 import PageLayout from '@components/ui/PageLayout';
 import { authContext } from '@lib/store/auth-context';
 
-const MemberPage = ({ session }: { session: any }) => {
+type Props = {
+  session: any;
+};
+
+const MemberPage = ({ session }: { session: Props }) => {
   const { authUser, documentUser } = useContext(authContext);
   const [value, setValue] = useState<MemberTabs>('member');
   // const [value, setValue] = useState<MemberTabs>('admin');
