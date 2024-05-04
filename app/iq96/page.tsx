@@ -1,7 +1,7 @@
 'use client';
 
 import { MouseEvent, useContext, useEffect, useState } from 'react';
-import { SessionProvider, useSession } from 'next-auth/react';
+import { SessionProvider } from 'next-auth/react';
 
 import AboutTab from '@components/member/AboutTab';
 import AdminTab from '@components/member/AdminTab';
