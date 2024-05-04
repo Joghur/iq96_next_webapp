@@ -1,7 +1,7 @@
 'use client';
 
 import { MouseEvent, useContext, useEffect, useState } from 'react';
-import { SessionProvider } from 'next-auth/react';
+import { SessionProvider, useSession } from 'next-auth/react';
 
 import AboutTab from '@components/member/AboutTab';
 import AdminTab from '@components/member/AdminTab';
@@ -13,11 +13,7 @@ import { handleStartTheme } from '@components/member/ThemeToggle';
 import PageLayout from '@components/ui/PageLayout';
 import { authContext } from '@lib/store/auth-context';
 
-type Props = {
-  session: any;
-};
-
-const MemberPage = ({ session }: { session: Props }) => {
+const MemberPage = () => {
   const { authUser, documentUser } = useContext(authContext);
   const [value, setValue] = useState<MemberTabs>('member');
   // const [value, setValue] = useState<MemberTabs>('admin');
@@ -39,7 +35,7 @@ const MemberPage = ({ session }: { session: Props }) => {
   const isBoard = documentUser?.isBoard;
   return (
     <PageLayout>
-      <SessionProvider session={session}>
+      <SessionProvider>
         <MemberTabsPage value={value} onChange={handleChange} />
         <div className="flex items-center justify-center pt-6">
           {value === 'member' && <MemberTab />}
