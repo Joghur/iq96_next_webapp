@@ -21,7 +21,10 @@ import {
 } from '@lib/hooks/useFirestore';
 
 import { IqMemberTable } from './IqMemberTable';
-import { getGmailContacts } from './MemberTable';
+import { fetchContacts } from './MemberTable';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { Button } from '@components/ui/button';
+import { convertMonthNumberToName } from '@lib/dates';
 
 export interface ContactName {
   displayName?: string;
@@ -31,13 +34,16 @@ export interface ContactName {
   unstructuredName?: string;
 }
 
+export interface ContactNickname {
+  value?: string;
+}
+
 export interface ContactBirthday {
   date?: {
     year?: number;
     month?: number;
     day?: number;
   };
-  text?: string;
 }
 
 export interface ContactEmail {
@@ -56,15 +62,22 @@ export interface ContactAddress {
   city?: string;
 }
 
+export interface ContactTitel {
+  title?: string;
+}
+
 export interface Connection {
   names?: ContactName[];
   birthdays?: ContactBirthday[];
   emailAddresses?: ContactEmail[];
   addresses?: ContactAddress[];
   phoneNumbers?: ContactPhone[];
+  nicknames?: ContactNickname[];
+  organizations?: ContactTitel[];
 }
 
 const DeveloperTab = () => {
+  const { data: session } = useSession();
   const [connections, setCon] = useState<Connection[] | undefined>(undefined);
 
   const {
@@ -73,17 +86,30 @@ const DeveloperTab = () => {
     loading,
   } = useFirestore<DocumentUser>('users', 'name', 'asc', 26);
 
-  const handleGmailContacts = useCallback(async () => {
-    if (process.env.NEXT_PUBLIC_ENV !== 'production') {
-      const res = await getGmailContacts();
+  const handleGmailContacts = useCallback(
+    async (session: any) => {
+      const res = await fetchContacts(session);
       setCon(() => res);
-    }
-  }, []);
+    },
+    [session]
+  );
 
   useEffect(() => {
-    handleGmailContacts();
+    handleGmailContacts(session);
   }, [handleGmailContacts]);
 
+  if (!session) {
+    return (
+      <div className="flex flex-row justify-center items-center gap-7">
+        <div>
+          Ikke logget ind <br />
+        </div>
+        <div>
+          <Button onClick={() => signIn()}>Log ind med foreningskonto</Button>
+        </div>
+      </div>
+    );
+  }
   if (loading) {
     return <LoadingSpinner text={'Henter med-lemmer...'} />;
   }
@@ -116,6 +142,15 @@ const DeveloperTab = () => {
   return (
     <div className="table-container touch-action-pan-y overflow-y-scroll transition-transform duration-300">
       <div className="scale-120 px-1 sm:py-4 lg:px-10">
+        <div className="flex flex-row justify-between">
+          <div>
+            Logged ind som <b>{session.user?.email}</b>
+          </div>
+          <div>
+            <Button onClick={() => signOut()}>Log ud af foreningskonto</Button>
+          </div>
+        </div>{' '}
+        <br />
         <p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
           Med-lemmer
         </p>
@@ -126,17 +161,13 @@ const DeveloperTab = () => {
           isEditable
           showAll
         />
-        {process.env.NEXT_PUBLIC_ENV !== 'production' && (
-          <>
-            <div>
-              <Separator className="my-5 bg-gray-500" />
-            </div>
-            <p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
-              Gmail kontakter
-            </p>
-            <GmailContacts connections={sortedGmailContacts} />
-          </>
-        )}
+        <div>
+          <Separator className="my-5 bg-gray-500" />
+        </div>
+        <p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
+          Gmail kontakter
+        </p>
+        <GmailContacts connections={sortedGmailContacts} />
         <div>
           <Separator className="my-5 bg-gray-500" />
         </div>
@@ -175,6 +206,8 @@ const GmailContacts = ({ connections }: GmailProps) => {
         <TableRow className="text-xs">
           <TableHead className="p-1">#</TableHead>
           <TableHead className="p-1">Med-lem</TableHead>
+          <TableHead className="p-1">IQ-navn</TableHead>
+          <TableHead className="p-1">Titel</TableHead>
           <TableHead className="p-1">Email</TableHead>
           <TableHead className="p-1">Telefon</TableHead>
           <TableHead className="p-1">Adresse</TableHead>
@@ -185,6 +218,8 @@ const GmailContacts = ({ connections }: GmailProps) => {
         {connections.map((person: Connection, index: number) => {
           const memberIndex = index + 1;
           const name = person?.names?.[0]?.displayName?.trim();
+          const nickname = person?.nicknames?.[0]?.value?.trim();
+          const title = person?.organizations?.[0]?.title?.trim();
           const email = person?.emailAddresses?.[0]?.value?.trim() || '';
           const phones = person?.phoneNumbers?.map(
             (o: ContactPhone) => `${o.canonicalForm?.trim()}\n`
@@ -192,12 +227,18 @@ const GmailContacts = ({ connections }: GmailProps) => {
           const address = person?.addresses?.[0]?.formattedValue
             ?.replace('DK', '')
             .trim();
-          const birthday = person?.birthdays?.[0].text?.trim() || '';
+
+          const birthdate = person?.birthdays?.[0].date;
+          const birthday =
+            `${birthdate?.day}. ${convertMonthNumberToName(birthdate?.month)} ${birthdate?.year}` ||
+            '';
 
           return (
             <TableRow key={name} className="text-xs">
               <TableCell className="p-1">{memberIndex}</TableCell>
               <TableCell className="p-1">{name}</TableCell>
+              <TableCell className="p-1">{nickname}</TableCell>
+              <TableCell className="p-1">{title}</TableCell>
               <TableCell className="p-1">{email}</TableCell>
               <TableCell className="p-1">{phones}</TableCell>
               <TableCell className="flex flex-col p-1">{address}</TableCell>

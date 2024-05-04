@@ -39,7 +39,6 @@ export interface DocumentUser {
   tshirt?: string;
   address?: string;
   phones?: string[];
-  iqEmail?: string;
   birthday?: string;
 }
 

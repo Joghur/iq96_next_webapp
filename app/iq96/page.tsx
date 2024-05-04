@@ -1,6 +1,7 @@
 'use client';
 
 import { MouseEvent, useContext, useEffect, useState } from 'react';
+import { SessionProvider } from 'next-auth/react';
 
 import AboutTab from '@components/member/AboutTab';
 import AdminTab from '@components/member/AdminTab';
@@ -32,18 +33,18 @@ const MemberPage = () => {
 
   const isSuperAdmin = documentUser?.isSuperAdmin;
   const isBoard = documentUser?.isBoard;
-  const isLocalhost = process.env.NEXT_PUBLIC_ENV !== 'production';
-  const isDev = documentUser?.nick === 'Redacteur' && isLocalhost;
   return (
     <PageLayout>
-      <MemberTabsPage value={value} onChange={handleChange} />
-      <div className="flex items-center justify-center pt-6">
-        {value === 'member' && <MemberTab />}
-        {value === 'iq96' && <Iq96Tab />}
-        {value === 'about' && <AboutTab />}
-        {value === 'admin' && (isSuperAdmin || isBoard) && <AdminTab />}
-        {value === 'developer' && isDev && <DeveloperTab />}
-      </div>
+      <SessionProvider>
+        <MemberTabsPage value={value} onChange={handleChange} />
+        <div className="flex items-center justify-center pt-6">
+          {value === 'member' && <MemberTab />}
+          {value === 'iq96' && <Iq96Tab />}
+          {value === 'about' && <AboutTab />}
+          {value === 'admin' && (isSuperAdmin || isBoard) && <AdminTab />}
+          {value === 'developer' && isSuperAdmin && <DeveloperTab />}
+        </div>
+      </SessionProvider>
     </PageLayout>
   );
 };

@@ -18,3 +18,26 @@ export const dayDiff = (epochSeconds: number) => {
   const epoch = epochSeconds * 1000;
   return moment(epoch).diff(moment(new Date()), 'days');
 };
+
+export const convertMonthNumberToName = (monthNumber?: number) => {
+  if (!monthNumber || monthNumber < 1 || monthNumber > 12) {
+    return undefined;
+  }
+
+  const months = [
+    'januar',
+    'februar',
+    'marts',
+    'april',
+    'maj',
+    'juni',
+    'juli',
+    'august',
+    'september',
+    'oktober',
+    'november',
+    'december',
+  ];
+
+  return months[monthNumber - 1];
+};

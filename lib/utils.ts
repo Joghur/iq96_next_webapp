@@ -1,7 +1,9 @@
 import { ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-import { ContactPhone } from '@components/member/DeveloperTab';
+import { Connection, ContactPhone } from '@components/member/DeveloperTab';
+import { DocumentUser } from './hooks/useFirestore';
+import { convertMonthNumberToName } from './dates';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -10,7 +12,6 @@ export function cn(...inputs: ClassValue[]) {
 export interface EvaluatePerson {
   name: string;
   email?: string;
-  iqEmail?: string;
   phones: string[];
   address: string;
   birthday: string;
@@ -23,51 +24,68 @@ const addNameToArray = (textValue: string, list: string[]): string[] => {
   return list;
 };
 
-// TODO fix any
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function compareObjects(obj1: any, obj2: any): string[] {
-  if (obj1?.length === 0 || obj2?.length === 0) {
+export function compareObjects(
+  contact: Connection | undefined,
+  docUser: DocumentUser
+): string[] {
+  if (!contact || !docUser) {
     return [];
   }
 
   const mismatchedProperties: string[] = [];
 
-  if (obj1?.names?.[0]?.displayName?.trim() !== obj2.name) {
+  if (contact?.names?.[0]?.displayName?.trim() !== docUser.name) {
     mismatchedProperties.push('name');
   }
 
-  if (obj1?.emailAddresses?.[0]?.value?.trim() !== obj2.email) {
+  if (contact?.nicknames?.[0]?.value?.trim() !== docUser.nick) {
+    mismatchedProperties.push('nick');
+  }
+
+  if (contact?.emailAddresses?.[0]?.value?.trim() !== docUser.email) {
     mismatchedProperties.push('email');
   }
 
   if (
     !arraysAreEqual(
-      obj1?.phoneNumbers?.map(
+      contact?.phoneNumbers?.map(
         (o: ContactPhone) => `${o.canonicalForm?.trim()}`
       ),
-      obj2.phones
+      docUser.phones
     )
   ) {
     mismatchedProperties.push('phones');
   }
 
   if (
-    obj1?.addresses?.[0]?.formattedValue?.replace('DK', '').trim() !==
-    obj2.address
+    contact?.addresses?.[0]?.formattedValue?.replace('DK', '').trim() !==
+    docUser.address
   ) {
     mismatchedProperties.push('address');
   }
 
-  if (obj1?.birthdays?.[0].text?.trim() !== obj2.birthday) {
+  const birthdate = contact?.birthdays?.[0].date;
+  const birthday =
+    `${birthdate?.day}. ${convertMonthNumberToName(birthdate?.month)} ${birthdate?.year}` ||
+    '';
+
+  if (birthday.trim() !== docUser.birthday) {
     mismatchedProperties.push('birthday');
   }
 
-  return addNameToArray(obj2.name, mismatchedProperties);
+  if (contact?.organizations?.[0].title?.trim() !== docUser.title) {
+    mismatchedProperties.push('title');
+  }
+
+  return addNameToArray(docUser.name, mismatchedProperties);
 }
 
 // TODO better way to compare phone number arrays
-function arraysAreEqual(arr1: string[], arr2: string[]): boolean {
-  if (arr1?.length !== arr2?.length) {
+function arraysAreEqual(
+  arr1: string[] | undefined,
+  arr2: string[] | undefined
+): boolean {
+  if (!arr1 || !arr2 || arr1?.length !== arr2?.length) {
     return false;
   }
 
