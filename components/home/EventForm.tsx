@@ -42,7 +42,9 @@ const EventForm = ({
     event || initialEvent
   );
 
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (
+    event: ChangeEvent<HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     if (event) {
       const { id, value } = event.target;
 
@@ -51,6 +53,15 @@ const EventForm = ({
         [id]: value,
       }));
     }
+  };
+
+  const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { id } = event.target;
+    
+    setChangingEvent((prevData) => ({
+      ...prevData,
+      [id]: !prevData[id as keyof EventType],
+    }));
   };
 
   const handleSubmit = () => {
@@ -66,6 +77,62 @@ const EventForm = ({
     <Modal open={open}>
       <h3 className="text-lg font-bold">Opdatér begivenhed</h3>
       <div>
+        <div className="pt-5">
+          <label
+            htmlFor="role"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            Status:
+          </label>
+          <select
+            id="status"
+            value={changedEvent.status}
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full border-gray-300 dark:border-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+          >
+            <option value="done">Færdig</option>
+            <option value="next">Næste</option>
+            <option value="pending">Senere</option>
+          </select>
+        </div>
+        <div className="flex flex-row justify-between">
+          <div className="flex items-center mt-4">
+            <input
+              type="checkbox"
+              id="showInfoLink"
+              className="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500"
+              checked={changedEvent.showInfoLink}
+              onChange={handleToggle}
+            />
+            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+              Vis Infolink
+            </label>
+          </div>{' '}
+          <div className="flex items-center mt-4">
+            <input
+              type="checkbox"
+              id="showMapLink"
+              className="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500"
+              checked={changedEvent.showMapLink}
+              onChange={handleToggle}
+            />
+            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+              Vis MapLink
+            </label>
+          </div>{' '}
+          <div className="flex items-center mt-4">
+            <input
+              type="checkbox"
+              id="showUploadButton"
+              className="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500"
+              checked={changedEvent.showUploadButton}
+              onChange={handleToggle}
+            />
+            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+              Vis Upload Button
+            </label>
+          </div>
+        </div>
         <div className="pt-5">
           <label
             htmlFor="start"

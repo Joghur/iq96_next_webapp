@@ -1,6 +1,13 @@
 /* eslint-disable quotes */
 export const aboutList = [
-  ['0.8.10', 'Admin: Det er blevet lettere at tilføje, ændre og slette med-lemmer'],
+  [
+    '0.8.11',
+    'Bedre styr på dark mode. Tidligere event får sin egen box, så man lettere kan finde stedet et uploade billeder. Dette kan altid gøres fra Bibliotheket, men nu er det lettere at finde',
+  ],
+  [
+    '0.8.10',
+    'Admin: Det er blevet lettere at tilføje, ændre og slette med-lemmer',
+  ],
   [
     '0.8.9',
     'Bug fix: Nyt-skiltet skulle nu forhåbentlig virke efter hensigten. Navigeringsbar viser nu aktive side også for Bibliotheket.',
