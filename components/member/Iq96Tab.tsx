@@ -49,19 +49,10 @@ const Iq96Tab = () => {
               onClick={() => setShowProfile(o.name)}
             >
               <div className="justify-left flex flex-col items-center gap-3 overflow-hidden">
-                {/* <Image
-                  src={`/images/avatars/${o.avatar}.png`}
-                  width={50}
-                  height={50}
-                  alt={o.avatar}
-                  className="h-auto w-auto"
-                /> */}
                 <img
                   src={`/images/avatars/${o.avatar}.png`}
-                  width={50}
-                  height={50}
                   alt={o.avatar}
-                  className="h-auto w-auto"
+                  className="w-20 lg:w-36 rounded-full bg-slate-300 ring-1 ring-gray-900 shadow-gray-200"
                 />
                 <span className="font-semibold">{o.name}</span>
               </div>
