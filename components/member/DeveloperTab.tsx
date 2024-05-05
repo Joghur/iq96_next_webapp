@@ -1,7 +1,6 @@
-/* eslint-disable prettier/prettier */
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { Separator } from '@components/ui/separator';
@@ -86,13 +85,13 @@ const DeveloperTab = () => {
     loading,
   } = useFirestore<DocumentUser>('users', 'name', 'asc', 26);
 
-  const handleContacts = async (session:any) => {
+  const handleContacts = async (session: any) => {
     const res = await fetchContacts(session);
     setCon(() => res);
   };
 
   useEffect(() => {
-    handleContacts(session)
+    handleContacts(session);
   }, [session?.user]);
 
   if (!session) {

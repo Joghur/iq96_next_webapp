@@ -15,6 +15,6 @@ export async function fetchContacts(session: any) {
     }
   );
   const data = await response.json();
-  
+
   return data.connections || [];
 }
