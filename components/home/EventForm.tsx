@@ -57,7 +57,7 @@ const EventForm = ({
 
   const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id } = event.target;
-    
+
     setChangingEvent((prevData) => ({
       ...prevData,
       [id]: !prevData[id as keyof EventType],

@@ -14,7 +14,6 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
   const [formData, setFormData] = useState<DocumentUser>(user);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const { theme } = useTheme();
-console.log('formData', formData)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -25,7 +24,7 @@ console.log('formData', formData)
   };
 
   const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: prevData[name as keyof DocumentUser] === false ? true : false,
