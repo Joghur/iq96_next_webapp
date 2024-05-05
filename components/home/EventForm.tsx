@@ -104,7 +104,10 @@ const EventForm = ({
               checked={changedEvent.showInfoLink}
               onChange={handleToggle}
             />
-            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+            <label
+              htmlFor="infolink"
+              className="dynamic_text ml-2 block text-sm"
+            >
               Vis Infolink
             </label>
           </div>{' '}
@@ -116,7 +119,10 @@ const EventForm = ({
               checked={changedEvent.showMapLink}
               onChange={handleToggle}
             />
-            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+            <label
+              htmlFor="maplink"
+              className="dynamic_text ml-2 block text-sm"
+            >
               Vis MapLink
             </label>
           </div>{' '}
@@ -128,7 +134,10 @@ const EventForm = ({
               checked={changedEvent.showUploadButton}
               onChange={handleToggle}
             />
-            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+            <label
+              htmlFor="uploadButton"
+              className="dynamic_text ml-2 block text-sm"
+            >
               Vis Upload Button
             </label>
           </div>
