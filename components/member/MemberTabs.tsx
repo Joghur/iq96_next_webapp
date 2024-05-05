@@ -68,7 +68,7 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
             Admin
           </button>
         )}
-        {documentUser?.nick === 'Redacteur' && (
+        {documentUser.isSuperAdmin && (
           <button
             id="developer"
             onClick={onChange}
