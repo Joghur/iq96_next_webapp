@@ -5,6 +5,7 @@ export async function fetchContacts(session: any) {
   if (!session) {
     return [];
   }
+
   const response = await fetch(
     'https://people.googleapis.com/v1/people/me/connections?personFields=names,emailAddresses,addresses,birthdays,phoneNumbers,nicknames,organizations',
     {
@@ -14,5 +15,6 @@ export async function fetchContacts(session: any) {
     }
   );
   const data = await response.json();
+  
   return data.connections || [];
 }
