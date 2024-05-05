@@ -197,20 +197,11 @@ const ChatPage = () => {
                       >
                         <li key={index}>
                           <div className="flex">
-                            <div className="mr-1 flex flex-none flex-col items-center justify-center">
-                              {/* <Image
-                                width={27}
-                                height={27}
-                                alt={chat.user.name}
-                                src={`/images/avatars/${chat.user?.avatar}.png`}
-                                className="h-auto w-full rounded-full bg-white ring-1 ring-gray-500"
-                              /> */}
+                            <div className="mr-2 flex flex-col items-center justify-center">
                               <img
                                 src={`/images/avatars/${chat.user?.avatar}.png`}
-                                width="27"
-                                height="27"
                                 alt={chat.user.name}
-                                className="h-auto w-full rounded-full bg-white ring-1 ring-gray-500"
+                                className="w-20 lg:w-36 rounded-full bg-slate-300 ring-1 ring-gray-900 shadow-gray-200"
                               />
                               <p className="dynamic_text mt-1 text-gray-500">
                                 {convertEpochSecondsToDateString(
