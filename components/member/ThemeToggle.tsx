@@ -25,6 +25,13 @@ interface Props {
   showLabel?: boolean;
 }
 
+export const useTheme = () => {
+  const initialTheme = document.documentElement.getAttribute('data-theme');
+  const [theme] = useState(initialTheme || 'light');
+
+  return { theme };
+};
+
 const ThemeToggle = ({ showLabel }: Props) => {
   const [isChecked, setIsChecked] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<Themes>('light');
@@ -33,6 +40,7 @@ const ThemeToggle = ({ showLabel }: Props) => {
     const savedTheme: Themes | null = await getLocalStorage(LOCALSTORAGE_THEME);
     if (savedTheme) {
       setCurrentTheme(savedTheme);
+      setIsChecked(savedTheme === 'dark');
       document.querySelector('html')?.setAttribute('data-theme', savedTheme);
     }
   };

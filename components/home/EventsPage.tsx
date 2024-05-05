@@ -12,12 +12,14 @@ import EventForm from './EventForm';
 import Link from 'next/link';
 import EventInfoBadge from '@components/ui/EventInfoBadge';
 import EventBulletPoints from './EventBulletPoints';
+import { useTheme } from '@components/member/ThemeToggle';
 
 interface FirebaseDate {
   seconds: number;
 }
 
 type Type = 'tour' | 'gf' | 'oel' | 'golf' | 'other' | '';
+export type EventStatus = 'done' | 'next' | 'pending';
 
 export type EventType = {
   id?: string;
@@ -34,6 +36,10 @@ export type EventType = {
   meetingPoints: string;
   notes?: string;
   notesActivities?: string;
+  status?: EventStatus;
+  showUploadButton?: boolean;
+  showInfoLink?: boolean;
+  showMapLink?: boolean;
 };
 
 interface Props {
@@ -41,6 +47,8 @@ interface Props {
 }
 
 const EventsPage = ({ documentUser }: Props) => {
+  const { theme } = useTheme();
+
   const {
     docs: events,
     loading,
@@ -80,21 +88,113 @@ const EventsPage = ({ documentUser }: Props) => {
     documentUser?.isBoard ||
     documentUser?.isSuperAdmin;
 
+  //TODO refactor this
   return (
     <div className="dynamic_text">
       <div className="mx-auto max-w-2xl sm:mt-40">
         <div className="mb-4 mt-16 items-center justify-center">
-          <p className="text-center text-[larger] font-bold">
-            Næste begivenhed
-          </p>
+          <p className="text-center text-[larger] font-bold">Tidligere</p>
         </div>
         {events.map((event, index) => {
           return (
             <div key={index} className="mx-10 my-3 gap-2">
-              {index === 0 && (
+              {event.status === 'done' && (
+                <motion.div
+                  key={index}
+                  variants={eventTransitionVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ duration: 0.5, delay: 1.6 }}
+                >
+                  <div
+                    key={index}
+                    className={`sm:px-15 paper ${theme === 'dark' ? 'bg-gray-800' : 'bg-slate-50'} flex flex-row justify-between overflow-hidden rounded-xl px-10`}
+                  >
+                    <p className="font-semibold">
+                      {event?.type === 'tour'
+                        ? `${handleType(event?.type)} de ${event.city}`
+                        : handleType(event?.type)}
+                    </p>
+                    <div className="flex justify-evenly">
+                      {event.showUploadButton &&
+                        event?.type === 'tour' &&
+                        event?.year &&
+                        event?.city && (
+                          <Link
+                            href={`/bibliothek/galleri/tour/${event.year}-${event.city.toLocaleLowerCase()}`}
+                            prefetch={false}
+                            className="whitespace-nowrap"
+                          >
+                            <EventInfoBadge>
+                              <ImageIcon className="mr-1" />
+                              Upload
+                            </EventInfoBadge>
+                          </Link>
+                        )}
+                      {event.showUploadButton &&
+                        event?.type === 'gf' &&
+                        event?.year && (
+                          <Link
+                            href={`/bibliothek/galleri/gf/${event.year}`}
+                            prefetch={false}
+                            className="whitespace-nowrap"
+                          >
+                            <EventInfoBadge>
+                              <ImageIcon className="mr-1" />
+                              Upload
+                            </EventInfoBadge>
+                          </Link>
+                        )}
+                      {event.showUploadButton &&
+                        event?.type === 'oel' &&
+                        event?.year && (
+                          <Link
+                            href={`/bibliothek/galleri/events/${event.year}-øl`}
+                            prefetch={false}
+                            className="whitespace-nowrap"
+                          >
+                            <EventInfoBadge>
+                              <ImageIcon className="mr-1" />
+                              Upload
+                            </EventInfoBadge>
+                          </Link>
+                        )}
+                      {event.showUploadButton &&
+                        event?.type === 'golf' &&
+                        event?.year && (
+                          <Link
+                            href={`/bibliothek/galleri/events/${event.year}-frisbee`}
+                            prefetch={false}
+                            className="whitespace-nowrap"
+                          >
+                            <EventInfoBadge>
+                              <ImageIcon className="mr-1" />
+                              Upload
+                            </EventInfoBadge>
+                          </Link>
+                        )}
+                    </div>
+                    {canEdit && event.id && (
+                      <button onClick={(e) => handleUpdate(e, event.id)}>
+                        <MdEdit />
+                      </button>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          );
+        })}
+        <div className="mb-4 mt-16 items-center justify-center">
+          <p className="text-center text-[larger] font-bold">Næste</p>
+        </div>
+        {events.map((event, index) => {
+          return (
+            <div key={index} className="mx-10 my-3 gap-2">
+              {event.status === 'next' && (
                 <motion.div
                   key={`sd${index}`}
-                  initial={{ x: -100 }}
+                  initial={{ x: 100 }}
                   animate={{ x: 0 }}
                   transition={{
                     duration: 0.8,
@@ -103,7 +203,7 @@ const EventsPage = ({ documentUser }: Props) => {
                 >
                   <div
                     key={index}
-                    className="sm:px-15 paper flex flex-col gap-2 overflow-hidden rounded-xl px-10"
+                    className={`sm:px-15 paper ${theme === 'dark' ? 'bg-gray-600' : 'bg-slate-200'} flex flex-col gap-2 overflow-hidden rounded-xl px-10`}
                   >
                     <div className="flex justify-between align-middle">
                       <p className="font-semibold">
@@ -131,78 +231,91 @@ const EventsPage = ({ documentUser }: Props) => {
                       </div>
                     )}
                     <div className="flex justify-evenly">
-                      {event.type === 'tour' && event?.city && (
-                        <Link
-                          href={`/kort?aar-by=${event?.year}-${event?.city?.trim()}&sted=Vores hotel`}
-                          prefetch={false}
-                          className="whitespace-nowrap"
-                        >
-                          <EventInfoBadge>
-                            <MdOutlineHotel className="mr-1" />
-                            Hotel
-                          </EventInfoBadge>
-                        </Link>
-                      )}
-                      {event?.year && (
-                        <Link
-                          href={`/bibliothek/breve/${event.year}`}
-                          prefetch={false}
-                          className="whitespace-nowrap"
-                        >
-                          <EventInfoBadge>
-                            <InfoCircledIcon className="mr-1" />
-                            Info
-                          </EventInfoBadge>
-                        </Link>
-                      )}
-                      {event?.type === 'tour' && event?.year && event?.city && (
-                        <Link
-                          href={`/bibliothek/galleri/tour/${event.year}-${event.city.toLocaleLowerCase()}`}
-                          prefetch={false}
-                          className="whitespace-nowrap"
-                        >
-                          <EventInfoBadge>
-                            <ImageIcon className="mr-1" />
-                            Upload
-                          </EventInfoBadge>
-                        </Link>
-                      )}
-                      {event?.type === 'gf' && event?.year && (
-                        <Link
-                          href={`/bibliothek/galleri/gf/${event.year}`}
-                          prefetch={false}
-                          className="whitespace-nowrap"
-                        >
-                          <EventInfoBadge>
-                            <ImageIcon className="mr-1" />
-                            Upload
-                          </EventInfoBadge>
-                        </Link>
-                      )}
-                      {event?.type === 'oel' && event?.year && (
-                        <Link
-                          href={`/bibliothek/galleri/events/${event.year}-øl`}
-                          prefetch={false}
-                          className="whitespace-nowrap"
-                        >
-                          <EventInfoBadge>
-                            <ImageIcon className="mr-1" />
-                            Upload
-                          </EventInfoBadge>
-                        </Link>
-                      )}
-                      {event?.type === 'golf' && event?.year && (
-                        <Link
-                          href={`/bibliothek/galleri/events/${event.year}-frisbee`}
-                          prefetch={false}
-                          className="whitespace-nowrap"
-                        >
-                          <EventInfoBadge>
-                            <ImageIcon className="mr-1" />
-                            Upload
-                          </EventInfoBadge>
-                        </Link>
-                      )}
+                      {event.showMapLink &&
+                        event.type === 'tour' &&
+                        event?.city && (
+                          <Link
+                            href={`/kort?aar-by=${event?.year}-${event?.city?.trim()}&sted=Vores hotel`}
+                            prefetch={false}
+                            className="whitespace-nowrap"
+                          >
+                            <EventInfoBadge>
+                              <MdOutlineHotel className="mr-1" />
+                              Hotel
+                            </EventInfoBadge>
+                          </Link>
+                        )}
+                      {event.showInfoLink &&
+                        event.showInfoLink &&
+                        event?.year && (
+                          <Link
+                            href={`/bibliothek/breve/${event.year}`}
+                            prefetch={false}
+                            className="whitespace-nowrap"
+                          >
+                            <EventInfoBadge>
+                              <InfoCircledIcon className="mr-1" />
+                              Info
+                            </EventInfoBadge>
+                          </Link>
+                        )}
+                      {event.showUploadButton &&
+                        event?.type === 'tour' &&
+                        event?.year &&
+                        event?.city && (
+                          <Link
+                            href={`/bibliothek/galleri/tour/${event.year}-${event.city.toLocaleLowerCase()}`}
+                            prefetch={false}
+                            className="whitespace-nowrap"
+                          >
+                            <EventInfoBadge>
+                              <ImageIcon className="mr-1" />
+                              Upload
+                            </EventInfoBadge>
+                          </Link>
+                        )}
+                      {event.showUploadButton &&
+                        event?.type === 'gf' &&
+                        event?.year && (
+                          <Link
+                            href={`/bibliothek/galleri/gf/${event.year}`}
+                            prefetch={false}
+                            className="whitespace-nowrap"
+                          >
+                            <EventInfoBadge>
+                              <ImageIcon className="mr-1" />
+                              Upload
+                            </EventInfoBadge>
+                          </Link>
+                        )}
+                      {event.showUploadButton &&
+                        event?.type === 'oel' &&
+                        event?.year && (
+                          <Link
+                            href={`/bibliothek/galleri/events/${event.year}-øl`}
+                            prefetch={false}
+                            className="whitespace-nowrap"
+                          >
+                            <EventInfoBadge>
+                              <ImageIcon className="mr-1" />
+                              Upload
+                            </EventInfoBadge>
+                          </Link>
+                        )}
+                      {event.showUploadButton &&
+                        event?.type === 'golf' &&
+                        event?.year && (
+                          <Link
+                            href={`/bibliothek/galleri/events/${event.year}-frisbee`}
+                            prefetch={false}
+                            className="whitespace-nowrap"
+                          >
+                            <EventInfoBadge>
+                              <ImageIcon className="mr-1" />
+                              Upload
+                            </EventInfoBadge>
+                          </Link>
+                        )}
                     </div>
                     {event.meetingPoints && (
                       <div className="flex flex-col">
@@ -251,14 +364,14 @@ const EventsPage = ({ documentUser }: Props) => {
                   </div>
                 </motion.div>
               )}
-              {index === 1 && (
+              {event.status === 'pending' && (
                 <div key={`events-${index}`} className="mb-4 pt-6 sm:pt-16">
                   <p className="text-center text-[larger] font-bold">
-                    Fremtidige begivenheder
+                    Fremtidig
                   </p>
                 </div>
               )}
-              {index > 0 && (
+              {event.status === 'pending' && (
                 <motion.div
                   key={index}
                   variants={eventTransitionVariants}
@@ -266,7 +379,9 @@ const EventsPage = ({ documentUser }: Props) => {
                   animate="visible"
                   transition={{ duration: 0.5, delay: index * 0.8 + 0.3 }}
                 >
-                  <div className="paper overflow-hidden py-2">
+                  <div
+                    className={`sm:px-15 paper ${theme === 'dark' ? 'bg-gray-800' : 'bg-slate-50'} flex flex-col gap-2 overflow-hidden rounded-xl px-10`}
+                  >
                     <div className="flex items-center justify-between gap-2">
                       <p className="font-semibold">
                         {event?.type === 'tour'

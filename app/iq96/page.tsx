@@ -8,15 +8,21 @@ import AdminTab from '@components/member/AdminTab';
 import DeveloperTab from '@components/member/DeveloperTab';
 import Iq96Tab from '@components/member/Iq96Tab';
 import MemberTab from '@components/member/MemberTab';
-import MemberTabsPage, { MemberTabs } from '@components/member/MemberTabs';
+import MemberTabsPage, {
+  MemberTabs,
+  isTab,
+} from '@components/member/MemberTabs';
 import { handleStartTheme } from '@components/member/ThemeToggle';
 import PageLayout from '@components/ui/PageLayout';
 import { authContext } from '@lib/store/auth-context';
 
-const MemberPage = () => {
+const MemberPage = ({
+  searchParams: { tab },
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) => {
   const { authUser, documentUser } = useContext(authContext);
-  const [value, setValue] = useState<MemberTabs>('member');
-  // const [value, setValue] = useState<MemberTabs>('admin');
+  const [value, setValue] = useState<MemberTabs>(isTab(tab) ? tab : 'member');
 
   useEffect(() => {
     handleStartTheme();
@@ -33,6 +39,7 @@ const MemberPage = () => {
 
   const isSuperAdmin = documentUser?.isSuperAdmin;
   const isBoard = documentUser?.isBoard;
+
   return (
     <PageLayout>
       <SessionProvider>

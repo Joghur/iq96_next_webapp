@@ -1,6 +1,7 @@
 import { DocumentUser } from '@lib/hooks/useFirestore';
 
 import { useState } from 'react';
+import { useTheme } from './ThemeToggle';
 
 type Props = {
   user: DocumentUser;
@@ -12,12 +13,21 @@ type Props = {
 const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
   const [formData, setFormData] = useState<DocumentUser>(user);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const { theme } = useTheme();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+    }));
+  };
+
+  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: prevData[name as keyof DocumentUser] === false ? true : false,
     }));
   };
 
@@ -55,7 +65,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               disabled={!!user.id}
               onChange={handleChange}
               required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
             />
           </label>
         </div>
@@ -68,7 +78,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
             />
           </label>
         </div>
@@ -81,7 +91,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               value={formData.nick}
               onChange={handleChange}
               required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
             />
           </label>
         </div>
@@ -94,7 +104,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               value={formData.avatar}
               onChange={handleChange}
               required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
             />
           </label>
         </div>
@@ -107,7 +117,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               value={formData.title}
               onChange={handleChange}
               required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
             />
           </label>
         </div>
@@ -120,7 +130,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               value={formData.tshirt || ''}
               onChange={handleChange}
               required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
             />
           </label>
         </div>
@@ -133,7 +143,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               value={formData.address || ''}
               onChange={handleChange}
               required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
             />
           </label>
         </div>
@@ -145,7 +155,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               name="phones"
               value={formData.phones}
               onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
             />
           </label>
         </div>
@@ -158,7 +168,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               value={formData.birthday || ''}
               onChange={handleChange}
               required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
             />
           </label>
         </div>
@@ -170,7 +180,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               name="id"
               value={formData.id}
               onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
             />
           </label>
         </div>
@@ -182,7 +192,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               name="uid"
               value={formData.uid}
               onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
             />
           </label>
         </div>
@@ -193,7 +203,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               type="checkbox"
               name="isAdmin"
               checked={formData.isAdmin}
-              onChange={handleChange}
+              onChange={handleToggle}
               className="ml-2 leading-tight"
             />
           </label>
@@ -205,12 +215,12 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               type="checkbox"
               name="isBoard"
               checked={formData.isBoard}
-              onChange={handleChange}
+              onChange={handleToggle}
               className="ml-2 leading-tight"
             />
           </label>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

@@ -1,7 +1,6 @@
-/* eslint-disable prettier/prettier */
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { Separator } from '@components/ui/separator';
@@ -86,17 +85,14 @@ const DeveloperTab = () => {
     loading,
   } = useFirestore<DocumentUser>('users', 'name', 'asc', 26);
 
-  const handleGmailContacts = useCallback(
-    async (session: any) => {
-      const res = await fetchContacts(session);
-      setCon(() => res);
-    },
-    [session]
-  );
+  const handleContacts = async (session: any) => {
+    const res = await fetchContacts(session);
+    setCon(() => res);
+  };
 
   useEffect(() => {
-    handleGmailContacts(session);
-  }, [handleGmailContacts]);
+    handleContacts(session);
+  }, [session?.user]);
 
   if (!session) {
     return (
@@ -114,16 +110,12 @@ const DeveloperTab = () => {
     return <LoadingSpinner text={'Henter med-lemmer...'} />;
   }
 
-  if (!users || !connections || connections?.length === 0) {
-    return null;
-  }
-
   const sortedGmailContacts = connections
-    .filter(
+    ?.filter(
       (o: Connection) =>
         o?.emailAddresses?.[0]?.value !== process.env.NEXT_PUBLIC_NEWSMAIL
     )
-    .sort((a: Connection, b: Connection) => {
+    ?.sort((a: Connection, b: Connection) => {
       const displayNameA = a?.names?.[0]?.displayName ?? '';
       const displayNameB = b?.names?.[0]?.displayName ?? '';
 
@@ -131,8 +123,8 @@ const DeveloperTab = () => {
     });
 
   const sortedFirebaseMembers = users
-    .filter((o: DocumentUser) => o?.name !== 'IQ96')
-    .sort((a: DocumentUser, b: DocumentUser) => {
+    ?.filter((o: DocumentUser) => o?.name !== 'IQ96')
+    ?.sort((a: DocumentUser, b: DocumentUser) => {
       const displayNameA = a?.name ?? '';
       const displayNameB = b?.name ?? '';
 
@@ -167,7 +159,9 @@ const DeveloperTab = () => {
         <p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
           Gmail kontakter
         </p>
-        <GmailContacts connections={sortedGmailContacts} />
+        {sortedGmailContacts && (
+          <GmailContacts connections={sortedGmailContacts} />
+        )}
         <div>
           <Separator className="my-5 bg-gray-500" />
         </div>

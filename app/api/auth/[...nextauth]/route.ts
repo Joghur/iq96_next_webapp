@@ -27,7 +27,6 @@ const handler = NextAuth({
       }
       return token;
     },
-    // @typescript-eslint/no-explicit-any
     async session({ session, token }: { session: any; token: any }) {
       session.access_token = token.access_token;
       session.id_token = token.id_token;
