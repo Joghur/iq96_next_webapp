@@ -1,0 +1,4 @@
+.fieldRow {
+    display: flex;
+    flex-direction: row;
+}

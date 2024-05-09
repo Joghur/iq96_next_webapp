@@ -2,6 +2,8 @@
 
 import { MouseEvent, useContext, useEffect, useState } from 'react';
 import { SessionProvider } from 'next-auth/react';
+import { Session, getServerSession } from "next-auth";
+import NextAuthProvider from "@/components/auth/NextAuthProvider";
 
 import AboutTab from '@components/member/AboutTab';
 import AdminTab from '@components/member/AdminTab';
@@ -16,11 +18,13 @@ import { handleStartTheme } from '@components/member/ThemeToggle';
 import PageLayout from '@components/ui/PageLayout';
 import { authContext } from '@lib/store/auth-context';
 
+// const MemberPage = async ({
 const MemberPage = ({
   searchParams: { tab },
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
+  const netpunktSession: SomethingSession | null =  await getServerSession(authOptions);
   const { authUser, documentUser } = useContext(authContext);
   const [value, setValue] = useState<MemberTabs>(isTab(tab) ? tab : 'member');
 
@@ -41,7 +45,8 @@ const MemberPage = ({
   const isBoard = documentUser?.isBoard;
 
   return (
-    <PageLayout>
+    <PageLayout>        
+      {/* <NextAuthProvider session={netpunktSession as unknown as Session}> */}
       <SessionProvider>
         <MemberTabsPage value={value} onChange={handleChange} />
         <div className="flex items-center justify-center pt-6">
@@ -52,6 +57,7 @@ const MemberPage = ({
           {value === 'developer' && isSuperAdmin && <DeveloperTab />}
         </div>
       </SessionProvider>
+        {/* </NextAuthProvider> */}
     </PageLayout>
   );
 };
