@@ -19,7 +19,8 @@ export const metadata: Metadata = {
   description: 'Web app created by IQ96',
 };
 
-export default function RootLayout({ children }: Props) {
+export default function RootLayout({ children }: Props) {  
+  const netpunktSession: Session | null =  await getServerSession(authOptions);
   return (
     <html lang="en">
       <body>
