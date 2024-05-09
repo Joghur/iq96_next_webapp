@@ -17,6 +17,7 @@ import MemberTabsPage, {
 import { handleStartTheme } from '@components/member/ThemeToggle';
 import PageLayout from '@components/ui/PageLayout';
 import { authContext } from '@lib/store/auth-context';
+import { authOptions } from '@app/api/auth/[...nextauth]/auth';
 
 // const MemberPage = async ({
 const MemberPage = ({
@@ -24,7 +25,7 @@ const MemberPage = ({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
-  const netpunktSession: SomethingSession | null =  await getServerSession(authOptions);
+  // const session: SomethingSession | null =  await getServerSession(authOptions);
   const { authUser, documentUser } = useContext(authContext);
   const [value, setValue] = useState<MemberTabs>(isTab(tab) ? tab : 'member');
 
@@ -46,7 +47,7 @@ const MemberPage = ({
 
   return (
     <PageLayout>        
-      {/* <NextAuthProvider session={netpunktSession as unknown as Session}> */}
+      {/* <NextAuthProvider session={session as unknown as Session}> */}
       <SessionProvider>
         <MemberTabsPage value={value} onChange={handleChange} />
         <div className="flex items-center justify-center pt-6">
