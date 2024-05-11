@@ -1,21 +1,17 @@
-import { useState } from "react";
-import { ListGroup, Modal } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
+import { SetStateAction, useState } from 'react';
+import { ListGroup, Modal } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
 
-import {
-  DangerButton,
-  RemoveButton,
-  AddButton,
-  PrimaryButton,
-} from "@/components/ui/buttons/Buttons";
-import FormSelect from "@/components/ui/form/formItems/FormSelect";
-import { isArray, isStringArray } from "@/utils/array";
-import { SelectLabelType } from "@/utils/form";
-import { isObject, isStringInteger } from "@/utils/typing";
+import FormSelect from '@/components/ui/form/formItems/FormSelect';
 
-import styles from "./FormListGroup.module.css";
+import styles from './FormListGroup.module.css';
+import { SelectLabelType } from '@components/ui/form';
+import { isArray, isStringArray } from '@components/ui/array';
+import { isObject, isStringInteger } from '@components/ui/typing';
+import { Button } from '@components/ui/button';
+import { PlusIcon, TrashIcon } from '@radix-ui/react-icons';
 
-export type ListGroupFormKeys = { label: string; type: "text" | "number" }[];
+export type ListGroupFormKeys = { label: string; type: 'text' | 'number' }[];
 
 export type ListGroupObject = { [x: string]: string };
 
@@ -30,7 +26,7 @@ type Props = {
 
 const isIndexInRange = (
   value: string | number | object | undefined,
-  selectedListGroupItemIndex: number | undefined,
+  selectedListGroupItemIndex: number | undefined
 ) => {
   if (
     !value ||
@@ -50,16 +46,16 @@ const isIndexInRange = (
 
 const handleListgroupIs = (
   value: string | number | object | undefined,
-  selection?: SelectLabelType<string, string>[],
+  selection?: SelectLabelType<string, string>[]
 ) => {
   if (selection) {
-    return "select";
+    return 'select';
   }
   if (isArray(value)) {
-    return "array";
+    return 'array';
   }
   if (isObject(value)) {
-    return "object";
+    return 'object';
   }
   return undefined;
 };
@@ -81,25 +77,25 @@ const FormListGroup = ({
     number | undefined
   >(undefined);
 
-  const [newItemText, setNewItemText] = useState("");
-  const [newItemObjectKey, setNewItemTextObjectKey] = useState("");
-  const [newItemObjectValue, setNewItemTextObjectValue] = useState("");
+  const [newItemText, setNewItemText] = useState('');
+  const [newItemObjectKey, setNewItemTextObjectKey] = useState('');
+  const [newItemObjectValue, setNewItemTextObjectValue] = useState('');
 
-  const listgroupIs: "array" | "object" | "select" | undefined =
+  const listgroupIs: 'array' | 'object' | 'select' | undefined =
     handleListgroupIs(value, selection);
 
-  const handleListGroupChange = (actionType: "add" | "remove") => {
+  const handleListGroupChange = (actionType: 'add' | 'remove') => {
     switch (actionType) {
-      case "add":
+      case 'add':
         switch (listgroupIs) {
-          case "array":
-          case "select":
+          case 'array':
+          case 'select':
             if (isArray(value)) {
               onChange([...(value as string[]), newItemText]);
             }
             break;
 
-          case "object":
+          case 'object':
             onChange({
               ...(value as object),
               [newItemObjectKey]: newItemObjectValue,
@@ -107,20 +103,20 @@ const FormListGroup = ({
             break;
 
           default:
-            throw Error("Should not reach this");
+            throw Error('Should not reach this');
         }
         handleCloseModal();
-        setNewItemText("");
-        setNewItemTextObjectKey("");
-        setNewItemTextObjectValue("");
+        setNewItemText('');
+        setNewItemTextObjectKey('');
+        setNewItemTextObjectValue('');
         break;
 
-      case "remove":
+      case 'remove':
         const indexInRange = isIndexInRange(value, selectedListGroupItemIndex);
 
         if (indexInRange) {
           if (
-            (listgroupIs === "array" || listgroupIs === "select") &&
+            (listgroupIs === 'array' || listgroupIs === 'select') &&
             isStringArray(value)
           ) {
             const newItems = [...value];
@@ -129,7 +125,7 @@ const FormListGroup = ({
             }
             onChange(newItems);
           }
-          if (listgroupIs === "object") {
+          if (listgroupIs === 'object') {
             const newItems = { ...(value as object) };
             // @ts-ignore
             delete newItems[Object.keys(value)[selectedListGroupItemIndex]];
@@ -139,7 +135,7 @@ const FormListGroup = ({
         break;
 
       default:
-        throw Error("Should not reach this");
+        throw Error('Should not reach this');
     }
   };
 
@@ -150,12 +146,10 @@ const FormListGroup = ({
     const shouldBeNumeric =
       listGroupFormKeys &&
       // @ts-ignore
-      listGroupFormKeys[0].type === "number";
+      listGroupFormKeys[0].type === 'number';
 
-    //TODO DataIO gui V1 RawrepoHarveser (and probably more) has an errormessage saying that entered value
-    //is not a numeric. This triggers for all kinds of numeric values, so there may be some work in deciphering that flow
     if (shouldBeNumeric) {
-      if (!isStringInteger(value) && value !== "") return;
+      if (!isStringInteger(value) && value !== '') return;
     }
     setNewItemTextObjectKey(value);
   };
@@ -165,14 +159,11 @@ const FormListGroup = ({
 
   return (
     <>
-      <ListGroup
-        data-cy={`${label}-form-listgroup`}
-        className={styles.listGroup}
-      >
+      <ListGroup className={styles.listGroup}>
         <ListGroup.Item className={styles.listGroupItem} disabled={disabled}>
           <div>
             {!value && <span className={styles.listGroupItemContainer} />}
-            {listgroupIs === "array" &&
+            {listgroupIs === 'array' &&
               isStringArray(value) &&
               value.map((valueString: string, index: number) => (
                 <div
@@ -181,13 +172,13 @@ const FormListGroup = ({
                   className={`${styles.listGroupItemContainer} ${
                     selectedListGroupItemIndex === index
                       ? styles.listGroupItemActive
-                      : ""
+                      : ''
                   }`}
                 >
                   {valueString}
                 </div>
               ))}
-            {listgroupIs === "object" &&
+            {listgroupIs === 'object' &&
               isObject(value) &&
               Object.entries(value).map(
                 ([key, value]: [string, string], index: number) => (
@@ -197,19 +188,19 @@ const FormListGroup = ({
                     className={`${styles.listGroupItemContainer} ${
                       selectedListGroupItemIndex === index
                         ? styles.listGroupItemActive
-                        : ""
+                        : ''
                     }`}
                   >
                     {key} - {value}
                   </div>
-                ),
+                )
               )}
-            {listgroupIs === "select" &&
+            {listgroupIs === 'select' &&
               isArray(value) &&
               value.map((valueItem: unknown, index: number) => {
                 if (
-                  typeof valueItem === "string" ||
-                  typeof valueItem === "string"
+                  typeof valueItem === 'string' ||
+                  typeof valueItem === 'string'
                 )
                   return (
                     <div
@@ -218,7 +209,7 @@ const FormListGroup = ({
                       className={`${styles.listGroupItemContainer} ${
                         selectedListGroupItemIndex === index
                           ? styles.listGroupItemActive
-                          : ""
+                          : ''
                       }`}
                     >
                       {valueItem.toString()}
@@ -228,34 +219,35 @@ const FormListGroup = ({
           </div>
         </ListGroup.Item>
         <div className={styles.listGroupButtonContainer}>
-          <AddButton
-            onClick={handleShowModal}
-            disabled={disabled}
-            data-cy={`${label}-plus-button`}
-          />
+          <Button onClick={handleShowModal} disabled={disabled}>
+            <PlusIcon className="text-4xl" />
+          </Button>
           <div className={styles.divider} />
-          <RemoveButton
-            onClick={() => handleListGroupChange("remove")}
+          <Button
+            variant="destructive"
+            onClick={() => handleListGroupChange('remove')}
             disabled={(isArray(value) && value.length === 0) || disabled}
-            data-cy={`${label}-minus-button`}
-          />
+          >
+            <TrashIcon />
+          </Button>
         </div>
       </ListGroup>
-      <Modal show={showModal} onHide={handleCloseModal} data-cy="form-modal">
+      <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>{`${listgroupIs === "array" || listgroupIs === "object" ? "Indtast" : "Vælg"} ${label}`}</Modal.Title>
+          <Modal.Title>{`${listgroupIs === 'array' || listgroupIs === 'object' ? 'Indtast' : 'Vælg'} ${label}`}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {listgroupIs === "array" && (
+          {listgroupIs === 'array' && (
             <Form.Control
               type="text"
               placeholder="Indtast"
               value={newItemText}
-              onChange={(e) => setNewItemText(e.target.value)}
-              data-cy="modal-single-form-control-input"
+              onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                setNewItemText(e.target.value)
+              }
             />
           )}
-          {listgroupIs === "object" &&
+          {listgroupIs === 'object' &&
             listGroupFormKeys &&
             listGroupFormKeys.length > 0 && (
               <div>
@@ -265,10 +257,9 @@ const FormListGroup = ({
                       type="text"
                       placeholder={listGroupFormKeys[0].label}
                       value={newItemObjectKey}
-                      onChange={(e) =>
+                      onChange={(e: { target: { value: string } }) =>
                         handleFormControlInputChange(e.target.value)
                       }
-                      data-cy={`modal-first-form-control-input`}
                     />
                   </div>
                 )}
@@ -278,16 +269,15 @@ const FormListGroup = ({
                       type="text"
                       placeholder={listGroupFormKeys[1].label}
                       value={newItemObjectValue}
-                      onChange={(e) =>
-                        setNewItemTextObjectValue(e.target.value)
-                      }
-                      data-cy={`modal-second-form-control-input`}
+                      onChange={(e: {
+                        target: { value: SetStateAction<string> };
+                      }) => setNewItemTextObjectValue(e.target.value)}
                     />
                   </div>
                 )}
               </div>
             )}
-          {listgroupIs === "select" && (
+          {listgroupIs === 'select' && (
             <FormSelect
               label="listgroup-select"
               selection={selection as SelectLabelType<string, string>[]}
@@ -299,15 +289,10 @@ const FormListGroup = ({
           )}
         </Modal.Body>
         <Modal.Footer>
-          <PrimaryButton
-            onClick={() => handleListGroupChange("add")}
-            data-cy={"ok-button"}
-          >
-            OK
-          </PrimaryButton>
-          <DangerButton onClick={handleCloseModal} data-cy={"fortryd-button"}>
+          <Button onClick={() => handleListGroupChange('add')}>OK</Button>
+          <Button variant="destructive" onClick={handleCloseModal}>
             Fortryd
-          </DangerButton>
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

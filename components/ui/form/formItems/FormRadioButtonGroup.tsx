@@ -1,7 +1,6 @@
-import { ChangeEvent, useState } from "react";
-import Form from "react-bootstrap/Form";
-
-import { SelectLabelType } from "@/utils/form";
+import { SelectLabelType } from '@components/ui/form';
+import { ChangeEvent, useState } from 'react';
+import Form from 'react-bootstrap/Form';
 
 type Props = {
   selection?: SelectLabelType<any, any>[];
@@ -23,7 +22,7 @@ const FormRadioButtonGroup = ({
   const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setRadioButtonValue(value);
-    onChange(propertyKey.toString(), value || "");
+    onChange(propertyKey.toString(), value || '');
   };
 
   return (
@@ -39,7 +38,6 @@ const FormRadioButtonGroup = ({
           checked={valueItem.type.toString() === radioButtonValue}
           onChange={handleRadioChange}
           disabled={disabled}
-          data-cy={`${valueItem.label.toString()}-form-radio`}
         />
       ))}
     </>

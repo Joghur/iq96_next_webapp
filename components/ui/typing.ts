@@ -1,6 +1,5 @@
-import { HoverObject } from "@/components/ui/form/OneFormItem";
-import { isArray } from "@/utils/array";
-import { ErrorResponse } from "@/utils/connection";
+import { HoverObject } from '@/components/ui/form/OneFormItem';
+import { isArray } from './array';
 
 /**
  * Convert a value to a specific type depending on
@@ -8,21 +7,21 @@ import { ErrorResponse } from "@/utils/connection";
  */
 export const getTypedValue = (
   value: string | string[] | number | number[] | { [x: string]: string },
-  property: unknown,
+  property: unknown
 ) => {
   if (
-    typeof property !== "number" ||
+    typeof property !== 'number' ||
     Array.isArray(value) ||
-    typeof value === "object"
+    typeof value === 'object'
   ) {
     return value;
   }
 
-  if (typeof value === "number") {
+  if (typeof value === 'number') {
     return value;
   }
 
-  if (value.includes(".")) {
+  if (value.includes('.')) {
     return parseFloat(value);
   } else {
     return parseInt(value, 10)!;
@@ -30,31 +29,36 @@ export const getTypedValue = (
 };
 
 export const hasId = (obj: unknown): obj is { id: unknown } => {
-  return !!obj && typeof obj === "object" && "id" in obj;
+  return !!obj && typeof obj === 'object' && 'id' in obj;
 };
 
 export const hasName = (obj: unknown): obj is { name: unknown } => {
-  return !!obj && typeof obj === "object" && "name" in obj;
+  return !!obj && typeof obj === 'object' && 'name' in obj;
 };
 
 export function hasErrorResponse(obj: unknown): boolean {
   return (
-    !!obj && typeof obj === "object" && "status" in obj && "statusText" in obj
+    !!obj && typeof obj === 'object' && 'status' in obj && 'statusText' in obj
   );
 }
 
+export type ErrorResponse = {
+  status: string;
+  statusText: string;
+};
+
 export function isErrorResponse(obj: unknown): obj is ErrorResponse {
   return (
-    !!obj && typeof obj === "object" && "status" in obj && "statusText" in obj
+    !!obj && typeof obj === 'object' && 'status' in obj && 'statusText' in obj
   );
 }
 
 export const isObject = (value: unknown): value is object => {
-  return !Array.isArray(value) && typeof value === "object";
+  return !Array.isArray(value) && typeof value === 'object';
 };
 
 export const isString = (value: unknown): value is string => {
-  return typeof value === "string";
+  return typeof value === 'string';
 };
 export const isStringInteger = (value: string): boolean => {
   return /^\d+$/.test(value);
@@ -63,14 +67,14 @@ export const isStringInteger = (value: string): boolean => {
 export const isHoverObject = (obj: unknown): obj is HoverObject => {
   return !!(
     obj &&
-    typeof obj === "object" &&
+    typeof obj === 'object' &&
     !isArray(obj) &&
-    "hoverText" in obj
+    'hoverText' in obj
   );
 };
 
 export const parseNumeric = (value: string) => {
-  if (value.includes(".")) {
+  if (value.includes('.')) {
     return parseFloat(value);
   } else {
     return parseInt(value, 10)!;
@@ -78,7 +82,7 @@ export const parseNumeric = (value: string) => {
 };
 
 export const extractInteger = (value: string | number) => {
-  if (typeof value === "number") return value;
+  if (typeof value === 'number') return value;
 
   const regex = /\d+/;
   const parse = regex.exec(value);

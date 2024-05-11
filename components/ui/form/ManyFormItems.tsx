@@ -1,10 +1,9 @@
 "use client";
 
 import { ListGroupFormKeys } from "@/components/ui/form/formItems/FormListGroup";
-import { SelectLabelType } from "@/utils/form";
 
-import styles from "./ManyFormItems.module.css";
 import OneFormItem, { FormItemEventTarget, HoverInfo } from "./OneFormItem";
+import { SelectLabelType } from "../form";
 
 /**
  * Use the FormBuilder type as guide to make forms. Each FormBuilder item in an array
@@ -53,7 +52,7 @@ function ManyFormItems<T>({
   }
 
   return (
-    <div className={asRow ? styles.fieldRow : undefined}>
+    <div className={asRow ? "flex flex-row" : undefined}>
       {builderArray.map((builderItem) => (
         <OneFormItem
           key={builderItem.propertyKey.toString()}
@@ -65,11 +64,11 @@ function ManyFormItems<T>({
           propertyKey={builderItem.propertyKey.toString()}
           value={data[builderItem.propertyKey] as string}
           selection={builderItem.selection}
-          onChange={onChange}
           listGroupFormKeys={builderItem.listGroupFormKeys}
           hoverInfo={builderItem.hoverInfo}
           vertical={asRow}
           disabled={builderItem.disabled}
+          onChange={onChange}
         />
       ))}
     </div>

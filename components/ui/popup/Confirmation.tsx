@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { ReactNode } from "react";
-import { Modal } from "react-bootstrap";
+import { ReactNode } from 'react';
+import { Modal } from 'react-bootstrap';
 
-import { DangerButton, PrimaryButton } from "@/components/ui/buttons/Buttons";
+import { DangerButton, PrimaryButton } from '@/components/ui/buttons/Buttons';
+import { Button } from '../button';
 
 type Props = {
   header?: string;
@@ -23,13 +24,7 @@ const ConfirmationPopup = ({
   onModalCancel,
 }: Props) => {
   return (
-    <Modal
-      show={open}
-      onHide={onModalCancel}
-      size="sm"
-      scrollable
-      data-cy="confirmation-form-modal"
-    >
+    <Modal show={open} onHide={onModalCancel} size="sm" scrollable>
       {header && (
         <Modal.Header closeButton>
           <Modal.Title>{header}</Modal.Title>
@@ -37,12 +32,8 @@ const ConfirmationPopup = ({
       )}
       <Modal.Body className="text-nowrap">{label}</Modal.Body>
       <Modal.Footer>
-        <PrimaryButton onClick={onModalConfirm} data-cy={"ok-button"}>
-          OK
-        </PrimaryButton>
-        <DangerButton onClick={onModalCancel} data-cy={"cancel-button"}>
-          Fortryd
-        </DangerButton>
+        <Button onClick={onModalConfirm}>OK</Button>
+        <Button variant="destructive" onClick={onModalCancel}>Fortryd</Button>
       </Modal.Footer>
     </Modal>
   );

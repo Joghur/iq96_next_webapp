@@ -1,9 +1,8 @@
-"use client";
+'use client';
 
-import { ReactNode } from "react";
-import { Modal } from "react-bootstrap";
-
-import { PrimaryButton } from "@/components/ui/buttons/Buttons";
+import { ReactNode } from 'react';
+import { Modal } from 'react-bootstrap';
+import { Button } from '../button';
 
 type Props = {
   popupLabel: string;
@@ -11,7 +10,7 @@ type Props = {
   open: boolean;
   onModalClose?: () => void;
   children?: ReactNode;
-  size?: "sm" | "lg" | "xl";
+  size?: 'sm' | 'lg' | 'xl';
 };
 
 const Popup = ({
@@ -20,16 +19,10 @@ const Popup = ({
   open,
   onModalClose,
   children,
-  size = "lg",
+  size = 'lg',
 }: Props) => {
   return (
-    <Modal
-      show={open}
-      onHide={onModalClose}
-      size={size}
-      scrollable
-      data-cy="form-modal"
-    >
+    <Modal show={open} onHide={onModalClose} size={size} scrollable>
       <Modal.Header closeButton>
         <Modal.Title>{popupLabel}</Modal.Title>
       </Modal.Header>
@@ -41,9 +34,7 @@ const Popup = ({
         {children && children}
       </Modal.Body>
       <Modal.Footer>
-        <PrimaryButton onClick={onModalClose} data-cy={"ok-button"}>
-          OK
-        </PrimaryButton>
+        <Button onClick={onModalClose}>OK</Button>
       </Modal.Footer>
     </Modal>
   );

@@ -5,8 +5,8 @@ import { cn } from '@lib/utils';
 
 interface Props {
   children: ReactNode;
-  text: string;
-  position?: 'top' | 'right';
+  text?: string | string[];
+  position?: "left" | "right" | "bottom" | "top" | "auto";
 }
 
 const Tooltip = ({ children, text, position = 'top' }: Props) => {
@@ -33,7 +33,13 @@ const Tooltip = ({ children, text, position = 'top' }: Props) => {
       onTouchEnd={handleTouchEnd}
     >
       <div className="dynamic_text">{children}</div>
-      {showTooltip && <div className="tooltip-content">{text}</div>}
+      {showTooltip && text && (
+        <div className="tooltip-content">
+          {typeof text === 'string'
+            ? text
+            : text.map((textpart, index) => <p key={index}>{textpart}</p>)}
+        </div>
+      )}
     </div>
   );
 };

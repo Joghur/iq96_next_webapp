@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import Select from '@components/ui/Select';
 import { DocumentUser } from '@lib/hooks/useFirestore';
 
-export const sizes = ['M', 'L', 'XL', 'XXL', 'XXXL', 'XXXXL'] as const;
+export const tshirtSizes = ['M', 'L', 'XL', 'XXL', 'XXXL', 'XXXXL'] as const;
 
-export type TshirtSizes = (typeof sizes)[number];
+export type TshirtSizes = (typeof tshirtSizes)[number];
 
 interface Props {
   documentUser: DocumentUser;
@@ -33,7 +33,7 @@ const TshirtSelect = ({ documentUser, updatingDoc }: Props) => {
         value={currentSize}
         placeholder={currentSize}
         onChange={(e) => handleThemeChange(e as TshirtSizes)}
-        groups={[{ groupItems: sizes }]}
+        groups={[{ groupItems: tshirtSizes }]}
       />
     </div>
   );

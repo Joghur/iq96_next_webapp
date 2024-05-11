@@ -2,8 +2,6 @@
 
 import { MouseEvent, useContext, useEffect, useState } from 'react';
 import { SessionProvider } from 'next-auth/react';
-import { Session, getServerSession } from "next-auth";
-import NextAuthProvider from "@/components/auth/NextAuthProvider";
 
 import AboutTab from '@components/member/AboutTab';
 import AdminTab from '@components/member/AdminTab';
@@ -17,7 +15,6 @@ import MemberTabsPage, {
 import { handleStartTheme } from '@components/member/ThemeToggle';
 import PageLayout from '@components/ui/PageLayout';
 import { authContext } from '@lib/store/auth-context';
-import { authOptions } from '@app/api/auth/[...nextauth]/auth';
 
 // const MemberPage = async ({
 const MemberPage = ({

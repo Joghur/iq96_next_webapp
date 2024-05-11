@@ -24,7 +24,6 @@ const FormCheckBox = ({
       checked={isChecked}
       onChange={onChange}
       disabled={disabled}
-      data-cy={`${label}-form-check`}
     />
   );
 };

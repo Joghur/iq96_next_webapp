@@ -1,24 +1,25 @@
-"use client";
+'use client';
 
-import { ChangeEvent } from "react";
+import { ChangeEvent } from 'react';
 
-import ErrorMessage, {
-  ErrorMessageType,
-} from "@/components/errors/ErrorMessage/ErrorMessage";
-import FormCheckBox from "@/components/ui/form/formItems/FormCheckBox";
-import FormControl from "@/components/ui/form/formItems/FormControl";
+import FormCheckBox from '@/components/ui/form/formItems/FormCheckBox';
+import FormControl from '@/components/ui/form/formItems/FormControl';
 import FormListGroup, {
   ListGroupFormKeys,
-} from "@/components/ui/form/formItems/FormListGroup";
-import FormRadioButtonGroup from "@/components/ui/form/formItems/FormRadioButtonGroup";
-import FormSelect from "@/components/ui/form/formItems/FormSelect";
-import { isArray } from "@/utils/array";
-import { epochToDate } from "@/utils/date";
-import { SelectLabelType } from "@/utils/form";
-import { isHoverObject } from "@/utils/typing";
+} from '@/components/ui/form/formItems/FormListGroup';
+import FormRadioButtonGroup from '@/components/ui/form/formItems/FormRadioButtonGroup';
+import FormSelect from '@/components/ui/form/formItems/FormSelect';
 
-import styles from "./OneFormItem.module.css";
-import HoverWrapper from "../hover/HoverWrapper";
+import styles from './OneFormItem.module.css';
+import HoverWrapper from '../hover/HoverWrapper';
+import { SelectLabelType } from '../form';
+import { isArray } from '../array';
+import { isHoverObject } from '../typing';
+import Tooltip from '../Tooltip';
+import ErrorMessage, {
+  ErrorMessageType,
+} from '@components/errors/ErrorMessage';
+import { epochToDate } from '../date';
 
 export type SelectObject = { [x: string]: string | number };
 
@@ -29,21 +30,21 @@ export type FormItemEventTarget = {
 
 export type HoverObject = {
   hoverText: string | string[];
-  placement: "left" | "right" | "bottom" | "top" | "auto";
+  placement: 'left' | 'right' | 'bottom' | 'top' | 'auto';
 };
 
 export type HoverInfo = string | string[] | HoverObject;
 
-export type FormAs = "input" | "textarea";
-export type FormType = "radiobutton" | "listgroup" | "date";
+export type FormAs = 'input' | 'textarea';
+export type FormType = 'radiobutton' | 'listgroup' | 'date';
 export type ShowItem =
-  | "checkbox"
-  | "date"
-  | "listgroup"
-  | "number"
-  | "radiobutton"
-  | "select"
-  | "string";
+  | 'checkbox'
+  | 'date'
+  | 'listgroup'
+  | 'number'
+  | 'radiobutton'
+  | 'select'
+  | 'string';
 
 /**
  * Select which form items to show
@@ -56,44 +57,44 @@ export type ShowItem =
 const formItemHub = (
   value: string | number | boolean | object | undefined,
   selection?: SelectLabelType<any, any>[],
-  type?: FormType,
+  type?: FormType
 ): ShowItem | ErrorMessageType => {
   if (!selection) {
     //TODO get real type of property from Type when undefined value from API
     if (value === undefined || value === null) {
-      return "string";
+      return 'string';
     }
 
     switch (typeof value) {
-      case "string":
-        return "string";
+      case 'string':
+        return 'string';
 
-      case "number":
-        if (type === "date") {
-          return "date";
+      case 'number':
+        if (type === 'date') {
+          return 'date';
         }
-        return "number";
+        return 'number';
 
-      case "boolean":
-        return "checkbox";
+      case 'boolean':
+        return 'checkbox';
     }
   }
 
-  if (selection && type !== "listgroup") {
+  if (selection && type !== 'listgroup') {
     switch (type) {
-      case "radiobutton":
-        return "radiobutton";
+      case 'radiobutton':
+        return 'radiobutton';
 
       default:
-        return "select";
+        return 'select';
     }
   }
 
-  if (type === "listgroup") {
-    return "listgroup";
+  if (type === 'listgroup') {
+    return 'listgroup';
   }
 
-  return "Kan ikke vælge form type";
+  return 'Kan ikke vælge formtype';
 };
 
 type Props<T> = {
@@ -115,7 +116,7 @@ function OneFormItem<T extends Record<string, any>>({
   value,
   propertyKey,
   onChange,
-  as = "input",
+  as = 'input',
   type,
   selection,
   listGroupFormKeys,
@@ -133,7 +134,7 @@ function OneFormItem<T extends Record<string, any>>({
   const handleRadioChange = (id: string, value: string) => {
     onChange({
       id: id,
-      value: value || "",
+      value: value || '',
     });
   };
 
@@ -153,7 +154,7 @@ function OneFormItem<T extends Record<string, any>>({
   };
 
   const handleListGroupChange = (
-    listGroupItems: string[] | { [x: string]: string },
+    listGroupItems: string[] | { [x: string]: string }
   ) => {
     onChange({
       id: propertyKey.toString(),
@@ -166,16 +167,16 @@ function OneFormItem<T extends Record<string, any>>({
   const showFormItemAs: ShowItem | ErrorMessageType = formItemHub(
     value,
     selection,
-    type,
+    type
   );
 
   const hoverPlacement = isHoverObject(hoverInfo)
     ? hoverInfo.placement
-    : "left";
+    : 'left';
   const hoverText = isHoverObject(hoverInfo) ? hoverInfo.hoverText : hoverInfo;
 
   return (
-    <HoverWrapper hoverText={hoverText} placement={hoverPlacement}>
+    <Tooltip text={hoverText} position={hoverPlacement}>
       <div className={vertical ? styles.fieldColumn : styles.fieldRow}>
         <div className={vertical ? styles.fieldNameVertical : styles.fieldName}>
           {label}
@@ -186,11 +187,10 @@ function OneFormItem<T extends Record<string, any>>({
               ? styles.fieldControlWrapperVertical
               : styles.fieldControlWrapper
           }
-          data-cy={`${label}-control-wrapper`}
         >
           <>
             {showFormItemAs === undefined && <></>}
-            {showFormItemAs === "checkbox" && (
+            {showFormItemAs === 'checkbox' && (
               <FormCheckBox
                 label={label}
                 propertyKey={propertyKey.toString()}
@@ -199,7 +199,7 @@ function OneFormItem<T extends Record<string, any>>({
                 onChange={handleCheckboxChange}
               />
             )}
-            {showFormItemAs === "date" && (
+            {showFormItemAs === 'date' && (
               <FormControl
                 label={label}
                 value={epochToDate(value as number)}
@@ -210,7 +210,7 @@ function OneFormItem<T extends Record<string, any>>({
                 onChange={handleControlChange}
               />
             )}
-            {showFormItemAs === "listgroup" && (
+            {showFormItemAs === 'listgroup' && (
               <FormListGroup
                 label={label}
                 value={value as object}
@@ -220,7 +220,7 @@ function OneFormItem<T extends Record<string, any>>({
                 onChange={handleListGroupChange}
               />
             )}
-            {showFormItemAs === "number" && (
+            {showFormItemAs === 'number' && (
               <FormControl
                 label={label}
                 value={value as number}
@@ -231,7 +231,7 @@ function OneFormItem<T extends Record<string, any>>({
                 onChange={handleControlChange}
               />
             )}
-            {showFormItemAs === "radiobutton" && (
+            {showFormItemAs === 'radiobutton' && (
               <FormRadioButtonGroup
                 selection={selection}
                 propertyKey={propertyKey.toString()}
@@ -240,7 +240,7 @@ function OneFormItem<T extends Record<string, any>>({
                 onChange={handleRadioChange}
               />
             )}
-            {showFormItemAs === "select" && (
+            {showFormItemAs === 'select' && (
               <FormSelect
                 label={label}
                 value={value?.toString()}
@@ -249,10 +249,10 @@ function OneFormItem<T extends Record<string, any>>({
                 onChange={handleSelectChange}
               />
             )}
-            {showFormItemAs === "string" && (
+            {showFormItemAs === 'string' && (
               <FormControl
                 label={label}
-                value={value?.toString() || ""}
+                value={value?.toString() || ''}
                 propertyKey={propertyKey.toString()}
                 type="text"
                 as={as}
@@ -260,12 +260,12 @@ function OneFormItem<T extends Record<string, any>>({
                 onChange={handleControlChange}
               />
             )}
-            {showFormItemAs === "Kan ikke vælge form type" &&
+            {showFormItemAs === 'Kan ikke vælge formtype' &&
               ErrorMessage({ message: showFormItemAs })}
           </>
         </span>
       </div>
-    </HoverWrapper>
+    </Tooltip>
   );
 }
 
