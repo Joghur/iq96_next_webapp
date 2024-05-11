@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { CaretSortIcon, ChevronDownIcon } from '@radix-ui/react-icons';
 import {
+  Cell,
   ColumnDef,
   ColumnFiltersState,
   Row,
@@ -260,8 +261,11 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
     setActiveUser({ ...defaultUser });
   };
 
-  const handleClickRow = (row: Row<DocumentUser>) => {
-    const user = data.filter((usr) => usr.name === row.getValue('name'))[0];
+  const handleClickCell = (row: Row<DocumentUser>, column: any) => {
+    if (column.id === 'select') {
+      return;
+    }
+    const user = row.original;
     setActiveUser(() => user);
     setFormOverlay(true);
   };
@@ -377,10 +381,12 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  onClick={() => handleClickRow(row)}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell
+                      key={cell.id}
+                      onClick={() => handleClickCell(row, cell.column)}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
