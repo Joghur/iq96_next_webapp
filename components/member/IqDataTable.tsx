@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { CaretSortIcon, ChevronDownIcon } from '@radix-ui/react-icons';
 import {
-  Cell,
   ColumnDef,
   ColumnFiltersState,
   Row,

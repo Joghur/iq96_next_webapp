@@ -1,13 +1,11 @@
 import { DocumentUser } from '@lib/hooks/useFirestore';
 
 import { FormEvent, useState } from 'react';
-import { useTheme } from './ThemeToggle';
 import { Button } from '@components/ui/button';
 import ManyFormItems from '@components/ui/form/ManyFormItems';
 import { formHandleOnChange } from '@components/ui/form';
 import { FormItemEventTarget } from '@components/ui/form/OneFormItem';
 import { hasId } from '@components/ui/typing';
-import { errorToast } from '@components/ui/toast/ErrorToast/errorToast';
 import { useRouter } from 'next/navigation';
 import { basicUserFormBuilder } from './UserFormNewHelper';
 
@@ -22,7 +20,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
   const router = useRouter();
   const [userData, setUserData] = useState<DocumentUser>(user);
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
 
   // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   const { name, value } = e.target;

@@ -210,7 +210,7 @@ const handleBulletPoint = (
     case 'gf':
       return (
         <Link
-          href={`/kort?aar-by=0-Generalforsamling&sted=Generalforsamling`}
+          href={"/kort?aar-by=0-Generalforsamling&sted=Generalforsamling"}
           prefetch={false}
           className="whitespace-nowrap"
         >

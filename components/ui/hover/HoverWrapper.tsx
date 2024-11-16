@@ -1,12 +1,10 @@
-import { ReactElement } from 'react';
+// type Props = {
+//   hoverText?: string | string[];
+//   placement?: 'auto' | 'top' | 'bottom' | 'left' | 'right';
+//   children: ReactElement;
+// };
 
-type Props = {
-  hoverText?: string | string[];
-  placement?: 'auto' | 'top' | 'bottom' | 'left' | 'right';
-  children: ReactElement;
-};
-
-const HoverWrapper = ({ hoverText, placement, children }: Props) => {
+const HoverWrapper = () => {
   return <div>Page</div>;
 };
 

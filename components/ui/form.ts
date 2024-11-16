@@ -25,7 +25,7 @@ export const formHandleOnChange = <T>(
   if (keys.length === 1) {
     setState((prevState) => ({
       ...prevState,
-      // @ts-ignore
+      // @ts-expect-error: lKDFJKL
       [id]: getTypedValue(value, state[id]),
     }));
   } else {

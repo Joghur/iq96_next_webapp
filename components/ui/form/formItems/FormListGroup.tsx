@@ -85,6 +85,8 @@ const FormListGroup = ({
     handleListgroupIs(value, selection);
 
   const handleListGroupChange = (actionType: 'add' | 'remove') => {
+    const indexInRange = isIndexInRange(value, selectedListGroupItemIndex);
+
     switch (actionType) {
       case 'add':
         switch (listgroupIs) {
@@ -112,8 +114,6 @@ const FormListGroup = ({
         break;
 
       case 'remove':
-        const indexInRange = isIndexInRange(value, selectedListGroupItemIndex);
-
         if (indexInRange) {
           if (
             (listgroupIs === 'array' || listgroupIs === 'select') &&
@@ -127,7 +127,7 @@ const FormListGroup = ({
           }
           if (listgroupIs === 'object') {
             const newItems = { ...(value as object) };
-            // @ts-ignore
+            // @ts-expect-error:kfjkd
             delete newItems[Object.keys(value)[selectedListGroupItemIndex]];
             onChange(newItems);
           }
@@ -144,9 +144,7 @@ const FormListGroup = ({
 
   const handleFormControlInputChange = (value: string) => {
     const shouldBeNumeric =
-      listGroupFormKeys &&
-      // @ts-ignore
-      listGroupFormKeys[0].type === 'number';
+      listGroupFormKeys && listGroupFormKeys[0].type === 'number';
 
     if (shouldBeNumeric) {
       if (!isStringInteger(value) && value !== '') return;

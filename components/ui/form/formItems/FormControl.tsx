@@ -5,7 +5,6 @@ import { FormAs } from '@/components/ui/form/OneFormItem';
 import { calculateHeight } from '@components/ui/form';
 
 type Props = {
-  label: string;
   value: string | number;
   propertyKey: string;
   as: FormAs;
@@ -15,7 +14,6 @@ type Props = {
 };
 
 const FormControl = ({
-  label,
   value,
   propertyKey,
   as,

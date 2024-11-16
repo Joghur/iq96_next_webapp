@@ -11,7 +11,6 @@ import FormRadioButtonGroup from '@/components/ui/form/formItems/FormRadioButton
 import FormSelect from '@/components/ui/form/formItems/FormSelect';
 
 import styles from './OneFormItem.module.css';
-import HoverWrapper from '../hover/HoverWrapper';
 import { SelectLabelType } from '../form';
 import { isArray } from '../array';
 import { isHoverObject } from '../typing';
@@ -192,7 +191,6 @@ function OneFormItem<T extends Record<string, any>>({
             {showFormItemAs === undefined && <></>}
             {showFormItemAs === 'checkbox' && (
               <FormCheckBox
-                label={label}
                 propertyKey={propertyKey.toString()}
                 isChecked={value as boolean}
                 disabled={disabled}
@@ -201,7 +199,6 @@ function OneFormItem<T extends Record<string, any>>({
             )}
             {showFormItemAs === 'date' && (
               <FormControl
-                label={label}
                 value={epochToDate(value as number)}
                 propertyKey={propertyKey.toString()}
                 as={as}
@@ -222,7 +219,6 @@ function OneFormItem<T extends Record<string, any>>({
             )}
             {showFormItemAs === 'number' && (
               <FormControl
-                label={label}
                 value={value as number}
                 propertyKey={propertyKey.toString()}
                 as={as}
@@ -251,7 +247,6 @@ function OneFormItem<T extends Record<string, any>>({
             )}
             {showFormItemAs === 'string' && (
               <FormControl
-                label={label}
                 value={value?.toString() || ''}
                 propertyKey={propertyKey.toString()}
                 type="text"

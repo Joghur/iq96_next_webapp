@@ -2,7 +2,6 @@ import { ChangeEvent } from 'react';
 import Form from 'react-bootstrap/Form';
 
 type Props = {
-  label: string;
   propertyKey: string;
   isChecked: boolean;
   disabled: boolean;
@@ -10,7 +9,6 @@ type Props = {
 };
 
 const FormCheckBox = ({
-  label,
   propertyKey,
   isChecked,
   disabled,

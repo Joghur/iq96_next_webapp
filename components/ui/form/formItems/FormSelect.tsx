@@ -10,7 +10,7 @@ type Props = {
   onChange: (value: string) => void;
 };
 
-const FormSelect = ({ label, value, selection, disabled, onChange }: Props) => {
+const FormSelect = ({ value, selection, disabled, onChange }: Props) => {
   const [selectedValue, setSelectedValue] = useState(
     getLabelOrType(
       value?.toString() || 'THIS SHOULD NOT SHOW',

@@ -3,7 +3,6 @@
 import { ReactNode } from 'react';
 import { Modal } from 'react-bootstrap';
 
-import { DangerButton, PrimaryButton } from '@/components/ui/buttons/Buttons';
 import { Button } from '../button';
 
 type Props = {
