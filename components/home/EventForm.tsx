@@ -189,6 +189,9 @@ const EventForm = ({
             <CopyButton text="<link:tour>" />
           </div>
           <div className="dynamic_text">
+            <CopyButton text="<link:gf>" />
+          </div>
+          <div className="dynamic_text">
             <CopyButton text="<link:extra:Depeche Mode:bar>" />
           </div>
         </div>

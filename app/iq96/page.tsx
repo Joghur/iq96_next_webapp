@@ -43,7 +43,7 @@ const MemberPage = ({
   const isBoard = documentUser?.isBoard;
 
   return (
-    <PageLayout>        
+    <PageLayout>
       {/* <NextAuthProvider session={session as unknown as Session}> */}
       <SessionProvider>
         <MemberTabsPage value={value} onChange={handleChange} />
@@ -55,7 +55,7 @@ const MemberPage = ({
           {value === 'developer' && isSuperAdmin && <DeveloperTab />}
         </div>
       </SessionProvider>
-        {/* </NextAuthProvider> */}
+      {/* </NextAuthProvider> */}
     </PageLayout>
   );
 };

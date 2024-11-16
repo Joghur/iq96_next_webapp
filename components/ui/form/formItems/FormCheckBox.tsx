@@ -1,5 +1,5 @@
-import { ChangeEvent } from "react";
-import Form from "react-bootstrap/Form";
+import { ChangeEvent } from 'react';
+import Form from 'react-bootstrap/Form';
 
 type Props = {
   label: string;

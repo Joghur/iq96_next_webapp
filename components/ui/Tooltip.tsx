@@ -6,7 +6,7 @@ import { cn } from '@lib/utils';
 interface Props {
   children: ReactNode;
   text?: string | string[];
-  position?: "left" | "right" | "bottom" | "top" | "auto";
+  position?: 'left' | 'right' | 'bottom' | 'top' | 'auto';
 }
 
 const Tooltip = ({ children, text, position = 'top' }: Props) => {

@@ -33,7 +33,9 @@ const ConfirmationPopup = ({
       <Modal.Body className="text-nowrap">{label}</Modal.Body>
       <Modal.Footer>
         <Button onClick={onModalConfirm}>OK</Button>
-        <Button variant="destructive" onClick={onModalCancel}>Fortryd</Button>
+        <Button variant="destructive" onClick={onModalCancel}>
+          Fortryd
+        </Button>
       </Modal.Footer>
     </Modal>
   );

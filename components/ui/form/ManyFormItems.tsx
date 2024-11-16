@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { ListGroupFormKeys } from "@/components/ui/form/formItems/FormListGroup";
+import { ListGroupFormKeys } from '@/components/ui/form/formItems/FormListGroup';
 
-import OneFormItem, { FormItemEventTarget, HoverInfo } from "./OneFormItem";
-import { SelectLabelType } from "../form";
+import OneFormItem, { FormItemEventTarget, HoverInfo } from './OneFormItem';
+import { SelectLabelType } from '../form';
 
 /**
  * Use the FormBuilder type as guide to make forms. Each FormBuilder item in an array
@@ -26,7 +26,7 @@ import { SelectLabelType } from "../form";
 export type FormBuilder<T> = {
   label: string;
   propertyKey: keyof T;
-  showAs?: "textarea" | "radiobutton" | "listgroup" | "date" | undefined;
+  showAs?: 'textarea' | 'radiobutton' | 'listgroup' | 'date' | undefined;
   selection?: SelectLabelType<unknown, unknown>[];
   selectLabelMapping?: unknown;
   listGroupFormKeys?: ListGroupFormKeys;
@@ -52,13 +52,13 @@ function ManyFormItems<T>({
   }
 
   return (
-    <div className={asRow ? "flex flex-row" : undefined}>
+    <div className={asRow ? 'flex flex-row' : undefined}>
       {builderArray.map((builderItem) => (
         <OneFormItem
           key={builderItem.propertyKey.toString()}
-          as={builderItem?.showAs === "textarea" ? "textarea" : undefined}
+          as={builderItem?.showAs === 'textarea' ? 'textarea' : undefined}
           type={
-            builderItem?.showAs !== "textarea" ? builderItem?.showAs : undefined
+            builderItem?.showAs !== 'textarea' ? builderItem?.showAs : undefined
           }
           label={builderItem.label}
           propertyKey={builderItem.propertyKey.toString()}

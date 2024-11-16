@@ -3,7 +3,7 @@
  */
 export const convertObjectToTableStringArray = (
   obj: { [key: string]: string },
-  divider = " - ",
+  divider = ' - '
 ) => {
   const entries = Object.entries(obj);
   if (entries.length > 0) {
@@ -13,9 +13,9 @@ export const convertObjectToTableStringArray = (
   }
 };
 export const isArray = (value: unknown): value is unknown[] => {
-  return Array.isArray(value) && typeof value === "object";
+  return Array.isArray(value) && typeof value === 'object';
 };
 export const isStringArray = (value: unknown): value is string[] => {
   if (!isArray(value) || value.length === 0) return false;
-  return value.every((item) => typeof item === "string");
+  return value.every((item) => typeof item === 'string');
 };

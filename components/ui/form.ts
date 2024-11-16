@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction } from 'react';
 
 import { FormItemEventTarget } from '@/components/ui/form/OneFormItem';
-import {  getTypedValue } from './typing';
+import { getTypedValue } from './typing';
 
 /**
  * Helper type for select content and mapping.
