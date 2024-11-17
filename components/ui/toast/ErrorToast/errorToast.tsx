@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 
 import { ErrorToastText } from '@/components/ui/toast/ErrorToast/ErrorResponse';
-import { isErrorResponse } from '@/utils/typing';
+import { ErrorResponse, isErrorResponse } from '@components/ui/typing';
 
 export const errorResponseToast = (response: ErrorResponse) => {
   toast(() => <ErrorToastText response={response} />, {
