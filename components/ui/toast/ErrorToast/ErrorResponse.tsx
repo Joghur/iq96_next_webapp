@@ -1,3 +1,5 @@
+import { ErrorResponse } from "@components/ui/typing";
+
 type Props = {
   response: ErrorResponse;
 };
