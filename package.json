@@ -1,6 +1,6 @@
 {
   "name": "iq96_next_webapp",
-  "version": "0.8.11",
+  "version": "0.8.12",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,6 +9,8 @@
     "lint": "next lint",
     "prettier": "npx prettier --write ./app ./components ./lib",
     "prettier:check": "npx prettier --check ./app ./components ./lib",
+    "test": "jest",
+    "test:verboseWatch": "jest --verbose",
     "clean": "rm -rf .next && rm -rf node_modules && npm install && npm run dev"
   },
   "dependencies": {
@@ -26,6 +28,7 @@
     "@react-pdf/renderer": "3.4.0",
     "@tanstack/react-table": "8.13.2",
     "autoprefixer": "10.4.18",
+    "bootstrap": "^5.3.3",
     "class-variance-authority": "0.7.0",
     "cloudinary": "2.0.3",
     "cloudinary-build-url": "0.2.4",
@@ -40,22 +43,25 @@
     "moment": "2.30.1",
     "mongodb": "6.5.0",
     "mongoose": "8.2.2",
-    "next": "14.1.3",
+    "next": "14.2.13",
     "next-auth": "4.24.7",
     "next-cloudinary": "6.3.0",
     "react": "18.2.0",
+    "react-bootstrap": "^2.10.2",
     "react-csv-downloader": "3.1.0",
     "react-dom": "18.2.0",
     "react-firebase-hooks": "5.1.1",
     "react-hook-form": "7.51.0",
     "react-icons": "5.0.1",
     "react-leaflet": "4.2.1",
+    "react-toastify": "^10.0.6",
     "zod": "3.22.4"
   },
   "devDependencies": {
     "@cld-apis/types": "0.1.6",
     "@next/eslint-plugin-next": "14.1.3",
     "@tailwindcss/typography": "0.5.10",
+    "@types/jest": "^29.5.14",
     "@types/leaflet": "1.9.8",
     "@types/node": "20.11.28",
     "@types/react": "18.2.66",
@@ -70,12 +76,14 @@
     "eslint-plugin-prettier": "5.1.3",
     "eslint-plugin-react": "7.34.1",
     "eslint-plugin-react-hooks": "4.6.0",
+    "jest": "^29.7.0",
     "postcss": "8.4.35",
     "prettier": "3.2.5",
     "prettier-plugin-tailwindcss": "0.5.12",
     "tailwind-merge": "2.2.1",
     "tailwindcss": "3.4.1",
     "tailwindcss-animate": "1.0.7",
+    "ts-jest": "^29.2.5",
     "typescript": "5.4.2"
   }
 }

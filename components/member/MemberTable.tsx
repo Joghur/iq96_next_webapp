@@ -1,7 +1,6 @@
 'use client';
 
-//@typescript-eslint/no-explicit-any
-export async function fetchContacts(session: any) {
+export async function fetchContacts(session: { access_token: string }) {
   if (!session) {
     return [];
   }

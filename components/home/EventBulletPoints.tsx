@@ -14,6 +14,7 @@ import {
   MdOutlineRestaurant,
   MdOutlineTrain,
   MdOutlineWineBar,
+  MdWineBar,
 } from 'react-icons/md';
 import { EventType } from './EventsPage';
 
@@ -77,6 +78,18 @@ const EventBulletPoints = ({ pointsString, event }: Props) => {
             </div>
           );
         }
+        if (point.includes('<link:gf>')) {
+          const parts = point.split('<link:gf>');
+          return (
+            <div key={index} className="ml-4">
+              <li>
+                {`${parts[0]} `}
+                {handleBulletPoint('0-Generalforsamling', 'gf')}
+                {` ${parts.length > 1 && parts[1]}`}
+              </li>
+            </div>
+          );
+        }
 
         const regexPattern = /([^<]*)<link:extra:([^:]+):([^>]+)>([^>]*)/;
         const match = new RegExp(regexPattern).exec(point);
@@ -126,6 +139,7 @@ const bulletPointLinkTypes = [
   'music',
   'question',
   'train',
+  'gf',
   'unknown',
 ] as const;
 
@@ -193,6 +207,20 @@ const handleBulletPoint = (
         </Link>
       );
 
+    case 'gf':
+      return (
+        <Link
+          href={'/kort?aar-by=0-Generalforsamling&sted=Generalforsamling'}
+          prefetch={false}
+          className="whitespace-nowrap"
+        >
+          <EventInfoBadge>
+            <MdWineBar className="mr-1" />
+            Generalforsamling
+          </EventInfoBadge>
+        </Link>
+      );
+
     case 'bar':
     case 'bus':
     case 'cafe':
@@ -223,6 +251,7 @@ const handleBulletPoint = (
 const iconText = (icon: string) => {
   switch (icon) {
     case 'bar':
+    case 'gf':
       return <MdOutlineWineBar className="mr-1" />;
 
     case 'bus':

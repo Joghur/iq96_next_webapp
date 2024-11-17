@@ -19,8 +19,7 @@ export const metadata: Metadata = {
   description: 'Web app created by IQ96',
 };
 
-export default function RootLayout({ children }: Props) {  
-  const netpunktSession: Session | null =  await getServerSession(authOptions);
+export const RootLayout = async ({ children }: Props) => {
   return (
     <html lang="en">
       <body>
@@ -33,4 +32,5 @@ export default function RootLayout({ children }: Props) {
       </body>
     </html>
   );
-}
+};
+export default RootLayout;

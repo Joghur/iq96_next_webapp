@@ -1,0 +1,27 @@
+.fieldRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.fieldColumn {
+  margin-right: 0.5rem;
+}
+
+.fieldName {
+  width: 10rem;
+  margin: 0 1rem 0 1rem;
+}
+
+.fieldNameVertical {
+  margin-left: 0.8rem;
+}
+
+.fieldControlWrapper {
+  flex-basis: 25rem;
+}
+
+.fieldControlWrapperVertical {
+  max-width: 10rem;
+}
