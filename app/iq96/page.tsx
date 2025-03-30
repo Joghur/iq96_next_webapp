@@ -1,7 +1,6 @@
 'use client';
 
 import { MouseEvent, useContext, useEffect, useState } from 'react';
-import { SessionProvider } from 'next-auth/react';
 
 import AboutTab from '@components/member/AboutTab';
 import AdminTab from '@components/member/AdminTab';
@@ -22,7 +21,6 @@ const MemberPage = ({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
-  // const session: SomethingSession | null =  await getServerSession(authOptions);
   const { authUser, documentUser } = useContext(authContext);
   const [value, setValue] = useState<MemberTabs>(isTab(tab) ? tab : 'member');
 
@@ -44,18 +42,14 @@ const MemberPage = ({
 
   return (
     <PageLayout>
-      {/* <NextAuthProvider session={session as unknown as Session}> */}
-      <SessionProvider>
-        <MemberTabsPage value={value} onChange={handleChange} />
-        <div className="flex items-center justify-center pt-6">
-          {value === 'member' && <MemberTab />}
-          {value === 'iq96' && <Iq96Tab />}
-          {value === 'about' && <AboutTab />}
-          {value === 'admin' && (isSuperAdmin || isBoard) && <AdminTab />}
-          {value === 'developer' && isSuperAdmin && <DeveloperTab />}
-        </div>
-      </SessionProvider>
-      {/* </NextAuthProvider> */}
+      <MemberTabsPage value={value} onChange={handleChange} />
+      <div className="flex items-center justify-center pt-6">
+        {value === 'member' && <MemberTab />}
+        {value === 'iq96' && <Iq96Tab />}
+        {value === 'about' && <AboutTab />}
+        {value === 'admin' && (isSuperAdmin || isBoard) && <AdminTab />}
+        {value === 'developer' && isSuperAdmin && <DeveloperTab />}
+      </div>
     </PageLayout>
   );
 };

@@ -24,7 +24,7 @@ export const RootLayout = async ({ children }: Props) => {
     <html lang="en">
       <body>
         <AuthContextProvider>
-          {children}
+          <span className="app max-w-7xl sm:px-16 px-6 py-6">{children}</span>
           <div className="z-40">
             <BottomNav />
           </div>

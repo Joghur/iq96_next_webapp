@@ -21,7 +21,6 @@ import {
 
 import { IqMemberTable } from './IqMemberTable';
 import { fetchContacts } from './MemberTable';
-import { signIn, signOut, useSession } from 'next-auth/react';
 import { Button } from '@components/ui/button';
 import { convertMonthNumberToName } from '@lib/dates';
 
@@ -76,7 +75,6 @@ export interface Connection {
 }
 
 const DeveloperTab = () => {
-  const { data: session } = useSession();
   const [connections, setCon] = useState<Connection[] | undefined>(undefined);
 
   const {
@@ -90,22 +88,23 @@ const DeveloperTab = () => {
     setCon(() => res);
   };
 
-  useEffect(() => {
-    handleContacts(session);
-  }, [session?.user]);
+  // TODO remove next-auth until further notice
+  // useEffect(() => {
+  //   handleContacts(session);
+  // }, [session?.user]);
 
-  if (!session) {
-    return (
-      <div className="flex flex-row justify-center items-center gap-7">
-        <div>
-          Ikke logget ind <br />
-        </div>
-        <div>
-          <Button onClick={() => signIn()}>Log ind med foreningskonto</Button>
-        </div>
-      </div>
-    );
-  }
+  // if (!session) {
+  //   return (
+  //     <div className="flex flex-row justify-center items-center gap-7">
+  //       <div>
+  //         Ikke logget ind <br />
+  //       </div>
+  //       <div>
+  //         <Button onClick={() => signIn()}>Log ind med foreningskonto</Button>
+  //       </div>
+  //     </div>
+  //   );
+  // }
   if (loading) {
     return <LoadingSpinner text={'Henter med-lemmer...'} />;
   }
@@ -135,12 +134,12 @@ const DeveloperTab = () => {
     <div className="table-container touch-action-pan-y overflow-y-scroll transition-transform duration-300">
       <div className="scale-120 px-1 sm:py-4 lg:px-10">
         <div className="flex flex-row justify-between">
-          <div>
-            Logged ind som <b>{session.user?.email}</b>
+          {/* <div>
+             Logged ind som <b>{session.user?.email}</b> 
           </div>
           <div>
             <Button onClick={() => signOut()}>Log ud af foreningskonto</Button>
-          </div>
+          </div> */}
         </div>{' '}
         <br />
         <p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
