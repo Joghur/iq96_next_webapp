@@ -67,9 +67,17 @@ export const useFirestore = <T extends DocumentData>(
         await setDoc(docRef, {
           ...document,
           id: id,
+          start: document.start ?? '', // sikrer at det eksisterer
         });
       } else {
-        await addDoc(collectionRef, document);
+        const docRef = await addDoc(collectionRef, {
+          ...document,
+        });
+        await setDoc(
+          docRef,
+          { ...document, id: docRef.id, start: document.start ?? '' },
+          { merge: true }
+        );
       }
     } catch (error) {
       // TODO: proper errorhandling

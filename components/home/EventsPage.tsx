@@ -14,22 +14,14 @@ import EventInfoBadge from '@components/ui/EventInfoBadge';
 import EventBulletPoints from './EventBulletPoints';
 import { useTheme } from '@components/member/ThemeToggle';
 
-interface FirebaseDate {
-  seconds: number;
-}
-
 type Type = 'tour' | 'gf' | 'oel' | 'golf' | 'other' | '';
 export type EventStatus = 'done' | 'next' | 'pending';
 
 export type EventType = {
   id?: string;
   city: string;
-  country: string;
   end: string;
-  endDate?: FirebaseDate;
   start: string;
-  startDate?: FirebaseDate;
-  timezone: string;
   type: Type;
   year: number;
   activities?: string;
@@ -53,7 +45,8 @@ const EventsPage = ({ documentUser }: Props) => {
     docs: events,
     loading,
     updatingDoc,
-  } = useFirestore<EventType>('events', 'startDate');
+    addingDoc,
+  } = useFirestore<EventType>('events', 'start');
   const [currentEvent, setCurrentEvent] = useState<EventType | null>(null);
   const [showDialog, setShowDialog] = useState(false);
 
@@ -69,10 +62,21 @@ const EventsPage = ({ documentUser }: Props) => {
     );
   }
 
-  const handleUpdate = async (
-    _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    id: string | undefined
-  ) => {
+  const handleNewEvent = () => {
+    setCurrentEvent((old) => ({
+      ...old,
+      city: 'København',
+      start: '',
+      end: '',
+      year: new Date().getFullYear(),
+      activities: '',
+      meetingPoints: '',
+      type: '',
+    }));
+    setShowDialog(true);
+  };
+
+  const handleUpdate = async (id: string | undefined) => {
     if (!id) {
       return;
     }
@@ -87,6 +91,8 @@ const EventsPage = ({ documentUser }: Props) => {
     documentUser?.isAdmin ||
     documentUser?.isBoard ||
     documentUser?.isSuperAdmin;
+
+  console.log('events', events);
 
   //TODO refactor this
   return (
@@ -175,7 +181,9 @@ const EventsPage = ({ documentUser }: Props) => {
                         )}
                     </div>
                     {canEdit && event.id && (
-                      <button onClick={(e) => handleUpdate(e, event.id)}>
+                      <button
+                        onClick={async () => await handleUpdate(event.id)}
+                      >
                         <MdEdit />
                       </button>
                     )}
@@ -212,17 +220,19 @@ const EventsPage = ({ documentUser }: Props) => {
                           : handleType(event?.type)}
                       </p>
                       {canEdit && event.id && (
-                        <button onClick={(e) => handleUpdate(e, event.id)}>
+                        <button
+                          onClick={async () => await handleUpdate(event.id)}
+                        >
                           <MdEdit />
                         </button>
                       )}
                     </div>
-                    {!!event?.startDate && (
+                    {!!event?.start && (
                       <div className="orange_gradient flex text-center text-[larger]">
                         <div>{event.start}</div>
                       </div>
                     )}
-                    {!!event?.endDate && (
+                    {!!event.end.trim() && (
                       <div className="flex flex-col">
                         <p>Slut:</p>
                         <div className="">
@@ -390,7 +400,9 @@ const EventsPage = ({ documentUser }: Props) => {
                       </p>
                       <p>{event.start}</p>
                       {canEdit && event.id && (
-                        <button onClick={(e) => handleUpdate(e, event.id)}>
+                        <button
+                          onClick={async () => await handleUpdate(event.id)}
+                        >
                           <MdEdit />
                         </button>
                       )}
@@ -401,6 +413,11 @@ const EventsPage = ({ documentUser }: Props) => {
             </div>
           );
         })}
+        {canEdit && (
+          <button onClick={handleNewEvent}>
+            <MdEdit color="red" />
+          </button>
+        )}
       </div>
       {showDialog && (
         <EventForm
@@ -408,6 +425,7 @@ const EventsPage = ({ documentUser }: Props) => {
           open={showDialog}
           onClose={() => setShowDialog(false)}
           updatingDoc={updatingDoc}
+          addingDoc={addingDoc}
         />
       )}
     </div>

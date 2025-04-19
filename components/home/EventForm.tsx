@@ -8,10 +8,8 @@ import { CopyButton } from '@components/ui/CopyButton';
 const initialEvent: EventType = {
   type: '',
   city: 'Kokkedal',
-  country: 'Danmark',
   start: '',
   end: '',
-  timezone: 'Europe/Copenhagen',
   year: 0,
   activities: `
     kl. xx - Guided tur i byen, mødested udenfor hotellet kl. xx:xx -- 
@@ -29,6 +27,7 @@ interface Props {
   editable?: boolean;
   onClose: () => void;
   updatingDoc: (id: string, document: EventType) => void;
+  addingDoc: (document: EventType) => void;
 }
 
 const EventForm = ({
@@ -37,10 +36,13 @@ const EventForm = ({
   onClose,
   editable = true,
   updatingDoc,
+  addingDoc,
 }: Props) => {
   const [changedEvent, setChangingEvent] = useState<EventType>(
     event || initialEvent
   );
+
+  const isNew = !event?.id;
 
   const handleChange = (
     event: ChangeEvent<HTMLTextAreaElement | HTMLSelectElement>
@@ -65,6 +67,16 @@ const EventForm = ({
   };
 
   const handleSubmit = () => {
+    if (!editable) return;
+
+    if (isNew) {
+      addingDoc?.(changedEvent);
+    } else if (changedEvent?.id) {
+      updatingDoc(changedEvent.id, changedEvent);
+    }
+
+    onClose();
+
     if (editable && changedEvent?.id) {
       updatingDoc(changedEvent.id, {
         ...changedEvent,
@@ -75,7 +87,10 @@ const EventForm = ({
 
   return (
     <Modal open={open}>
-      <h3 className="text-lg font-bold">Opdatér begivenhed</h3>
+      <h3 className="text-lg font-bold">
+        {' '}
+        {isNew ? 'Opret ny begivenhed' : 'Opdatér begivenhed'}
+      </h3>
       <div>
         <div className="pt-5">
           <label
@@ -141,6 +156,21 @@ const EventForm = ({
               Vis Upload Button
             </label>
           </div>
+        </div>
+        <div className="pt-5">
+          <label
+            htmlFor="city"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            By
+          </label>
+          <textarea
+            id="city"
+            value={changedEvent.city}
+            onChange={handleChange}
+            placeholder={changedEvent?.city || 'By'}
+            className="dynamic_text textarea-bordered textarea"
+          />
         </div>
         <div className="pt-5">
           <label
@@ -264,7 +294,7 @@ const EventForm = ({
             Fortryd
           </button>
           <button onClick={handleSubmit} className="btn-info btn-sm btn">
-            Opdatér
+            {isNew ? 'Opret' : 'Opdatér'}
           </button>
         </div>
       </div>
