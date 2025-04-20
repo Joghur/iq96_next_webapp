@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { MdEdit, MdOutlineHotel, MdClose } from 'react-icons/md';
+import { MdEdit, MdOutlineHotel } from 'react-icons/md';
 
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { eventTransitionVariants } from '@lib/animations';
