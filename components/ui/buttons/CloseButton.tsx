@@ -10,7 +10,7 @@ type Props = {
 const CloseButton = ({ onClick, onDoubleClick, colour }: Props) => {
   return (
     <CircleBackground onClick={onClick} onDoubleClick={onDoubleClick}>
-      <MdClose size={32} color={colour ? colour : ''} />
+      <MdClose color={colour ? colour : ''} />
     </CircleBackground>
   );
 };
