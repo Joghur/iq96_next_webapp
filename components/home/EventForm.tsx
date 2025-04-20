@@ -3,7 +3,8 @@
 import { ChangeEvent, useState } from 'react';
 import { EventType } from './EventsPage';
 import Modal from '@components/ui/Modal';
-import { CopyButton } from '@components/ui/CopyButton';
+import { CopyButton } from '@components/ui/buttons/CopyButton';
+import CloseButton from '@components/ui/buttons/CloseButton';
 
 const initialEvent: EventType = {
   type: '',
@@ -88,8 +89,10 @@ const EventForm = ({
   return (
     <Modal open={open}>
       <h3 className="text-lg font-bold">
-        {' '}
-        {isNew ? 'Opret ny begivenhed' : 'Opdatér begivenhed'}
+        <div className="flex flex-row items-center justify-between">
+          {isNew ? 'Opret ny begivenhed' : 'Opdatér begivenhed'}
+          <CloseButton onClick={onClose} />
+        </div>
       </h3>
       <div>
         <div className="pt-5">

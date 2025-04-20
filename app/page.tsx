@@ -9,7 +9,7 @@ import EventsPage from '@components/home/EventsPage';
 import { handleStartTheme } from '@components/member/ThemeToggle';
 import CookieWarning from '@components/ui/CookieWarning';
 import LoadingSpinner from '@components/ui/LoadingSpinner';
-import OldPageButton from '@components/ui/OldPageButton';
+import OldPageButton from '@components/ui/buttons/OldPageButton';
 import PageLayout from '@components/ui/PageLayout';
 import {
   getLocalStorage,
