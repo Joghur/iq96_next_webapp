@@ -10,7 +10,7 @@ type Props = {
 const EditButton = ({ onClick, onDoubleClick, colour = 'black' }: Props) => {
   return (
     <CircleBackground onClick={onClick} onDoubleClick={onDoubleClick}>
-      <MdEdit size={32} color={colour ? colour : ''} />
+      <MdEdit color={colour ? colour : ''} />
     </CircleBackground>
   );
 };

@@ -13,7 +13,7 @@ const CircleBackground = ({ children, onClick, onDoubleClick }: Props) => {
     <div
       onClick={onClick}
       onDoubleClick={onDoubleClick}
-      className={`p-1 flex items-center justify-center rounded-full border-2 ${theme === 'dark' ? 'bg-gray-500 border-slate-50 ' : 'bg-slate-50 border-gray-500'}`}
+      className={`p-1 flex items-center justify-center rounded-full border-2 shadow-lg ${theme === 'dark' ? 'bg-gray-500 border-slate-300 ' : 'bg-slate-50 border-gray-500'}`}
     >
       {children}
     </div>
