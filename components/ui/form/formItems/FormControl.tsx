@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react';
 import Form from 'react-bootstrap/Form';
 
 import { FormAs } from '@/components/ui/form/OneFormItem';
-import { calculateHeight } from '@components/ui/form';
+import { calculateHeight } from '@lib/form';
 
 type Props = {
   value: string | number;

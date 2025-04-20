@@ -18,6 +18,18 @@ import EditButton from '@components/ui/buttons/EditButton';
 
 export type Type = 'tour' | 'gf' | 'oel' | 'golf' | 'other' | '';
 export type EventStatus = 'done' | 'next' | 'pending';
+type DayEventType = 'meetingPoint' | 'action' | 'dinner' | 'guidedTour';
+
+export type DayEventElement = {
+  time: string;
+  label: string;
+  type: DayEventType;
+};
+
+export type DayEvent = {
+  dateString: string;
+  entries: DayEventElement[];
+};
 
 export type EventType = {
   id?: string;
@@ -26,6 +38,7 @@ export type EventType = {
   start: string;
   type: Type;
   year: number;
+  dayEvents: DayEvent[];
   activities?: string;
   meetingPoints: string;
   notes?: string;
@@ -35,6 +48,37 @@ export type EventType = {
   showInfoLink?: boolean;
   showMapLink?: boolean;
 };
+
+/**
+ const data: TourCardData = {
+  id: "p5wqqaPR5SRHDRtDb3AP",
+  title: "Generalforsamling",
+  start: "Lørdag, 27/sep-2025, 16:30",
+  end: "Søndag, 29/sep-2025, 13:10",
+  dayEvents: [
+    {
+      date: "2025-09-28",
+      entries: [
+        { time: "12:00", label: "Middag", type: "activity" },
+        { time: "12:30", label: "Hotel", type: "meeting" },
+        { time: "18:00", label: "Middag", type: "meeting" },
+      ],
+    },
+    {
+      date: "2025-09-29",
+      entries: [
+        { time: "11:00", label: "Hotel", type: "meeting" },
+        { time: "11:30", label: "Guidet rundtur", type: "activity" },
+      ],
+    },
+  ],
+  city: "Nyborg",
+  country: "Danmark",
+  timezone: "Europe/Copenhagen",
+  status: "done",
+};
+
+ */
 
 interface Props {
   documentUser: DocumentUser | null | undefined;
@@ -70,7 +114,7 @@ const EventsPage = ({ documentUser }: Props) => {
     if (!id) {
       return;
     }
-
+    console.log('events -------------', events);
     setCurrentEvent(
       () => events?.filter((o) => o.id === id)[0] as unknown as EventType
     );

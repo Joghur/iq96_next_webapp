@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import FormSelect from '@/components/ui/form/formItems/FormSelect';
 
 import styles from './FormListGroup.module.css';
-import { SelectLabelType } from '@components/ui/form';
+import { SelectLabelType } from '@lib/form';
 import { isArray, isStringArray } from '@components/ui/array';
 import { isObject, isStringInteger } from '@components/ui/typing';
 import { Button } from '@components/ui/button';

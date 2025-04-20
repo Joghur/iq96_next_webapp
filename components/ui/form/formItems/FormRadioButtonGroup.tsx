@@ -1,4 +1,4 @@
-import { SelectLabelType } from '@components/ui/form';
+import { SelectLabelType } from '@lib/form';
 import { ChangeEvent, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 
