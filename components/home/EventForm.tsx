@@ -5,8 +5,6 @@ import { EventType } from './EventsPage';
 import Modal from '@components/ui/Modal';
 import { CopyButton } from '@components/ui/buttons/CopyButton';
 import CloseButton from '@components/ui/buttons/CloseButton';
-import { errorToast } from '@components/ui/toast/ErrorToast/errorToast';
-import { successToast } from '@components/ui/toast/SuccessToast/successToast';
 
 const initialEvent: EventType = {
   type: 'tour',
@@ -32,6 +30,7 @@ interface Props {
   onClose: () => void;
   onUpdate: (id: string, document: EventType) => Promise<void>;
   onAdding: (document: EventType) => Promise<void>;
+  onDelete: (id: string) => Promise<void>;
 }
 
 const EventForm = ({
@@ -41,6 +40,7 @@ const EventForm = ({
   editable = true,
   onUpdate,
   onAdding,
+  onDelete,
 }: Props) => {
   const [changedEvent, setChangingEvent] = useState<EventType>(
     event || initialEvent
@@ -70,6 +70,12 @@ const EventForm = ({
     }));
   };
 
+  const handleDelete = async (id: string | undefined) => {
+    if (!id) return;
+    await onDelete(id);
+    onClose();
+  };
+
   const handleSubmit = async () => {
     if (!editable || !changedEvent) return;
 
@@ -80,10 +86,8 @@ const EventForm = ({
         await onUpdate?.(changedEvent.id, changedEvent);
       }
       onClose();
-      successToast('Event er gemt');
     } catch (error) {
       console.error('Opdatering fejlede:', error);
-      errorToast('Noget gik galt');
     }
   };
 
@@ -313,15 +317,25 @@ const EventForm = ({
         </div>
         <div className="flex justify-between pt-5">
           <button
-            onClick={onClose}
+            onClick={() => handleDelete(event?.id)}
             color={'error'}
-            className="btn-error btn-outline btn-sm btn"
+            disabled={!event?.id}
+            className="btn-error btn-sm btn"
           >
-            Fortryd
+            Slet
           </button>
-          <button onClick={handleSubmit} className="btn-info btn-sm btn">
-            {isNew ? 'Opret' : 'Opdatér'}
-          </button>
+          <div className="flex gap-7">
+            <button
+              onClick={onClose}
+              color={'error'}
+              className="btn-error btn-outline btn-sm btn"
+            >
+              Fortryd
+            </button>
+            <button onClick={handleSubmit} className="btn-info btn-sm btn">
+              {isNew ? 'Opret' : 'Opdatér'}
+            </button>
+          </div>
         </div>
       </div>
     </Modal>

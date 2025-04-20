@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { MdEdit, MdOutlineHotel } from 'react-icons/md';
+import { MdOutlineHotel } from 'react-icons/md';
 
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 import { eventTransitionVariants } from '@lib/animations';
@@ -48,7 +48,9 @@ const EventsPage = ({ documentUser }: Props) => {
     loading,
     updatingDoc,
     addingDoc,
+    deletingDoc,
   } = useFirestore<EventType>('events', 'start');
+
   const [currentEvent, setCurrentEvent] = useState<EventType | null>(null);
   const [showDialog, setShowDialog] = useState(false);
 
@@ -75,6 +77,11 @@ const EventsPage = ({ documentUser }: Props) => {
     setShowDialog(() => true);
   };
 
+  const handleClose = () => {
+    setShowDialog(false);
+    setCurrentEvent(null);
+  };
+
   const canEdit =
     documentUser?.isAdmin ||
     documentUser?.isBoard ||
@@ -84,9 +91,9 @@ const EventsPage = ({ documentUser }: Props) => {
   const nextEvents = events.filter((event) => event.status === 'next');
   const futureEvents = events.filter((event) => event.status === 'pending');
 
-  // console.log('previousEvents', previousEvents);
-  // console.log('nextEvents', nextEvents);
-  // console.log('futureEvents', futureEvents);
+  console.log('previousEvents', previousEvents);
+  console.log('nextEvents', nextEvents);
+  console.log('futureEvents', futureEvents);
 
   //TODO refactor this
   return (
@@ -97,7 +104,7 @@ const EventsPage = ({ documentUser }: Props) => {
             <p className="text-center text-[larger] font-bold">Tidligere</p>
           </div>
         )}
-        {previousEvents.map((event, index) => {
+        {previousEvents.map((previousEvent, index) => {
           return (
             <div key={index} className="mx-10 my-3 gap-2">
               <motion.div
@@ -112,17 +119,17 @@ const EventsPage = ({ documentUser }: Props) => {
                   className={`sm:px-15 paper ${theme === 'dark' ? 'bg-gray-800' : 'bg-slate-50'} flex flex-row justify-between overflow-hidden rounded-xl px-10`}
                 >
                   <p className="font-semibold">
-                    {event?.type === 'tour'
-                      ? `${handleType(event?.type)} de ${event.city}`
-                      : handleType(event?.type)}
+                    {previousEvent?.type === 'tour'
+                      ? `${handleType(previousEvent?.type)} de ${previousEvent.city}`
+                      : handleType(previousEvent?.type)}
                   </p>
                   <div className="flex justify-evenly">
-                    {event.showUploadButton &&
-                      event?.type === 'tour' &&
-                      event?.year &&
-                      event?.city && (
+                    {previousEvent.showUploadButton &&
+                      previousEvent?.type === 'tour' &&
+                      previousEvent?.year &&
+                      previousEvent?.city && (
                         <Link
-                          href={`/bibliothek/galleri/tour/${event.year}-${event.city.toLocaleLowerCase()}`}
+                          href={`/bibliothek/galleri/tour/${previousEvent.year}-${previousEvent.city.toLocaleLowerCase()}`}
                           prefetch={false}
                           className="whitespace-nowrap"
                         >
@@ -132,11 +139,11 @@ const EventsPage = ({ documentUser }: Props) => {
                           </EventInfoBadge>
                         </Link>
                       )}
-                    {event.showUploadButton &&
-                      event?.type === 'gf' &&
-                      event?.year && (
+                    {previousEvent.showUploadButton &&
+                      previousEvent?.type === 'gf' &&
+                      previousEvent?.year && (
                         <Link
-                          href={`/bibliothek/galleri/gf/${event.year}`}
+                          href={`/bibliothek/galleri/gf/${previousEvent.year}`}
                           prefetch={false}
                           className="whitespace-nowrap"
                         >
@@ -146,11 +153,11 @@ const EventsPage = ({ documentUser }: Props) => {
                           </EventInfoBadge>
                         </Link>
                       )}
-                    {event.showUploadButton &&
-                      event?.type === 'oel' &&
-                      event?.year && (
+                    {previousEvent.showUploadButton &&
+                      previousEvent?.type === 'oel' &&
+                      previousEvent?.year && (
                         <Link
-                          href={`/bibliothek/galleri/events/${event.year}-øl`}
+                          href={`/bibliothek/galleri/events/${previousEvent.year}-øl`}
                           prefetch={false}
                           className="whitespace-nowrap"
                         >
@@ -160,11 +167,11 @@ const EventsPage = ({ documentUser }: Props) => {
                           </EventInfoBadge>
                         </Link>
                       )}
-                    {event.showUploadButton &&
-                      event?.type === 'golf' &&
-                      event?.year && (
+                    {previousEvent.showUploadButton &&
+                      previousEvent?.type === 'golf' &&
+                      previousEvent?.year && (
                         <Link
-                          href={`/bibliothek/galleri/events/${event.year}-frisbee`}
+                          href={`/bibliothek/galleri/events/${previousEvent.year}-frisbee`}
                           prefetch={false}
                           className="whitespace-nowrap"
                         >
@@ -175,10 +182,10 @@ const EventsPage = ({ documentUser }: Props) => {
                         </Link>
                       )}
                   </div>
-                  {canEdit && event.id && (
-                    <button onClick={async () => await handleUpdate(event.id)}>
-                      <MdEdit />
-                    </button>
+                  {canEdit && previousEvent.id && (
+                    <EditButton
+                      onClick={() => handleUpdate(previousEvent.id)}
+                    />
                   )}
                 </div>
               </motion.div>
@@ -191,7 +198,7 @@ const EventsPage = ({ documentUser }: Props) => {
             <p className="text-center text-[larger] font-bold">Næste</p>
           </div>
         )}
-        {nextEvents.map((event, index) => {
+        {nextEvents.map((nextEvent, index) => {
           return (
             <div key={index} className="mx-10 my-3 gap-2">
               <motion.div
@@ -209,33 +216,33 @@ const EventsPage = ({ documentUser }: Props) => {
                 >
                   <div className="flex justify-between align-middle">
                     <p className="font-semibold">
-                      {event?.type === 'tour'
-                        ? `${handleType(event?.type)} de ${event.city}`
-                        : handleType(event?.type)}
+                      {nextEvent?.type === 'tour'
+                        ? `${handleType(nextEvent?.type)} de ${nextEvent.city}`
+                        : handleType(nextEvent?.type)}
                     </p>
-                    {canEdit && event.id && (
-                      <EditButton onClick={() => handleUpdate(event.id)} />
+                    {canEdit && nextEvent.id && (
+                      <EditButton onClick={() => handleUpdate(nextEvent.id)} />
                     )}
                   </div>
-                  {!!event?.start && (
+                  {!!nextEvent?.start && (
                     <div className="orange_gradient flex text-center text-[larger]">
-                      <div>{event.start}</div>
+                      <div>{nextEvent.start}</div>
                     </div>
                   )}
-                  {!!event.end.trim() && (
+                  {!!nextEvent.end.trim() && (
                     <div className="flex flex-col">
                       <p>Slut:</p>
                       <div className="">
-                        <p>{event.end}</p>
+                        <p>{nextEvent.end}</p>
                       </div>
                     </div>
                   )}
                   <div className="flex justify-evenly">
-                    {event.showMapLink &&
-                      event.type === 'tour' &&
-                      event?.city && (
+                    {nextEvent.showMapLink &&
+                      nextEvent.type === 'tour' &&
+                      nextEvent?.city && (
                         <Link
-                          href={`/kort?aar-by=${event?.year}-${event?.city?.trim()}&sted=Vores hotel`}
+                          href={`/kort?aar-by=${nextEvent?.year}-${nextEvent?.city?.trim()}&sted=Vores hotel`}
                           prefetch={false}
                           className="whitespace-nowrap"
                         >
@@ -245,11 +252,11 @@ const EventsPage = ({ documentUser }: Props) => {
                           </EventInfoBadge>
                         </Link>
                       )}
-                    {event.showInfoLink &&
-                      event.showInfoLink &&
-                      event?.year && (
+                    {nextEvent.showInfoLink &&
+                      nextEvent.showInfoLink &&
+                      nextEvent?.year && (
                         <Link
-                          href={`/bibliothek/breve/${event.year}`}
+                          href={`/bibliothek/breve/${nextEvent.year}`}
                           prefetch={false}
                           className="whitespace-nowrap"
                         >
@@ -259,12 +266,12 @@ const EventsPage = ({ documentUser }: Props) => {
                           </EventInfoBadge>
                         </Link>
                       )}
-                    {event.showUploadButton &&
-                      event?.type === 'tour' &&
-                      event?.year &&
-                      event?.city && (
+                    {nextEvent.showUploadButton &&
+                      nextEvent?.type === 'tour' &&
+                      nextEvent?.year &&
+                      nextEvent?.city && (
                         <Link
-                          href={`/bibliothek/galleri/tour/${event.year}-${event.city.toLocaleLowerCase()}`}
+                          href={`/bibliothek/galleri/tour/${nextEvent.year}-${nextEvent.city.toLocaleLowerCase()}`}
                           prefetch={false}
                           className="whitespace-nowrap"
                         >
@@ -274,11 +281,11 @@ const EventsPage = ({ documentUser }: Props) => {
                           </EventInfoBadge>
                         </Link>
                       )}
-                    {event.showUploadButton &&
-                      event?.type === 'gf' &&
-                      event?.year && (
+                    {nextEvent.showUploadButton &&
+                      nextEvent?.type === 'gf' &&
+                      nextEvent?.year && (
                         <Link
-                          href={`/bibliothek/galleri/gf/${event.year}`}
+                          href={`/bibliothek/galleri/gf/${nextEvent.year}`}
                           prefetch={false}
                           className="whitespace-nowrap"
                         >
@@ -288,11 +295,11 @@ const EventsPage = ({ documentUser }: Props) => {
                           </EventInfoBadge>
                         </Link>
                       )}
-                    {event.showUploadButton &&
-                      event?.type === 'oel' &&
-                      event?.year && (
+                    {nextEvent.showUploadButton &&
+                      nextEvent?.type === 'oel' &&
+                      nextEvent?.year && (
                         <Link
-                          href={`/bibliothek/galleri/events/${event.year}-øl`}
+                          href={`/bibliothek/galleri/events/${nextEvent.year}-øl`}
                           prefetch={false}
                           className="whitespace-nowrap"
                         >
@@ -302,11 +309,11 @@ const EventsPage = ({ documentUser }: Props) => {
                           </EventInfoBadge>
                         </Link>
                       )}
-                    {event.showUploadButton &&
-                      event?.type === 'golf' &&
-                      event?.year && (
+                    {nextEvent.showUploadButton &&
+                      nextEvent?.type === 'golf' &&
+                      nextEvent?.year && (
                         <Link
-                          href={`/bibliothek/galleri/events/${event.year}-frisbee`}
+                          href={`/bibliothek/galleri/events/${nextEvent.year}-frisbee`}
                           prefetch={false}
                           className="whitespace-nowrap"
                         >
@@ -317,46 +324,46 @@ const EventsPage = ({ documentUser }: Props) => {
                         </Link>
                       )}
                   </div>
-                  {event.meetingPoints && (
+                  {nextEvent.meetingPoints && (
                     <div className="flex flex-col">
                       <p className="mt-4">Mødesteder:</p>
                       <div>
                         <EventBulletPoints
-                          pointsString={event.meetingPoints.trim()}
-                          event={event}
+                          pointsString={nextEvent.meetingPoints.trim()}
+                          event={nextEvent}
                         />
                       </div>
                     </div>
                   )}
-                  {event?.notes && (
+                  {nextEvent?.notes && (
                     <div className="flex flex-col">
                       <div className="mt-4">OBS:</div>
                       <div>
                         <EventBulletPoints
-                          pointsString={event.notes?.trim()}
-                          event={event}
+                          pointsString={nextEvent.notes?.trim()}
+                          event={nextEvent}
                         />
                       </div>
                     </div>
                   )}
-                  {event?.activities && (
+                  {nextEvent?.activities && (
                     <div className="flex flex-col">
                       <div className="mt-4">Aktiviteter:</div>
                       <div>
                         <EventBulletPoints
-                          pointsString={event.activities.trim()}
-                          event={event}
+                          pointsString={nextEvent.activities.trim()}
+                          event={nextEvent}
                         />
                       </div>
                     </div>
                   )}
-                  {event?.notesActivities && (
+                  {nextEvent?.notesActivities && (
                     <div className="flex flex-col">
                       <div className="mt-4">OBS:</div>
                       <div>
                         <EventBulletPoints
-                          pointsString={event.notesActivities.trim()}
-                          event={event}
+                          pointsString={nextEvent.notesActivities.trim()}
+                          event={nextEvent}
                         />
                       </div>
                     </div>
@@ -372,7 +379,7 @@ const EventsPage = ({ documentUser }: Props) => {
             <p className="text-center text-[larger] font-bold">Fremtidig</p>
           </div>
         )}
-        {futureEvents.map((event, index) => {
+        {futureEvents.map((futureEvent, index) => {
           return (
             <div key={index} className="mx-10 my-3 gap-2">
               <motion.div
@@ -387,13 +394,15 @@ const EventsPage = ({ documentUser }: Props) => {
                 >
                   <div className="flex items-center justify-between gap-2">
                     <p className="font-semibold">
-                      {event?.type === 'tour'
-                        ? `${handleType(event?.type)} de ${event.city}`
-                        : handleType(event?.type)}
+                      {futureEvent?.type === 'tour'
+                        ? `${handleType(futureEvent?.type)} de ${futureEvent.city}`
+                        : handleType(futureEvent?.type)}
                     </p>
-                    <p>{event.start}</p>
-                    {canEdit && event.id && (
-                      <EditButton onClick={() => handleUpdate(event.id)} />
+                    <p>{futureEvent.start}</p>
+                    {canEdit && futureEvent.id && (
+                      <EditButton
+                        onClick={() => handleUpdate(futureEvent.id)}
+                      />
                     )}
                   </div>
                 </div>
@@ -419,9 +428,10 @@ const EventsPage = ({ documentUser }: Props) => {
         <EventForm
           event={currentEvent || undefined}
           open={showDialog}
-          onClose={() => setShowDialog(false)}
+          onClose={handleClose}
           onUpdate={updatingDoc}
           onAdding={addingDoc}
+          onDelete={deletingDoc}
         />
       )}
     </div>
