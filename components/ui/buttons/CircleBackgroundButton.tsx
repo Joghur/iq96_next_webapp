@@ -1,0 +1,23 @@
+import { useTheme } from '@components/member/ThemeToggle';
+import { ReactNode } from '@node_modules/@types/react';
+
+type Props = {
+  children: ReactNode;
+  onClick: () => void;
+  onDoubleClick?: () => void;
+};
+
+const CircleBackground = ({ children, onClick, onDoubleClick }: Props) => {
+  const { theme } = useTheme();
+  return (
+    <div
+      onClick={onClick}
+      onDoubleClick={onDoubleClick}
+      className={`p-1 flex items-center justify-center rounded-full border-2 ${theme === 'dark' ? 'bg-gray-500 border-slate-50 ' : 'bg-slate-50 border-gray-500'}`}
+    >
+      {children}
+    </div>
+  );
+};
+
+export default CircleBackground;

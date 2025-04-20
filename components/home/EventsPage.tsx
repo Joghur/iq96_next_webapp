@@ -13,6 +13,8 @@ import Link from 'next/link';
 import EventInfoBadge from '@components/ui/EventInfoBadge';
 import EventBulletPoints from './EventBulletPoints';
 import { useTheme } from '@components/member/ThemeToggle';
+import AddButton from '@components/ui/buttons/AddButton';
+import EditButton from '@components/ui/buttons/EditButton';
 
 type Type = 'tour' | 'gf' | 'oel' | 'golf' | 'other' | '';
 export type EventStatus = 'done' | 'next' | 'pending';
@@ -98,97 +100,101 @@ const EventsPage = ({ documentUser }: Props) => {
   return (
     <div className="dynamic_text">
       <div className="mx-auto max-w-2xl sm:mt-40">
-        <div className="mb-4 mt-16 items-center justify-center">
-          <p className="text-center text-[larger] font-bold">Tidligere</p>
-        </div>
         {events.map((event, index) => {
           return (
             <div key={index} className="mx-10 my-3 gap-2">
               {event.status === 'done' && (
-                <motion.div
-                  key={index}
-                  variants={eventTransitionVariants}
-                  initial="hidden"
-                  animate="visible"
-                  transition={{ duration: 0.5, delay: 1.6 }}
-                >
-                  <div
-                    key={index}
-                    className={`sm:px-15 paper ${theme === 'dark' ? 'bg-gray-800' : 'bg-slate-50'} flex flex-row justify-between overflow-hidden rounded-xl px-10`}
-                  >
-                    <p className="font-semibold">
-                      {event?.type === 'tour'
-                        ? `${handleType(event?.type)} de ${event.city}`
-                        : handleType(event?.type)}
+                <>
+                  <div className="mb-4 mt-16 items-center justify-center">
+                    <p className="text-center text-[larger] font-bold">
+                      Tidligere
                     </p>
-                    <div className="flex justify-evenly">
-                      {event.showUploadButton &&
-                        event?.type === 'tour' &&
-                        event?.year &&
-                        event?.city && (
-                          <Link
-                            href={`/bibliothek/galleri/tour/${event.year}-${event.city.toLocaleLowerCase()}`}
-                            prefetch={false}
-                            className="whitespace-nowrap"
-                          >
-                            <EventInfoBadge>
-                              <ImageIcon className="mr-1" />
-                              Upload
-                            </EventInfoBadge>
-                          </Link>
-                        )}
-                      {event.showUploadButton &&
-                        event?.type === 'gf' &&
-                        event?.year && (
-                          <Link
-                            href={`/bibliothek/galleri/gf/${event.year}`}
-                            prefetch={false}
-                            className="whitespace-nowrap"
-                          >
-                            <EventInfoBadge>
-                              <ImageIcon className="mr-1" />
-                              Upload
-                            </EventInfoBadge>
-                          </Link>
-                        )}
-                      {event.showUploadButton &&
-                        event?.type === 'oel' &&
-                        event?.year && (
-                          <Link
-                            href={`/bibliothek/galleri/events/${event.year}-øl`}
-                            prefetch={false}
-                            className="whitespace-nowrap"
-                          >
-                            <EventInfoBadge>
-                              <ImageIcon className="mr-1" />
-                              Upload
-                            </EventInfoBadge>
-                          </Link>
-                        )}
-                      {event.showUploadButton &&
-                        event?.type === 'golf' &&
-                        event?.year && (
-                          <Link
-                            href={`/bibliothek/galleri/events/${event.year}-frisbee`}
-                            prefetch={false}
-                            className="whitespace-nowrap"
-                          >
-                            <EventInfoBadge>
-                              <ImageIcon className="mr-1" />
-                              Upload
-                            </EventInfoBadge>
-                          </Link>
-                        )}
-                    </div>
-                    {canEdit && event.id && (
-                      <button
-                        onClick={async () => await handleUpdate(event.id)}
-                      >
-                        <MdEdit />
-                      </button>
-                    )}
                   </div>
-                </motion.div>
+                  <motion.div
+                    key={index}
+                    variants={eventTransitionVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ duration: 0.5, delay: 1.6 }}
+                  >
+                    <div
+                      key={index}
+                      className={`sm:px-15 paper ${theme === 'dark' ? 'bg-gray-800' : 'bg-slate-50'} flex flex-row justify-between overflow-hidden rounded-xl px-10`}
+                    >
+                      <p className="font-semibold">
+                        {event?.type === 'tour'
+                          ? `${handleType(event?.type)} de ${event.city}`
+                          : handleType(event?.type)}
+                      </p>
+                      <div className="flex justify-evenly">
+                        {event.showUploadButton &&
+                          event?.type === 'tour' &&
+                          event?.year &&
+                          event?.city && (
+                            <Link
+                              href={`/bibliothek/galleri/tour/${event.year}-${event.city.toLocaleLowerCase()}`}
+                              prefetch={false}
+                              className="whitespace-nowrap"
+                            >
+                              <EventInfoBadge>
+                                <ImageIcon className="mr-1" />
+                                Upload
+                              </EventInfoBadge>
+                            </Link>
+                          )}
+                        {event.showUploadButton &&
+                          event?.type === 'gf' &&
+                          event?.year && (
+                            <Link
+                              href={`/bibliothek/galleri/gf/${event.year}`}
+                              prefetch={false}
+                              className="whitespace-nowrap"
+                            >
+                              <EventInfoBadge>
+                                <ImageIcon className="mr-1" />
+                                Upload
+                              </EventInfoBadge>
+                            </Link>
+                          )}
+                        {event.showUploadButton &&
+                          event?.type === 'oel' &&
+                          event?.year && (
+                            <Link
+                              href={`/bibliothek/galleri/events/${event.year}-øl`}
+                              prefetch={false}
+                              className="whitespace-nowrap"
+                            >
+                              <EventInfoBadge>
+                                <ImageIcon className="mr-1" />
+                                Upload
+                              </EventInfoBadge>
+                            </Link>
+                          )}
+                        {event.showUploadButton &&
+                          event?.type === 'golf' &&
+                          event?.year && (
+                            <Link
+                              href={`/bibliothek/galleri/events/${event.year}-frisbee`}
+                              prefetch={false}
+                              className="whitespace-nowrap"
+                            >
+                              <EventInfoBadge>
+                                <ImageIcon className="mr-1" />
+                                Upload
+                              </EventInfoBadge>
+                            </Link>
+                          )}
+                      </div>
+                      {canEdit && event.id && (
+                        <button
+                          onClick={async () => await handleUpdate(event.id)}
+                        >
+                          <MdEdit />
+                        </button>
+                      )}
+                    </div>
+                  </motion.div>
+                </>
               )}
             </div>
           );
@@ -220,11 +226,7 @@ const EventsPage = ({ documentUser }: Props) => {
                           : handleType(event?.type)}
                       </p>
                       {canEdit && event.id && (
-                        <button
-                          onClick={async () => await handleUpdate(event.id)}
-                        >
-                          <MdEdit />
-                        </button>
+                        <EditButton onClick={() => handleUpdate(event.id)} />
                       )}
                     </div>
                     {!!event?.start && (
@@ -400,11 +402,7 @@ const EventsPage = ({ documentUser }: Props) => {
                       </p>
                       <p>{event.start}</p>
                       {canEdit && event.id && (
-                        <button
-                          onClick={async () => await handleUpdate(event.id)}
-                        >
-                          <MdEdit />
-                        </button>
+                        <EditButton onClick={() => handleUpdate(event.id)} />
                       )}
                     </div>
                   </div>
@@ -414,9 +412,16 @@ const EventsPage = ({ documentUser }: Props) => {
           );
         })}
         {canEdit && (
-          <button onClick={handleNewEvent}>
-            <MdEdit color="red" />
-          </button>
+          <motion.div
+            variants={eventTransitionVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.5, delay: 1.1 }}
+          >
+            <div className="flex items-center justify-center mt-10">
+              <AddButton onClick={handleNewEvent} />
+            </div>
+          </motion.div>
         )}
       </div>
       {showDialog && (

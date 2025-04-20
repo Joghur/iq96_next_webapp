@@ -6,7 +6,7 @@ import { useContext, useState } from 'react';
 import { authContext } from '@/lib/store/auth-context';
 import ThemeToggle from '@components/member/ThemeToggle';
 import BottomSpacer from '@components/ui/BottomSpacer';
-import OldPageButton from '@components/ui/OldPageButton';
+import OldPageButton from '@components/ui/buttons/OldPageButton';
 import Tooltip from '@components/ui/Tooltip';
 import {
   LOCALSTORAGE_PREFIX,
