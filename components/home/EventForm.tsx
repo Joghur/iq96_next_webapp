@@ -5,6 +5,8 @@ import { EventType } from './EventsPage';
 import Modal from '@components/ui/Modal';
 import { CopyButton } from '@components/ui/buttons/CopyButton';
 import CloseButton from '@components/ui/buttons/CloseButton';
+import { errorToast } from '@components/ui/toast/ErrorToast/errorToast';
+import { successToast } from '@components/ui/toast/SuccessToast/successToast';
 
 const initialEvent: EventType = {
   type: '',
@@ -27,8 +29,8 @@ interface Props {
   open: boolean;
   editable?: boolean;
   onClose: () => void;
-  updatingDoc: (id: string, document: EventType) => void;
-  addingDoc: (document: EventType) => void;
+  onUpdate: (id: string, document: EventType) => Promise<void>;
+  onAdding: (document: EventType) => Promise<void>;
 }
 
 const EventForm = ({
@@ -36,8 +38,8 @@ const EventForm = ({
   open,
   onClose,
   editable = true,
-  updatingDoc,
-  addingDoc,
+  onUpdate,
+  onAdding,
 }: Props) => {
   const [changedEvent, setChangingEvent] = useState<EventType>(
     event || initialEvent
@@ -67,24 +69,24 @@ const EventForm = ({
     }));
   };
 
-  const handleSubmit = () => {
-    if (!editable) return;
+  const handleSubmit = async () => {
+    if (!editable || !changedEvent) return;
 
-    if (isNew) {
-      addingDoc?.(changedEvent);
-    } else if (changedEvent?.id) {
-      updatingDoc(changedEvent.id, changedEvent);
+    try {
+      if (isNew && onAdding) {
+        await onAdding?.(changedEvent);
+      } else if (!isNew && changedEvent.id && onUpdate) {
+        await onUpdate?.(changedEvent.id, changedEvent);
+      }
+      onClose();
+      successToast('Event er gemt');
+    } catch (error) {
+      console.error('Opdatering fejlede:', error);
+      errorToast('Noget gik galt');
     }
-
-    onClose();
-
-    if (editable && changedEvent?.id) {
-      updatingDoc(changedEvent.id, {
-        ...changedEvent,
-      });
-    }
-    onClose();
   };
+
+  console.log('changedEvent', changedEvent);
 
   return (
     <Modal open={open}>
@@ -111,6 +113,27 @@ const EventForm = ({
             <option value="done">Færdig</option>
             <option value="next">Næste</option>
             <option value="pending">Senere</option>
+          </select>
+        </div>
+        <div className="pt-5">
+          <label
+            htmlFor="role"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            Event type:
+          </label>
+          <select
+            id="type"
+            value={changedEvent.type}
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full border-gray-300 dark:border-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+          >
+            <option value="tour">Tour</option>
+            <option value="gf">Generalforsamling</option>
+            <option value="oel">ØL</option>
+            <option value="golf">Golf</option>
+            <option value="other">Andet</option>
+            <option value=""></option>
           </select>
         </div>
         <div className="flex flex-row justify-between">

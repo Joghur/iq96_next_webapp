@@ -16,7 +16,7 @@ import { useTheme } from '@components/member/ThemeToggle';
 import AddButton from '@components/ui/buttons/AddButton';
 import EditButton from '@components/ui/buttons/EditButton';
 
-type Type = 'tour' | 'gf' | 'oel' | 'golf' | 'other' | '';
+export type Type = 'tour' | 'gf' | 'oel' | 'golf' | 'other' | '';
 export type EventStatus = 'done' | 'next' | 'pending';
 
 export type EventType = {
@@ -98,11 +98,9 @@ const EventsPage = ({ documentUser }: Props) => {
   const nextEvents = events.filter((event) => event.status === 'next');
   const futureEvents = events.filter((event) => event.status === 'pending');
 
-
-
-  console.log('previousEvents', previousEvents);
-  console.log('nextEvents', nextEvents);
-  console.log('futureEvents', futureEvents);
+  // console.log('previousEvents', previousEvents);
+  // console.log('nextEvents', nextEvents);
+  // console.log('futureEvents', futureEvents);
 
   //TODO refactor this
   return (
@@ -436,8 +434,8 @@ const EventsPage = ({ documentUser }: Props) => {
           event={currentEvent || undefined}
           open={showDialog}
           onClose={() => setShowDialog(false)}
-          updatingDoc={updatingDoc}
-          addingDoc={addingDoc}
+          onUpdate={updatingDoc}
+          onAdding={addingDoc}
         />
       )}
     </div>
