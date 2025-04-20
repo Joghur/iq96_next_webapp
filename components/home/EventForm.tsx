@@ -9,11 +9,12 @@ import { errorToast } from '@components/ui/toast/ErrorToast/errorToast';
 import { successToast } from '@components/ui/toast/SuccessToast/successToast';
 
 const initialEvent: EventType = {
-  type: '',
+  type: 'tour',
+  status: 'pending',
   city: 'Kokkedal',
   start: '',
   end: '',
-  year: 0,
+  year: new Date().getFullYear(),
   activities: `
     kl. xx - Guided tur i byen, mødested udenfor hotellet kl. xx:xx -- 
     kl. xx - Restaurant, mødested udenfor hotellet kl. xx:xx
@@ -133,7 +134,6 @@ const EventForm = ({
             <option value="oel">ØL</option>
             <option value="golf">Golf</option>
             <option value="other">Andet</option>
-            <option value=""></option>
           </select>
         </div>
         <div className="flex flex-row justify-between">

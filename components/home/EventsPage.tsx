@@ -64,20 +64,6 @@ const EventsPage = ({ documentUser }: Props) => {
     );
   }
 
-  const handleNewEvent = () => {
-    setCurrentEvent((old) => ({
-      ...old,
-      city: 'København',
-      start: '',
-      end: '',
-      year: new Date().getFullYear(),
-      activities: '',
-      meetingPoints: '',
-      type: '',
-    }));
-    setShowDialog(true);
-  };
-
   const handleUpdate = async (id: string | undefined) => {
     if (!id) {
       return;
@@ -424,7 +410,7 @@ const EventsPage = ({ documentUser }: Props) => {
             transition={{ duration: 0.5, delay: 1.1 }}
           >
             <div className="flex items-center justify-center mt-10">
-              <AddButton onClick={handleNewEvent} />
+              <AddButton onClick={() => setShowDialog(true)} />
             </div>
           </motion.div>
         )}
