@@ -5,10 +5,9 @@ type Props = {
   children: ReactNode;
   onClick: () => void;
   onDoubleClick?: () => void;
-  colour?: string
 };
 
-const CircleBackground = ({ children, onClick, onDoubleClick, colour }: Props) => {
+const CircleBackground = ({ children, onClick, onDoubleClick }: Props) => {
   const { theme } = useTheme();
   return (
     <div
