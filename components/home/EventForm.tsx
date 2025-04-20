@@ -1,12 +1,12 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
-import { EventType } from './EventsPage';
+import { DayEvent, EventType } from './EventsPage';
 import Modal from '@components/ui/Modal';
 import { CopyButton } from '@components/ui/buttons/CopyButton';
 import CloseButton from '@components/ui/buttons/CloseButton';
-import { errorToast } from '@components/ui/toast/ErrorToast/errorToast';
-import { successToast } from '@components/ui/toast/SuccessToast/successToast';
+import { confirmAction } from '@lib/utils';
+import DayEventsForm from './DayEventForm';
 
 const initialEvent: EventType = {
   type: 'tour',
@@ -15,14 +15,25 @@ const initialEvent: EventType = {
   start: '',
   end: '',
   year: new Date().getFullYear(),
-  activities: `
-    kl. xx - Guided tur i byen, mødested udenfor hotellet kl. xx:xx -- 
-    kl. xx - Restaurant, mødested udenfor hotellet kl. xx:xx
-    `,
-  meetingPoints: `
-    Kokkedal ved Centerpubben kl. xx -- 
-    Hovedbanegården under uret kl. xx
-    `,
+  dayEvents: [
+    {
+      dateString: '2025-09-28',
+      entries: [
+        { time: '12:00', label: 'Middag', type: 'meetingPoint' },
+        { time: '12:30', label: 'Hotel', type: 'meetingPoint' },
+        { time: '18:00', label: 'Middag', type: 'dinner' },
+      ],
+    },
+    {
+      dateString: '2025-09-29',
+      entries: [
+        { time: '11:00', label: 'Hotel', type: 'meetingPoint' },
+        { time: '11:30', label: 'Guidet rundtur', type: 'guidedTour' },
+      ],
+    },
+  ],
+  activities: '',
+  meetingPoints: '',
 };
 
 interface Props {
@@ -32,6 +43,7 @@ interface Props {
   onClose: () => void;
   onUpdate: (id: string, document: EventType) => Promise<void>;
   onAdding: (document: EventType) => Promise<void>;
+  onDelete: (id: string) => Promise<void>;
 }
 
 const EventForm = ({
@@ -41,6 +53,7 @@ const EventForm = ({
   editable = true,
   onUpdate,
   onAdding,
+  onDelete,
 }: Props) => {
   const [changedEvent, setChangingEvent] = useState<EventType>(
     event || initialEvent
@@ -70,6 +83,16 @@ const EventForm = ({
     }));
   };
 
+  const handleDelete = async (id: string | undefined) => {
+    if (!id) return;
+
+    const confirmed = await confirmAction('Er du sikker på, at du vil slette?');
+    if (confirmed) {
+      await onDelete(id);
+      onClose();
+    }
+  };
+
   const handleSubmit = async () => {
     if (!editable || !changedEvent) return;
 
@@ -80,10 +103,8 @@ const EventForm = ({
         await onUpdate?.(changedEvent.id, changedEvent);
       }
       onClose();
-      successToast('Event er gemt');
     } catch (error) {
       console.error('Opdatering fejlede:', error);
-      errorToast('Noget gik galt');
     }
   };
 
@@ -251,6 +272,17 @@ const EventForm = ({
             <CopyButton text="<link:extra:Depeche Mode:bar>" />
           </div>
         </div>
+        <div className="mt-4">
+          <DayEventsForm
+            dayEvents={sortDayEvents(changedEvent.dayEvents)}
+            onChange={(updated) => {
+              setChangingEvent((oldEvent) => ({
+                ...oldEvent,
+                dayEvents: sortDayEvents(updated),
+              }));
+            }}
+          />
+        </div>
         <div className="pt-5">
           <label
             htmlFor="notes"
@@ -313,15 +345,25 @@ const EventForm = ({
         </div>
         <div className="flex justify-between pt-5">
           <button
-            onClick={onClose}
+            onClick={() => handleDelete(event?.id)}
             color={'error'}
-            className="btn-error btn-outline btn-sm btn"
+            disabled={!event?.id}
+            className="btn-error btn-sm btn"
           >
-            Fortryd
+            Slet
           </button>
-          <button onClick={handleSubmit} className="btn-info btn-sm btn">
-            {isNew ? 'Opret' : 'Opdatér'}
-          </button>
+          <div className="flex gap-7">
+            <button
+              onClick={onClose}
+              color={'error'}
+              className="btn-error btn-outline btn-sm btn"
+            >
+              Fortryd
+            </button>
+            <button onClick={handleSubmit} className="btn-info btn-sm btn">
+              {isNew ? 'Opret' : 'Opdatér'}
+            </button>
+          </div>
         </div>
       </div>
     </Modal>
@@ -329,3 +371,12 @@ const EventForm = ({
 };
 
 export default EventForm;
+
+export function sortDayEvents(dayEvents: DayEvent[]): DayEvent[] {
+  return [...dayEvents]
+    .sort((a, b) => a.dateString.localeCompare(b.dateString))
+    .map((day) => ({
+      ...day,
+      entries: [...day.entries].sort((a, b) => a.time.localeCompare(b.time)),
+    }));
+}

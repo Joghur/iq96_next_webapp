@@ -3,7 +3,7 @@
 import { ListGroupFormKeys } from '@/components/ui/form/formItems/FormListGroup';
 
 import OneFormItem, { FormItemEventTarget, HoverInfo } from './OneFormItem';
-import { SelectLabelType } from '../form';
+import { SelectLabelType } from '../../../lib/form';
 
 /**
  * Use the FormBuilder type as guide to make forms. Each FormBuilder item in an array

@@ -11,14 +11,14 @@ import FormRadioButtonGroup from '@/components/ui/form/formItems/FormRadioButton
 import FormSelect from '@/components/ui/form/formItems/FormSelect';
 
 import styles from './OneFormItem.module.css';
-import { SelectLabelType } from '../form';
+import { SelectLabelType } from '../../../lib/form';
 import { isArray } from '../array';
 import { isHoverObject } from '../typing';
 import Tooltip from '../Tooltip';
 import ErrorMessage, {
   ErrorMessageType,
 } from '@components/errors/ErrorMessage';
-import { epochToDate } from '../date';
+import { epochToDate } from '../../../lib/date';
 
 export type SelectObject = { [x: string]: string | number };
 

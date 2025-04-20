@@ -3,7 +3,7 @@ import { DocumentUser } from '@lib/hooks/useFirestore';
 import { FormEvent, useState } from 'react';
 import { Button } from '@components/ui/button';
 import ManyFormItems from '@components/ui/form/ManyFormItems';
-import { formHandleOnChange } from '@components/ui/form';
+import { formHandleOnChange } from '@lib/form';
 import { FormItemEventTarget } from '@components/ui/form/OneFormItem';
 import { hasId } from '@components/ui/typing';
 import { useRouter } from 'next/navigation';

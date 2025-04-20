@@ -49,6 +49,9 @@ export type CollectionName =
   | 'chats'
   | 'notification';
 
+/**
+ * OBS viser kun fire events
+ */
 export const useFirestore = <T extends DocumentData>(
   collectionName: CollectionName,
   order: string,
