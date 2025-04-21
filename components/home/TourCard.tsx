@@ -52,7 +52,7 @@ const TourCard = ({ data }: Props) => {
               ))}
             </ul>
           </div>
-          {data.notesActivities && index===0 && (
+          {data.notesActivities && index === 0 && (
             <p className="text-md text-slate-400 mt-0 mb-6">
               <EventBulletPoints
                 pointsString={data.notesActivities.trim()}

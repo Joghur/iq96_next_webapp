@@ -277,7 +277,7 @@ const EventsPage = ({ documentUser }: Props) => {
                       </div>
                     </div>
                   )}
-                   {nextEvent?.notes && (
+                  {nextEvent?.notes && (
                     <div className="flex flex-col">
                       <div className="mt-4">OBS:</div>
                       <div>
