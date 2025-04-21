@@ -15,6 +15,7 @@ import EventBulletPoints from './EventBulletPoints';
 import { useTheme } from '@components/member/ThemeToggle';
 import AddButton from '@components/ui/buttons/AddButton';
 import EditButton from '@components/ui/buttons/EditButton';
+import TourCard from './TourCard';
 
 export type Type = 'tour' | 'gf' | 'oel' | 'golf' | 'other' | '';
 export type EventStatus = 'done' | 'next' | 'pending';
@@ -39,8 +40,6 @@ export type EventType = {
   type: Type;
   year: number;
   dayEvents: DayEvent[];
-  activities?: string;
-  meetingPoints: string;
   notes?: string;
   notesActivities?: string;
   status?: EventStatus;
@@ -73,11 +72,8 @@ export type EventType = {
     },
   ],
   city: "Nyborg",
-  country: "Danmark",
-  timezone: "Europe/Copenhagen",
   status: "done",
 };
-
  */
 
 interface Props {
@@ -281,6 +277,17 @@ const EventsPage = ({ documentUser }: Props) => {
                       </div>
                     </div>
                   )}
+                  {nextEvent?.notes && (
+                    <div className="flex flex-col">
+                      <div className="mt-4">OBS:</div>
+                      <div>
+                        <EventBulletPoints
+                          pointsString={nextEvent.notes.trim()}
+                          event={nextEvent}
+                        />
+                      </div>
+                    </div>
+                  )}
                   <div className="flex justify-evenly">
                     {nextEvent.showMapLink &&
                       nextEvent.type === 'tour' &&
@@ -368,50 +375,7 @@ const EventsPage = ({ documentUser }: Props) => {
                         </Link>
                       )}
                   </div>
-                  {nextEvent.meetingPoints && (
-                    <div className="flex flex-col">
-                      <p className="mt-4">Mødesteder:</p>
-                      <div>
-                        <EventBulletPoints
-                          pointsString={nextEvent.meetingPoints.trim()}
-                          event={nextEvent}
-                        />
-                      </div>
-                    </div>
-                  )}
-                  {nextEvent?.notes && (
-                    <div className="flex flex-col">
-                      <div className="mt-4">OBS:</div>
-                      <div>
-                        <EventBulletPoints
-                          pointsString={nextEvent.notes?.trim()}
-                          event={nextEvent}
-                        />
-                      </div>
-                    </div>
-                  )}
-                  {nextEvent?.activities && (
-                    <div className="flex flex-col">
-                      <div className="mt-4">Aktiviteter:</div>
-                      <div>
-                        <EventBulletPoints
-                          pointsString={nextEvent.activities.trim()}
-                          event={nextEvent}
-                        />
-                      </div>
-                    </div>
-                  )}
-                  {nextEvent?.notesActivities && (
-                    <div className="flex flex-col">
-                      <div className="mt-4">OBS:</div>
-                      <div>
-                        <EventBulletPoints
-                          pointsString={nextEvent.notesActivities.trim()}
-                          event={nextEvent}
-                        />
-                      </div>
-                    </div>
-                  )}
+                  <TourCard data={nextEvent} />
                 </div>
               </motion.div>
             </div>
