@@ -19,9 +19,8 @@ const initialEvent: EventType = {
     {
       dateString: '2025-09-28',
       entries: [
-        { time: '12:00', label: 'Middag', type: 'meetingPoint' },
+        { time: '11:00', label: 'Middag', type: 'meetingPoint' },
         { time: '12:30', label: 'Hotel', type: 'meetingPoint' },
-        { time: '18:00', label: 'Middag', type: 'dinner' },
       ],
     },
     {
@@ -32,8 +31,6 @@ const initialEvent: EventType = {
       ],
     },
   ],
-  activities: '',
-  meetingPoints: '',
 };
 
 interface Props {
@@ -249,7 +246,55 @@ const EventForm = ({
             className="dynamic_text textarea-bordered textarea"
           />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="pt-5">
+          <label
+            htmlFor="notes"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            OBS!
+          </label>
+          <textarea
+            id="notes"
+            value={changedEvent.notes}
+            onChange={handleChange}
+            placeholder={changedEvent?.notes || 'Slut'}
+            className="dynamic_text textarea-bordered textarea"
+          />
+        </div>
+        <div className="mt-4">
+          <label
+            htmlFor="dayEvents"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            Aktiviteter
+          </label>
+          <DayEventsForm
+            dayEvents={sortDayEvents(changedEvent.dayEvents)}
+            onChange={(updated) => {
+              setChangingEvent((oldEvent) => ({
+                ...oldEvent,
+                dayEvents: sortDayEvents(updated),
+              }));
+            }}
+          />
+        </div>
+        <div className="pt-5">
+          <label
+            htmlFor="notesActivities"
+            className="dynamic_text green_gradient mb-2 block font-medium"
+          >
+            OBS. Aktiviteter
+          </label>
+          <textarea
+            id="notesActivities"
+            value={changedEvent.notesActivities}
+            onChange={handleChange}
+            placeholder={changedEvent?.notesActivities || 'OBS! aktiviteter'}
+            className="dynamic_text textarea-bordered textarea"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2 mt-5">
           <div className="dynamic_text">
             Brug &quot;--&quot; til at separere emner
           </div>
@@ -271,77 +316,6 @@ const EventForm = ({
           <div className="dynamic_text">
             <CopyButton text="<link:extra:Depeche Mode:bar>" />
           </div>
-        </div>
-        <div className="mt-4">
-          <DayEventsForm
-            dayEvents={sortDayEvents(changedEvent.dayEvents)}
-            onChange={(updated) => {
-              setChangingEvent((oldEvent) => ({
-                ...oldEvent,
-                dayEvents: sortDayEvents(updated),
-              }));
-            }}
-          />
-        </div>
-        <div className="pt-5">
-          <label
-            htmlFor="notes"
-            className="dynamic_text green_gradient mb-2 block font-medium"
-          >
-            OBS!
-          </label>
-          <textarea
-            id="notes"
-            value={changedEvent.notes}
-            onChange={handleChange}
-            placeholder={changedEvent?.notes || 'Slut'}
-            className="dynamic_text textarea-bordered textarea"
-          />
-        </div>
-        <div className="pt-5">
-          <label
-            htmlFor="meetingPoints"
-            className="dynamic_text green_gradient mb-2 block font-medium"
-          >
-            Mødesteder
-          </label>
-          <textarea
-            id="meetingPoints"
-            value={changedEvent.meetingPoints}
-            onChange={handleChange}
-            placeholder={changedEvent?.meetingPoints || 'Mødesteder'}
-            className="dynamic_text textarea-bordered textarea"
-          />
-        </div>
-        <div className="pt-5">
-          <label
-            htmlFor="activities"
-            className="dynamic_text green_gradient mb-2 block font-medium"
-          >
-            Aktiviteter
-          </label>
-          <textarea
-            id="activities"
-            value={changedEvent.activities}
-            onChange={handleChange}
-            placeholder={changedEvent?.activities || 'Aktiviteter'}
-            className="dynamic_text textarea-bordered textarea"
-          />
-        </div>
-        <div className="pt-5">
-          <label
-            htmlFor="notesActivities"
-            className="dynamic_text green_gradient mb-2 block font-medium"
-          >
-            OBS. Aktiviteter
-          </label>
-          <textarea
-            id="notesActivities"
-            value={changedEvent.notesActivities}
-            onChange={handleChange}
-            placeholder={changedEvent?.notesActivities || 'OBS! aktiviteter'}
-            className="dynamic_text textarea-bordered textarea"
-          />
         </div>
         <div className="flex justify-between pt-5">
           <button
