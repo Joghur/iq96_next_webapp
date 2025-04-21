@@ -16,12 +16,12 @@ const TourCard = ({ data }: Props) => {
             key={day.dateString}
             className={`rounded-md p-3 mb-3 ${
               index === 0
-                ? 'bg-slate-400 border-2 rounde-lg shadow-lg border-orange-400'
+                ? 'bg-slate-400 border-2 rounded-lg shadow-lg border-orange-400'
                 : 'bg-slate-400'
             }`}
           >
             <h3
-              className={`${index === 0 ? 'text-lg' : 'text-sm'} font-bold mb-2`}
+              className={`${index === 0 ? 'font-extrabold' : 'font-small'} mb-2`}
             >
               📅{' '}
               {format(parseISO(day.dateString), 'EEEE - dd. MMMM', {
@@ -33,12 +33,12 @@ const TourCard = ({ data }: Props) => {
               {day.entries.map((entry, j) => (
                 <li key={j} className="mb-1 flex items-center gap-2">
                   <span
-                    className={`${index === 0 ? 'text-lg' : 'text-sm'} w-[60px] text-right`}
+                    className={`dynamic_text ${index === 0 ? 'font-extrabold' : 'font-small'} w-[60px] text-right`}
                   >
                     {entry.time}
                   </span>
                   <span
-                    className={`px-2 py-0.5 ${index === 0 ? 'text-lg' : 'text-sm'} rounded-full ${index === 0 ? 'font-medium' : 'font-small'} ${
+                    className={`dynamic_text px-2 py-0.5 rounded-full ${index === 0 ? 'font-medium' : 'font-small'} ${
                       entry.type === 'meetingPoint'
                         ? 'border-2 border-blue-300 bg-transparent text-slate-600'
                         : entry.type === 'dinner'
@@ -53,7 +53,10 @@ const TourCard = ({ data }: Props) => {
             </ul>
           </div>
           {data.notesActivities && index === 0 && (
-            <p className="text-md text-slate-400 mt-0 mb-6">
+            <p
+              key={`notes-activity-${day.dateString}`}
+              className="text-md text-slate-400 mt-0 mb-6"
+            >
               <EventBulletPoints
                 pointsString={data.notesActivities.trim()}
                 event={data}
