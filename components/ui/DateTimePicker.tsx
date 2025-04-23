@@ -1,21 +1,18 @@
 // import { useState } from 'react';
 // import { SimpleDateTimePicker } from './datetime-picker';
 
-type Props = {
-  // newDate: string;
-  // newTime: string;
-  // onChangeTime: () => void;
-  // onChangeDate: () => void;
-};
+// type Props = {
+//   // newDate: string;
+//   // newTime: string;
+//   // onChangeTime: () => void;
+//   // onChangeDate: () => void;
+// };
+// newDate,
+// newTime,
+// onChangeTime,
+// onChangeDate,
 
-const DateTimePicker = (
-  {
-    // newDate,
-    // newTime,
-    // onChangeTime,
-    // onChangeDate,
-  }: Props
-) => {
+const DateTimePicker = () => {
   // const [_newDate, setNewDate] = useState<string>(''); // "2025-09-28"
   // const [_newTime, setNewTime] = useState<string>(''); // "21:30"
 
