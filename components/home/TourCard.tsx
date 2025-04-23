@@ -28,19 +28,18 @@ const TourCard = ({ data }: Props) => {
                 locale: da,
               })}
             </h3>
-
-            <ul>
+            <ul className="text-left">
               {day.entries.map((entry, j) => (
                 <li key={j} className="mb-1 flex items-center gap-2">
                   <span
-                    className={`dynamic_text ${index === 0 ? 'font-extrabold' : 'font-small'} w-[60px] text-right`}
+                    className={`dynamic_text ${index === 0 ? 'font-extrabold' : 'font-small'} w-[60px] text-right flex-shrink-0`}
                   >
                     {entry.time}
                   </span>
                   <span
                     className={`dynamic_text px-2 py-0.5 rounded-full ${index === 0 ? 'font-medium' : 'font-small'} ${
                       entry.type === 'meetingPoint'
-                        ? 'border-2 border-blue-300 bg-transparent text-slate-600'
+                        ? 'bg-blue-300 text-slate-600'
                         : entry.type === 'dinner'
                           ? 'bg-red-300 text-white'
                           : 'bg-green-300 text-white'

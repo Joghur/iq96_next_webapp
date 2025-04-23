@@ -71,6 +71,16 @@ const EventForm = ({
     }
   };
 
+  // const handleDateTimeChange = (
+  //   property: 'start' | 'end',
+  //   dateTime: { date: string; time: string }
+  // ) => {
+  //   setChangingEvent((oldEvent) => ({
+  //     ...oldEvent,
+  //     [property]: dateTime,
+  //   }));
+  // };
+
   const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id } = event.target;
 
@@ -223,6 +233,11 @@ const EventForm = ({
           >
             Start dato
           </label>
+          {/* <DateTimePicker newDate={''} newTime={''} onChangeTime={function (): void {
+            throw new Error('Function not implemented.');
+          } } onChangeDate={function (): void {
+            throw new Error('Function not implemented.');
+          } } /> */}
           <textarea
             id="start"
             value={changedEvent.start}
