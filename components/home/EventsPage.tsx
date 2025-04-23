@@ -422,10 +422,14 @@ const EventsPage = ({ documentUser }: Props) => {
                       </div>
                     </div>
                   )}
-                  <div className="dynamic_text mt-6">Aktiviteter</div>
-                  <div className="w-full text-left">
-                    <TourCard data={nextEvent} />
-                  </div>
+                  {nextEvent.dayEvents.length > 0 && (
+                    <>
+                      <div className="dynamic_text mt-6">Aktiviteter</div>
+                      <div className="w-full text-left">
+                        <TourCard data={nextEvent} />
+                      </div>
+                    </>
+                  )}
                 </div>
               </motion.div>
             </div>
