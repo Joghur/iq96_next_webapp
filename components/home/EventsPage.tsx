@@ -19,7 +19,7 @@ import TourCard from './TourCard';
 
 export type Type = 'tour' | 'gf' | 'oel' | 'golf' | 'other' | '';
 export type EventStatus = 'done' | 'next' | 'pending';
-type DayEventType = 'meetingPoint' | 'action' | 'dinner' | 'guidedTour';
+export type DayEventType = 'meetingPoint' | 'action' | 'dinner' | 'guidedTour';
 
 export type DayEventElement = {
   time: string;
@@ -74,6 +74,53 @@ export type EventType = {
   city: "Nyborg",
   status: "done",
 };
+
+[
+  {
+    "entries": [
+      {
+        "label": "Middag",
+        "type": "meetingPoint",
+        "time": "10:30"
+      }
+    ],
+    "dateString": "2025-04-08"
+  },
+  {
+    "dateString": "2025-04-09",
+    "entries": [
+      {
+        "time": "10:10",
+        "label": "fdf",
+        "type": "meetingPoint"
+      }
+    ]
+  }
+]
+
+[
+  {
+    "entries": [
+      {
+        "label": "Middag",
+        "type": "meetingPoint",
+        "time": "10:30"
+      }
+    ],
+    "dateString": "2025-04-08"
+  },
+  {
+    "dateString": "2025-04-09",
+    "entries": [
+      {
+        "time": "10:10",
+        "label": "fdf",
+        "type": "meetingPoint"
+      }
+    ]
+  }
+]
+
  */
 
 interface Props {
@@ -131,9 +178,9 @@ const EventsPage = ({ documentUser }: Props) => {
   const nextEvents = events.filter((event) => event.status === 'next');
   const futureEvents = events.filter((event) => event.status === 'pending');
 
-  console.log('previousEvents', previousEvents);
-  console.log('nextEvents', nextEvents);
-  console.log('futureEvents', futureEvents);
+  // console.log('previousEvents', previousEvents);
+  // console.log('nextEvents', nextEvents);
+  // console.log('futureEvents', futureEvents);
 
   //TODO refactor this
   return (
@@ -271,20 +318,9 @@ const EventsPage = ({ documentUser }: Props) => {
                   )}
                   {!!nextEvent.end.trim() && (
                     <div className="flex flex-col">
-                      <p>Slut:</p>
+                      <p>Til:</p>
                       <div className="">
                         <p>{nextEvent.end}</p>
-                      </div>
-                    </div>
-                  )}
-                  {nextEvent?.notes && (
-                    <div className="flex flex-col">
-                      <div className="mt-4">OBS:</div>
-                      <div>
-                        <EventBulletPoints
-                          pointsString={nextEvent.notes.trim()}
-                          event={nextEvent}
-                        />
                       </div>
                     </div>
                   )}
@@ -375,7 +411,21 @@ const EventsPage = ({ documentUser }: Props) => {
                         </Link>
                       )}
                   </div>
-                  <TourCard data={nextEvent} />
+                  {nextEvent?.notes && (
+                    <div className="flex flex-col">
+                      <div className="mt-4">OBS:</div>
+                      <div>
+                        <EventBulletPoints
+                          pointsString={nextEvent.notes.trim()}
+                          event={nextEvent}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  <div className="dynamic_text mt-6">Aktiviteter</div>
+                  <div className="w-full text-left">
+                    <TourCard data={nextEvent} />
+                  </div>
                 </div>
               </motion.div>
             </div>

@@ -1,13 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { TrashIcon } from 'lucide-react';
 import { SimpleDateTimePicker } from '@components/ui/datetime-picker';
-import { DayEvent, DayEventElement } from './EventsPage';
-
-type EntryType = 'meetingPoint' | 'dinner' | 'guidedTour';
+import { DayEvent, DayEventElement, DayEventType } from './EventsPage';
 
 interface Props {
   dayEvents: DayEvent[];
@@ -21,7 +19,7 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
   const [newDate, setNewDate] = useState<string>(''); // "2025-09-28"
   const [newTime, setNewTime] = useState<string>(''); // "21:30"
   const [newLabel, setNewLabel] = useState('');
-  const [newType, setNewType] = useState<EntryType>('meetingPoint');
+  const [newType, setNewType] = useState<DayEventType>('meetingPoint');
 
   const updateParent = (updated: DayEvent[]) => {
     setEvents(updated);
@@ -54,16 +52,19 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
   };
 
   const handleDelete = (dateString: string, index: number) => {
-    const updated = events.map((day) =>
-      day.dateString === dateString
-        ? { ...day, entries: day.entries.filter((_, i) => i !== index) }
-        : day
-    );
+    const updated = events
+      .map((day) =>
+        day.dateString === dateString
+          ? { ...day, entries: day.entries.filter((_, i) => i !== index) }
+          : day
+      )
+      .filter((day) => day.entries.length !== 0);
+
     updateParent(updated);
   };
 
-  const handleChangeType = (val: any) => {
-    setNewType(val);
+  const handleChangeType = (val: ChangeEvent<HTMLSelectElement>) => {
+    setNewType(val.target.value as DayEventType);
   };
 
   return (
@@ -91,6 +92,7 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
           <option value="meetingPoint">Mødested</option>
           <option value="dinner">Middag</option>
           <option value="guidedTour">Guidet tur</option>
+          <option value="action">Aktivitet</option>
         </select>
       </div>
 
@@ -101,15 +103,15 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
           <div key={day.dateString} className="border p-4 rounded-md">
             <h3 className="font-semibold text-lg mb-2">{day.dateString}</h3>
             <ul className="space-y-2">
-              {day.entries.map((entry, idx) => (
-                <li key={idx} className="flex items-center justify-between">
+              {day.entries.map((entry, index) => (
+                <li key={index} className="flex items-center justify-between">
                   <span>
                     {entry.time} – {entry.label} ({entry.type})
                   </span>
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => handleDelete(day.dateString, idx)}
+                    onClick={() => handleDelete(day.dateString, index)}
                   >
                     <TrashIcon className="w-4 h-4 text-red-500" />
                   </Button>
