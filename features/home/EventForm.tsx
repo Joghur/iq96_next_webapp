@@ -2,7 +2,6 @@
 
 import { ChangeEvent, useState } from 'react';
 import { DayEvent, EventType } from './EventsPage';
-import Modal from '@features/ui/Modal';
 import { CopyButton } from '@features/ui/buttons/CopyButton';
 import CloseButton from '@features/ui/buttons/CloseButton';
 import { confirmAction } from '@lib/utils';
@@ -35,7 +34,6 @@ const initialEvent: EventType = {
 
 interface Props {
   event?: EventType;
-  open: boolean;
   editable?: boolean;
   onClose: () => void;
   onUpdate: (id: string, document: EventType) => Promise<void>;
@@ -45,7 +43,6 @@ interface Props {
 
 const EventForm = ({
   event,
-  open,
   onClose,
   editable = true,
   onUpdate,
@@ -120,14 +117,38 @@ const EventForm = ({
   console.log('changedEvent', changedEvent);
 
   return (
-    <Modal open={open}>
-      <h3 className="text-lg font-bold">
-        <div className="flex flex-row items-center justify-between">
-          {isNew ? 'Opret ny begivenhed' : 'Opdatér begivenhed'}
-          <CloseButton onClick={onClose} />
+    <div className="w-full px-4 sm:px-6 mt-8">
+      <div className="fixed top-0 left-0 w-full h-32 p-4 bg-white shadow-md z-50">
+        <h3 className="text-lg font-bold">
+          <div className="flex flex-row items-center justify-between">
+            {isNew ? 'Opret ny begivenhed' : 'Opdatér begivenhed'}
+            <CloseButton onClick={onClose} />
+          </div>
+        </h3>
+        <div className="flex justify-between py-10">
+          <button
+            onClick={() => handleDelete(event?.id)}
+            color={'error'}
+            disabled={!event?.id}
+            className="btn-error btn-sm btn"
+          >
+            Slet
+          </button>
+          <div className="flex gap-7">
+            <button
+              onClick={onClose}
+              color={'error'}
+              className="btn-error btn-outline btn-sm btn"
+            >
+              Fortryd
+            </button>
+            <button onClick={handleSubmit} className="btn-info btn-sm btn">
+              {isNew ? 'Opret' : 'Opdatér'}
+            </button>
+          </div>
         </div>
-      </h3>
-      <div>
+      </div>
+      <div className='pt-24'>
         <div className="pt-5">
           <label
             htmlFor="role"
@@ -334,30 +355,8 @@ const EventForm = ({
             <CopyButton text="<link:extra:Depeche Mode:bar>" />
           </div>
         </div>
-        <div className="flex justify-between pt-5">
-          <button
-            onClick={() => handleDelete(event?.id)}
-            color={'error'}
-            disabled={!event?.id}
-            className="btn-error btn-sm btn"
-          >
-            Slet
-          </button>
-          <div className="flex gap-7">
-            <button
-              onClick={onClose}
-              color={'error'}
-              className="btn-error btn-outline btn-sm btn"
-            >
-              Fortryd
-            </button>
-            <button onClick={handleSubmit} className="btn-info btn-sm btn">
-              {isNew ? 'Opret' : 'Opdatér'}
-            </button>
-          </div>
-        </div>
       </div>
-    </Modal>
+    </div>
   );
 };
 

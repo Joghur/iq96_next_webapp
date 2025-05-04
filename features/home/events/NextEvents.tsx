@@ -26,7 +26,7 @@ const NextEvents = ({ nextEvents, theme, canEdit, onUpdate }: Props) => {
       )}
       {nextEvents.map((nextEvent, index) => {
         return (
-          <div key={index} className="w-full px-4 sm:px-6">
+          <div key={index} className="w-full sm:px-6">
             <motion.div
               key={`sd${index}`}
               initial={{ x: 100 }}

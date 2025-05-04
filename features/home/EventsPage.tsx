@@ -59,7 +59,9 @@ const EventsPage = ({ documentUser }: Props) => {
   } = useFirestore<EventType>('events', 'start');
 
   const [currentEvent, setCurrentEvent] = useState<EventType | null>(null);
-  const [showDialog, setShowDialog] = useState(false);
+  const [showDialog, setShowDialog] = useState<'events' | 'event-form'>(
+    'events'
+  );
 
   if (loading) {
     return <LoadingSpinner text={'Henter begivenheder...'} />;
@@ -83,11 +85,11 @@ const EventsPage = ({ documentUser }: Props) => {
     } else {
       setCurrentEvent(null); // cleaning up possible older event
     }
-    setShowDialog(true);
+    setShowDialog('event-form');
   };
 
   const handleClose = () => {
-    setShowDialog(false);
+    setShowDialog('events');
     setCurrentEvent(null);
   };
 
@@ -104,43 +106,46 @@ const EventsPage = ({ documentUser }: Props) => {
   console.log('nextEvents', nextEvents);
   return (
     <div className="dynamic_text mx-auto max-w-2xl sm:mt-40 px-3">
-      <PreviousEvents
-        previousEvents={previousEvents}
-        theme={theme}
-        canEdit={canEdit}
-        onUpdate={handleUpdate}
-      />
+      {showDialog === 'events' && (
+        <>
+          <PreviousEvents
+            previousEvents={previousEvents}
+            theme={theme}
+            canEdit={canEdit}
+            onUpdate={handleUpdate}
+          />
 
-      <NextEvents
-        nextEvents={nextEvents}
-        theme={theme}
-        canEdit={canEdit}
-        onUpdate={handleUpdate}
-      />
+          <NextEvents
+            nextEvents={nextEvents}
+            theme={theme}
+            canEdit={canEdit}
+            onUpdate={handleUpdate}
+          />
 
-      <FutureEvents
-        futureEvents={futureEvents}
-        theme={theme}
-        canEdit={canEdit}
-        onUpdate={handleUpdate}
-      />
+          <FutureEvents
+            futureEvents={futureEvents}
+            theme={theme}
+            canEdit={canEdit}
+            onUpdate={handleUpdate}
+          />
 
-      {canEdit && (
-        <motion.div
-          variants={eventTransitionVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 0.5, delay: 1.1 }}
-        >
-          <div className="flex items-center justify-center mt-10">
-            <AddButton onClick={() => handleUpdate(undefined)} />
-          </div>
-        </motion.div>
+          {canEdit && (
+            <motion.div
+              variants={eventTransitionVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.5, delay: 1.1 }}
+            >
+              <div className="flex items-center justify-center mt-10">
+                <AddButton onClick={() => handleUpdate(undefined)} />
+              </div>
+            </motion.div>
+          )}
+        </>
       )}
-      {showDialog && (
+      {showDialog === 'event-form' && (
         <EventForm
           event={currentEvent || undefined}
-          open={showDialog}
           onClose={handleClose}
           onUpdate={updatingDoc}
           onAdding={addingDoc}
