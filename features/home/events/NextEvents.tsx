@@ -168,7 +168,7 @@ const NextEvents = ({ nextEvents, theme, canEdit, onUpdate }: Props) => {
                     {nextEvent.end !== '' && (
                       <div className="dynamic_text mt-6">Aktiviteter</div>
                     )}
-                    <div className="w-full text-left">
+                    <div className="w-full">
                       <TourCard event={nextEvent} />
                     </div>
                   </>
