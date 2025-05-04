@@ -30,7 +30,7 @@ const TourCard = ({ event }: Props) => {
               {day.entries.map((entry, innerIndex) => (
                 <li
                   key={innerIndex}
-                  className="mb-1 flex w-full text-left items-center justify-start gap-2"
+                  className="m-1 flex w-full text-left items-center justify-start gap-2"
                 >
                   <span
                     className={`dynamic_text ${index === 0 ? 'font-extrabold' : 'font-small'} sm:min-w-[60px] text-left`}

@@ -1,7 +1,6 @@
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import PageLayout from '@components/ui/PageLayout';
 import dynamic from 'next/dynamic';
-
-import LoadingSpinner from '@features/ui/LoadingSpinner';
-import PageLayout from '@features/ui/PageLayout';
 
 // https://stackoverflow.com/questions/57704196/leaflet-with-next-js
 function MapPage() {

@@ -10,8 +10,8 @@ import { handleStartTheme } from '@features/member/ThemeToggle';
 import {
   NotificationDbType,
   SavingBadgeStatusToLocalStorage,
-} from '@features/ui/BottomNav';
-import { Button } from '@features/ui/button';
+} from '@components/ui/BottomNav';
+import { Button } from '@components/ui/button';
 import { useFirestore } from '@lib/hooks/useFirestore';
 
 interface Props {

@@ -1,8 +1,8 @@
 'use client';
 
-import LoadingSpinner from '@features/ui/LoadingSpinner';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 import { IqDataTable } from './IqDataTable';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
 
 const AdminTab = () => {
   const {

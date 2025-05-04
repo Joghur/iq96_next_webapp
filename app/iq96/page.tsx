@@ -1,17 +1,20 @@
 'use client';
 
 import { MouseEvent, useContext, useEffect, useState } from 'react';
-import { SessionProvider } from 'next-auth/react';
 
 import AboutTab from '@features/member/AboutTab';
 import AdminTab from '@features/member/AdminTab';
 import DeveloperTab from '@features/member/DeveloperTab';
 import Iq96Tab from '@features/member/Iq96Tab';
-import MemberTab from '@features/member/MemberTab';
-import MemberTabsPage, { MemberTabs, isTab } from '@features/member/MemberTabs';
+import MemberTab from '@features/member/memberMenuBar/MemberTab';
+import MemberTabsPage, {
+  MemberTabs,
+  isTab,
+} from '@features/member/memberMenuBar/MemberTabs';
 import { handleStartTheme } from '@features/member/ThemeToggle';
-import PageLayout from '@features/ui/PageLayout';
 import { authContext } from '@lib/store/auth-context';
+import PageLayout from '@components/ui/PageLayout';
+import { SessionProvider } from 'next-auth/react';
 
 const MemberPage = ({
   searchParams: { tab },

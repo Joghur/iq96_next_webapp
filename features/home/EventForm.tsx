@@ -2,10 +2,11 @@
 
 import { ChangeEvent, useState } from 'react';
 import { DayEvent, EventType } from './EventsPage';
-import { CopyButton } from '@features/ui/buttons/CopyButton';
-import CloseButton from '@features/ui/buttons/CloseButton';
 import { confirmAction } from '@lib/utils';
 import DayEventsForm from './DayEventForm';
+import { Button } from '@components/ui/button';
+import CloseButton from '@components/ui/buttons/CloseButton';
+import { CopyButton } from '@components/ui/buttons/CopyButton';
 
 const initialEvent: EventType = {
   type: 'tour',
@@ -126,29 +127,31 @@ const EventForm = ({
           </div>
         </h3>
         <div className="flex justify-between py-10">
-          <button
+          <Button
             onClick={() => handleDelete(event?.id)}
             color={'error'}
             disabled={!event?.id}
-            className="btn-error btn-sm btn"
+            variant="destructive"
+            size="sm"
           >
             Slet
-          </button>
+          </Button>
           <div className="flex gap-7">
-            <button
+            <Button
               onClick={onClose}
               color={'error'}
-              className="btn-error btn-outline btn-sm btn"
+              variant="secondary"
+              size="sm"
             >
               Fortryd
-            </button>
-            <button onClick={handleSubmit} className="btn-info btn-sm btn">
+            </Button>
+            <Button variant="default" onClick={handleSubmit} size="sm">
               {isNew ? 'Opret' : 'Opdatér'}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
-      <div className='pt-24'>
+      <div className="pt-24">
         <div className="pt-5">
           <label
             htmlFor="role"

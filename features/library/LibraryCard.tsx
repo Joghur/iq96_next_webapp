@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@features/ui/card';
+} from '@components/ui/card';
 
 export function LibraryCard({
   cardTitle,

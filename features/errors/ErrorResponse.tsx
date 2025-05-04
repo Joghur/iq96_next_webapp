@@ -1,4 +1,4 @@
-import { isErrorResponse } from '@features/ui/typing';
+import { isErrorResponse } from '@components/ui/typing';
 import ErrorMessage from './ErrorMessage';
 
 type Props = {

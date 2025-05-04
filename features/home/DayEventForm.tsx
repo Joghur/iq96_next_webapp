@@ -1,11 +1,11 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
-import { Button } from '@features/ui/button';
-import { Input } from '@features/ui/input';
 import { TrashIcon } from 'lucide-react';
-import { SimpleDateTimePicker } from '@features/ui/datetime-picker';
 import { DayEvent, DayEventElement, DayEventType } from './EventsPage';
+import { SimpleDateTimePicker } from '@components/ui/datetime-picker';
+import { Input } from '@components/ui/input';
+import { Button } from '@components/ui/button';
 
 interface Props {
   dayEvents: DayEvent[];

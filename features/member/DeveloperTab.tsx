@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-import LoadingSpinner from '@features/ui/LoadingSpinner';
-import { Separator } from '@features/ui/separator';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import { Separator } from '@components/ui/separator';
 import {
   Table,
   TableBody,
@@ -11,7 +11,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@features/ui/table';
+} from '@components/ui/table';
 import {
   DocumentUser,
   copyDocumentsToNestedCollection,
@@ -22,7 +22,7 @@ import {
 import { IqMemberTable } from './IqMemberTable';
 import { fetchContacts } from './MemberTable';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { Button } from '@features/ui/button';
+import { Button } from '@components/ui/button';
 import { convertMonthNumberToName } from '@lib/dates';
 
 export interface ContactName {

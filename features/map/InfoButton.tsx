@@ -6,9 +6,10 @@ import {
   MdMyLocation,
   MdWarning,
 } from 'react-icons/md';
-import { Separator } from '@features/ui/separator';
-import Modal from '@features/ui/Modal';
 import { DocumentUser } from '@lib/hooks/useFirestore';
+import Modal from '@node_modules/react-bootstrap/esm/Modal';
+import { Button } from '@components/ui/button';
+import { Separator } from '@components/ui/separator';
 
 interface Props {
   documentUser: DocumentUser;
@@ -53,13 +54,14 @@ const InfoModal = ({ open, onClose, documentUser }: InfoModalProps) => {
     <Modal open={open}>
       <div className="dynamic_text flex justify-between gap-2">
         <h3 className="text-lg font-bold">Sådan bruges kortet</h3>
-        <button
+        <Button
           onClick={onClose}
           color={'error'}
-          className="modal-button btn-error btn-outline btn-sm btn"
+          className="modal-button btn-outline"
+          variant="destructive"
         >
           Luk
-        </button>
+        </Button>
       </div>
       <div className="dynamic_text pt-15 justify-between">
         <div className="flex flex-col gap-2">

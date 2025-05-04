@@ -1,13 +1,13 @@
 import { DocumentUser } from '@lib/hooks/useFirestore';
 
 import { FormEvent, useState } from 'react';
-import { Button } from '@features/ui/button';
-import ManyFormItems from '@features/ui/form/ManyFormItems';
 import { formHandleOnChange } from '@lib/form';
-import { FormItemEventTarget } from '@features/ui/form/OneFormItem';
-import { hasId } from '@features/ui/typing';
 import { useRouter } from 'next/navigation';
 import { basicUserFormBuilder } from './UserFormNewHelper';
+import { FormItemEventTarget } from '@components/ui/form/OneFormItem';
+import { Button } from '@components/ui/button';
+import ManyFormItems from '@components/ui/form/ManyFormItems';
+import { hasId } from '@components/ui/typing';
 
 type Props = {
   user: DocumentUser;
@@ -81,7 +81,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
   const cancelDelete = () => {
     setShowConfirmation(false);
   };
-  console.log('userData', userData);
+
   return (
     <>
       <form onSubmit={handleSubmit} className="rounded px-8 pt-6 pb-8 mb-4">

@@ -1,9 +1,8 @@
 import { MouseEvent, useContext } from 'react';
-import LoadingSpinner from '../ui/LoadingSpinner';
 import { authContext } from '@lib/store/auth-context';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
 
 const tabs = ['member', 'iq96', 'about', 'admin', 'developer'] as const;
-
 export type MemberTabs = (typeof tabs)[number];
 
 export const isTab = (tab: string | undefined): tab is MemberTabs => {
@@ -19,41 +18,39 @@ interface Props {
 const MemberTabsPage = ({ value, onChange }: Props) => {
   const { authUser, documentUser, loading } = useContext(authContext);
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
+  if (loading) return <LoadingSpinner />;
+  if (!authUser || !documentUser) return null;
 
-  if (!authUser || !documentUser) {
-    return null;
-  }
+  const getButtonClasses = (tabName: MemberTabs) =>
+    `px-1 sm:px-4 py-1 sm:py-2 rounded-lg border text-sm sm:text-base font-medium transition-colors duration-200 outline-none
+     focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500
+     ${
+       value === tabName
+         ? 'bg-blue-600 text-white border-blue-600'
+         : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-black'
+     }`;
 
   return (
-    <div className="sm:mb-15 mb-7 mt-1 flex justify-end sm:mt-10 sm:justify-center">
-      <div className="dynamic_text tabs tabs-boxed fixed z-50 gap-0 space-x-0 opacity-100 shadow-lg sm:space-x-4">
+    <div className="pl-8 sm:pl-0 mb-5 mt-2 sm:mt-10 sm:mb-10 flex w-full justify-center">
+      <div className="flex flex-wrap justify-center gap-0.5 sm:gap-2">
         <button
           id="member"
           onClick={onChange}
-          className={`tab ${
-            value === 'member' ? 'tab-active' : ''
-          } dynamic_text `}
+          className={getButtonClasses('member')}
         >
           {documentUser.nick}
         </button>
         <button
           id="iq96"
           onClick={onChange}
-          className={`tab px-1 sm:px-4 ${
-            value === 'iq96' ? 'tab-active' : ''
-          } dynamic_text `}
+          className={getButtonClasses('iq96')}
         >
           IQ96
         </button>
         <button
           id="about"
           onClick={onChange}
-          className={`tab px-1 sm:px-4 ${
-            value === 'about' ? 'tab-active' : ''
-          } dynamic_text `}
+          className={getButtonClasses('about')}
         >
           Om
         </button>
@@ -61,9 +58,7 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
           <button
             id="admin"
             onClick={onChange}
-            className={`tab px-1 sm:px-4 ${
-              value === 'admin' ? 'tab-active' : ''
-            } dynamic_text`}
+            className={getButtonClasses('admin')}
           >
             Admin
           </button>
@@ -72,9 +67,7 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
           <button
             id="developer"
             onClick={onChange}
-            className={`tab px-1 sm:px-4 ${
-              value === 'developer' ? 'tab-active' : ''
-            } dynamic_text`}
+            className={getButtonClasses('developer')}
           >
             Developer
           </button>

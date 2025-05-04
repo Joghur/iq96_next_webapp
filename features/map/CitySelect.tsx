@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { MapCityType } from './AddCityButton';
-import Select from '@features/ui/Select';
+import Select from '@components/ui/Select';
 
 interface Props {
   label: string;

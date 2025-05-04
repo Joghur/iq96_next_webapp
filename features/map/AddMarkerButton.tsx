@@ -2,11 +2,12 @@ import L from 'leaflet';
 import { ChangeEvent, useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 
-import { NotificationDbType } from '@features/ui/BottomNav';
-import Modal from '@features/ui/Modal';
 import { useFirestore } from '@lib/hooks/useFirestore';
 
 import { MarkerData } from './Map';
+import { NotificationDbType } from '@components/ui/BottomNav';
+import { Modal } from '@node_modules/react-bootstrap/esm';
+import { Button } from '@components/ui/button';
 
 const initialMarker: MarkerData = {
   id: '',
@@ -36,12 +37,12 @@ const AddMarkerButton = ({ addingMarker, userPosition }: Props) => {
 
   return (
     <>
-      <button
-        className="btn z-50 rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6 "
+      <Button
+        className="z-50 rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6 "
         onClick={toogleAddModal}
       >
         <MdAdd fontSize="large" />
-      </button>
+      </Button>
       <NewMarkerForm
         open={open}
         onClose={() => setOpen(() => false)}

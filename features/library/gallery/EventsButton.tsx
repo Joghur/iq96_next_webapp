@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Fragment } from 'react';
 
-import { Button } from '@features/ui/button';
+import { Button } from '@components/ui/button';
 
 interface Props {
   label: string;

@@ -1,13 +1,13 @@
 import { handleType } from '@lib/convert';
 import { EventType } from '../EventsPage';
 import { motion } from 'framer-motion';
-import EditButton from '@features/ui/buttons/EditButton';
 import Link from 'next/link';
-import EventInfoBadge from '@features/ui/EventInfoBadge';
 import { MdOutlineHotel } from '@node_modules/react-icons/md';
 import { ImageIcon, InfoCircledIcon } from '@radix-ui/react-icons';
 import EventBulletPoints from '../EventBulletPoints';
 import TourCard from '../TourCard';
+import EventInfoBadge from '@components/ui/EventInfoBadge';
+import EditButton from '@components/ui/buttons/EditButton';
 
 type Props = {
   nextEvents: EventType[];
@@ -168,7 +168,7 @@ const NextEvents = ({ nextEvents, theme, canEdit, onUpdate }: Props) => {
                     {nextEvent.end !== '' && (
                       <div className="dynamic_text mt-6">Aktiviteter</div>
                     )}
-                    <div className="w-full text-left">
+                    <div className="w-full">
                       <TourCard event={nextEvent} />
                     </div>
                   </>

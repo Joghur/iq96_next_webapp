@@ -1,4 +1,4 @@
-import { FormBuilder } from '@features/ui/form/ManyFormItems';
+import { FormBuilder } from '@components/ui/form/ManyFormItems';
 import { DocumentUser } from '@lib/hooks/useFirestore';
 import { tshirtSizes } from './TshirtSelect';
 

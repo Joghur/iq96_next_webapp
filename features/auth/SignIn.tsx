@@ -5,9 +5,6 @@ import { useContext, useState } from 'react';
 
 import { authContext } from '@/lib/store/auth-context';
 import ThemeToggle from '@features/member/ThemeToggle';
-import BottomSpacer from '@features/ui/BottomSpacer';
-import OldPageButton from '@features/ui/buttons/OldPageButton';
-import Tooltip from '@features/ui/Tooltip';
 import {
   LOCALSTORAGE_PREFIX,
   getLocalStorage,
@@ -16,6 +13,9 @@ import {
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { MdInfo } from 'react-icons/md';
 import { z as zod } from 'zod';
+import BottomSpacer from '@components/ui/BottomSpacer';
+import OldPageButton from '@components/ui/buttons/OldPageButton';
+import Tooltip from '@components/ui/Tooltip';
 
 export const LOCALSTORAGE_EMAIL = `${LOCALSTORAGE_PREFIX}-email`;
 
@@ -169,7 +169,7 @@ function SignIn() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className=" mx-auto mt-6 flex items-center gap-2 rounded-lg bg-gray-700 p-4 font-medium text-white"
+              className="mx-auto mt-6 flex items-center gap-2 rounded-lg bg-gray-700 p-4 font-medium text-white"
             >
               {/* <Image
                 src="/images/logo/iqlogo_180.png"

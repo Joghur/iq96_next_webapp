@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@features/ui/table';
+} from '@components/ui/table';
 import { DocumentUser } from '@lib/hooks/useFirestore';
 import { compareObjects } from '@lib/utils';
 
