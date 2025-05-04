@@ -14,6 +14,7 @@ import MemberTabsPage, {
 import { handleStartTheme } from '@features/member/ThemeToggle';
 import { authContext } from '@lib/store/auth-context';
 import PageLayout from '@components/ui/PageLayout';
+import { SessionProvider } from 'next-auth/react';
 
 const MemberPage = ({
   searchParams: { tab },
@@ -41,14 +42,16 @@ const MemberPage = ({
 
   return (
     <PageLayout>
-      <MemberTabsPage value={value} onChange={handleChange} />
-      <div className="flex items-center justify-center pt-6">
-        {value === 'member' && <MemberTab />}
-        {value === 'iq96' && <Iq96Tab />}
-        {value === 'about' && <AboutTab />}
-        {value === 'admin' && (isSuperAdmin || isBoard) && <AdminTab />}
-        {value === 'developer' && isSuperAdmin && <DeveloperTab />}
-      </div>
+      <SessionProvider>
+        <MemberTabsPage value={value} onChange={handleChange} />
+        <div className="flex items-center justify-center pt-6">
+          {value === 'member' && <MemberTab />}
+          {value === 'iq96' && <Iq96Tab />}
+          {value === 'about' && <AboutTab />}
+          {value === 'admin' && (isSuperAdmin || isBoard) && <AdminTab />}
+          {value === 'developer' && isSuperAdmin && <DeveloperTab />}
+        </div>
+      </SessionProvider>
     </PageLayout>
   );
 };
