@@ -81,7 +81,6 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
   const cancelDelete = () => {
     setShowConfirmation(false);
   };
-  console.log('userData', userData);
 
   return (
     <>
