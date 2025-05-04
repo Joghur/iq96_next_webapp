@@ -134,7 +134,7 @@ const EventsPage = ({ documentUser }: Props) => {
               variants={eventTransitionVariants}
               initial="hidden"
               animate="visible"
-              transition={{ duration: 0.5, delay: 1.1 }}
+              transition={{ duration: 0.5, delay: 3.1 }}
             >
               <div className="flex items-center justify-center mt-10">
                 <AddButton onClick={() => handleUpdate(undefined)} />

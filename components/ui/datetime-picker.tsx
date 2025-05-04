@@ -2,11 +2,12 @@
 
 import { useState } from 'react';
 import { format } from 'date-fns';
-import { cn } from '@/lib/utils'; // Shadcn helper til classnames
-import { Calendar, CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { Popover, PopoverContent, PopoverTrigger } from './popoverDialog';
 import { Input } from './input';
 import { Button } from './button';
+import { CalendarIcon } from '@radix-ui/react-icons';
+import { Calendar } from './calendar';
 
 type Props = {
   value?: { date: string; time: string };
