@@ -26,9 +26,9 @@ const TourCard = ({ event }: Props) => {
                 <ShowDateTime dateString={day.dateString} />
               </h3>
             )}
-            <ul className="text-left">
+            <ul className="w-full text-left">
               {day.entries.map((entry, innerIndex) => (
-                <li key={innerIndex} className="mb-1 flex items-center gap-2">
+                <li key={innerIndex} className="mb-1 flex w-full text-left items-center justify-start gap-2">
                   <span
                     className={`dynamic_text ${index === 0 ? 'font-extrabold' : 'font-small'} min-w-[60px] text-right`}
                   >
