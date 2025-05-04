@@ -6,7 +6,7 @@ import { Metadata } from 'next';
 import { ReactNode } from 'react';
 
 import AuthContextProvider from '@/lib/store/auth-context';
-import BottomNav from '@components/ui/BottomNav';
+import BottomNav from '@features/ui/BottomNav';
 
 export const revalidate = false;
 

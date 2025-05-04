@@ -1,7 +1,7 @@
 import { ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-import { Connection, ContactPhone } from '@components/member/DeveloperTab';
+import { Connection, ContactPhone } from '@features/member/DeveloperTab';
 import { DocumentUser } from './hooks/useFirestore';
 import { convertMonthNumberToName } from './dates';
 

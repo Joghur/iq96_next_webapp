@@ -3,17 +3,17 @@
 import { MouseEvent, useContext, useEffect, useState } from 'react';
 import { SessionProvider } from 'next-auth/react';
 
-import AboutTab from '@components/member/AboutTab';
-import AdminTab from '@components/member/AdminTab';
-import DeveloperTab from '@components/member/DeveloperTab';
-import Iq96Tab from '@components/member/Iq96Tab';
-import MemberTab from '@components/member/MemberTab';
+import AboutTab from '@features/member/AboutTab';
+import AdminTab from '@features/member/AdminTab';
+import DeveloperTab from '@features/member/DeveloperTab';
+import Iq96Tab from '@features/member/Iq96Tab';
+import MemberTab from '@features/member/MemberTab';
 import MemberTabsPage, {
   MemberTabs,
   isTab,
-} from '@components/member/MemberTabs';
-import { handleStartTheme } from '@components/member/ThemeToggle';
-import PageLayout from '@components/ui/PageLayout';
+} from '@features/member/MemberTabs';
+import { handleStartTheme } from '@features/member/ThemeToggle';
+import PageLayout from '@features/ui/PageLayout';
 import { authContext } from '@lib/store/auth-context';
 
 // const MemberPage = async ({

@@ -4,13 +4,13 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 
 import { authContext } from '@/lib/store/auth-context';
-import SignIn from '@components/auth/SignIn';
-import EventsPage from '@components/home/EventsPage';
-import { handleStartTheme } from '@components/member/ThemeToggle';
-import CookieWarning from '@components/ui/CookieWarning';
-import LoadingSpinner from '@components/ui/LoadingSpinner';
-import OldPageButton from '@components/ui/buttons/OldPageButton';
-import PageLayout from '@components/ui/PageLayout';
+import SignIn from '@features/auth/SignIn';
+import EventsPage from '@features/home/EventsPage';
+import { handleStartTheme } from '@features/member/ThemeToggle';
+import CookieWarning from '@features/ui/CookieWarning';
+import LoadingSpinner from '@features/ui/LoadingSpinner';
+import OldPageButton from '@features/ui/buttons/OldPageButton';
+import PageLayout from '@features/ui/PageLayout';
 import {
   getLocalStorage,
   LOCALSTORAGE_PREFIX,

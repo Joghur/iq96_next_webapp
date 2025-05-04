@@ -1,9 +1,9 @@
 import cloudinary from 'cloudinary';
 
 import { SearchResult } from '@app/bibliothek/galleri/page';
-import PdfGrid from '@components/library/PdfGrid';
-import { ForceRefresh } from '@components/ui/force-refresh';
-import PageLayout from '@components/ui/PageLayout';
+import PdfGrid from '@features/library/PdfGrid';
+import { ForceRefresh } from '@features/ui/force-refresh';
+import PageLayout from '@features/ui/PageLayout';
 
 export default async function VedtagterPage() {
   const results = (await cloudinary.v2.search
