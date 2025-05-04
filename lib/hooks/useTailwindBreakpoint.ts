@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
-export function useTailwindBreakpoint(breakpoint: 'sm' | 'md' | 'lg' | 'xl' | '2xl') {
+export function useTailwindBreakpoint(
+  breakpoint: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+) {
   const breakpoints: Record<string, string> = {
     sm: '(min-width: 640px)',
     md: '(min-width: 768px)',
