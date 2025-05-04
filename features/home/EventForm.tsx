@@ -118,35 +118,37 @@ const EventForm = ({
 
   return (
     <div className="w-full px-4 sm:px-6 mt-8">
-      <h3 className="text-lg font-bold">
-        <div className="flex flex-row items-center justify-between">
-          {isNew ? 'Opret ny begivenhed' : 'Opdatér begivenhed'}
-          <CloseButton onClick={onClose} />
-        </div>
-      </h3>
-      <div className="flex justify-between py-10">
-        <button
-          onClick={() => handleDelete(event?.id)}
-          color={'error'}
-          disabled={!event?.id}
-          className="btn-error btn-sm btn"
-        >
-          Slet
-        </button>
-        <div className="flex gap-7">
+      <div className="fixed top-0 left-0 w-full h-32 p-4 bg-white shadow-md z-50">
+        <h3 className="text-lg font-bold">
+          <div className="flex flex-row items-center justify-between">
+            {isNew ? 'Opret ny begivenhed' : 'Opdatér begivenhed'}
+            <CloseButton onClick={onClose} />
+          </div>
+        </h3>
+        <div className="flex justify-between py-10">
           <button
-            onClick={onClose}
+            onClick={() => handleDelete(event?.id)}
             color={'error'}
-            className="btn-error btn-outline btn-sm btn"
+            disabled={!event?.id}
+            className="btn-error btn-sm btn"
           >
-            Fortryd
+            Slet
           </button>
-          <button onClick={handleSubmit} className="btn-info btn-sm btn">
-            {isNew ? 'Opret' : 'Opdatér'}
-          </button>
+          <div className="flex gap-7">
+            <button
+              onClick={onClose}
+              color={'error'}
+              className="btn-error btn-outline btn-sm btn"
+            >
+              Fortryd
+            </button>
+            <button onClick={handleSubmit} className="btn-info btn-sm btn">
+              {isNew ? 'Opret' : 'Opdatér'}
+            </button>
+          </div>
         </div>
       </div>
-      <div>
+      <div className='pt-24'>
         <div className="pt-5">
           <label
             htmlFor="role"

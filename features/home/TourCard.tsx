@@ -13,7 +13,7 @@ const TourCard = ({ event }: Props) => {
       {event.dayEvents.map((day, index) => (
         <Fragment key={day.dateString}>
           <div
-            className={`rounded-md p-3 ${
+            className={`rounded-md p-1 sm:p-3 ${
               index === 0
                 ? 'bg-slate-400 border-2 rounded-lg shadow-lg border-orange-400 mb-6'
                 : 'bg-slate-400 mb-2'
@@ -28,9 +28,12 @@ const TourCard = ({ event }: Props) => {
             )}
             <ul className="w-full text-left">
               {day.entries.map((entry, innerIndex) => (
-                <li key={innerIndex} className="mb-1 flex w-full text-left items-center justify-start gap-2">
+                <li
+                  key={innerIndex}
+                  className="mb-1 flex w-full text-left items-center justify-start gap-2"
+                >
                   <span
-                    className={`dynamic_text ${index === 0 ? 'font-extrabold' : 'font-small'} min-w-[60px] text-right`}
+                    className={`dynamic_text ${index === 0 ? 'font-extrabold' : 'font-small'} sm:min-w-[60px] text-left`}
                   >
                     {entry.time}
                   </span>
