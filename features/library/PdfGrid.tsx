@@ -4,7 +4,7 @@ import { useContext, useEffect } from 'react';
 
 import { SearchResult } from '@app/bibliothek/galleri/page';
 import { handleStartTheme } from '@features/member/ThemeToggle';
-import { Card } from '@features/ui/card';
+import { Card } from '@components/ui/card';
 import { authContext } from '@lib/store/auth-context';
 
 export const buildUrlPdf = (folderAndPublicId: string, pagenumber?: string) => {

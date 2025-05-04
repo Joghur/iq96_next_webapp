@@ -2,13 +2,13 @@ import { SetStateAction, useState } from 'react';
 import { ListGroup, Modal } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 
-import FormSelect from '@features/ui/form/formItems/FormSelect';
+import FormSelect from '@components/ui/form/formItems/FormSelect';
 
 import styles from './FormListGroup.module.css';
 import { SelectLabelType } from '@lib/form';
-import { isArray, isStringArray } from '@features/ui/array';
-import { isObject, isStringInteger } from '@features/ui/typing';
-import { Button } from '@features/ui/button';
+import { isArray, isStringArray } from '@components/ui/array';
+import { isObject, isStringInteger } from '@components/ui/typing';
+import { Button } from '@components/ui/button';
 import { PlusIcon, TrashIcon } from '@radix-ui/react-icons';
 
 export type ListGroupFormKeys = { label: string; type: 'text' | 'number' }[];

@@ -1,12 +1,12 @@
 'use client';
 
 import { Fragment, useEffect, useState } from 'react';
-import Switch from '@features/ui/Switch';
 import {
   getLocalStorage,
   LOCALSTORAGE_PREFIX,
   setLocalStorage,
 } from '@lib/localStorage';
+import Switch from '@components/ui/Switch';
 
 export const LOCALSTORAGE_THEME = `${LOCALSTORAGE_PREFIX}-theme`;
 

@@ -15,13 +15,13 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
-import { Button } from '@features/ui/button';
+import { Button } from '@components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@features/ui/dropdown-menu';
+} from '@components/ui/dropdown-menu';
 import {
   Table,
   TableBody,
@@ -29,9 +29,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@features/ui/table';
+} from '@components/ui/table';
 import { DocumentUser } from '@lib/hooks/useFirestore';
-import { Checkbox } from '@features/ui/checkbox';
+import { Checkbox } from '@components/ui/checkbox';
 import CsvDownloader from 'react-csv-downloader';
 import { MdOutlineAdd } from 'react-icons/md';
 import UserForm from './UserForm';

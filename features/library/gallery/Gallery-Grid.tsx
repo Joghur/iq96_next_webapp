@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import { EventLabel } from '@app/bibliothek/galleri/page';
-import NewContentBadge from '@features/ui/NewContentBadge';
+import NewContentBadge from '@components/ui/NewContentBadge';
 
 import { LibraryCard } from '../LibraryCard';
 

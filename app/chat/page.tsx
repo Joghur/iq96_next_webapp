@@ -8,17 +8,17 @@ import { MdDelete } from 'react-icons/md';
 
 import { handleStartTheme } from '@features/member/ThemeToggle';
 // eslint-disable-next-line prettier/prettier
-import {
-  NotificationDbType,
-  SavingBadgeStatusToLocalStorage,
-} from '@features/ui/BottomNav';
-import PageLayout from '@features/ui/PageLayout';
 import { eventTransitionVariants } from '@lib/animations';
 import { convertEpochSecondsToDateString } from '@lib/dates';
 import { useFirestore } from '@lib/hooks/useFirestore';
 import { authContext } from '@lib/store/auth-context';
 import { cn } from '@lib/utils';
-import { Button } from '@features/ui/button';
+import {
+  NotificationDbType,
+  SavingBadgeStatusToLocalStorage,
+} from '@components/ui/BottomNav';
+import { Button } from '@components/ui/button';
+import PageLayout from '@components/ui/PageLayout';
 
 interface ChatUser {
   id: string;

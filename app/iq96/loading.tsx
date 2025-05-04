@@ -1,4 +1,4 @@
-import LoadingSpinner from '@features/ui/LoadingSpinner';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
 
 const Loading = () => {
   return <LoadingSpinner text={'Henter ...'} />;

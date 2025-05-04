@@ -2,22 +2,20 @@
 
 import { ChangeEvent } from 'react';
 
-import FormCheckBox from '@features/ui/form/formItems/FormCheckBox';
-import FormControl from '@features/ui/form/formItems/FormControl';
+import FormCheckBox from '@components/ui/form/formItems/FormCheckBox';
+import FormControl from '@components/ui/form/formItems/FormControl';
 import FormListGroup, {
   ListGroupFormKeys,
-} from '@features/ui/form/formItems/FormListGroup';
-import FormRadioButtonGroup from '@features/ui/form/formItems/FormRadioButtonGroup';
-import FormSelect from '@features/ui/form/formItems/FormSelect';
+} from '@components/ui/form/formItems/FormListGroup';
+import FormRadioButtonGroup from '@components/ui/form/formItems/FormRadioButtonGroup';
+import FormSelect from '@components/ui/form/formItems/FormSelect';
 
 import styles from './OneFormItem.module.css';
 import { SelectLabelType } from '../../../lib/form';
 import { isArray } from '../array';
 import { isHoverObject } from '../typing';
 import Tooltip from '../Tooltip';
-import ErrorMessage, {
-  ErrorMessageType,
-} from '@features/errors/ErrorMessage';
+import ErrorMessage, { ErrorMessageType } from '@features/errors/ErrorMessage';
 import { epochToDate } from '../../../lib/date';
 
 export type SelectObject = { [x: string]: string | number };

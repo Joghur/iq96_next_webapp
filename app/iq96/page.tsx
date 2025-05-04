@@ -7,10 +7,13 @@ import AdminTab from '@features/member/AdminTab';
 import DeveloperTab from '@features/member/DeveloperTab';
 import Iq96Tab from '@features/member/Iq96Tab';
 import MemberTab from '@features/member/memberMenuBar/MemberTab';
-import MemberTabsPage, { MemberTabs, isTab } from '@features/member/memberMenuBar/MemberTabs';
+import MemberTabsPage, {
+  MemberTabs,
+  isTab,
+} from '@features/member/memberMenuBar/MemberTabs';
 import { handleStartTheme } from '@features/member/ThemeToggle';
-import PageLayout from '@features/ui/PageLayout';
 import { authContext } from '@lib/store/auth-context';
+import PageLayout from '@components/ui/PageLayout';
 
 const MemberPage = ({
   searchParams: { tab },
