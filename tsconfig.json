@@ -19,10 +19,26 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@*": ["./*"]
+      "@*": ["./*"],
+      "@components/*": ["components/*"],
+      "@features/*": ["features/*"],
+      "@lib/*": ["lib/*"],
+      "@app/*": ["app/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/head.js", "lib/store/auth-context.tsx", "app/page.tsx", "features/utility/MyComponent.jsx", "lib/peopleNode.js", "features/map/TestMapQuery.jsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/head.js",
+    "lib/store/auth-context.tsx",
+    "app/page.tsx",
+    "features/utility/MyComponent.jsx",
+    "lib/peopleNode.js",
+    "features/map/TestMapQuery.jsx"
+  ],
   "exclude": ["node_modules"]
 }
