@@ -3,8 +3,8 @@
 import { buildUrl } from 'cloudinary-build-url';
 import { useContext, useEffect } from 'react';
 
-import { ImageGrid } from '@components/library/gallery/ImageGrid';
-import { handleStartTheme } from '@components/member/ThemeToggle';
+import { ImageGrid } from '@features/library/gallery/ImageGrid';
+import { handleStartTheme } from '@features/member/ThemeToggle';
 import { authContext } from '@lib/store/auth-context';
 
 import { SearchResult } from '../../page';

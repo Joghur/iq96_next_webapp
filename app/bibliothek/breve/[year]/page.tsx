@@ -1,11 +1,11 @@
 import cloudinary from 'cloudinary';
 
 import { SearchResult } from '@app/bibliothek/galleri/page';
-import UploadButton from '@components/library/gallery/UploadButton';
-import { ForceRefresh } from '@components/ui/force-refresh';
-import PageLayout from '@components/ui/PageLayout';
+import UploadButton from '@features/library/gallery/UploadButton';
+import { ForceRefresh } from '@features/ui/force-refresh';
+import PageLayout from '@features/ui/PageLayout';
 
-import PdfGrid from '../../../../components/library/PdfGrid';
+import PdfGrid from '../../../../features/library/PdfGrid';
 
 export default async function EventsPage({
   params: { year },

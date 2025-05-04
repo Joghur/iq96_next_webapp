@@ -1,4 +1,4 @@
-import LoadingSpinner from '@components/ui/LoadingSpinner';
+import LoadingSpinner from '@features/ui/LoadingSpinner';
 
 const Loading = () => {
   return <LoadingSpinner text={'Henter chat...'} />;

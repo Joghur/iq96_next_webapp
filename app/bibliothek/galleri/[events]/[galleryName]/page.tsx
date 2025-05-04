@@ -1,8 +1,8 @@
 import cloudinary from 'cloudinary';
 
-import UploadButton from '@components/library/gallery/UploadButton';
-import { ForceRefresh } from '@components/ui/force-refresh';
-import PageLayout from '@components/ui/PageLayout';
+import UploadButton from '@features/library/gallery/UploadButton';
+import { ForceRefresh } from '@features/ui/force-refresh';
+import PageLayout from '@features/ui/PageLayout';
 import { convertFromUrlSafe, prettyImageFolderLabel } from '@lib/utils';
 
 import { SearchResult } from '../../page';

@@ -6,13 +6,13 @@ import moment from 'moment';
 import { useContext, useEffect, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 
-import { handleStartTheme } from '@components/member/ThemeToggle';
+import { handleStartTheme } from '@features/member/ThemeToggle';
 // eslint-disable-next-line prettier/prettier
 import {
   NotificationDbType,
   SavingBadgeStatusToLocalStorage,
-} from '@components/ui/BottomNav';
-import PageLayout from '@components/ui/PageLayout';
+} from '@features/ui/BottomNav';
+import PageLayout from '@features/ui/PageLayout';
 import { eventTransitionVariants } from '@lib/animations';
 import { convertEpochSecondsToDateString } from '@lib/dates';
 import { useFirestore } from '@lib/hooks/useFirestore';

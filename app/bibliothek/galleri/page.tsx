@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
-import GalleryGrid from '@components/library/gallery/Gallery-Grid';
-import PageLayout from '@components/ui/PageLayout';
+import GalleryGrid from '@features/library/gallery/Gallery-Grid';
+import PageLayout from '@features/ui/PageLayout';
 import { galleryCategories } from '@lib/galleryMenu';
 
 export type SearchResult = {

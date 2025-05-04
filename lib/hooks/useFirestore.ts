@@ -22,7 +22,7 @@ import {
 } from 'firebase/firestore';
 import { useCallback, useEffect, useState } from 'react';
 
-import { MapCityType } from '@components/map/AddCityButton';
+import { MapCityType } from '@features/map/AddCityButton';
 import { app, auth, db } from '@lib/firebase';
 
 export interface DocumentUser {
