@@ -18,6 +18,7 @@ import { convertEpochSecondsToDateString } from '@lib/dates';
 import { useFirestore } from '@lib/hooks/useFirestore';
 import { authContext } from '@lib/store/auth-context';
 import { cn } from '@lib/utils';
+import { Button } from '@features/ui/button';
 
 interface ChatUser {
   id: string;
@@ -252,9 +253,9 @@ const ChatPage = () => {
           )}
         </div>
         <div className="flex flex-row justify-center gap-2">
-          <button onClick={() => handleExpandLimit()} className="btn">
+          <Button onClick={() => handleExpandLimit()} variant="outline">
             Flere beskeder
-          </button>
+          </Button>
         </div>
       </div>
     </PageLayout>

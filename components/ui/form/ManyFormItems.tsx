@@ -1,9 +1,8 @@
 'use client';
 
-import { ListGroupFormKeys } from '@features/ui/form/formItems/FormListGroup';
-
 import OneFormItem, { FormItemEventTarget, HoverInfo } from './OneFormItem';
 import { SelectLabelType } from '../../../lib/form';
+import { ListGroupFormKeys } from './formItems/FormListGroup';
 
 /**
  * Use the FormBuilder type as guide to make forms. Each FormBuilder item in an array

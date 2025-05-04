@@ -1,6 +1,7 @@
+import { Button } from '@components/ui/button';
+import Modal from '@node_modules/react-bootstrap/esm/Modal';
 import { ChangeEvent, useState } from 'react';
 import { MdLocationCity } from 'react-icons/md';
-import Modal from '@features/ui/Modal';
 
 export interface MapCityType {
   city: string;
@@ -26,12 +27,12 @@ const AddCityButton = ({ selectedCity, addingCities }: Props) => {
 
   return (
     <>
-      <button
-        className="btn z-50 rounded-full bg-white  text-black shadow-xl ring-2 hover:bg-violet6"
+      <Button
+        className="z-50 rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6"
         onClick={toogleAddModal}
       >
         <MdLocationCity fontSize="large" />
-      </button>
+      </Button>
       <NewCityForm
         mapCity={selectedCity}
         open={open}
@@ -112,16 +113,12 @@ const NewCityForm = ({
           />
         </div>
         <div className="flex justify-between pt-5">
-          <button
-            onClick={onClose}
-            color={'error'}
-            className="btn-error btn-outline btn-sm btn"
-          >
+          <Button onClick={onClose} variant="destructive">
             Fortryd
-          </button>
-          <button onClick={handleSubmit} className="btn-info btn-sm btn">
+          </Button>
+          <Button onClick={handleSubmit} variant="default">
             Opret
-          </button>
+          </Button>
         </div>
       </div>
     </Modal>

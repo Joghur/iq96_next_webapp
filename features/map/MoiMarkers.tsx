@@ -5,11 +5,12 @@ import { ChangeEvent, useState } from 'react';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { Marker, Popup, Tooltip as MapToolip } from 'react-leaflet';
 
-import { NotificationDbType } from '@features/ui/BottomNav';
-import Select from '@features/ui/Select';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 
 import { MarkerData } from './Map';
+import { NotificationDbType } from '@components/ui/BottomNav';
+import { Button } from '@components/ui/button';
+import Select from '@components/ui/Select';
 
 const markerTypes = [
   'bar',
@@ -182,21 +183,21 @@ const MoiMarkers = ({
                 <p className="dynamic_text">{marker.description}</p>
                 <div className="flex items-center justify-center gap-3">
                   {canDelete && (
-                    <button
+                    <Button
                       onClick={() => handleOpenDeleteModal(marker)}
-                      className="btn-error btn-xs btn"
+                      variant="destructive"
                     >
                       <MdDelete />
-                    </button>
+                    </Button>
                   )}
                   {canEdit &&
                     (documentUser.isSuperAdmin || marker.madeBy !== 'app') && (
-                      <button
+                      <Button
                         onClick={() => handleOpenEditMarker(marker)}
-                        className="btn-warning btn-sm btn"
+                        variant="default"
                       >
                         <MdEdit />
-                      </button>
+                      </Button>
                     )}
                 </div>
               </div>
@@ -206,18 +207,15 @@ const MoiMarkers = ({
                 <p className="text-lg">Er du sikker på du vil slette markør?</p>
                 <p>Denne handling kan ikke ændres.</p>
                 <div className="flex justify-between">
-                  <button
+                  <Button
                     onClick={() => setShowDelete(false)}
-                    className="btn-error btn-outline btn-sm btn"
+                    variant="secondary"
                   >
                     Fortryd
-                  </button>
-                  <button
-                    onClick={handleDeleteMarker}
-                    className="btn-success btn-sm btn"
-                  >
+                  </Button>
+                  <Button onClick={handleDeleteMarker} variant="destructive">
                     Slet
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}
@@ -304,19 +302,12 @@ const MoiMarkers = ({
                   />
                 </div>
                 <div className="flex justify-between pt-5">
-                  <button
-                    onClick={() => setShowEdit(false)}
-                    color={'error'}
-                    className="btn-error btn-outline btn-sm btn"
-                  >
+                  <Button onClick={() => setShowEdit(false)} variant="outline">
                     Fortryd
-                  </button>
-                  <button
-                    onClick={handleSubmitMarker}
-                    className="btn-info btn-sm btn"
-                  >
+                  </Button>
+                  <Button onClick={handleSubmitMarker} variant="destructive">
                     Ændr
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}

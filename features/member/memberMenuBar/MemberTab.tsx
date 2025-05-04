@@ -5,13 +5,14 @@ import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 
 import { MdInfo } from 'react-icons/md';
-import ThemeToggle from './ThemeToggle';
-import TshirtSelect from './TshirtSelect';
-import { Separator } from '@features/ui/separator';
-import LoadingSpinner from '@features/ui/LoadingSpinner';
-import SettingsItem from '@features/ui/SettingsItem';
-import Tooltip from '@features/ui/Tooltip';
+import ThemeToggle from '../ThemeToggle';
+import TshirtSelect from '../TshirtSelect';
 import { authContext } from '@lib/store/auth-context';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import Tooltip from '@components/ui/Tooltip';
+import { Separator } from '@components/ui/separator';
+import SettingsItem from '@components/ui/SettingsItem';
+import { Button } from '@components/ui/button';
 
 const MemberTab = () => {
   const { logout, authUser, documentUser, loading, updatingDoc } =
@@ -102,15 +103,16 @@ const MemberTab = () => {
         </div>
       </div>
       <div className="flex justify-center">
-        <button
+        <Button
           onClick={() => {
             logout();
             router.replace('/');
           }}
-          className="btn-error btn-xs btn mt-16"
+          className="mt-16"
+          variant="destructive"
         >
           Log ud
-        </button>
+        </Button>
       </div>
     </motion.div>
   );

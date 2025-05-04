@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 import { eventTransitionVariants } from '@lib/animations';
 import { handleType } from '@lib/convert';
 import Link from 'next/link';
-import EventInfoBadge from '@features/ui/EventInfoBadge';
 import { ImageIcon } from '@radix-ui/react-icons';
-import EditButton from '@features/ui/buttons/EditButton';
+import EditButton from '@components/ui/buttons/EditButton';
+import EventInfoBadge from '@components/ui/EventInfoBadge';
 
 type Props = {
   previousEvents: EventType[];

@@ -1,3 +1,4 @@
+import { Button } from '@components/ui/button';
 import { MdMyLocation } from 'react-icons/md';
 import { useMapEvents } from 'react-leaflet';
 
@@ -13,12 +14,12 @@ const UserMapButton = () => {
   };
 
   return (
-    <button
-      className="btn z-50 rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6"
+    <Button
+      className="z-50 rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6"
       onClick={handleFlyToUserLocation}
     >
       <MdMyLocation fontSize="large" />
-    </button>
+    </Button>
   );
 };
 

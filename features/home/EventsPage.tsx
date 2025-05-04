@@ -1,16 +1,16 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-import LoadingSpinner from '@features/ui/LoadingSpinner';
 import { eventTransitionVariants } from '@lib/animations';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 
 import EventForm from './EventForm';
 import { useTheme } from '@features/member/ThemeToggle';
-import AddButton from '@features/ui/buttons/AddButton';
 import PreviousEvents from './events/PreviousEvents';
 import NextEvents from './events/NextEvents';
 import FutureEvents from './events/FutureEvents';
+import LoadingSpinner from '@components/ui/LoadingSpinner';
+import AddButton from '@components/ui/buttons/AddButton';
 
 export type Type = 'tour' | 'gf' | 'oel' | 'golf' | 'other' | '';
 export type EventStatus = 'done' | 'next' | 'pending';

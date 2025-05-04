@@ -1,14 +1,13 @@
 'use client';
 
 import { MouseEvent, useContext, useEffect, useState } from 'react';
-import { SessionProvider } from 'next-auth/react';
 
 import AboutTab from '@features/member/AboutTab';
 import AdminTab from '@features/member/AdminTab';
 import DeveloperTab from '@features/member/DeveloperTab';
 import Iq96Tab from '@features/member/Iq96Tab';
-import MemberTab from '@features/member/MemberTab';
-import MemberTabsPage, { MemberTabs, isTab } from '@features/member/MemberTabs';
+import MemberTab from '@features/member/memberMenuBar/MemberTab';
+import MemberTabsPage, { MemberTabs, isTab } from '@features/member/memberMenuBar/MemberTabs';
 import { handleStartTheme } from '@features/member/ThemeToggle';
 import PageLayout from '@features/ui/PageLayout';
 import { authContext } from '@lib/store/auth-context';
@@ -39,16 +38,14 @@ const MemberPage = ({
 
   return (
     <PageLayout>
-      <SessionProvider>
-        <MemberTabsPage value={value} onChange={handleChange} />
-        <div className="flex items-center justify-center pt-6">
-          {value === 'member' && <MemberTab />}
-          {value === 'iq96' && <Iq96Tab />}
-          {value === 'about' && <AboutTab />}
-          {value === 'admin' && (isSuperAdmin || isBoard) && <AdminTab />}
-          {value === 'developer' && isSuperAdmin && <DeveloperTab />}
-        </div>
-      </SessionProvider>
+      <MemberTabsPage value={value} onChange={handleChange} />
+      <div className="flex items-center justify-center pt-6">
+        {value === 'member' && <MemberTab />}
+        {value === 'iq96' && <Iq96Tab />}
+        {value === 'about' && <AboutTab />}
+        {value === 'admin' && (isSuperAdmin || isBoard) && <AdminTab />}
+        {value === 'developer' && isSuperAdmin && <DeveloperTab />}
+      </div>
     </PageLayout>
   );
 };
