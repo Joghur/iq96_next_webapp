@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { MdOutlineHotel } from 'react-icons/md';
+import { MdCalendarMonth, MdOutlineHotel } from 'react-icons/md';
 
 import LoadingSpinner from '@features/ui/LoadingSpinner';
 import { eventTransitionVariants } from '@lib/animations';
@@ -189,7 +189,7 @@ const EventsPage = ({ documentUser }: Props) => {
   console.log('nextEvents', nextEvents);
   return (
     <div className="dynamic_text">
-      <div className="mx-auto max-w-2xl sm:mt-40">
+      <div className="mx-auto max-w-2xl sm:mt-40 px-3">
         {previousEvents.length > 0 && (
           <div className="mb-4 mt-16 items-center justify-center">
             <p className="text-center text-[larger] font-bold">Tidligere</p>
@@ -291,7 +291,7 @@ const EventsPage = ({ documentUser }: Props) => {
         )}
         {nextEvents.map((nextEvent, index) => {
           return (
-            <div key={index} className="mx-10 my-3 gap-2">
+            <div key={index} className="px-3 my-3 gap-2">
               <motion.div
                 key={`sd${index}`}
                 initial={{ x: 100 }}
@@ -316,8 +316,10 @@ const EventsPage = ({ documentUser }: Props) => {
                     )}
                   </div>
                   {!!nextEvent?.start && (
-                    <div className="orange_gradient flex text-center text-[larger]">
-                      <div>{nextEvent.start}</div>
+                    <div className="flex justify-left">
+                      <div className="orange_gradient flex text-center text-[larger]">
+                        <div>{nextEvent.start}</div>
+                      </div>
                     </div>
                   )}
                   {!!nextEvent?.end?.trim() && (

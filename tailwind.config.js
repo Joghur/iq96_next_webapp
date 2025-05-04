@@ -1,33 +1,28 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { mauve, violet } = require("@radix-ui/colors");
+// tailwind.config.js
+const { mauve, violet } = require('@radix-ui/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    './app/**/*.{ts,tsx,js,jsx}',
+    './pages/**/*.{ts,tsx,js,jsx}',
+    './components/**/*.{ts,tsx,js,jsx}',
+    './features/**/*.{ts,tsx,js,jsx}',
   ],
   theme: {
     extend: {
       colors: {
         ...mauve,
         ...violet,
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        primary: 'var(--primary)',
+        'primary-foreground': 'var(--primary-foreground)',
+        secondary: 'var(--secondary)',
+        'secondary-foreground': 'var(--secondary-foreground)',
       },
     },
   },
-
-  important: true, // important in prod is must be
-  plugins: [
-    require("@tailwindcss/typography"),
-    require("tailwindcss-animate"),
-    require("daisyui"),
-  ],
-  darkMode: "class",
-  daisyui: {
-    styled: true,
-    themes: false,
-    base: true,
-    utils: true,
-  },
+  plugins: [require('@tailwindcss/typography'), require('tailwindcss-animate')],
+  darkMode: 'class',
 };

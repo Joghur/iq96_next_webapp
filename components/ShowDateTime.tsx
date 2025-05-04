@@ -1,18 +1,25 @@
+import { useTailwindBreakpoint } from '@lib/hooks/useTailwindBreakpoint';
 import { format, parseISO } from '@node_modules/date-fns';
 import { da } from '@node_modules/date-fns/locale';
-import { type ReactNode } from 'react';
+
+
 
 type Props = {
   dateString: string;
 };
 
 const ShowDateTime = ({ dateString }: Props) => {
+  const isLargeScreen = useTailwindBreakpoint('md');
   console.log('dateString', dateString);
   return (
     <>
-      {format(parseISO(dateString), 'EEEE - dd. MMMM', {
-        locale: da,
-      })}
+      {format(
+        parseISO(dateString),
+        isLargeScreen ? 'EEEE - dd. MMMM' : 'EEEE',
+        {
+          locale: da,
+        }
+      )}
     </>
   );
 };

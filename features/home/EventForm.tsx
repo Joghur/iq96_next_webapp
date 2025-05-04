@@ -27,7 +27,7 @@ const initialEvent: EventType = {
       dateString: '2025-09-29',
       entries: [
         { time: '11:00', label: 'Hotel', type: 'meetingPoint' },
-        { time: '11:30', label: 'Guidet rundtur', type: 'guidedTour' },
+        { time: '11:30', label: 'Guidet tour', type: 'guidedTour' },
       ],
     },
   ],

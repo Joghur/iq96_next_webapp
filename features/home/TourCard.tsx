@@ -1,5 +1,4 @@
-import { format, parseISO } from 'date-fns';
-import { da } from 'date-fns/locale';
+import { Fragment } from 'react';
 import { EventType } from './EventsPage';
 import EventBulletPoints from './EventBulletPoints';
 import ShowDateTime from '@components/ShowDateTime';
@@ -12,32 +11,31 @@ const TourCard = ({ event }: Props) => {
   return (
     <div className="text-white">
       {event.dayEvents.map((day, index) => (
-        <>
+        <Fragment key={day.dateString}>
           <div
-            key={day.dateString}
-            className={`rounded-md p-3 mb-3 ${
+            className={`rounded-md p-3 ${
               index === 0
-                ? 'bg-slate-400 border-2 rounded-lg shadow-lg border-orange-400'
-                : 'bg-slate-400'
+                ? 'bg-slate-400 border-2 rounded-lg shadow-lg border-orange-400 mb-6'
+                : 'bg-slate-400 mb-2'
             }`}
           >
             {event.end !== '' && (
               <h3
-                className={`${index === 0 ? 'font-extrabold' : 'font-small'} mb-2`}
+                className={`${index === 0 ? 'font-extrabold' : 'font-small'} mb-2 tracking-tight`}
               >
                 <ShowDateTime dateString={day.dateString} />
               </h3>
             )}
             <ul className="text-left">
-              {day.entries.map((entry, j) => (
-                <li key={j} className="mb-1 flex items-center gap-2">
+              {day.entries.map((entry, innerIndex) => (
+                <li key={innerIndex} className="mb-1 flex items-center gap-2">
                   <span
-                    className={`dynamic_text ${index === 0 ? 'font-extrabold' : 'font-small'} w-[60px] text-right flex-shrink-0`}
+                    className={`dynamic_text ${index === 0 ? 'font-extrabold' : 'font-small'} min-w-[60px] text-right`}
                   >
                     {entry.time}
                   </span>
                   <span
-                    className={`dynamic_text px-2 py-0.5 rounded-full ${index === 0 ? 'font-medium' : 'font-small'} ${
+                    className={`dynamic_text px-2 sm:px-3 py-0.5 rounded-full leading-tight ${index === 0 ? 'font-medium' : 'font-normal'} ${
                       entry.type === 'meetingPoint'
                         ? 'bg-blue-300 text-slate-600'
                         : entry.type === 'dinner'
@@ -62,7 +60,7 @@ const TourCard = ({ event }: Props) => {
               />
             </p>
           )}
-        </>
+        </Fragment>
       ))}
     </div>
   );
