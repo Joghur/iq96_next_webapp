@@ -105,12 +105,10 @@ const EventForm = ({
   };
 
   const handleSubmit = async () => {
-    console.log('changedEvent', changedEvent);
     if (!editable || !changedEvent) return;
 
     try {
       if (isNew && onAdding) {
-        console.log('changedEvent', changedEvent);
         await onAdding?.(changedEvent);
       } else if (!isNew && changedEvent.id && onUpdate) {
         await onUpdate?.(changedEvent.id, changedEvent);
@@ -120,8 +118,6 @@ const EventForm = ({
       console.error('Opdatering fejlede:', error);
     }
   };
-
-  console.log('changedEvent', changedEvent);
 
   return (
     <div className="w-full px-4 sm:px-6 mt-8">
