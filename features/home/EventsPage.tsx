@@ -14,7 +14,14 @@ import AddButton from '@components/buttons/AddButton';
 
 export type Type = 'tour' | 'gf' | 'oel' | 'golf' | 'other' | '';
 export type EventStatus = 'done' | 'next' | 'pending';
-export type DayEventType = 'meetingPoint' | 'action' | 'dinner' | 'guidedTour';
+export type DayEventType =
+  | 'meetingPoint'
+  | 'activity'
+  | 'restaurant'
+  | 'bar'
+  | 'guidedTour'
+  | 'meeting'
+  | 'hotel';
 
 export type DayEventElement = {
   time: string;
