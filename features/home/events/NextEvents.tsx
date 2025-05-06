@@ -8,6 +8,7 @@ import EventBulletPoints from '../EventBulletPoints';
 import TourCard from '../TourCard';
 import EditButton from '@components/buttons/EditButton';
 import EventInfoBadge from '@components/EventInfoBadge';
+import ShowDateTime from '@components/dates/ShowDateTime';
 
 type Props = {
   nextEvents: EventType[];
@@ -53,15 +54,16 @@ const NextEvents = ({ nextEvents, theme, canEdit, onUpdate }: Props) => {
                 {!!nextEvent?.start && (
                   <div className="flex justify-left">
                     <div className="orange_gradient flex text-center text-[larger]">
-                      <div>{nextEvent.start}</div>
+                      <div>
+                        <ShowDateTime dateTime={nextEvent.start} />
+                      </div>
                     </div>
                   </div>
                 )}
-                {!!nextEvent?.end?.trim() && (
+                {!!nextEvent?.end?.date.trim() && (
                   <div className="flex flex-col">
-                    <p>Til:</p>
-                    <div className="">
-                      <p>{nextEvent.end}</p>
+                    <div>
+                      <ShowDateTime dateTime={nextEvent.end} showTime={false} />
                     </div>
                   </div>
                 )}
@@ -165,7 +167,7 @@ const NextEvents = ({ nextEvents, theme, canEdit, onUpdate }: Props) => {
                 )}
                 {nextEvent.dayEvents.length > 0 && (
                   <>
-                    {nextEvent.end !== '' && (
+                    {nextEvent.end.date !== '' && (
                       <div className="dynamic_text mt-6">Aktiviteter</div>
                     )}
                     <div className="w-full">

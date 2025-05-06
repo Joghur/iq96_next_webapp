@@ -7,13 +7,14 @@ import DayEventsForm from './DayEventForm';
 import { Button } from '@components/ui/button';
 import CloseButton from '@components/buttons/CloseButton';
 import { CopyButton } from '@components/buttons/CopyButton';
+import { SimpleDateTimePicker } from '@components/ui/datetime-picker';
 
 const initialEvent: EventType = {
   type: 'tour',
   status: 'pending',
   city: 'Kokkedal',
-  start: '',
-  end: '',
+  start: { date: '', time: '' },
+  end: { date: '', time: '' },
   year: new Date().getFullYear(),
   dayEvents: [
     {
@@ -261,17 +262,15 @@ const EventForm = ({
           >
             Start dato
           </label>
-          {/* <DateTimePicker newDate={''} newTime={''} onChangeTime={function (): void {
-            throw new Error('Function not implemented.');
-          } } onChangeDate={function (): void {
-            throw new Error('Function not implemented.');
-          } } /> */}
-          <textarea
-            id="start"
+          <SimpleDateTimePicker
             value={changedEvent.start}
-            onChange={handleChange}
-            placeholder={changedEvent?.start || 'Start'}
-            className="dynamic_text textarea-bordered textarea"
+            onChange={(value) =>
+              setChangingEvent((prev) => ({
+                ...prev,
+                start: value,
+              }))
+            }
+            showPreview
           />
         </div>
         <div className="pt-5">
@@ -281,12 +280,15 @@ const EventForm = ({
           >
             Slut dato
           </label>
-          <textarea
-            id="end"
-            value={changedEvent?.end}
-            onChange={handleChange}
-            placeholder={changedEvent?.end || 'Slut'}
-            className="dynamic_text textarea-bordered textarea"
+          <SimpleDateTimePicker
+            value={changedEvent.end}
+            onChange={(value) =>
+              setChangingEvent((prev) => ({
+                ...prev,
+                end: value,
+              }))
+            }
+            showPreview
           />
         </div>
         <div className="pt-5">

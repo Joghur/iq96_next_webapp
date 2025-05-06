@@ -34,11 +34,15 @@ export type DayEvent = {
   entries: DayEventElement[];
 };
 
+export type DateTimeValue = {
+  date: string;
+  time: string;
+};
 export type EventType = {
   id?: string;
   city: string;
-  end: string;
-  start: string;
+  end: DateTimeValue;
+  start: DateTimeValue;
   type: Type;
   year: number;
   dayEvents: DayEvent[];
@@ -83,7 +87,6 @@ const EventsPage = ({ documentUser }: Props) => {
   }
 
   const handleUpdate = async (id: string | undefined) => {
-    console.log('handleUpdate events -------------', events);
     if (id) {
       setCurrentEvent(
         () =>

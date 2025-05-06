@@ -21,6 +21,12 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
   const [newLabel, setNewLabel] = useState('');
   const [newType, setNewType] = useState<DayEventType>('meetingPoint');
 
+  const [editEntry, setEditEntry] = useState<{
+    dateString: string;
+    index: number;
+  } | null>(null);
+  const [editValue, setEditValue] = useState<DayEventElement | null>(null);
+
   const updateParent = (updated: DayEvent[]) => {
     setEvents(updated);
     onChange(updated);
@@ -67,6 +73,7 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
     setNewType(val.target.value as DayEventType);
   };
 
+  // TODO refactor this
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -76,12 +83,15 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
             setNewDate(date);
             setNewTime(time);
           }}
+          direction="column"
+          showPreview
         />
 
         <Input
           value={newLabel}
           onChange={(e) => setNewLabel(e.target.value)}
           placeholder="Beskrivelse"
+          className="md:w-[200px]"
         />
 
         <select
@@ -93,28 +103,124 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
           <option value="dinner">Middag</option>
           <option value="guidedTour">Guidet tur</option>
           <option value="action">Aktivitet</option>
+          <option value="bar">Bar</option>
+          <option value="hotel">Hotel</option>
+          <option value="meeting">Møde</option>
+          <option value="restaurant">Restaurant</option>
         </select>
       </div>
 
       <Button onClick={handleAdd}>Tilføj event</Button>
-
       <div className="space-y-4">
         {events.map((day) => (
           <div key={day.dateString} className="border p-4 rounded-md">
-            <h3 className="font-semibold text-lg mb-2">{day.dateString}</h3>
+            <h3 className="dynamic_text font-semibold mb-2">
+              {day.dateString}
+            </h3>
             <ul className="space-y-2">
               {day.entries.map((entry, index) => (
-                <li key={index} className="flex items-center justify-between">
-                  <span>
-                    {entry.time} – {entry.label} ({entry.type})
-                  </span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleDelete(day.dateString, index)}
-                  >
-                    <TrashIcon className="w-4 h-4 text-red-500" />
-                  </Button>
+                <li
+                  key={index}
+                  className="flex items-center justify-between gap-2"
+                >
+                  {editEntry?.dateString === day.dateString &&
+                  editEntry.index === index ? (
+                    <div className="flex flex-col md:flex-row md:flex-wrap items-start gap-2 bg-slate-200 p-3 rounded-md md:max-w-[700px]">
+                      {' '}
+                      <SimpleDateTimePicker
+                        value={{
+                          date: day.dateString,
+                          time: editValue?.time || '',
+                        }}
+                        onChange={({ time }) =>
+                          setEditValue((prev) => ({ ...prev!, time }))
+                        }
+                        direction="row"
+                        showPreview
+                      />
+                      <div>
+                        <Input
+                          value={editValue?.label || ''}
+                          onChange={(e) =>
+                            setEditValue((prev) => ({
+                              ...prev!,
+                              label: e.target.value,
+                            }))
+                          }
+                        />
+                        <div className="flex justify-between gap-2 mt-2">
+                          <select
+                            value={editValue?.type}
+                            onChange={(e) =>
+                              setEditValue((prev) => ({
+                                ...prev!,
+                                type: e.target.value as DayEventType,
+                              }))
+                            }
+                            className="p-2 rounded-md border border-gray-300 md:w-[150px]"
+                          >
+                            <option value="meetingPoint">Mødested</option>
+                            <option value="dinner">Middag</option>
+                            <option value="guidedTour">Guidet tur</option>
+                            <option value="action">Aktivitet</option>
+                            <option value="bar">Bar</option>
+                            <option value="hotel">Hotel</option>
+                            <option value="meeting">Møde</option>
+                            <option value="restaurant">Restaurant</option>
+                          </select>
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              onClick={() => {
+                                const updated = [...events];
+                                updated.forEach((d) => {
+                                  if (d.dateString === day.dateString) {
+                                    d.entries[index] = editValue!;
+                                  }
+                                });
+                                updateParent(updated);
+                                setEditEntry(null);
+                              }}
+                            >
+                              Gem
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => setEditEntry(null)}
+                            >
+                              Fortryd
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <span className="flex-1">
+                        {entry.time} – {entry.label} ({entry.type})
+                      </span>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => {
+                            setEditEntry({ dateString: day.dateString, index });
+                            setEditValue(entry);
+                          }}
+                        >
+                          ✏️
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDelete(day.dateString, index)}
+                        >
+                          <TrashIcon className="w-4 h-4 text-red-500" />
+                        </Button>
+                      </div>
+                    </>
+                  )}
                 </li>
               ))}
             </ul>

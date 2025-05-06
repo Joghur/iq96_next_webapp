@@ -4,16 +4,21 @@ import { da } from '@node_modules/date-fns/locale';
 
 type Props = {
   dateString: string;
+  formatLargeScreen?: string;
+  formatSmallScreen?: string;
 };
 
-const ShowDateTime = ({ dateString }: Props) => {
+const ShowDate = ({
+  dateString,
+  formatLargeScreen = 'EEEE - dd. MMMM',
+  formatSmallScreen = 'EEEE',
+}: Props) => {
   const isLargeScreen = useTailwindBreakpoint('md');
-  console.log('dateString', dateString);
   return (
     <>
       {format(
         parseISO(dateString),
-        isLargeScreen ? 'EEEE - dd. MMMM' : 'EEEE',
+        isLargeScreen ? formatLargeScreen : formatSmallScreen,
         {
           locale: da,
         }
@@ -22,4 +27,4 @@ const ShowDateTime = ({ dateString }: Props) => {
   );
 };
 
-export default ShowDateTime;
+export default ShowDate;
