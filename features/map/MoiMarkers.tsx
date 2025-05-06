@@ -87,6 +87,7 @@ const MoiMarkers = ({
       await deletingDoc(currentMarker.id);
     }
     setShowDelete(false);
+    setShowEdit(false);
     setCurrentMarker(undefined);
   };
 
@@ -136,7 +137,7 @@ const MoiMarkers = ({
     });
   };
 
-  const handleChangeType = (event: MarkerType) => {
+  const handleChangeMarkerIconType = (event: MarkerType) => {
     setCurrentMarker((old) => {
       if (old) {
         return {
@@ -297,7 +298,9 @@ const MoiMarkers = ({
                   <Select
                     value={currentMarker?.type}
                     placeholder={currentMarker?.type}
-                    onChange={(e) => handleChangeType(e as MarkerType)}
+                    onChange={(e) =>
+                      handleChangeMarkerIconType(e as MarkerType)
+                    }
                     groups={[{ groupItems: markerTypes }]}
                   />
                 </div>

@@ -103,7 +103,6 @@ const EventsPage = ({ documentUser }: Props) => {
   const nextEvents = events.filter((event) => event.status === 'next');
   const futureEvents = events.filter((event) => event.status === 'pending');
 
-  console.log('nextEvents', nextEvents);
   return (
     <div className="dynamic_text mx-auto max-w-2xl sm:mt-40 px-3">
       {showDialog === 'events' && (
