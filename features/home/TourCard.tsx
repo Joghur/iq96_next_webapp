@@ -5,16 +5,12 @@ import ShowDateTime from '@components/ShowDateTime';
 import {
   MdGroups,
   MdHotel,
-  MdLocalActivity,
   MdLocationPin,
-  MdOutlineDinnerDining,
   MdOutlineRestaurant,
   MdOutlineTour,
-  MdPlayArrow,
-  MdTableRestaurant,
   MdWineBar,
 } from 'react-icons/md';
-import { FaBeer, FaBolt, FaCocktail, FaTasks } from '@node_modules/react-icons/fa';
+import { FaBolt } from '@node_modules/react-icons/fa';
 
 type Props = {
   event: EventType;
