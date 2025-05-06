@@ -19,15 +19,19 @@ const initialEvent: EventType = {
     {
       dateString: '2025-09-28',
       entries: [
-        { time: '11:00', label: 'Middag', type: 'meetingPoint' },
+        {
+          time: '11:00',
+          label: 'Mødes under uret, Hovedbanegården',
+          type: 'meetingPoint',
+        },
         { time: '12:30', label: 'Hotel', type: 'meetingPoint' },
       ],
     },
     {
       dateString: '2025-09-29',
       entries: [
-        { time: '11:00', label: 'GF mødestart', type: 'action' },
-        { time: '11:30', label: 'Cantinos og Centerpubben', type: 'dinner' },
+        { time: '16:30', label: 'GF mødestart', type: 'action' },
+        { time: '19:00', label: 'Cantinos & Centerpubben', type: 'dinner' },
       ],
     },
   ],

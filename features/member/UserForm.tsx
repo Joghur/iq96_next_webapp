@@ -4,10 +4,10 @@ import { FormEvent, useState } from 'react';
 import { formHandleOnChange } from '@lib/form';
 import { useRouter } from 'next/navigation';
 import { basicUserFormBuilder } from './UserFormNewHelper';
-import { FormItemEventTarget } from '@components/ui/form/OneFormItem';
 import { Button } from '@components/ui/button';
-import ManyFormItems from '@components/ui/form/ManyFormItems';
 import { hasId } from '@components/ui/typing';
+import ManyFormItems from '@components/form/ManyFormItems';
+import { FormItemEventTarget } from '@components/form/OneFormItem';
 
 type Props = {
   user: DocumentUser;

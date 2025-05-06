@@ -5,9 +5,9 @@ import Link from 'next/link';
 import React from 'react';
 
 import { EventLabel } from '@app/bibliothek/galleri/page';
-import NewContentBadge from '@components/ui/NewContentBadge';
 
 import { LibraryCard } from '../LibraryCard';
+import NewContentBadge from '@components/NewContentBadge';
 
 interface Props {
   galleryCategories: EventLabel[];

@@ -1,6 +1,5 @@
 import { Fragment, ReactNode } from 'react';
-
-import Tooltip from '../Tooltip';
+import Tooltip from './Tooltip';
 
 interface Props {
   children: ReactNode;

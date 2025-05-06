@@ -8,9 +8,9 @@ import { Marker, Popup, Tooltip as MapToolip } from 'react-leaflet';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 
 import { MarkerData } from './Map';
-import { NotificationDbType } from '@components/ui/BottomNav';
 import { Button } from '@components/ui/button';
 import Select from '@components/Select';
+import { NotificationDbType } from '@components/BottomNav';
 
 const markerTypes = [
   'bar',

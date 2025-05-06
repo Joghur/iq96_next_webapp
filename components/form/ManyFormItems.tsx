@@ -1,7 +1,7 @@
 'use client';
 
+import { SelectLabelType } from '@lib/form';
 import OneFormItem, { FormItemEventTarget, HoverInfo } from './OneFormItem';
-import { SelectLabelType } from '../../../lib/form';
 import { ListGroupFormKeys } from './formItems/FormListGroup';
 
 /**

@@ -6,13 +6,12 @@ import { Fragment, useEffect } from 'react';
 import { MdCloudUpload } from 'react-icons/md';
 
 import { handleStartTheme } from '@features/member/ThemeToggle';
-// eslint-disable-next-line prettier/prettier
+import { Button } from '@components/ui/button';
+import { useFirestore } from '@lib/hooks/useFirestore';
 import {
   NotificationDbType,
   SavingBadgeStatusToLocalStorage,
-} from '@components/ui/BottomNav';
-import { Button } from '@components/ui/button';
-import { useFirestore } from '@lib/hooks/useFirestore';
+} from '@components/BottomNav';
 
 interface Props {
   folder?: string;
