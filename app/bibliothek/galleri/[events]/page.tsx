@@ -8,6 +8,7 @@ import {
   sortObjectArray,
 } from '@lib/utils';
 import PageLayout from '@components/PageLayout';
+import NewContentBadge from '@components/NewContentBadge';
 
 export type Folder = { name: string; path: string };
 
