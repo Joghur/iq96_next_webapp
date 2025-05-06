@@ -2,7 +2,7 @@ import { eventTransitionVariants } from '@lib/animations';
 import { EventType } from '../EventsPage';
 import { motion } from 'framer-motion';
 import { handleType } from '@lib/convert';
-import EditButton from '@components/ui/buttons/EditButton';
+import EditButton from '@components/buttons/EditButton';
 
 type Props = {
   futureEvents: EventType[];

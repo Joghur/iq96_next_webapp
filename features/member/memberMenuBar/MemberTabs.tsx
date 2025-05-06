@@ -1,6 +1,6 @@
 import { MouseEvent, useContext } from 'react';
 import { authContext } from '@lib/store/auth-context';
-import LoadingSpinner from '@components/ui/LoadingSpinner';
+import LoadingSpinner from '@components/LoadingSpinner';
 
 const tabs = ['member', 'iq96', 'about', 'admin', 'developer'] as const;
 export type MemberTabs = (typeof tabs)[number];

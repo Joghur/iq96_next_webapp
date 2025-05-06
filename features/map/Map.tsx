@@ -19,7 +19,7 @@ import MoiMarkers from './MoiMarkers';
 import UserMapButton from './UserMapButton';
 import UserMarker from './UserMarker';
 import { useSearchParams } from 'next/navigation';
-import LoadingSpinner from '@components/ui/LoadingSpinner';
+import LoadingSpinner from '@components/LoadingSpinner';
 import { SavingBadgeStatusToLocalStorage } from '@components/ui/BottomNav';
 
 interface Coordinate {

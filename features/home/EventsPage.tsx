@@ -9,8 +9,8 @@ import { useTheme } from '@features/member/ThemeToggle';
 import PreviousEvents from './events/PreviousEvents';
 import NextEvents from './events/NextEvents';
 import FutureEvents from './events/FutureEvents';
-import LoadingSpinner from '@components/ui/LoadingSpinner';
-import AddButton from '@components/ui/buttons/AddButton';
+import LoadingSpinner from '@components/LoadingSpinner';
+import AddButton from '@components/buttons/AddButton';
 
 export type Type = 'tour' | 'gf' | 'oel' | 'golf' | 'other' | '';
 export type EventStatus = 'done' | 'next' | 'pending';

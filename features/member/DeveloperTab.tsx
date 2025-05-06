@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import LoadingSpinner from '@components/ui/LoadingSpinner';
+import LoadingSpinner from '@components/LoadingSpinner';
 import { Separator } from '@components/ui/separator';
 import {
   Table,

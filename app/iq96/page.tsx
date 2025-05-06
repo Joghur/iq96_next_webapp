@@ -13,7 +13,7 @@ import MemberTabsPage, {
 } from '@features/member/memberMenuBar/MemberTabs';
 import { handleStartTheme } from '@features/member/ThemeToggle';
 import { authContext } from '@lib/store/auth-context';
-import PageLayout from '@components/ui/PageLayout';
+import PageLayout from '@components/PageLayout';
 import { SessionProvider } from 'next-auth/react';
 
 const MemberPage = ({

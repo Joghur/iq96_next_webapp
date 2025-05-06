@@ -10,7 +10,7 @@ import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 import { MarkerData } from './Map';
 import { NotificationDbType } from '@components/ui/BottomNav';
 import { Button } from '@components/ui/button';
-import Select from '@components/ui/Select';
+import Select from '@components/Select';
 
 const markerTypes = [
   'bar',

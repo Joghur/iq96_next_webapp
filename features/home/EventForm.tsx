@@ -5,8 +5,8 @@ import { DayEvent, EventType } from './EventsPage';
 import { confirmAction } from '@lib/utils';
 import DayEventsForm from './DayEventForm';
 import { Button } from '@components/ui/button';
-import CloseButton from '@components/ui/buttons/CloseButton';
-import { CopyButton } from '@components/ui/buttons/CopyButton';
+import CloseButton from '@components/buttons/CloseButton';
+import { CopyButton } from '@components/buttons/CopyButton';
 
 const initialEvent: EventType = {
   type: 'tour',
@@ -26,8 +26,8 @@ const initialEvent: EventType = {
     {
       dateString: '2025-09-29',
       entries: [
-        { time: '11:00', label: 'Hotel', type: 'meetingPoint' },
-        { time: '11:30', label: 'Guidet tour', type: 'guidedTour' },
+        { time: '11:00', label: 'GF mødestart', type: 'action' },
+        { time: '11:30', label: 'Cantinos og Centerpubben', type: 'dinner' },
       ],
     },
   ],

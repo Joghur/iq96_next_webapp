@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import BottomSpacer from './BottomSpacer';
+import BottomSpacer from '../BottomSpacer';
 import HeaderNavbar from './HeaderNavBar';
 
 interface Props {

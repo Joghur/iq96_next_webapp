@@ -13,9 +13,9 @@ import {
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { MdInfo } from 'react-icons/md';
 import { z as zod } from 'zod';
-import BottomSpacer from '@components/ui/BottomSpacer';
-import OldPageButton from '@components/ui/buttons/OldPageButton';
-import Tooltip from '@components/ui/Tooltip';
+import BottomSpacer from '@components/BottomSpacer';
+import OldPageButton from '@components/buttons/OldPageButton';
+import Tooltip from '@components/Tooltip';
 
 export const LOCALSTORAGE_EMAIL = `${LOCALSTORAGE_PREFIX}-email`;
 

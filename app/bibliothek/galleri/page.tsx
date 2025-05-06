@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 
 import GalleryGrid from '@features/library/gallery/Gallery-Grid';
-import PageLayout from '@components/ui/PageLayout';
 import { galleryCategories } from '@lib/galleryMenu';
+import PageLayout from '@components/PageLayout';
 
 export type SearchResult = {
   public_id: string;

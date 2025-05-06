@@ -16,9 +16,9 @@ import { cn } from '@lib/utils';
 import {
   NotificationDbType,
   SavingBadgeStatusToLocalStorage,
-} from '@components/ui/BottomNav';
+} from '@components/BottomNav';
 import { Button } from '@components/ui/button';
-import PageLayout from '@components/ui/PageLayout';
+import PageLayout from '@components/PageLayout';
 
 interface ChatUser {
   id: string;

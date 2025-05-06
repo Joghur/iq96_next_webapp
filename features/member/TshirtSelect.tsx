@@ -2,7 +2,7 @@
 
 import { DocumentData } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import Select from '@components/ui/Select';
+import Select from '@components/Select';
 import { DocumentUser } from '@lib/hooks/useFirestore';
 
 export const tshirtSizes = ['M', 'L', 'XL', 'XXL', 'XXXL', 'XXXXL'] as const;

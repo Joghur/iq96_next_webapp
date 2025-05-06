@@ -7,7 +7,7 @@ import { ImageIcon, InfoCircledIcon } from '@radix-ui/react-icons';
 import EventBulletPoints from '../EventBulletPoints';
 import TourCard from '../TourCard';
 import EventInfoBadge from '@components/ui/EventInfoBadge';
-import EditButton from '@components/ui/buttons/EditButton';
+import EditButton from '@components/buttons/EditButton';
 
 type Props = {
   nextEvents: EventType[];
