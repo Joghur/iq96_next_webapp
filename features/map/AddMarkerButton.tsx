@@ -5,9 +5,9 @@ import { MdAdd } from 'react-icons/md';
 import { useFirestore } from '@lib/hooks/useFirestore';
 
 import { MarkerData } from './Map';
-import { NotificationDbType } from '@components/ui/BottomNav';
 import { Modal } from '@node_modules/react-bootstrap/esm';
 import { Button } from '@components/ui/button';
+import { NotificationDbType } from '@components/BottomNav';
 
 const initialMarker: MarkerData = {
   id: '',

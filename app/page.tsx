@@ -12,10 +12,10 @@ import {
   LOCALSTORAGE_PREFIX,
   setLocalStorage,
 } from '@lib/localStorage';
-import OldPageButton from '@components/ui/buttons/OldPageButton';
-import CookieWarning from '@components/ui/CookieWarning';
-import LoadingSpinner from '@components/ui/LoadingSpinner';
-import PageLayout from '@components/ui/PageLayout';
+import OldPageButton from '@components/buttons/OldPageButton';
+import CookieWarning from '@components/CookieWarning';
+import LoadingSpinner from '@components/LoadingSpinner';
+import PageLayout from '@components/PageLayout';
 
 const COOKIE_LOCALSTORAGE_ACCEPTED = `${LOCALSTORAGE_PREFIX}-cookieAccepted`;
 

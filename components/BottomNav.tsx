@@ -15,9 +15,8 @@ import {
   setLocalStorage,
 } from '@lib/localStorage';
 import { authContext } from '@lib/store/auth-context';
-
-import LoadingSpinner from './LoadingSpinner';
 import NewContentBadge from './NewContentBadge';
+import LoadingSpinner from './LoadingSpinner';
 
 export const BADGE_NOTIFICATION = `${LOCALSTORAGE_PREFIX}-badgeNotification`;
 

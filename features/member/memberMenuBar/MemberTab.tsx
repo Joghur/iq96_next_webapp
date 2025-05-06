@@ -8,11 +8,11 @@ import { MdInfo } from 'react-icons/md';
 import ThemeToggle from '../ThemeToggle';
 import TshirtSelect from '../TshirtSelect';
 import { authContext } from '@lib/store/auth-context';
-import LoadingSpinner from '@components/ui/LoadingSpinner';
-import Tooltip from '@components/ui/Tooltip';
+import LoadingSpinner from '@components/LoadingSpinner';
+import Tooltip from '@components/Tooltip';
 import { Separator } from '@components/ui/separator';
-import SettingsItem from '@components/ui/SettingsItem';
 import { Button } from '@components/ui/button';
+import SettingsItem from '@components/SettingsItem';
 
 const MemberTab = () => {
   const { logout, authUser, documentUser, loading, updatingDoc } =

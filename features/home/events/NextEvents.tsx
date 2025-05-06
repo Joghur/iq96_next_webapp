@@ -6,8 +6,8 @@ import { MdOutlineHotel } from '@node_modules/react-icons/md';
 import { ImageIcon, InfoCircledIcon } from '@radix-ui/react-icons';
 import EventBulletPoints from '../EventBulletPoints';
 import TourCard from '../TourCard';
-import EventInfoBadge from '@components/ui/EventInfoBadge';
-import EditButton from '@components/ui/buttons/EditButton';
+import EditButton from '@components/buttons/EditButton';
+import EventInfoBadge from '@components/EventInfoBadge';
 
 type Props = {
   nextEvents: EventType[];

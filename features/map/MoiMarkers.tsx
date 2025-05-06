@@ -8,9 +8,9 @@ import { Marker, Popup, Tooltip as MapToolip } from 'react-leaflet';
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 
 import { MarkerData } from './Map';
-import { NotificationDbType } from '@components/ui/BottomNav';
 import { Button } from '@components/ui/button';
-import Select from '@components/ui/Select';
+import Select from '@components/Select';
+import { NotificationDbType } from '@components/BottomNav';
 
 const markerTypes = [
   'bar',
@@ -87,6 +87,7 @@ const MoiMarkers = ({
       await deletingDoc(currentMarker.id);
     }
     setShowDelete(false);
+    setShowEdit(false);
     setCurrentMarker(undefined);
   };
 
@@ -136,7 +137,7 @@ const MoiMarkers = ({
     });
   };
 
-  const handleChangeType = (event: MarkerType) => {
+  const handleChangeMarkerIconType = (event: MarkerType) => {
     setCurrentMarker((old) => {
       if (old) {
         return {
@@ -297,7 +298,9 @@ const MoiMarkers = ({
                   <Select
                     value={currentMarker?.type}
                     placeholder={currentMarker?.type}
-                    onChange={(e) => handleChangeType(e as MarkerType)}
+                    onChange={(e) =>
+                      handleChangeMarkerIconType(e as MarkerType)
+                    }
                     groups={[{ groupItems: markerTypes }]}
                   />
                 </div>

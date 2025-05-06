@@ -1,6 +1,6 @@
 'use client';
 
-import { FormItemEventTarget } from '@components/ui/form/OneFormItem';
+import { FormItemEventTarget } from '@components/form/OneFormItem';
 import { Dispatch, SetStateAction } from 'react';
 
 /**

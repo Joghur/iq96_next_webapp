@@ -1,4 +1,4 @@
-import { HoverObject } from '@components/ui/form/OneFormItem';
+import { HoverObject } from '@components/form/OneFormItem';
 import { isArray } from './array';
 
 /**

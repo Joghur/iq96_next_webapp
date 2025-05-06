@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import { useMap } from 'react-leaflet';
 
 import { MarkerData } from '@features/map/Map';
-import Select, { SelectGroup } from '@components/ui/Select';
+import Select, { SelectGroup } from '@components/Select';
 
 interface Props {
   markers: MarkerData[];

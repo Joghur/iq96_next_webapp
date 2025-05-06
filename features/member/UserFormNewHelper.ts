@@ -1,6 +1,6 @@
-import { FormBuilder } from '@components/ui/form/ManyFormItems';
 import { DocumentUser } from '@lib/hooks/useFirestore';
 import { tshirtSizes } from './TshirtSelect';
+import { FormBuilder } from '@components/form/ManyFormItems';
 
 export const basicUserFormBuilder: FormBuilder<DocumentUser>[] = [
   { label: 'Navn', propertyKey: 'name' },

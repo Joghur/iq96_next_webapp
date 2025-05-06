@@ -2,7 +2,7 @@
 
 import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
 import { IqDataTable } from './IqDataTable';
-import LoadingSpinner from '@components/ui/LoadingSpinner';
+import LoadingSpinner from '@components/LoadingSpinner';
 
 const AdminTab = () => {
   const {

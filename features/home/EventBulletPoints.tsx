@@ -16,7 +16,7 @@ import {
   MdWineBar,
 } from 'react-icons/md';
 import { EventType } from './EventsPage';
-import EventInfoBadge from '@components/ui/EventInfoBadge';
+import EventInfoBadge from '@components/EventInfoBadge';
 
 type Props = { pointsString: string; event: EventType };
 

@@ -5,8 +5,8 @@ import { DayEvent, EventType } from './EventsPage';
 import { confirmAction } from '@lib/utils';
 import DayEventsForm from './DayEventForm';
 import { Button } from '@components/ui/button';
-import CloseButton from '@components/ui/buttons/CloseButton';
-import { CopyButton } from '@components/ui/buttons/CopyButton';
+import CloseButton from '@components/buttons/CloseButton';
+import { CopyButton } from '@components/buttons/CopyButton';
 
 const initialEvent: EventType = {
   type: 'tour',
@@ -19,15 +19,21 @@ const initialEvent: EventType = {
     {
       dateString: '2025-09-28',
       entries: [
-        { time: '11:00', label: 'Middag', type: 'meetingPoint' },
-        { time: '12:30', label: 'Hotel', type: 'meetingPoint' },
+        {
+          time: '11:00',
+          label: 'Mødes under uret, Hovedbanegården',
+          type: 'meetingPoint',
+        },
+        { time: '12:30', label: 'Hotel', type: 'hotel' },
+        { time: '13:30', label: 'Aktivitet', type: 'activity' },
+        { time: '14:30', label: 'Guided tour', type: 'guidedTour' },
       ],
     },
     {
       dateString: '2025-09-29',
       entries: [
-        { time: '11:00', label: 'Hotel', type: 'meetingPoint' },
-        { time: '11:30', label: 'Guidet tour', type: 'guidedTour' },
+        { time: '16:30', label: 'GF mødestart', type: 'meeting' },
+        { time: '19:30', label: 'Cantinos & Centerpubben', type: 'bar' },
       ],
     },
   ],
@@ -99,12 +105,10 @@ const EventForm = ({
   };
 
   const handleSubmit = async () => {
-    console.log('changedEvent', changedEvent);
     if (!editable || !changedEvent) return;
 
     try {
       if (isNew && onAdding) {
-        console.log('changedEvent', changedEvent);
         await onAdding?.(changedEvent);
       } else if (!isNew && changedEvent.id && onUpdate) {
         await onUpdate?.(changedEvent.id, changedEvent);
@@ -114,8 +118,6 @@ const EventForm = ({
       console.error('Opdatering fejlede:', error);
     }
   };
-
-  console.log('changedEvent', changedEvent);
 
   return (
     <div className="w-full px-4 sm:px-6 mt-8">

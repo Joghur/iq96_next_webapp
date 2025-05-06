@@ -6,7 +6,7 @@ import {
   LOCALSTORAGE_PREFIX,
   setLocalStorage,
 } from '@lib/localStorage';
-import Switch from '@components/ui/Switch';
+import Switch from '@components/Switch';
 
 export const LOCALSTORAGE_THEME = `${LOCALSTORAGE_PREFIX}-theme`;
 

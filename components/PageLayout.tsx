@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
-
-import BottomSpacer from './BottomSpacer';
 import HeaderNavbar from './HeaderNavBar';
+import BottomSpacer from './BottomSpacer';
 
 interface Props {
   children: ReactNode;

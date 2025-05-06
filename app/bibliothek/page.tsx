@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 import { LibraryCard } from '@features/library/LibraryCard';
-import NewContentBadge from '@components/ui/NewContentBadge';
-import PageLayout from '@components/ui/PageLayout';
+import NewContentBadge from '@components/NewContentBadge';
+import PageLayout from '@components/PageLayout';
 
 const LibraryPage = ({
   searchParams: { badge },

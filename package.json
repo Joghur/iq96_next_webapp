@@ -7,10 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "npx prettier --write ./app ./components ./lib",
-    "prettier:check": "npx prettier --check ./app ./components ./lib",
+    "prettier": "npx prettier --write ./app ./components ./features ./lib",
+    "prettier:check": "npx prettier --check ./app ./components ./features ./lib",
     "test": "jest",
     "test:verboseWatch": "jest --verbose",
+    "check": "npx tsc --noEmit",
     "clean": "rm -rf .next && rm -rf node_modules && npm install && npm run dev",
     "clean:tailwind": "rm -rf .next node_modules/.cache && npm run dev"
   },

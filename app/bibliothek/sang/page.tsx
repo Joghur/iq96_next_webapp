@@ -3,7 +3,7 @@ import cloudinary from 'cloudinary';
 import { SearchResult } from '@app/bibliothek/galleri/page';
 import PdfGrid from '@features/library/PdfGrid';
 import { ForceRefresh } from '@components/ui/force-refresh';
-import PageLayout from '@components/ui/PageLayout';
+import PageLayout from '@components/PageLayout';
 
 export default async function VedtagterPage() {
   const results = (await cloudinary.v2.search

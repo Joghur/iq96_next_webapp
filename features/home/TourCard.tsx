@@ -1,10 +1,47 @@
 import { Fragment } from 'react';
-import { EventType } from './EventsPage';
+import { DayEventType, EventType } from './EventsPage';
 import EventBulletPoints from './EventBulletPoints';
 import ShowDateTime from '@components/ShowDateTime';
+import {
+  MdGroups,
+  MdHotel,
+  MdLocationPin,
+  MdOutlineRestaurant,
+  MdOutlineTour,
+  MdWineBar,
+} from 'react-icons/md';
+import { FaBolt } from '@node_modules/react-icons/fa';
 
 type Props = {
   event: EventType;
+};
+
+const selectIcon = (type: DayEventType) => {
+  switch (type) {
+    case 'activity':
+      return <FaBolt />;
+
+    case 'meeting':
+      return <MdGroups />;
+
+    case 'hotel':
+      return <MdHotel />;
+
+    case 'bar':
+      return <MdWineBar />;
+
+    case 'restaurant':
+      return <MdOutlineRestaurant />;
+
+    case 'guidedTour':
+      return <MdOutlineTour />;
+
+    case 'meetingPoint':
+      return <MdLocationPin />;
+
+    default:
+      return <></>;
+  }
 };
 
 const TourCard = ({ event }: Props) => {
@@ -37,13 +74,16 @@ const TourCard = ({ event }: Props) => {
                   >
                     {entry.time}
                   </span>
+                  {selectIcon(entry.type)}
                   <span
                     className={`dynamic_text px-2 sm:px-3 py-0.5 rounded-full leading-tight ${index === 0 ? 'font-medium' : 'font-normal'} ${
-                      entry.type === 'meetingPoint'
-                        ? 'bg-blue-300 text-slate-600'
-                        : entry.type === 'dinner'
+                      entry.type === 'hotel' ||
+                      entry.type === 'restaurant' ||
+                      entry.type === 'meeting'
+                        ? 'bg-green-300 text-white'
+                        : entry.type === 'meetingPoint'
                           ? 'bg-red-300 text-white'
-                          : 'bg-green-300 text-white'
+                          : 'bg-blue-300 text-slate-600'
                     }`}
                   >
                     {entry.label}
