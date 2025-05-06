@@ -3,7 +3,7 @@
 import { ChangeEvent, useState } from 'react';
 import { TrashIcon } from 'lucide-react';
 import { DayEvent, DayEventElement, DayEventType } from './EventsPage';
-import { SimpleDateTimePicker } from '@components/ui/datetime-picker';
+import { SimpleDateTimePicker } from '@components/dates/SimpleDateTimePicker';
 import { Input } from '@components/ui/input';
 import { Button } from '@components/ui/button';
 

@@ -7,7 +7,7 @@ import DayEventsForm from './DayEventForm';
 import { Button } from '@components/ui/button';
 import CloseButton from '@components/buttons/CloseButton';
 import { CopyButton } from '@components/buttons/CopyButton';
-import { SimpleDateTimePicker } from '@components/ui/datetime-picker';
+import { SimpleDateTimePicker } from '@components/dates/SimpleDateTimePicker';
 
 const initialEvent: EventType = {
   type: 'tour',
