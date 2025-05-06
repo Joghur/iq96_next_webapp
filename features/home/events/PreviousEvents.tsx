@@ -5,7 +5,7 @@ import { handleType } from '@lib/convert';
 import Link from 'next/link';
 import { ImageIcon } from '@radix-ui/react-icons';
 import EditButton from '@components/buttons/EditButton';
-import EventInfoBadge from '@components/ui/EventInfoBadge';
+import EventInfoBadge from '@components/EventInfoBadge';
 
 type Props = {
   previousEvents: EventType[];

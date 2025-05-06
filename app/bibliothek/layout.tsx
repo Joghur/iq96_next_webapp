@@ -1,11 +1,10 @@
 import Link from 'next/link';
 
-import { Button } from '@components/ui/button';
-
 import { ReactNode } from 'react';
 
 import { EventLabel } from '@app/bibliothek/galleri/page';
 import { galleryCategories } from '@lib/galleryMenu';
+import { Button } from '@components/ui/button';
 
 const SideMenu = () => {
   // TODO: Button icons
