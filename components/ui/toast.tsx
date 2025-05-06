@@ -8,7 +8,6 @@ interface Props {
 // TODO need work - animations and a working colour
 // Doesn't change colour with template literal
 const Toast = ({ message, level }: Props) => {
-  console.log('level', level);
   return (
     <div className="toast-middle toast">
       <div className={`alert alert-${level}`}>

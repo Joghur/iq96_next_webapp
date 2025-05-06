@@ -52,15 +52,27 @@ const NextEvents = ({ nextEvents, theme, canEdit, onUpdate }: Props) => {
                   )}
                 </div>
                 {!!nextEvent?.start && (
-                  <div className="flex justify-left">
+                  <div className="flex justify-center gap-2">
                     <div className="dynamic_text orange_gradient flex text-center text-[larger]">
-                      <ShowDateTime dateTime={nextEvent.start} />
+                      <ShowDateTime
+                        dateTime={nextEvent.start}
+                        formatLargeScreen="EEEE - dd. MMMM"
+                        formatSmallScreen="EEEE - dd. MMM"
+                      />
                     </div>
-                  </div>
-                )}
-                {!!nextEvent?.end?.date.trim() && (
-                  <div className="flex flex-col">
-                    <ShowDateTime dateTime={nextEvent.end} showTime={false} />
+                    {!!nextEvent?.end?.date.trim() && (
+                      <>
+                        <div className="dynamic_text">til</div>
+                        <div className="flex">
+                          <ShowDateTime
+                            dateTime={nextEvent.end}
+                            showTime={false}
+                            formatLargeScreen="EEEE - dd. MMMM"
+                            formatSmallScreen="EEEE - dd. MMM"
+                          />
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
                 <div className="flex justify-evenly">
@@ -164,7 +176,7 @@ const NextEvents = ({ nextEvents, theme, canEdit, onUpdate }: Props) => {
                 {nextEvent.dayEvents.length > 0 && (
                   <>
                     {nextEvent.end.date !== '' && (
-                      <div className="dynamic_text mt-6">Aktiviteter</div>
+                      <div className="dynamic_text mt-2">Aktiviteter</div>
                     )}
                     <div className="w-full">
                       <TourCard event={nextEvent} />

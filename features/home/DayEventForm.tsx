@@ -13,8 +13,6 @@ interface Props {
 }
 
 export default function DayEventsForm({ dayEvents, onChange }: Props) {
-  console.log('dayEvents', dayEvents);
-
   const [events, setEvents] = useState<DayEvent[]>(dayEvents);
   const [newDate, setNewDate] = useState<string>(''); // "2025-09-28"
   const [newTime, setNewTime] = useState<string>(''); // "21:30"
