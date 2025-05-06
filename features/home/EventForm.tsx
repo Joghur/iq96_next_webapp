@@ -262,16 +262,44 @@ const EventForm = ({
           >
             Start dato
           </label>
-          <SimpleDateTimePicker
-            value={changedEvent.start}
-            onChange={(value) =>
-              setChangingEvent((prev) => ({
-                ...prev,
-                start: value,
-              }))
-            }
-            showPreview
-          />
+          <div className="flex flex-col gap-2">
+            <SimpleDateTimePicker
+              value={changedEvent.start}
+              onChange={(value) =>
+                setChangingEvent((prev) => ({
+                  ...prev,
+                  start: value,
+                }))
+              }
+              showPreview
+            />
+            <div className="flex gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() =>
+                  setChangingEvent((prev) => ({
+                    ...prev,
+                    start: { ...prev.start, date: '' },
+                  }))
+                }
+              >
+                Ryd dato
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() =>
+                  setChangingEvent((prev) => ({
+                    ...prev,
+                    start: { ...prev.start, time: '' },
+                  }))
+                }
+              >
+                Ryd tid
+              </Button>
+            </div>
+          </div>
         </div>
         <div className="pt-5">
           <label
@@ -280,16 +308,44 @@ const EventForm = ({
           >
             Slut dato
           </label>
-          <SimpleDateTimePicker
-            value={changedEvent.end}
-            onChange={(value) =>
-              setChangingEvent((prev) => ({
-                ...prev,
-                end: value,
-              }))
-            }
-            showPreview
-          />
+          <div className="flex flex-col gap-2">
+            <SimpleDateTimePicker
+              value={changedEvent.end}
+              onChange={(value) =>
+                setChangingEvent((prev) => ({
+                  ...prev,
+                  end: value,
+                }))
+              }
+              showPreview
+            />
+            <div className="flex gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() =>
+                  setChangingEvent((prev) => ({
+                    ...prev,
+                    end: { ...prev.end, date: '' },
+                  }))
+                }
+              >
+                Ryd dato
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() =>
+                  setChangingEvent((prev) => ({
+                    ...prev,
+                    end: { ...prev.end, time: '' },
+                  }))
+                }
+              >
+                Ryd tid
+              </Button>
+            </div>
+          </div>
         </div>
         <div className="pt-5">
           <label
