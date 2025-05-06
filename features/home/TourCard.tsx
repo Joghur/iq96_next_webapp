@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { DayEventType, EventType } from './EventsPage';
 import EventBulletPoints from './EventBulletPoints';
-import ShowDateTime from '@components/ShowDateTime';
+import ShowDate from '@components/dates/ShowDate';
 import {
   MdGroups,
   MdHotel,
@@ -56,11 +56,11 @@ const TourCard = ({ event }: Props) => {
                 : 'bg-slate-400 mb-2'
             }`}
           >
-            {event.end !== '' && (
+            {event.end.date !== '' && event.end.time && (
               <h3
                 className={`${index === 0 ? 'font-extrabold' : 'font-small'} mb-2 tracking-tight`}
               >
-                <ShowDateTime dateString={day.dateString} />
+                <ShowDate dateString={day.dateString} />
               </h3>
             )}
             <ul className="w-full text-left">
