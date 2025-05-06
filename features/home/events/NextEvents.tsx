@@ -53,18 +53,14 @@ const NextEvents = ({ nextEvents, theme, canEdit, onUpdate }: Props) => {
                 </div>
                 {!!nextEvent?.start && (
                   <div className="flex justify-left">
-                    <div className="orange_gradient flex text-center text-[larger]">
-                      <div>
-                        <ShowDateTime dateTime={nextEvent.start} />
-                      </div>
+                    <div className="dynamic_text orange_gradient flex text-center text-[larger]">
+                      <ShowDateTime dateTime={nextEvent.start} />
                     </div>
                   </div>
                 )}
                 {!!nextEvent?.end?.date.trim() && (
                   <div className="flex flex-col">
-                    <div>
-                      <ShowDateTime dateTime={nextEvent.end} showTime={false} />
-                    </div>
+                    <ShowDateTime dateTime={nextEvent.end} showTime={false} />
                   </div>
                 )}
                 <div className="flex justify-evenly">

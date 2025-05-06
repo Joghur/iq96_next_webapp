@@ -3,6 +3,7 @@ import { EventType } from '../EventsPage';
 import { motion } from 'framer-motion';
 import { handleType } from '@lib/convert';
 import EditButton from '@components/buttons/EditButton';
+import ShowDateTime from '@components/dates/ShowDateTime';
 
 type Props = {
   futureEvents: EventType[];
@@ -37,7 +38,7 @@ const FutureEvents = ({ futureEvents, theme, canEdit, onUpdate }: Props) => {
                     ? `${handleType(futureEvent?.type)} de ${futureEvent.city}`
                     : handleType(futureEvent?.type)}
                 </p>
-                <p>{futureEvent.start}</p>
+                <ShowDateTime dateTime={futureEvent.start} showTime={false} />
                 {canEdit && futureEvent.id && (
                   <EditButton onClick={() => onUpdate(futureEvent.id)} />
                 )}

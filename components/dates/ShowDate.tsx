@@ -14,6 +14,9 @@ const ShowDate = ({
   formatSmallScreen = 'EEEE',
 }: Props) => {
   const isLargeScreen = useTailwindBreakpoint('md');
+
+  if (!dateString) return null;
+
   return (
     <>
       {format(
