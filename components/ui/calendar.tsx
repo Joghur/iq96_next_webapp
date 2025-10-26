@@ -1,10 +1,15 @@
 "use client";
 
-import { buttonVariants } from "@components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type * as React from "react";
-import { DayPicker, type NavProps } from "react-day-picker";
+import {
+	DayPicker,
+	type NavProps,
+	NextMonthButton,
+	PreviousMonthButton,
+} from "react-day-picker";
 import { cn } from "@/lib/utils";
+import { buttonVariants } from "./button";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -61,8 +66,8 @@ function Calendar({
 					onPreviousClick,
 				}: NavProps) => (
 					<div className="space-x-1 flex items-center">
-						<Button
-							type="Button"
+						<PreviousMonthButton
+							type="button"
 							onClick={onPreviousClick}
 							disabled={!previousMonth}
 							className={cn(
@@ -71,9 +76,9 @@ function Calendar({
 							)}
 						>
 							<ChevronLeft className="h-4 w-4" />
-						</Button>
-						<Button
-							type="Button"
+						</PreviousMonthButton>
+						<NextMonthButton
+							type="button"
 							onClick={onNextClick}
 							disabled={!nextMonth}
 							className={cn(
@@ -82,7 +87,7 @@ function Calendar({
 							)}
 						>
 							<ChevronRight className="h-4 w-4" />
-						</Button>
+						</NextMonthButton>
 					</div>
 				),
 			}}
