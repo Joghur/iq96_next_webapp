@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { Button } from "./ui/button";
 
 interface Props {
 	acceptCookies: () => void;
@@ -13,9 +14,9 @@ const CookieWarning: FC<Props> = ({ acceptCookies }) => {
 						Ved at bruge siden accepterer du brugen af cookies!
 					</p>
 				</div>
-				<button className="dynamic_text btn" onClick={acceptCookies}>
+				<Button className="dynamic_text btn" onClick={acceptCookies}>
 					Acceptér
-				</button>
+				</Button>
 			</div>
 		</div>
 	);

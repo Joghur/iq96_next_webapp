@@ -38,3 +38,4 @@ google_mail_client_secret.json
 credentialsgoogle.json
 token.json
 google_application_credentials.json*
+vercel.json
