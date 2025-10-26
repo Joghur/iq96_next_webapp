@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/complexity/noUselessFragments: <explanation> */
 "use client";
 
 import {
@@ -81,7 +82,7 @@ const UploadButton = ({ folder }: Props) => {
 						}}
 						uploadPreset="mihetffc"
 						public-id={folder}
-						onUpload={handleUpload}
+						onSuccess={handleUpload}
 					/>
 				</div>
 			</Button>

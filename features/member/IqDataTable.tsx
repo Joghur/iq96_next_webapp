@@ -259,6 +259,7 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 		setActiveUser({ ...defaultUser });
 	};
 
+	// biome-ignore lint/suspicious/noExplicitAny: <TODO>
 	const handleClickCell = (row: Row<DocumentUser>, column: any) => {
 		if (column.id === "select") {
 			return;

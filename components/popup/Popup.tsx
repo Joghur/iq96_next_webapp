@@ -27,10 +27,9 @@ const Popup = ({
 				<Modal.Title>{popupLabel}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body className="text-nowrap">
-				{values &&
-					values.map((value, index) => (
-						<div key={`modal-body-${index}`}>{value}</div>
-					))}
+				{values?.map((value, index) => (
+					<div key={`modal-body-${index}`}>{value}</div>
+				))}
 				{children && children}
 			</Modal.Body>
 			<Modal.Footer>
