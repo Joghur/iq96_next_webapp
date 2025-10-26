@@ -1,6 +1,6 @@
 {
 	"name": "iq96_next_webapp",
-	"version": "0.8.12",
+	"version": "0.8.13",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
@@ -15,8 +15,7 @@
 		"test:verboseWatch": "jest --verbose",
 		"check": "npx tsc --noEmit",
 		"clean": "rm -rf .next && rm -rf node_modules && npm install && npm run dev",
-		"clean:tailwind": "rm -rf .next node_modules/.cache && npm run dev",
-		"vercel-build": "biome check . && next build"
+		"clean:tailwind": "rm -rf .next node_modules/.cache && npm run dev"
 	},
 	"dependencies": {
 		"@google-cloud/local-auth": "3.0.1",

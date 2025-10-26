@@ -1,4 +1,5 @@
 export const aboutList = [
+	["0.8.13", "Oprydning internt"],
 	["0.8.12", "Link til GF kort markør"],
 	[
 		"0.8.11",

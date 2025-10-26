@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@components/ui/button";
+
 interface Props {
 	text?: string;
 }
@@ -8,7 +10,7 @@ const LoadingButton = ({ text = "Henter..." }: Props) => {
 	return (
 		<div>
 			<Button
-				type="Button"
+				type="button"
 				className="inline-flex w-auto cursor-pointer select-none appearance-none items-center justify-center space-x-2 rounded border border-blue-700 bg-blue-700 px-3 py-2 text-sm font-medium text-white transition hover:border-blue-800 hover:bg-blue-800 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 disabled:pointer-events-none disabled:opacity-75"
 			>
 				<svg className="h-4 w-4 animate-spin" viewBox="3 3 18 18">
