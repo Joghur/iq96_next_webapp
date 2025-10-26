@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 "use client";
 
 import { type DocumentUser, useDocumentUser } from "@lib/hooks/useFirestore";
-// eslint-disable-next-line prettier/prettier
 import {
 	sendPasswordResetEmail,
 	signInWithEmailAndPassword,
@@ -51,8 +49,8 @@ export default function AuthContextProvider({
 		}
 		try {
 			await signInWithEmailAndPassword(auth, email, password);
-		} catch (err) {
-			console.error("Logout error: ", err);
+		} catch (error) {
+			console.error("Logout error: ", error);
 			alert("Der er skete en fejl under login!");
 		}
 	};

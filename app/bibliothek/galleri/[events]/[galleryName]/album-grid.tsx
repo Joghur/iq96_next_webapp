@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/performance/noImgElement: <TODO> */
 "use client";
 
 import { ImageGrid } from "@features/library/gallery/ImageGrid";
@@ -19,6 +20,7 @@ export default function AlbumGrid({
 }) {
 	const { authUser } = useContext(authContext);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <TODO>
 	useEffect(() => {
 		handleStartTheme();
 	}, [event, year]);
@@ -44,19 +46,6 @@ export default function AlbumGrid({
 						alt="Her skulle være et sejt IQ billede"
 						className="rounded-lg"
 					/>
-					// <Image
-					//   key={imageData.public_id}
-					//   src={buildUrl(imageData.public_id, {
-					//     cloud: {
-					//       cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-					//     },
-					//   })}
-					//   width={650}
-					//   height={356}
-					//   sizes="(min-width: 720px) 650px, calc(95.5vw - 19px)"
-					//   alt="Her skulle være et sejt IQ billede"
-					//   className="rounded-lg"
-					// />
 				);
 			}}
 		/>

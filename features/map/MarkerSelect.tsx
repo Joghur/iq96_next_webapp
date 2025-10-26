@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/correctness/useExhaustiveDependencies: <TODO> */
 import Select, { type SelectGroup } from "@components/Select";
 import type { MarkerData } from "@features/map/Map";
 import L from "leaflet";
@@ -29,9 +30,7 @@ export const MarkerSelect: FC<Props> = ({ markers, paramPlace }) => {
 		marker ? marker.location.longitude : 0,
 	]);
 
-	const [selection, setSelection] = useState<string | undefined>(
-		marker && marker.nick,
-	);
+	const [selection, setSelection] = useState<string | undefined>(marker?.nick);
 
 	const handleSelectChange = (event: string) => {
 		const selectedMarker = markers.filter(

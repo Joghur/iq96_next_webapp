@@ -1,7 +1,7 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 "use client";
 
 import { useFirestore } from "@lib/hooks/useFirestore";
-// eslint-disable-next-line prettier/prettier
 import {
 	getLocalStorage,
 	LOCALSTORAGE_PREFIX,
@@ -27,7 +27,6 @@ export type BadgeNotification = {
 // TODO: fix any Mixup between docs return type and updating types
 export interface NotificationDbType {
 	id?: string;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	updatedAt: any;
 }
 
@@ -68,6 +67,7 @@ const BottomNav = () => {
 
 	const handleBadgeNotifications = () => {
 		if (badges) {
+			// biome-ignore lint/suspicious/useIterableCallbackReturn: <Irrelevant>
 			badges.map((cloudBadgeNotif) => {
 				// Compare cloud status with localstorage
 				// Turn on badge if local date value is older than cloud
@@ -96,9 +96,9 @@ const BottomNav = () => {
 		}
 	};
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <TODO>
 	useEffect(() => {
 		handleBadgeNotifications();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [streamLinedBadges]);
 
 	if (loading) {

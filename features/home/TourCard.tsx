@@ -40,7 +40,7 @@ const selectIcon = (type: DayEventType) => {
 			return <MdLocationPin />;
 
 		default:
-			return <></>;
+			return null;
 	}
 };
 

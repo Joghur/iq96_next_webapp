@@ -1,7 +1,7 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
-/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
-/** biome-ignore-all lint/a11y/noStaticElementInteractions: <explanation> */
-/** biome-ignore-all lint/a11y/useKeyWithClickEvents: <explanation> */
+/** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <TODO> */
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: <TODO> */
+/** biome-ignore-all lint/a11y/useKeyWithClickEvents: <TODO> */
 "use client";
 
 import Modal from "@components/Modal";
@@ -136,7 +136,7 @@ const FormListGroup = ({
 							...(value as object),
 						} as any;
 						const keyToDelete =
-							// biome-ignore lint/style/noNonNullAssertion: <explanation>
+							// biome-ignore lint/style/noNonNullAssertion: <TODO>
 							Object.keys(newItems)[selectedListGroupItemIndex!];
 						delete newItems[keyToDelete];
 						onChange(newItems);

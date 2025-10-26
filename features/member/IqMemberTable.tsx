@@ -80,116 +80,108 @@ export const IqMemberTable = ({
 				</TableRow>
 			</TableHeader>
 			<TableBody>
-				{iqUsers &&
-					iqUsers.map((person: DocumentUser, index: number) => {
-						const diffArray = evaluateArrays.filter(
-							(arr) => arr && arr.includes(person.name),
-						)[0];
-						const memberIndex = index + 1;
-						const name = person?.name?.trim();
-						const isNameDiff = Boolean(
-							connections && diffArray?.includes("name"),
-						);
-						const nick = person?.nick?.trim();
-						const isNickDiff = Boolean(
-							connections && diffArray?.includes("nick"),
-						);
-						const email = person?.email || "";
-						const isEmailDiff = Boolean(
-							connections && diffArray?.includes("email"),
-						);
-						const phones = person?.phones?.map((o: string) => `${o?.trim()}`);
-						const isPhonesDiff = Boolean(
-							connections && diffArray?.includes("phones"),
-						);
-						const address = person?.address?.replace("DK", "").trim();
-						const isAddressDiff = Boolean(
-							connections && diffArray?.includes("address"),
-						);
-						const birthday = person?.birthday?.trim();
-						const isBirthdayDiff = Boolean(
-							connections && diffArray?.includes("birthday"),
-						);
-						const title = person?.title?.trim();
-						const isTitleDiff = Boolean(
-							connections && diffArray?.includes("title"),
-						);
+				{iqUsers?.map((person: DocumentUser, index: number) => {
+					const diffArray = evaluateArrays.filter((arr) =>
+						arr?.includes(person.name),
+					)[0];
+					const memberIndex = index + 1;
+					const name = person?.name?.trim();
+					const isNameDiff = Boolean(
+						connections && diffArray?.includes("name"),
+					);
+					const nick = person?.nick?.trim();
+					const isNickDiff = Boolean(
+						connections && diffArray?.includes("nick"),
+					);
+					const email = person?.email || "";
+					const isEmailDiff = Boolean(
+						connections && diffArray?.includes("email"),
+					);
+					const phones = person?.phones?.map((o: string) => `${o?.trim()}`);
+					const isPhonesDiff = Boolean(
+						connections && diffArray?.includes("phones"),
+					);
+					const address = person?.address?.replace("DK", "").trim();
+					const isAddressDiff = Boolean(
+						connections && diffArray?.includes("address"),
+					);
+					const birthday = person?.birthday?.trim();
+					const isBirthdayDiff = Boolean(
+						connections && diffArray?.includes("birthday"),
+					);
+					const title = person?.title?.trim();
+					const isTitleDiff = Boolean(
+						connections && diffArray?.includes("title"),
+					);
 
-						return (
-							<TableRow
-								key={name}
-								onClick={() =>
-									handleClick(
-										person,
-										connections?.find(
-											(contact) =>
-												contact?.names?.[0]?.displayName?.trim() ===
-												person.name,
-										),
-									)
-								}
-								className={`text-xs hover:${
-									isEditable ? "cursor-pointer" : "cursor-text"
-								}`}
+					return (
+						<TableRow
+							key={name}
+							onClick={() =>
+								handleClick(
+									person,
+									connections?.find(
+										(contact) =>
+											contact?.names?.[0]?.displayName?.trim() === person.name,
+									),
+								)
+							}
+							className={`text-xs hover:${
+								isEditable ? "cursor-pointer" : "cursor-text"
+							}`}
+						>
+							<TableCell className="p-1">{memberIndex}</TableCell>
+							<TableCell
+								className={`${isNameDiff ? "bg-red-500 text-white" : ""} p-1`}
 							>
-								<TableCell className="p-1">{memberIndex}</TableCell>
-								<TableCell
-									className={`${isNameDiff ? "bg-red-500 text-white" : ""} p-1`}
-								>
-									{name}
-								</TableCell>
-								<TableCell
-									className={`${isNickDiff ? "bg-red-500 text-white" : ""} p-1`}
-								>
-									{nick}
-								</TableCell>
-								<TableCell
-									className={`${
-										isTitleDiff ? "bg-red-500 text-white" : ""
-									} p-1`}
-								>
-									{title}
-								</TableCell>
-								<TableCell
-									className={`${
-										isEmailDiff ? "bg-red-500 text-white" : ""
-									} p-1`}
-								>
-									{email}
-								</TableCell>
+								{name}
+							</TableCell>
+							<TableCell
+								className={`${isNickDiff ? "bg-red-500 text-white" : ""} p-1`}
+							>
+								{nick}
+							</TableCell>
+							<TableCell
+								className={`${isTitleDiff ? "bg-red-500 text-white" : ""} p-1`}
+							>
+								{title}
+							</TableCell>
+							<TableCell
+								className={`${isEmailDiff ? "bg-red-500 text-white" : ""} p-1`}
+							>
+								{email}
+							</TableCell>
+							<TableCell
+								className={`${isPhonesDiff ? "bg-red-500 text-white" : ""} p-1`}
+							>
+								{phones?.join(" / ")?.replace("+45", "")}
+							</TableCell>
+							{showAll && (
 								<TableCell
 									className={`${
-										isPhonesDiff ? "bg-red-500 text-white" : ""
+										isAddressDiff ? "bg-red-500 text-white" : ""
 									} p-1`}
 								>
-									{phones?.join(" / ")?.replace("+45", "")}
+									{address}
 								</TableCell>
-								{showAll && (
-									<TableCell
-										className={`${
-											isAddressDiff ? "bg-red-500 text-white" : ""
-										} p-1`}
-									>
-										{address}
-									</TableCell>
-								)}
-								{showAll && (
-									<TableCell className="p-1 text-center">
-										{person.tshirt}
-									</TableCell>
-								)}
-								{showAll && (
-									<TableCell
-										className={`${
-											isBirthdayDiff ? "bg-red-500 text-white" : ""
-										} p-1`}
-									>
-										{birthday}
-									</TableCell>
-								)}
-							</TableRow>
-						);
-					})}
+							)}
+							{showAll && (
+								<TableCell className="p-1 text-center">
+									{person.tshirt}
+								</TableCell>
+							)}
+							{showAll && (
+								<TableCell
+									className={`${
+										isBirthdayDiff ? "bg-red-500 text-white" : ""
+									} p-1`}
+								>
+									{birthday}
+								</TableCell>
+							)}
+						</TableRow>
+					);
+				})}
 			</TableBody>
 		</Table>
 	);

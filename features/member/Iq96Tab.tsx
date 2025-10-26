@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/performance/noImgElement: <TODO> */
 "use client";
 
 import { eventTransitionVariants } from "@lib/animations";

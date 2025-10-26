@@ -1,4 +1,3 @@
-import React from "react";
 import { useMapEvents } from "react-leaflet";
 import type { MarkerData } from "./Map";
 
@@ -22,7 +21,7 @@ function ManualMarker({ addingMarker }: Props) {
 			},
 		});
 
-		return <></>;
+		return null;
 	}
 
 	return <AddMarkerOnClick />;

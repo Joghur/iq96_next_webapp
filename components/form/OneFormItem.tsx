@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 "use client";
 
 import Tooltip from "@components/Tooltip";
@@ -185,77 +186,75 @@ function OneFormItem<T extends Record<string, any>>({
 							: styles.fieldControlWrapper
 					}
 				>
-					<>
-						{showFormItemAs === undefined && <></>}
-						{showFormItemAs === "checkbox" && (
-							<FormCheckBox
-								propertyKey={propertyKey.toString()}
-								isChecked={value as boolean}
-								disabled={disabled}
-								onChange={handleCheckboxChange}
-							/>
-						)}
-						{showFormItemAs === "date" && (
-							<FormControl
-								value={epochToDate(value as number)}
-								propertyKey={propertyKey.toString()}
-								as={as}
-								type="date"
-								disabled={disabled}
-								onChange={handleControlChange}
-							/>
-						)}
-						{showFormItemAs === "listgroup" && (
-							<FormListGroup
-								label={label}
-								value={value as object}
-								listGroupFormKeys={listGroupFormKeys}
-								selection={selection as SelectLabelType<any, any>[]}
-								disabled={disabled}
-								onChange={handleListGroupChange}
-							/>
-						)}
-						{showFormItemAs === "number" && (
-							<FormControl
-								value={value as number}
-								propertyKey={propertyKey.toString()}
-								as={as}
-								type="number"
-								disabled={disabled}
-								onChange={handleControlChange}
-							/>
-						)}
-						{showFormItemAs === "radiobutton" && (
-							<FormRadioButtonGroup
-								selection={selection}
-								propertyKey={propertyKey.toString()}
-								checked={value?.toString()}
-								disabled={disabled}
-								onChange={handleRadioChange}
-							/>
-						)}
-						{showFormItemAs === "select" && (
-							<FormSelect
-								label={label}
-								value={value?.toString()}
-								selection={selection as SelectLabelType<any, any>[]}
-								disabled={disabled}
-								onChange={handleSelectChange}
-							/>
-						)}
-						{showFormItemAs === "string" && (
-							<FormControl
-								value={value?.toString() || ""}
-								propertyKey={propertyKey.toString()}
-								type="text"
-								as={as}
-								disabled={disabled}
-								onChange={handleControlChange}
-							/>
-						)}
-						{showFormItemAs === "Kan ikke vælge formtype" &&
-							ErrorMessage({ message: showFormItemAs })}
-					</>
+					{showFormItemAs === undefined && null}
+					{showFormItemAs === "checkbox" && (
+						<FormCheckBox
+							propertyKey={propertyKey.toString()}
+							isChecked={value as boolean}
+							disabled={disabled}
+							onChange={handleCheckboxChange}
+						/>
+					)}
+					{showFormItemAs === "date" && (
+						<FormControl
+							value={epochToDate(value as number)}
+							propertyKey={propertyKey.toString()}
+							as={as}
+							type="date"
+							disabled={disabled}
+							onChange={handleControlChange}
+						/>
+					)}
+					{showFormItemAs === "listgroup" && (
+						<FormListGroup
+							label={label}
+							value={value as object}
+							listGroupFormKeys={listGroupFormKeys}
+							selection={selection as SelectLabelType<any, any>[]}
+							disabled={disabled}
+							onChange={handleListGroupChange}
+						/>
+					)}
+					{showFormItemAs === "number" && (
+						<FormControl
+							value={value as number}
+							propertyKey={propertyKey.toString()}
+							as={as}
+							type="number"
+							disabled={disabled}
+							onChange={handleControlChange}
+						/>
+					)}
+					{showFormItemAs === "radiobutton" && (
+						<FormRadioButtonGroup
+							selection={selection}
+							propertyKey={propertyKey.toString()}
+							checked={value?.toString()}
+							disabled={disabled}
+							onChange={handleRadioChange}
+						/>
+					)}
+					{showFormItemAs === "select" && (
+						<FormSelect
+							label={label}
+							value={value?.toString()}
+							selection={selection as SelectLabelType<any, any>[]}
+							disabled={disabled}
+							onChange={handleSelectChange}
+						/>
+					)}
+					{showFormItemAs === "string" && (
+						<FormControl
+							value={value?.toString() || ""}
+							propertyKey={propertyKey.toString()}
+							type="text"
+							as={as}
+							disabled={disabled}
+							onChange={handleControlChange}
+						/>
+					)}
+					{showFormItemAs === "Kan ikke vælge formtype" &&
+						ErrorMessage({ message: showFormItemAs })}
 				</span>
 			</div>
 		</Tooltip>

@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+/** biome-ignore-all lint/correctness/useExhaustiveDependencies: <TODO> */
 
 import type { MapCityType } from "@features/map/AddCityButton";
 import { app, auth, db } from "@lib/firebase";
@@ -124,10 +124,7 @@ export const useFirestore = <T extends DocumentData>(
 	return { docs, loading, addingDoc, updatingDoc, deletingDoc };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const useCityData = <T extends DocumentData>(
-	collectionName: CollectionName,
-) => {
+export const useCityData = (collectionName: CollectionName) => {
 	const [cities, setCities] = useState<string[] | undefined>(undefined);
 	const [loadingCities, setLoadingCities] = useState(true);
 
@@ -169,7 +166,6 @@ export const useCityData = <T extends DocumentData>(
 		}
 
 		setLoadingCities(() => false);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
@@ -212,12 +208,10 @@ export const useMapData = <T extends DocumentData>(
 		setLoadingMarkers(() => false);
 
 		return unsubscribe;
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	};
 
 	useEffect(() => {
 		queryMarkers();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [documentName]);
 
 	const addingMarker = async (document: DocumentData) => {

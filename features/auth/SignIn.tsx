@@ -1,8 +1,10 @@
+/** biome-ignore-all lint/performance/noImgElement: <TODO> */
 "use client";
 
 import BottomSpacer from "@components/BottomSpacer";
 import OldPageButton from "@components/buttons/OldPageButton";
 import Tooltip from "@components/Tooltip";
+import { Button } from "@components/ui/button";
 import ThemeToggle from "@features/member/ThemeToggle";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -95,13 +97,6 @@ function SignIn() {
 			</div>
 			<div className="flex flex-col overflow-hidden rounded-2xl bg-slate-800 shadow-md shadow-slate-500">
 				<div className="h-42">
-					{/* <Image
-            src="/images/iq_all_third.jpg"
-            alt="iq_all"
-            width={650}
-            height={100}
-            className="text-2xl"
-          /> */}
 					<img
 						src="/images/iq_all_third.jpg"
 						width="650"
@@ -170,12 +165,6 @@ function SignIn() {
 							disabled={isSubmitting}
 							className="mx-auto mt-6 flex items-center gap-2 rounded-lg bg-gray-700 p-4 font-medium text-white"
 						>
-							{/* <Image
-                src="/images/logo/iqlogo_180.png"
-                alt="logo"
-                width={37}
-                height={37}
-              /> */}
 							<img
 								src="/images/logo/iqlogo_180.png"
 								width="37"

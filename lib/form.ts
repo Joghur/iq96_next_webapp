@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 "use client";
 
 import type { FormItemEventTarget } from "@components/form/OneFormItem";

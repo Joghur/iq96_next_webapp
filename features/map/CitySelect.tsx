@@ -1,5 +1,5 @@
 import Select from "@components/Select";
-import React, { type FC } from "react";
+import type { FC } from "react";
 import type { MapCityType } from "./AddCityButton";
 
 interface Props {

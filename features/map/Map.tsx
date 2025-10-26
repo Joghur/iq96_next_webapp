@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/correctness/useExhaustiveDependencies: <TODO> */
 "use client";
 
 import { SavingBadgeStatusToLocalStorage } from "@components/BottomNav";
@@ -76,7 +77,7 @@ const MapPage = () => {
 			if (initCity && initCity?.length > 1) {
 				setSelectedCity(() => ({ city: initCity[1], year: initCity[0] }));
 			} else {
-				// eslint-disable-next-line no-unsafe-optional-chaining
+				// biome-ignore lint/correctness/noUnsafeOptionalChaining: <TODO>
 				const [year, city] = cities.reverse()[0]?.split("-");
 				setSelectedCity(() => ({ city, year }));
 			}

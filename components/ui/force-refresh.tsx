@@ -10,5 +10,5 @@ export function ForceRefresh() {
 		router.refresh();
 	}, [router]);
 
-	return <></>;
+	return null;
 }

@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 import type { JWT } from "next-auth/jwt/types";
 import GoogleProvider from "next-auth/providers/google";
 

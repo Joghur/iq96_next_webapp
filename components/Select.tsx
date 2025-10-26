@@ -96,7 +96,6 @@ interface SelectItemProps {
 	textValue?: string;
 }
 
-// eslint-disable-next-line react/display-name
 const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
 	({ children, className, ...props }, forwardedRef) => {
 		return (

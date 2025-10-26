@@ -1,4 +1,3 @@
-/* eslint-disable quotes */
 export const aboutList = [
 	["0.8.12", "Link til GF kort markør"],
 	[

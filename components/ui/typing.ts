@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/style/noNonNullAssertion: <TODO> */
 import type { HoverObject } from "@components/form/OneFormItem";
 import { isArray } from "./array";
 

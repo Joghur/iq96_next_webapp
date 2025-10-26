@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/complexity/noUselessFragments: <explanation> */
 "use client";
 
 import {
@@ -10,7 +9,7 @@ import { handleStartTheme } from "@features/member/ThemeToggle";
 import { useFirestore } from "@lib/hooks/useFirestore";
 import { usePathname, useRouter } from "next/navigation";
 import { CldUploadButton } from "next-cloudinary";
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import { MdCloudUpload } from "react-icons/md";
 
 interface Props {
@@ -72,21 +71,19 @@ const UploadButton = ({ folder }: Props) => {
 	};
 
 	return (
-		<Fragment>
-			<Button asChild variant="default">
-				<div className="flex gap-2 items-center">
-					<MdCloudUpload />
-					<CldUploadButton
-						options={{
-							folder: folder,
-						}}
-						uploadPreset="mihetffc"
-						public-id={folder}
-						onSuccess={handleUpload}
-					/>
-				</div>
-			</Button>
-		</Fragment>
+		<Button asChild variant="default">
+			<div className="flex gap-2 items-center">
+				<MdCloudUpload />
+				<CldUploadButton
+					options={{
+						folder: folder,
+					}}
+					uploadPreset="mihetffc"
+					public-id={folder}
+					onSuccess={handleUpload}
+				/>
+			</div>
+		</Button>
 	);
 };
 

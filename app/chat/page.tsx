@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/performance/noImgElement: <TODO> */
+/** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 "use client";
 
 import {
@@ -7,13 +9,11 @@ import {
 import PageLayout from "@components/PageLayout";
 import { Button } from "@components/ui/button";
 import { handleStartTheme } from "@features/member/ThemeToggle";
-// eslint-disable-next-line prettier/prettier
 import { eventTransitionVariants } from "@lib/animations";
 import { convertEpochSecondsToDateString } from "@lib/dates";
 import { useFirestore } from "@lib/hooks/useFirestore";
 import { authContext } from "@lib/store/auth-context";
 import { cn } from "@lib/utils";
-// import { User } from 'firebase/auth';
 import { motion } from "framer-motion";
 import moment from "moment";
 import { useContext, useEffect, useState } from "react";
@@ -28,7 +28,6 @@ interface ChatUser {
 // TODO fix firebase dates
 export interface ChatType {
 	id?: string;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	createdAt: any;
 	group: string;
 	text: string;
@@ -73,7 +72,7 @@ const ChatPage = () => {
 
 	const handleSubmit = async () => {
 		if (input.trim() !== "" && authUser) {
-			if (updating && updating.id) {
+			if (updating?.id) {
 				await updatingDoc(updating.id, {
 					...updating,
 					text: input.trim(),
@@ -221,11 +220,9 @@ const ChatPage = () => {
 																<div className="flex flex-row gap-3">
 																	{(documentUser?.isSuperAdmin ||
 																		documentUser?.nick === chat.user.name) && (
-																		<>
-																			<MdDelete
-																				onClick={() => handleDelete(chat.id)}
-																			/>
-																		</>
+																		<MdDelete
+																			onClick={() => handleDelete(chat.id)}
+																		/>
 																	)}
 																</div>
 															</div>

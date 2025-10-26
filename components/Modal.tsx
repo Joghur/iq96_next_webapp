@@ -1,28 +1,4 @@
-// import { cn } from '@lib/utils';
-
-// type Props = {
-//   children: React.ReactNode;
-//   open: boolean;
-// };
-
-// const Modal = ({ children, open }: Props) => {
-//   const modalClass = cn({
-//     'modal modal-middle': true,
-//     'modal-open': open,
-//   });
-
-//   return (
-//     <div className={modalClass}>
-//       <div className="sm-relative modal-box fixed top-4 sm:top-auto">
-//         {children}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Modal;
-
-// components/Modal.tsx
+/** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 "use client";
 
 import { X } from "lucide-react";
@@ -38,6 +14,7 @@ import {
 	DialogTitle as ShadTitle,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
 
 type Size = "sm" | "lg" | "xl" | "fullscreen";
 

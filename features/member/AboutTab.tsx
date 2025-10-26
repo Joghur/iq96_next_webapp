@@ -1,4 +1,3 @@
-/* eslint-disable quotes */
 import { motion } from "framer-motion";
 
 import { aboutList } from "../../aboutList";

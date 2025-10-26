@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 import type { Connection, ContactPhone } from "@features/member/DeveloperTab";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -98,7 +99,6 @@ function arraysAreEqual(
 }
 
 // TODO fix any
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function compareNick(a: any, b: any) {
 	if (a.nick < b.nick) {
 		return -1;

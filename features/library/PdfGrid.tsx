@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/performance/noImgElement: <TODO> */
 "use client";
 
 import type { SearchResult } from "@app/bibliothek/galleri/page";
@@ -21,7 +22,7 @@ export const mapToNumberValue = (stringNumber?: string) => {
 
 	const numericValue = parseInt(stringNumber, 10);
 
-	if (isNaN(numericValue)) {
+	if (Number.isNaN(numericValue)) {
 		return [];
 	}
 
@@ -89,14 +90,6 @@ export default function PdfGrid({ pdfs, label = true }: Props) {
 					{pdf.pages &&
 						mapToNumberValue(pdf.pages).map((page) => (
 							<Card key={page}>
-								{/* <Image
-                  src={buildUrlPdf(pdf.public_id, page)}
-                  width={650}
-                  height={356}
-                  sizes="(min-width: 720px) 650px, calc(95.5vw - 19px)"
-                  alt="Her skulle være et sejt PDF dokument"
-                  className="rounded-lg"
-                /> */}
 								<img
 									src={buildUrlPdf(pdf.public_id, page)}
 									width="650"

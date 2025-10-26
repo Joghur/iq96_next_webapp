@@ -9,7 +9,7 @@ export const getLocalStorage = <T>(key: string) => {
 		if (res) {
 			return JSON.parse(res) as T;
 		}
-	} catch (error) {
+	} catch (_error) {
 		console.error("Local Storage error");
 	}
 	return null;

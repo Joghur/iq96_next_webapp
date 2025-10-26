@@ -4,7 +4,6 @@ import type { EventLabel } from "@app/bibliothek/galleri/page";
 import NewContentBadge from "@components/NewContentBadge";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import React from "react";
 import { LibraryCard } from "../LibraryCard";
 
 interface Props {

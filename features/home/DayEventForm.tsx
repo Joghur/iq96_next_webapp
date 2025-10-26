@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/style/noNonNullAssertion: <TODO> */
 "use client";
 
 import { SimpleDateTimePicker } from "@components/dates/SimpleDateTimePicker";
