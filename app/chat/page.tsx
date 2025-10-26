@@ -114,7 +114,7 @@ const ChatPage = () => {
 					<input
 						type="text"
 						value={input}
-						className="flex-grow rounded-full border border-gray-300 bg-white px-4 py-2"
+						className="flex-grow rounded-full border border-gray-300 bg-primary text-primary-foreground px-4 py-2"
 						placeholder="Skriv en besked"
 						onChange={(event) => setInput(event.target.value)}
 					/>
@@ -194,14 +194,14 @@ const ChatPage = () => {
 												}`}
 											>
 												<li key={index}>
-													<div className="flex">
+													<div className="flex bg-primary text-primary-foreground border border-secondary rounded-lg p-1">
 														<div className="mr-2 flex flex-col items-center justify-center">
 															<img
 																src={`/images/avatars/${chat.user?.avatar}.png`}
 																alt={chat.user.name}
 																className="w-20 lg:w-36 rounded-full bg-slate-300 ring-1 ring-gray-900 shadow-gray-200"
 															/>
-															<p className="dynamic_text mt-1 text-gray-500">
+															<p className="dynamic_text mt-1 text-secondary-foreground">
 																{convertEpochSecondsToDateString(
 																	chat.createdAt.seconds,
 																	"HH:mm",
@@ -212,7 +212,11 @@ const ChatPage = () => {
 															<div
 																className={"flex flex-row justify-between p-1"}
 															>
-																<p className={"dynamic_text text-gray-500"}>
+																<p
+																	className={
+																		"dynamic_text text-secondary-foreground"
+																	}
+																>
 																	<strong>
 																		{isChatUser ? "Dig" : chat.user.name}
 																	</strong>
@@ -226,7 +230,7 @@ const ChatPage = () => {
 																	)}
 																</div>
 															</div>
-															<p className="dynamic_text p-1 text-black">
+															<p className="dynamic_text p-1 text-primary-foreground">
 																{chat.text}
 															</p>
 														</div>

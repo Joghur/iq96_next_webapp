@@ -42,6 +42,7 @@ const LibraryPage = (props: {
 								pathname: "/bibliothek/galleri",
 								query: { badge: JSON.stringify(newGalleryBadgeStrings) },
 							}}
+							className="bg-primary text-primary-foreground"
 						>
 							<LibraryCard cardTitle="Galleri" />
 						</Link>

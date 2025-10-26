@@ -37,7 +37,7 @@ const AddMarkerButton = ({ addingMarker, userPosition }: Props) => {
 	return (
 		<>
 			<Button
-				className="z-50 rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6 "
+				className="z-50 rounded-full shadow-xl ring-2"
 				onClick={toogleAddModal}
 			>
 				<MdAdd fontSize="large" />

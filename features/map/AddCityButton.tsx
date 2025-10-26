@@ -29,7 +29,7 @@ const AddCityButton = ({ selectedCity, addingCities }: Props) => {
 	return (
 		<>
 			<Button
-				className="z-50 rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6"
+				className="z-50 rounded-full shadow-xl ring-2"
 				onClick={toogleAddModal}
 			>
 				<MdLocationCity fontSize="large" />
@@ -95,7 +95,7 @@ const NewCityForm = ({
 						value={changedCity.year}
 						onChange={handleChange}
 						placeholder={changedCity?.year || "År"}
-						className="dynamic_text textarea-bordered textarea"
+						className="dynamic_text textarea"
 					/>
 				</div>
 				<div className="pt-5">

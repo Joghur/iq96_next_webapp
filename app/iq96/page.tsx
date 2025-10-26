@@ -12,7 +12,6 @@ import MemberTabsPage, {
 } from "@features/member/memberMenuBar/MemberTabs";
 import { handleStartTheme } from "@features/member/ThemeToggle";
 import { authContext } from "@lib/store/auth-context";
-import { SessionProvider } from "next-auth/react";
 import { type MouseEvent, use, useContext, useEffect, useState } from "react";
 
 const MemberPage = (props: {
@@ -43,15 +42,13 @@ const MemberPage = (props: {
 
 	return (
 		<PageLayout>
-			<SessionProvider>
-				<MemberTabsPage value={value} onChange={handleChange} />
-				<div className="flex items-center justify-center pt-6">
-					{value === "member" && <MemberTab />}
-					{value === "iq96" && <Iq96Tab />}
-					{value === "about" && <AboutTab />}
-					{value === "admin" && (isSuperAdmin || isBoard) && <AdminTab />}
-				</div>
-			</SessionProvider>
+			<MemberTabsPage value={value} onChange={handleChange} />
+			<div className="flex items-center justify-center pt-6">
+				{value === "member" && <MemberTab />}
+				{value === "iq96" && <Iq96Tab />}
+				{value === "about" && <AboutTab />}
+				{value === "admin" && (isSuperAdmin || isBoard) && <AdminTab />}
+			</div>
 		</PageLayout>
 	);
 };

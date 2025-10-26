@@ -8,7 +8,56 @@ import {
 } from "@components/ui/table";
 import type { DocumentUser } from "@lib/hooks/useFirestore";
 import { compareObjects } from "@lib/utils";
-import type { Connection, ContactPhone } from "./DeveloperTab";
+
+export interface ContactName {
+	displayName?: string;
+	familyName?: string;
+	givenName?: string;
+	displayNameLastFirst?: string;
+	unstructuredName?: string;
+}
+
+export interface ContactNickname {
+	value?: string;
+}
+
+export interface ContactBirthday {
+	date?: {
+		year?: number;
+		month?: number;
+		day?: number;
+	};
+}
+
+export interface ContactEmail {
+	value?: string;
+}
+
+export interface ContactPhone {
+	value?: string;
+	canonicalForm?: string;
+}
+
+export interface ContactAddress {
+	formattedValue?: string;
+	streetAddress?: string;
+	postalCode?: string;
+	city?: string;
+}
+
+export interface ContactTitel {
+	title?: string;
+}
+
+export interface Connection {
+	names?: ContactName[];
+	birthdays?: ContactBirthday[];
+	emailAddresses?: ContactEmail[];
+	addresses?: ContactAddress[];
+	phoneNumbers?: ContactPhone[];
+	nicknames?: ContactNickname[];
+	organizations?: ContactTitel[];
+}
 
 interface FirebaseProps {
 	iqUsers?: DocumentUser[];

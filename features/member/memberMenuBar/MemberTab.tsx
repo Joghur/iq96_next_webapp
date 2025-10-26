@@ -34,7 +34,7 @@ const MemberTab = () => {
 		>
 			<div className="flex flex-col gap-2">
 				<div className="flex-grow">
-					<p className="dynamic_text text-[larger] font-semibold">
+					<p className="dynamic_text text-secondary-foreground text-[larger] font-semibold">
 						{documentUser?.name}
 					</p>
 					<p className="dynamic_text">{documentUser?.nick}</p>

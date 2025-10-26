@@ -25,7 +25,8 @@ const InfoButton = ({ documentUser }: Props) => {
 	return (
 		<>
 			<Button
-				className="btn rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6"
+				className="btn rounded-full shadow-xl ring-2"
+				variant="default"
 				onClick={toogleAddModal}
 			>
 				<MdInfo fontSize="large" />
@@ -54,12 +55,7 @@ const InfoModal = ({ open, onClose, documentUser }: InfoModalProps) => {
 		<Modal open={open}>
 			<div className="dynamic_text flex justify-between gap-2">
 				<h3 className="text-lg font-bold">Sådan bruges kortet</h3>
-				<Button
-					onClick={onClose}
-					color={"error"}
-					className="modal-Button btn-outline"
-					variant="destructive"
-				>
+				<Button onClick={onClose} color={"error"} variant="destructive">
 					Luk
 				</Button>
 			</div>
