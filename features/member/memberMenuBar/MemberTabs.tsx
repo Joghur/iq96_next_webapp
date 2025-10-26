@@ -1,4 +1,5 @@
 import LoadingSpinner from "@components/LoadingSpinner";
+import { Button } from "@components/ui/button";
 import { authContext } from "@lib/store/auth-context";
 import { type MouseEvent, useContext } from "react";
 

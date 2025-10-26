@@ -63,7 +63,7 @@ const FormSelect: React.FC<Props> = ({
 			</SelectTrigger>
 
 			<SelectContent>
-				<SelectItem value="">{""}</SelectItem>
+				<SelectItem value={initialLabel}>{""}</SelectItem>
 
 				{selection?.map((item, idx) => {
 					const labelText = item.label?.toString() ?? "";
