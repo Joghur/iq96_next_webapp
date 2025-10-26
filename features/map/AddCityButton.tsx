@@ -80,8 +80,7 @@ const NewCityForm = ({
 	};
 
 	return (
-		<Modal open={open}>
-			<h3 className="text-lg font-bold">Opret ny Tour by</h3>
+		<Modal open={open} onOpenChange={onClose} title="Opret ny Tour by">
 			<div>
 				<div className="pt-5">
 					<label

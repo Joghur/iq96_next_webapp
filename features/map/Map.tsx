@@ -159,12 +159,14 @@ const MapPage = () => {
 						<div className="absolute right-2 top-[50vh]">
 							<UserMapButton />
 						</div>
-						<div className="absolute right-2 top-[70vh]">
-							<AddMarkerButton
-								addingMarker={addingMarker}
-								userPosition={userPosition}
-							/>
-						</div>
+						{
+							<div className="absolute right-2 top-[70vh]">
+								<AddMarkerButton
+									addingMarker={addingMarker}
+									userPosition={userPosition}
+								/>
+							</div>
+						}
 					</>
 				)}
 
