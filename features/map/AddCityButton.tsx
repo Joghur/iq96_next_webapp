@@ -1,5 +1,5 @@
+import Modal from '@components/Modal';
 import { Button } from '@components/ui/button';
-import Modal from '@node_modules/react-bootstrap/esm/Modal';
 import { ChangeEvent, useState } from 'react';
 import { MdLocationCity } from 'react-icons/md';
 

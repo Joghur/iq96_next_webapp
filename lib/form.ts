@@ -55,20 +55,27 @@ export const getLabelOrType = (
 };
 
 /**
- *  Helper function for calculating height of textarea.
+ * Dynamisk højdeberegning til <Textarea> (bruges af FormControl)
+ * 
+ * Justerer højde efter antal linjer i value.
+ * Fungerer også, hvis teksten indeholder linjeskift eller er tom.
  */
-export const calculateHeight = (value: string) => {
-  const lineHeight = 1.4;
-  const lines = value.split('\n');
-  const longestLineLength = Math.max(...lines.map((line) => line.length));
-  const minHeight = 1.4;
-  const dynamicHeight = (lines.length + 1) * lineHeight + minHeight;
+export const calculateHeight = (value: string): string => {
+  const minRows = 2;
+  const maxRows = 12;
 
-  return `${Math.max(
-    dynamicHeight,
-    (longestLineLength / 50) * lineHeight + minHeight
-  )}rem`;
+  const lines = value.split("\n").length;
+
+  // Brug line-height ca. 1.5em og tilføj lidt padding
+  const lineHeight = 1.5 * 16; // = 24px
+  const padding = 16; // 8px top + 8px bottom
+
+  const totalRows = Math.min(Math.max(lines, minRows), maxRows);
+  const height = totalRows * lineHeight + padding;
+
+  return `${height}px`;
 };
+
 export const createSelectionOption = (
   label: string,
   type?: string

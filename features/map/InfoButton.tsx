@@ -7,9 +7,9 @@ import {
   MdWarning,
 } from 'react-icons/md';
 import { DocumentUser } from '@lib/hooks/useFirestore';
-import Modal from '@node_modules/react-bootstrap/esm/Modal';
 import { Button } from '@components/ui/button';
 import { Separator } from '@components/ui/separator';
+import Modal from '@components/Modal';
 
 interface Props {
   documentUser: DocumentUser;

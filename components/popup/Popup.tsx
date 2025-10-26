@@ -1,8 +1,8 @@
 'use client';
 
+import Modal from '@components/Modal';
 import { Button } from '@components/ui/button';
 import { ReactNode } from 'react';
-import { Modal } from 'react-bootstrap';
 
 type Props = {
   popupLabel: string;
