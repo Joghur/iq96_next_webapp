@@ -5,7 +5,7 @@
 // };
 
 const HoverWrapper = () => {
-  return <div>Page</div>;
+	return <div>Page</div>;
 };
 
 export default HoverWrapper;

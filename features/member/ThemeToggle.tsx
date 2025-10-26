@@ -1,12 +1,12 @@
 'use client';
 
-import { Fragment, useEffect, useState } from 'react';
+import Switch from '@components/Switch';
 import {
   getLocalStorage,
   LOCALSTORAGE_PREFIX,
   setLocalStorage,
 } from '@lib/localStorage';
-import Switch from '@components/Switch';
+import { Fragment, useEffect, useState } from 'react';
 
 export const LOCALSTORAGE_THEME = `${LOCALSTORAGE_PREFIX}-theme`;
 
@@ -45,6 +45,7 @@ const ThemeToggle = ({ showLabel }: Props) => {
     }
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <handleStart changes often>
   useEffect(() => {
     handleStart();
   }, []);

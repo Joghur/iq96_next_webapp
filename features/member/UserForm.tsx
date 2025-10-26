@@ -1,145 +1,144 @@
-import { DocumentUser } from '@lib/hooks/useFirestore';
-
-import { FormEvent, useState } from 'react';
-import { formHandleOnChange } from '@lib/form';
-import { useRouter } from 'next/navigation';
-import { basicUserFormBuilder } from './UserFormNewHelper';
-import { Button } from '@components/ui/button';
-import { hasId } from '@components/ui/typing';
-import ManyFormItems from '@components/form/ManyFormItems';
-import { FormItemEventTarget } from '@components/form/OneFormItem';
+import ManyFormItems from "@components/form/ManyFormItems";
+import type { FormItemEventTarget } from "@components/form/OneFormItem";
+import { Button } from "@components/ui/button";
+import { hasId } from "@components/ui/typing";
+import { formHandleOnChange } from "@lib/form";
+import type { DocumentUser } from "@lib/hooks/useFirestore";
+import { useRouter } from "next/navigation";
+import { type FormEvent, useState } from "react";
+import { basicUserFormBuilder } from "./UserFormNewHelper";
 
 type Props = {
-  user: DocumentUser;
-  onSubmit: (updatedUser: DocumentUser) => void;
-  onDelete: (id: string) => void;
-  onCancel: () => void;
+	user: DocumentUser;
+	onSubmit: (updatedUser: DocumentUser) => void;
+	onDelete: (id: string) => void;
+	onCancel: () => void;
 };
 
 const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
-  const router = useRouter();
-  const [userData, setUserData] = useState<DocumentUser>(user);
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  // const { theme } = useTheme();
+	const router = useRouter();
+	const [userData, setUserData] = useState<DocumentUser>(user);
+	const [showConfirmation, setShowConfirmation] = useState(false);
+	// const { theme } = useTheme();
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
+	// const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	//   const { name, value } = e.target;
+	//   setFormData((prevData) => ({
+	//     ...prevData,
+	//     [name]: value,
+	//   }));
+	// };
 
-  const handleOnChange = (eventTarget: FormItemEventTarget) => {
-    formHandleOnChange<DocumentUser>(eventTarget, userData, setUserData);
-  };
+	const handleOnChange = (eventTarget: FormItemEventTarget) => {
+		formHandleOnChange<DocumentUser>(eventTarget, userData, setUserData);
+	};
 
-  // const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: prevData[name as keyof DocumentUser] === false ? true : false,
-  //   }));
-  // };
+	// const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+	//   const { name } = e.target;
+	//   setFormData((prevData) => ({
+	//     ...prevData,
+	//     [name]: prevData[name as keyof DocumentUser] === false ? true : false,
+	//   }));
+	// };
 
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   onSubmit(formData);
-  // };
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    let response: unknown;
+	// const handleSubmit = (e: React.FormEvent) => {
+	//   e.preventDefault();
+	//   onSubmit(formData);
+	// };
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		let response: unknown;
 
-    if (userData.id && userData.id !== '') {
-      onSubmit(userData);
-    } else {
-      // response = await createSubmitter(submitter);
-    }
+		if (userData.id && userData.id !== "") {
+			onSubmit(userData);
+		} else {
+			// response = await createSubmitter(submitter);
+		}
 
-    if (hasId(response) && response.id) {
-      // toast('Data er gemt', {
-      //   type: 'success',
-      // });
-      console.log('Data er gemt');
-      router.refresh();
-      router.push('/iq96?tab=admin');
-    } else {
-      console.log('Data mangler');
-      // errorToast(response);
-    }
-  };
+		if (hasId(response) && response.id) {
+			// toast('Data er gemt', {
+			//   type: 'success',
+			// });
+			console.log("Data er gemt");
+			router.refresh();
+			router.push("/iq96?tab=admin");
+		} else {
+			console.log("Data mangler");
+			// errorToast(response);
+		}
+	};
 
-  const handleDelete = () => {
-    setShowConfirmation(true);
-  };
+	const handleDelete = () => {
+		setShowConfirmation(true);
+	};
 
-  const confirmDelete = () => {
-    onDelete(userData.id);
-    setShowConfirmation(false);
-  };
+	const confirmDelete = () => {
+		onDelete(userData.id);
+		setShowConfirmation(false);
+	};
 
-  const cancelDelete = () => {
-    setShowConfirmation(false);
-  };
+	const cancelDelete = () => {
+		setShowConfirmation(false);
+	};
 
-  return (
-    <>
-      <form onSubmit={handleSubmit} className="rounded px-8 pt-6 pb-8 mb-4">
-        <ManyFormItems<DocumentUser>
-          builderArray={basicUserFormBuilder}
-          data={userData}
-          onChange={handleOnChange}
-        />
-        <div className="flex flew-row gap-4 py-4">
-          <Button
-            type="submit"
-            size="lg"
-            className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Gem
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={onCancel}
-            className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Fortryd
-          </Button>
-          {userData.id && (
-            <Button
-              type="submit"
-              variant="destructive"
-              onClick={handleDelete}
-              disabled={showConfirmation}
-              className="dynamic_text font-bold py-2 px-4 mx-8 rounded focus:outline-none focus:shadow-outline"
-            >
-              Fjern bruger
-            </Button>
-          )}
-          {showConfirmation && (
-            <>
-              <Button
-                type="submit"
-                variant="destructive"
-                onClick={confirmDelete}
-                className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-                Helt sikker!
-              </Button>
-              <Button
-                type="submit"
-                variant="default"
-                onClick={cancelDelete}
-                className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-                Fortryd
-              </Button>
-            </>
-          )}
-        </div>
-      </form>
-      {/* <form
+	return (
+		<>
+			<form onSubmit={handleSubmit} className="rounded px-8 pt-6 pb-8 mb-4">
+				<ManyFormItems<DocumentUser>
+					builderArray={basicUserFormBuilder}
+					data={userData}
+					onChange={handleOnChange}
+				/>
+				<div className="flex flew-row gap-4 py-4">
+					<Button
+						type="submit"
+						size="lg"
+						className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+					>
+						Gem
+					</Button>
+					<Button
+						type="button"
+						variant="secondary"
+						onClick={onCancel}
+						className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+					>
+						Fortryd
+					</Button>
+					{userData.id && (
+						<Button
+							type="submit"
+							variant="destructive"
+							onClick={handleDelete}
+							disabled={showConfirmation}
+							className="dynamic_text font-bold py-2 px-4 mx-8 rounded focus:outline-none focus:shadow-outline"
+						>
+							Fjern bruger
+						</Button>
+					)}
+					{showConfirmation && (
+						<>
+							<Button
+								type="submit"
+								variant="destructive"
+								onClick={confirmDelete}
+								className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+							>
+								Helt sikker!
+							</Button>
+							<Button
+								type="submit"
+								variant="default"
+								onClick={cancelDelete}
+								className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+							>
+								Fortryd
+							</Button>
+						</>
+					)}
+				</div>
+			</form>
+			{/* <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
       >
@@ -350,10 +349,10 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
               </button>
             </>
           )} */}
-      {/* </div> */}
-      {/* </form> */}
-    </>
-  );
+			{/* </div> */}
+			{/* </form> */}
+		</>
+	);
 };
 
 export default UserForm;

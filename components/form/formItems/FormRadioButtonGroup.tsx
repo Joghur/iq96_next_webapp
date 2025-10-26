@@ -1,6 +1,11 @@
-import { SelectLabelType } from '@lib/form';
-import { ChangeEvent, useState } from 'react';
-import Form from 'react-bootstrap/Form';
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
+/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
+'use client';
+
+import { useState } from 'react';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import type { SelectLabelType } from '@lib/form';
 
 type Props = {
   selection?: SelectLabelType<any, any>[];
@@ -11,7 +16,7 @@ type Props = {
 };
 
 const FormRadioButtonGroup = ({
-  selection,
+  selection = [],
   propertyKey,
   checked,
   onChange,
@@ -19,28 +24,34 @@ const FormRadioButtonGroup = ({
 }: Props) => {
   const [radioButtonValue, setRadioButtonValue] = useState(checked);
 
-  const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
+  const handleChange = (value: string) => {
     setRadioButtonValue(value);
     onChange(propertyKey.toString(), value || '');
   };
 
   return (
-    <>
-      {selection?.map((valueItem, index: number) => (
-        <Form.Check
-          key={`form-${index}`}
-          type="radio"
-          id={propertyKey.toString()}
-          name={propertyKey.toString()}
-          label={valueItem.label.toString()}
-          value={valueItem.type.toString()}
-          checked={valueItem.type.toString() === radioButtonValue}
-          onChange={handleRadioChange}
-          disabled={disabled}
-        />
-      ))}
-    </>
+    <RadioGroup
+      value={radioButtonValue}
+      onValueChange={handleChange}
+      className="flex flex-col gap-2"
+      disabled={disabled}
+    >
+      {selection.map((item, index) => {
+        const label = item.label?.toString();
+        const value = item.type?.toString();
+
+        return (
+          <div key={`radio-${index}`} className="flex items-center space-x-2">
+            <RadioGroupItem
+              id={`${propertyKey}-${index}`}
+              value={value}
+              disabled={disabled}
+            />
+            <Label htmlFor={`${propertyKey}-${index}`}>{label}</Label>
+          </div>
+        );
+      })}
+    </RadioGroup>
   );
 };
 

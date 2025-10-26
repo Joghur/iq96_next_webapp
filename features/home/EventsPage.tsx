@@ -1,168 +1,166 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import AddButton from "@components/buttons/AddButton";
+import LoadingSpinner from "@components/LoadingSpinner";
+import { useTheme } from "@features/member/ThemeToggle";
+import { eventTransitionVariants } from "@lib/animations";
+import { type DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import EventForm from "./EventForm";
+import FutureEvents from "./events/FutureEvents";
+import NextEvents from "./events/NextEvents";
+import PreviousEvents from "./events/PreviousEvents";
 
-import { eventTransitionVariants } from '@lib/animations';
-import { DocumentUser, useFirestore } from '@lib/hooks/useFirestore';
-
-import EventForm from './EventForm';
-import { useTheme } from '@features/member/ThemeToggle';
-import PreviousEvents from './events/PreviousEvents';
-import NextEvents from './events/NextEvents';
-import FutureEvents from './events/FutureEvents';
-import LoadingSpinner from '@components/LoadingSpinner';
-import AddButton from '@components/buttons/AddButton';
-
-export type Type = 'tour' | 'gf' | 'oel' | 'golf' | 'other' | '';
-export type EventStatus = 'done' | 'next' | 'pending';
+export type Type = "tour" | "gf" | "oel" | "golf" | "other" | "";
+export type EventStatus = "done" | "next" | "pending";
 export type DayEventType =
-  | 'meetingPoint'
-  | 'activity'
-  | 'restaurant'
-  | 'bar'
-  | 'guidedTour'
-  | 'meeting'
-  | 'hotel';
+	| "meetingPoint"
+	| "activity"
+	| "restaurant"
+	| "bar"
+	| "guidedTour"
+	| "meeting"
+	| "hotel";
 
 export type DayEventElement = {
-  time: string;
-  label: string;
-  type: DayEventType;
+	time: string;
+	label: string;
+	type: DayEventType;
 };
 
 export type DayEvent = {
-  dateString: string;
-  entries: DayEventElement[];
+	dateString: string;
+	entries: DayEventElement[];
 };
 
 export type DateTimeValue = {
-  date: string;
-  time: string;
+	date: string;
+	time: string;
 };
 export type EventType = {
-  id?: string;
-  city: string;
-  end: DateTimeValue;
-  start: DateTimeValue;
-  type: Type;
-  year: number;
-  dayEvents: DayEvent[];
-  notes?: string;
-  notesActivities?: string;
-  status?: EventStatus;
-  showUploadButton?: boolean;
-  showInfoLink?: boolean;
-  showMapLink?: boolean;
+	id?: string;
+	city: string;
+	end: DateTimeValue;
+	start: DateTimeValue;
+	type: Type;
+	year: number;
+	dayEvents: DayEvent[];
+	notes?: string;
+	notesActivities?: string;
+	status?: EventStatus;
+	showUploadButton?: boolean;
+	showInfoLink?: boolean;
+	showMapLink?: boolean;
 };
 
 interface Props {
-  documentUser: DocumentUser | null | undefined;
+	documentUser: DocumentUser | null | undefined;
 }
 
 const EventsPage = ({ documentUser }: Props) => {
-  const { theme } = useTheme();
+	const { theme } = useTheme();
 
-  const {
-    docs: events,
-    loading,
-    updatingDoc,
-    addingDoc,
-    deletingDoc,
-  } = useFirestore<EventType>('events', 'start');
+	const {
+		docs: events,
+		loading,
+		updatingDoc,
+		addingDoc,
+		deletingDoc,
+	} = useFirestore<EventType>("events", "start");
 
-  const [currentEvent, setCurrentEvent] = useState<EventType | null>(null);
-  const [showDialog, setShowDialog] = useState<'events' | 'event-form'>(
-    'events'
-  );
+	const [currentEvent, setCurrentEvent] = useState<EventType | null>(null);
+	const [showDialog, setShowDialog] = useState<"events" | "event-form">(
+		"events",
+	);
 
-  if (loading) {
-    return <LoadingSpinner text={'Henter begivenheder...'} />;
-  }
+	if (loading) {
+		return <LoadingSpinner text={"Henter begivenheder..."} />;
+	}
 
-  if (!events) {
-    return (
-      <div className="mx-auto px-6 pt-20 sm:pt-24">
-        <p>Der er ingen events på dette tidspunkt</p>
-      </div>
-    );
-  }
+	if (!events) {
+		return (
+			<div className="mx-auto px-6 pt-20 sm:pt-24">
+				<p>Der er ingen events på dette tidspunkt</p>
+			</div>
+		);
+	}
 
-  const handleUpdate = async (id: string | undefined) => {
-    if (id) {
-      setCurrentEvent(
-        () =>
-          events?.filter((event) => event.id === id)[0] as unknown as EventType
-      );
-    } else {
-      setCurrentEvent(null); // cleaning up possible older event
-    }
-    setShowDialog('event-form');
-  };
+	const handleUpdate = async (id: string | undefined) => {
+		if (id) {
+			setCurrentEvent(
+				() =>
+					events?.filter((event) => event.id === id)[0] as unknown as EventType,
+			);
+		} else {
+			setCurrentEvent(null); // cleaning up possible older event
+		}
+		setShowDialog("event-form");
+	};
 
-  const handleClose = () => {
-    setShowDialog('events');
-    setCurrentEvent(null);
-  };
+	const handleClose = () => {
+		setShowDialog("events");
+		setCurrentEvent(null);
+	};
 
-  const canEdit =
-    documentUser?.isAdmin ??
-    documentUser?.isBoard ??
-    documentUser?.isSuperAdmin ??
-    false;
+	const canEdit =
+		documentUser?.isAdmin ??
+		documentUser?.isBoard ??
+		documentUser?.isSuperAdmin ??
+		false;
 
-  const previousEvents = events.filter((event) => event.status === 'done');
-  const nextEvents = events.filter((event) => event.status === 'next');
-  const futureEvents = events.filter((event) => event.status === 'pending');
+	const previousEvents = events.filter((event) => event.status === "done");
+	const nextEvents = events.filter((event) => event.status === "next");
+	const futureEvents = events.filter((event) => event.status === "pending");
 
-  return (
-    <div className="dynamic_text mx-auto max-w-2xl sm:mt-40 px-3">
-      {showDialog === 'events' && (
-        <>
-          <PreviousEvents
-            previousEvents={previousEvents}
-            theme={theme}
-            canEdit={canEdit}
-            onUpdate={handleUpdate}
-          />
+	return (
+		<div className="dynamic_text mx-auto max-w-2xl sm:mt-40 px-3">
+			{showDialog === "events" && (
+				<>
+					<PreviousEvents
+						previousEvents={previousEvents}
+						theme={theme}
+						canEdit={canEdit}
+						onUpdate={handleUpdate}
+					/>
 
-          <NextEvents
-            nextEvents={nextEvents}
-            theme={theme}
-            canEdit={canEdit}
-            onUpdate={handleUpdate}
-          />
+					<NextEvents
+						nextEvents={nextEvents}
+						theme={theme}
+						canEdit={canEdit}
+						onUpdate={handleUpdate}
+					/>
 
-          <FutureEvents
-            futureEvents={futureEvents}
-            theme={theme}
-            canEdit={canEdit}
-            onUpdate={handleUpdate}
-          />
+					<FutureEvents
+						futureEvents={futureEvents}
+						theme={theme}
+						canEdit={canEdit}
+						onUpdate={handleUpdate}
+					/>
 
-          {canEdit && (
-            <motion.div
-              variants={eventTransitionVariants}
-              initial="hidden"
-              animate="visible"
-              transition={{ duration: 0.5, delay: 3.1 }}
-            >
-              <div className="flex items-center justify-center mt-10">
-                <AddButton onClick={() => handleUpdate(undefined)} />
-              </div>
-            </motion.div>
-          )}
-        </>
-      )}
-      {showDialog === 'event-form' && (
-        <EventForm
-          event={currentEvent || undefined}
-          onClose={handleClose}
-          onUpdate={updatingDoc}
-          onAdding={addingDoc}
-          onDelete={deletingDoc}
-        />
-      )}
-    </div>
-  );
+					{canEdit && (
+						<motion.div
+							variants={eventTransitionVariants}
+							initial="hidden"
+							animate="visible"
+							transition={{ duration: 0.5, delay: 3.1 }}
+						>
+							<div className="flex items-center justify-center mt-10">
+								<AddButton onClick={() => handleUpdate(undefined)} />
+							</div>
+						</motion.div>
+					)}
+				</>
+			)}
+			{showDialog === "event-form" && (
+				<EventForm
+					event={currentEvent || undefined}
+					onClose={handleClose}
+					onUpdate={updatingDoc}
+					onAdding={addingDoc}
+					onDelete={deletingDoc}
+				/>
+			)}
+		</div>
+	);
 };
 
 export default EventsPage;

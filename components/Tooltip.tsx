@@ -1,47 +1,47 @@
-'use client';
+"use client";
 
-import { ReactNode, useState } from 'react';
-import { cn } from '@lib/utils';
+import { cn } from "@lib/utils";
+import { type ReactNode, useState } from "react";
 
 interface Props {
-  children: ReactNode;
-  text?: string | string[];
-  position?: 'left' | 'right' | 'bottom' | 'top' | 'auto';
+	children: ReactNode;
+	text?: string | string[];
+	position?: "left" | "right" | "bottom" | "top" | "auto";
 }
 
-const Tooltip = ({ children, text, position = 'top' }: Props) => {
-  const [showTooltip, setShowTooltip] = useState(false);
+const Tooltip = ({ children, text, position = "top" }: Props) => {
+	const [showTooltip, setShowTooltip] = useState(false);
 
-  const tooltipClass = cn({
-    'tooltip-right tooltip': position === 'right',
-    tooltip: position === 'top',
-  });
+	const tooltipClass = cn({
+		"tooltip-right tooltip": position === "right",
+		tooltip: position === "top",
+	});
 
-  const handleTouchStart = () => {
-    setShowTooltip(true);
-  };
+	const handleTouchStart = () => {
+		setShowTooltip(true);
+	};
 
-  const handleTouchEnd = () => {
-    setShowTooltip(false);
-  };
+	const handleTouchEnd = () => {
+		setShowTooltip(false);
+	};
 
-  return (
-    <div
-      className={tooltipClass}
-      data-tip={text}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-    >
-      <div className="dynamic_text">{children}</div>
-      {showTooltip && text && (
-        <div className="tooltip-content">
-          {typeof text === 'string'
-            ? text
-            : text.map((textpart, index) => <p key={index}>{textpart}</p>)}
-        </div>
-      )}
-    </div>
-  );
+	return (
+		<div
+			className={tooltipClass}
+			data-tip={text}
+			onTouchStart={handleTouchStart}
+			onTouchEnd={handleTouchEnd}
+		>
+			<div className="dynamic_text">{children}</div>
+			{showTooltip && text && (
+				<div className="tooltip-content">
+					{typeof text === "string"
+						? text
+						: text.map((textpart, index) => <p key={index}>{textpart}</p>)}
+				</div>
+			)}
+		</div>
+	);
 };
 
 export default Tooltip;

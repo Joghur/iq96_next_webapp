@@ -1,53 +1,53 @@
-'use client';
+"use client";
 
-import { ChangeEvent } from 'react';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { calculateHeight } from '@lib/form';
-import { FormAs } from '../OneFormItem';
+import { calculateHeight } from "@lib/form";
+import type { ChangeEvent } from "react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import type { FormAs } from "../OneFormItem";
 
 type Props = {
-  value: string | number;
-  propertyKey: string;
-  as: FormAs; // "input" | "textarea"
-  type: 'text' | 'number' | 'date';
-  disabled: boolean;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+	value: string | number;
+	propertyKey: string;
+	as: FormAs; // "input" | "textarea"
+	type: "text" | "number" | "date";
+	disabled: boolean;
+	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const FormControl = ({
-  value,
-  propertyKey,
-  as,
-  type,
-  disabled,
-  onChange,
+	value,
+	propertyKey,
+	as,
+	type,
+	disabled,
+	onChange,
 }: Props) => {
-  if (as === 'textarea') {
-    const height = type === 'text' ? calculateHeight(value.toString()) : 'auto';
+	if (as === "textarea") {
+		const height = type === "text" ? calculateHeight(value.toString()) : "auto";
 
-    return (
-      <Textarea
-        id={propertyKey}
-        disabled={disabled}
-        defaultValue={value.toString()}
-        onChange={(e) =>
-          onChange(e as unknown as ChangeEvent<HTMLInputElement>)
-        }
-        style={{ height }}
-      />
-    );
-  }
+		return (
+			<Textarea
+				id={propertyKey}
+				disabled={disabled}
+				defaultValue={value.toString()}
+				onChange={(e) =>
+					onChange(e as unknown as ChangeEvent<HTMLInputElement>)
+				}
+				style={{ height }}
+			/>
+		);
+	}
 
-  return (
-    <Input
-      id={propertyKey}
-      type={type}
-      disabled={disabled}
-      defaultValue={value.toString()}
-      onChange={onChange}
-    />
-  );
+	return (
+		<Input
+			id={propertyKey}
+			type={type}
+			disabled={disabled}
+			defaultValue={value.toString()}
+			onChange={onChange}
+		/>
+	);
 };
 
 export default FormControl;

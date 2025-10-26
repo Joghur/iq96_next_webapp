@@ -1,19 +1,19 @@
-import { ReactNode } from 'react';
-import HeaderNavbar from './HeaderNavBar';
-import BottomSpacer from './BottomSpacer';
+import type { ReactNode } from "react";
+import BottomSpacer from "./BottomSpacer";
+import HeaderNavbar from "./HeaderNavBar";
 
 interface Props {
-  children: ReactNode;
+	children: ReactNode;
 }
 
 const PageLayout: React.FC<Props> = ({ children }) => {
-  return (
-    <div className="relative mx-auto flex flex-grow flex-col">
-      <HeaderNavbar />
-      {children}
-      <BottomSpacer />
-    </div>
-  );
+	return (
+		<div className="relative mx-auto flex flex-grow flex-col">
+			<HeaderNavbar />
+			{children}
+			<BottomSpacer />
+		</div>
+	);
 };
 
 export default PageLayout;

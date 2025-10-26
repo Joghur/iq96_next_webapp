@@ -1,5 +1,8 @@
-import { ChangeEvent } from 'react';
-import Form from 'react-bootstrap/Form';
+'use client';
+
+import type { ChangeEvent } from 'react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 
 type Props = {
   propertyKey: string;
@@ -15,14 +18,21 @@ const FormCheckBox = ({
   onChange,
 }: Props) => {
   return (
-    <Form.Check
-      id={propertyKey.toString()}
-      type="checkbox"
-      name={propertyKey.toString()}
-      checked={isChecked}
-      onChange={onChange}
-      disabled={disabled}
-    />
+    <div className="flex items-center gap-2">
+      <Checkbox
+        id={propertyKey}
+        checked={isChecked}
+        disabled={disabled}
+        // Shadcn’s onCheckedChange returnerer boolean | "indeterminate"
+        onCheckedChange={(checked) => {
+          const synthetic = {
+            target: { checked: !!checked },
+          } as unknown as ChangeEvent<HTMLInputElement>;
+          onChange(synthetic);
+        }}
+      />
+      <Label htmlFor={propertyKey}>{propertyKey}</Label>
+    </div>
   );
 };
 
