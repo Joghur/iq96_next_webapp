@@ -2,22 +2,21 @@ import EditButton from "@components/buttons/EditButton";
 import ShowDateTime from "@components/dates/ShowDateTime";
 import EventInfoBadge from "@components/EventInfoBadge";
 import { handleType } from "@lib/convert";
-import { MdOutlineHotel } from "@node_modules/react-icons/md";
 import { ImageIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { MdOutlineHotel } from "react-icons/md";
 import EventBulletPoints from "../EventBulletPoints";
 import type { EventType } from "../EventsPage";
 import TourCard from "../TourCard";
 
 type Props = {
 	nextEvents: EventType[];
-	theme: string;
 	canEdit: boolean;
 	onUpdate: (id: string | undefined) => Promise<void>;
 };
 
-const NextEvents = ({ nextEvents, theme, canEdit, onUpdate }: Props) => {
+const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
 	return (
 		<>
 			{nextEvents.length > 0 && (
@@ -39,7 +38,7 @@ const NextEvents = ({ nextEvents, theme, canEdit, onUpdate }: Props) => {
 						>
 							<div
 								key={index}
-								className={`sm:px-15 paper ${theme === "dark" ? "bg-gray-600" : "bg-slate-200"} flex flex-col gap-2 overflow-hidden rounded-xl px-10`}
+								className={`sm:px-15 bg-secondary text-secondary-foreground paper flex flex-col gap-2 overflow-hidden rounded-xl px-10`}
 							>
 								<div className="flex justify-between align-middle">
 									<p className="font-semibold">

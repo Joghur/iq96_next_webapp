@@ -3,7 +3,7 @@ import { Button } from "@components/ui/button";
 import { authContext } from "@lib/store/auth-context";
 import { type MouseEvent, useContext } from "react";
 
-const tabs = ["member", "iq96", "about", "admin", "developer"] as const;
+const tabs = ["member", "iq96", "about", "admin"] as const;
 export type MemberTabs = (typeof tabs)[number];
 
 export const isTab = (tab: string | undefined): tab is MemberTabs => {
@@ -62,15 +62,6 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
 						className={getButtonClasses("admin")}
 					>
 						Admin
-					</Button>
-				)}
-				{documentUser.isSuperAdmin && (
-					<Button
-						id="developer"
-						onClick={onChange}
-						className={getButtonClasses("developer")}
-					>
-						Developer
 					</Button>
 				)}
 			</div>

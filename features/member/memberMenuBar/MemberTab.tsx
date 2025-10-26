@@ -95,7 +95,10 @@ const MemberTab = () => {
 						)}
 					</div>
 					<div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
-						<SettingsItem label="Farve tema">
+						<SettingsItem
+							label="Farve tema"
+							tooltipText="Vælg om skærmen skal være lys eller mørk"
+						>
 							<ThemeToggle />
 						</SettingsItem>
 					</div>

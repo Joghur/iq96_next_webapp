@@ -4,6 +4,7 @@ import "./leaflet-override.css";
 
 import BottomNav from "@components/BottomNav";
 import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
 import type { ReactNode } from "react";
 import AuthContextProvider from "@/lib/store/auth-context";
 
@@ -20,13 +21,20 @@ export const metadata: Metadata = {
 
 export const RootLayout = async ({ children }: Props) => {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<body>
 				<AuthContextProvider>
-					{children}
-					<div className="z-40">
-						<BottomNav />
-					</div>
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						enableSystem
+						disableTransitionOnChange
+					>
+						{children}
+						<div className="z-40">
+							<BottomNav />
+						</div>
+					</ThemeProvider>
 				</AuthContextProvider>
 			</body>
 		</html>

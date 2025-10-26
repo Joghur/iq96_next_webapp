@@ -7,12 +7,11 @@ import type { EventType } from "../EventsPage";
 
 type Props = {
 	futureEvents: EventType[];
-	theme: string;
 	canEdit: boolean;
 	onUpdate: (id: string | undefined) => Promise<void>;
 };
 
-const FutureEvents = ({ futureEvents, theme, canEdit, onUpdate }: Props) => {
+const FutureEvents = ({ futureEvents, canEdit, onUpdate }: Props) => {
 	return (
 		<div className="mx-10 my-3 gap-2">
 			<motion.div
@@ -30,7 +29,8 @@ const FutureEvents = ({ futureEvents, theme, canEdit, onUpdate }: Props) => {
 					return (
 						<div
 							key={index}
-							className={`sm:px-15 paper ${theme === "dark" ? "bg-gray-800" : "bg-slate-50"} flex flex-col gap-2 overflow-hidden rounded-xl px-10`}
+							// className={`sm:px-15 paper ${theme === "dark" ? "bg-gray-800" : "bg-slate-50"} flex flex-col gap-2 overflow-hidden rounded-xl px-10`}
+							className={`sm:px-15 paper text-secondary-foreground"bg-gray-800" : "bg-slate-50"} flex flex-col gap-2 overflow-hidden rounded-xl px-10`}
 						>
 							<div className="flex items-center justify-between gap-2">
 								<p className="font-semibold">

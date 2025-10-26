@@ -6,6 +6,7 @@ import {
 	LOCALSTORAGE_PREFIX,
 	setLocalStorage,
 } from "@lib/localStorage";
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 export const LOCALSTORAGE_THEME = `${LOCALSTORAGE_PREFIX}-theme`;
@@ -25,23 +26,20 @@ interface Props {
 	showLabel?: boolean;
 }
 
-export const useTheme = () => {
-	const initialTheme = document.documentElement.getAttribute("data-theme");
-	const [theme] = useState(initialTheme || "light");
-
-	return { theme };
-};
-
 const ThemeToggle = ({ showLabel }: Props) => {
+	const { setTheme } = useTheme();
 	const [isChecked, setIsChecked] = useState(false);
 	const [currentTheme, setCurrentTheme] = useState<Themes>("light");
+
+	console.log("currentTheme", currentTheme);
+	console.log("isChecked", isChecked);
 
 	const handleStart = async () => {
 		const savedTheme: Themes | null = await getLocalStorage(LOCALSTORAGE_THEME);
 		if (savedTheme) {
 			setCurrentTheme(savedTheme);
 			setIsChecked(savedTheme === "dark");
-			document.querySelector("html")?.setAttribute("data-theme", savedTheme);
+			setTheme(savedTheme);
 		}
 	};
 
@@ -51,13 +49,10 @@ const ThemeToggle = ({ showLabel }: Props) => {
 	}, []);
 
 	const handleThemeChange = () => {
-		const theme = isChecked ? "dark" : "light";
-		if (document?.querySelector("html")) {
-			setCurrentTheme(() => theme);
-			document.querySelector("html")?.setAttribute("data-theme", theme);
-			setLocalStorage(LOCALSTORAGE_THEME, theme);
-			setIsChecked(() => !isChecked);
-		}
+		const toggled = !isChecked ? "light" : "dark";
+		setCurrentTheme(() => toggled);
+		setTheme(toggled);
+		setLocalStorage(LOCALSTORAGE_THEME, toggled);
 	};
 
 	return (

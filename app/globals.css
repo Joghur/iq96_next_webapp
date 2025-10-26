@@ -26,21 +26,22 @@
 @layer base {
 	:root {
 		--background: white;
-		--foreground: #111111;
+		--foreground: #1f2937;
 		--radius: 0.5rem;
 
-		--primary: #6366f1;
-		--primary-foreground: white;
+		--primary: #f1f5f9;
+		--primary-foreground: #1f2937;
 
-		--secondary: #f3f4f6;
+		--secondary: #f8fafc;
 		--secondary-foreground: #1f2937;
 	}
 
-	.dark {
-		--background: #0c0c0c;
+	[data-theme="dark"] {
+		--background: #1f2937;
 		--foreground: white;
+		--radius: 0.5rem;
 
-		--primary: #8b5cf6;
+		--primary: #4b5563;
 		--primary-foreground: white;
 
 		--secondary: #1f2937;

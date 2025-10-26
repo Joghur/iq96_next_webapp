@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/a11y/noStaticElementInteractions: <TODO> */
 /** biome-ignore-all lint/a11y/useKeyWithClickEvents: <TODO> */
-import { useTheme } from "@features/member/ThemeToggle";
 import type { ReactNode } from "@node_modules/@types/react";
+import { useTheme } from "@node_modules/next-themes/dist";
 
 type Props = {
 	children: ReactNode;
