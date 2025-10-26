@@ -31,7 +31,7 @@ const PreviousEvents = ({ previousEvents, canEdit, onUpdate }: Props) => {
 					return (
 						<div
 							key={index}
-							className={`paper bg-secondary text-secondary-foreground flex flex-col gap-2 rounded-xl px-6 py-4 sm:px-10 sm:py-6 w-full max-w-2xl mx-auto`}
+							className={`paper bg-primary text-primary-foreground flex flex-col gap-2 rounded-xl px-6 py-4 sm:px-10 sm:py-6 w-full max-w-2xl mx-auto`}
 						>
 							<div className="flex items-center justify-between">
 								<p className="font-semibold">

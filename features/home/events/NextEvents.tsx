@@ -38,7 +38,7 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
 						>
 							<div
 								key={index}
-								className={`sm:px-15 bg-secondary text-secondary-foreground paper flex flex-col gap-2 overflow-hidden rounded-xl px-10`}
+								className={`sm:px-15 bg-primary text-primary-foreground paper flex flex-col gap-2 overflow-hidden rounded-xl px-10`}
 							>
 								<div className="flex justify-between align-middle">
 									<p className="font-semibold">

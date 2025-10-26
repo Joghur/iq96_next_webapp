@@ -29,23 +29,23 @@
 		--foreground: #1f2937;
 		--radius: 0.5rem;
 
-		--primary: #f1f5f9;
+		--primary: white;
 		--primary-foreground: #1f2937;
 
-		--secondary: #f8fafc;
+		--secondary: white;
 		--secondary-foreground: #1f2937;
 	}
 
 	[data-theme="dark"] {
-		--background: #1f2937;
+		--background: #334155;
 		--foreground: white;
 		--radius: 0.5rem;
 
-		--primary: #4b5563;
+		--primary: #475569;
 		--primary-foreground: white;
 
-		--secondary: #1f2937;
-		--secondary-foreground: #f3f4f6;
+		--secondary: #6b7280;
+		--secondary-foreground: white;
 	}
 
 	body {
