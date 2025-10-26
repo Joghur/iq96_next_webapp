@@ -12,15 +12,26 @@ import NewContentBadge from '@components/NewContentBadge';
 
 export type Folder = { name: string; path: string };
 
-export default async function GalleryPage({
-  params: { events },
-  searchParams: { badge },
-}: {
-  params: {
-    events: string;
-  };
-  searchParams: { [key: string]: string | undefined };
-}) {
+export default async function GalleryPage(
+  props: {
+    params: Promise<{
+      events: string;
+    }>;
+    searchParams: Promise<{ [key: string]: string | undefined }>;
+  }
+) {
+  const searchParams = await props.searchParams;
+
+  const {
+    badge
+  } = searchParams;
+
+  const params = await props.params;
+
+  const {
+    events
+  } = params;
+
   const { folders } = (await cloudinary.v2.api.sub_folders(events)) as {
     folders: Folder[];
   };

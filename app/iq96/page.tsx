@@ -1,6 +1,6 @@
 'use client';
 
-import { MouseEvent, useContext, useEffect, useState } from 'react';
+import { MouseEvent, useContext, useEffect, useState, use } from 'react';
 
 import AboutTab from '@features/member/AboutTab';
 import AdminTab from '@features/member/AdminTab';
@@ -16,11 +16,17 @@ import { authContext } from '@lib/store/auth-context';
 import PageLayout from '@components/PageLayout';
 import { SessionProvider } from 'next-auth/react';
 
-const MemberPage = ({
-  searchParams: { tab },
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) => {
+const MemberPage = (
+  props: {
+    searchParams: Promise<{ [key: string]: string | undefined }>;
+  }
+) => {
+  const searchParams = use(props.searchParams);
+
+  const {
+    tab
+  } = searchParams;
+
   const { authUser, documentUser } = useContext(authContext);
   const [value, setValue] = useState<MemberTabs>(isTab(tab) ? tab : 'member');
 

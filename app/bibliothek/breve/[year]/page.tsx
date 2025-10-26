@@ -7,13 +7,19 @@ import PageLayout from '@components/PageLayout';
 
 import PdfGrid from '../../../../features/library/PdfGrid';
 
-export default async function EventsPage({
-  params: { year },
-}: {
-  params: {
-    year: string;
-  };
-}) {
+export default async function EventsPage(
+  props: {
+    params: Promise<{
+      year: string;
+    }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    year
+  } = params;
+
   const lettersFolder = 'letters';
   const results = (await cloudinary.v2.search
     .expression(

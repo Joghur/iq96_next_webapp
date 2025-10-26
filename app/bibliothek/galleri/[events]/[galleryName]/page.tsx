@@ -8,14 +8,21 @@ import { convertFromUrlSafe, prettyImageFolderLabel } from '@lib/utils';
 import { SearchResult } from '../../page';
 import AlbumGrid from './album-grid';
 
-export default async function EventsPage({
-  params: { galleryName, events },
-}: {
-  params: {
-    events: string;
-    galleryName: string;
-  };
-}) {
+export default async function EventsPage(
+  props: {
+    params: Promise<{
+      events: string;
+      galleryName: string;
+    }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    galleryName,
+    events
+  } = params;
+
   const folder = `${events}/${convertFromUrlSafe(galleryName)}`;
 
   const results = (await cloudinary.v2.search

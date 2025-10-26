@@ -6,11 +6,17 @@ import PageLayout from '@components/PageLayout';
 
 export type Folder = { name: string; path: string };
 
-export default async function LettersPage({
-  searchParams: { badge },
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) {
+export default async function LettersPage(
+  props: {
+    searchParams: Promise<{ [key: string]: string | undefined }>;
+  }
+) {
+  const searchParams = await props.searchParams;
+
+  const {
+    badge
+  } = searchParams;
+
   const currentYear = new Date().getFullYear();
   const startYear = 1996;
 

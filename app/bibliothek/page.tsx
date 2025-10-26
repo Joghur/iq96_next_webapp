@@ -1,4 +1,5 @@
-'use client';
+'use client';;
+import { use } from "react";
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -7,11 +8,17 @@ import { LibraryCard } from '@features/library/LibraryCard';
 import NewContentBadge from '@components/NewContentBadge';
 import PageLayout from '@components/PageLayout';
 
-const LibraryPage = ({
-  searchParams: { badge },
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) => {
+const LibraryPage = (
+  props: {
+    searchParams: Promise<{ [key: string]: string | undefined }>;
+  }
+) => {
+  const searchParams = use(props.searchParams);
+
+  const {
+    badge
+  } = searchParams;
+
   let newGalleryBadgeStrings: string[] = [];
   let newLetterBadgeStrings: string[] = [];
 

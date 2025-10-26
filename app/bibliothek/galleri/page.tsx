@@ -20,11 +20,17 @@ export type EventLabel = {
   type: LibraryTypes;
 };
 
-const GalleryPage = async ({
-  searchParams: { badge },
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) => {
+const GalleryPage = async (
+  props: {
+    searchParams: Promise<{ [key: string]: string | undefined }>;
+  }
+) => {
+  const searchParams = await props.searchParams;
+
+  const {
+    badge
+  } = searchParams;
+
   return (
     <PageLayout>
       <div className="flex flex-col gap-8">
