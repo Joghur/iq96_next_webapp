@@ -1,5 +1,6 @@
 import Modal from "@components/Modal";
 import { Button } from "@components/ui/button";
+import { Textarea } from "@components/ui/textarea";
 import { type ChangeEvent, useState } from "react";
 import { MdLocationCity } from "react-icons/md";
 
@@ -89,7 +90,7 @@ const NewCityForm = ({
 					>
 						Årstal
 					</label>
-					<textarea
+					<Textarea
 						id="year"
 						value={changedCity.year}
 						onChange={handleChange}
@@ -104,7 +105,7 @@ const NewCityForm = ({
 					>
 						Tour by
 					</label>
-					<textarea
+					<Textarea
 						id="city"
 						value={changedCity.city}
 						onChange={handleChange}

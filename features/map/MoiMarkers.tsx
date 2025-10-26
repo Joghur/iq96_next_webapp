@@ -3,6 +3,7 @@
 import type { NotificationDbType } from "@components/BottomNav";
 import Select from "@components/Select";
 import { Button } from "@components/ui/button";
+import { Textarea } from "@components/ui/textarea";
 import { type DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
 import { Icon } from "leaflet";
 import { type ChangeEvent, useState } from "react";
@@ -227,7 +228,7 @@ const MoiMarkers = ({
 									>
 										Lang Titel
 									</label>
-									<textarea
+									<Textarea
 										id="title"
 										value={currentMarker?.title}
 										onChange={handleChangeMarker}
@@ -245,7 +246,7 @@ const MoiMarkers = ({
 									>
 										Kort Titel
 									</label>
-									<textarea
+									<Textarea
 										id="nick"
 										value={currentMarker?.nick}
 										onChange={handleChangeMarker}
@@ -262,7 +263,7 @@ const MoiMarkers = ({
 									>
 										Beskrivelse
 									</label>
-									<textarea
+									<Textarea
 										id="description"
 										value={currentMarker?.description}
 										onChange={handleChangeMarker}

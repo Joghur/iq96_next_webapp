@@ -33,7 +33,7 @@ const Iq96Tab = () => {
 	return (
 		<div className="table-container touch-action-pan-y overflow-y-scroll">
 			<div className="px-10 sm:py-4">
-				<p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
+				<p className="dynamic_text bg-primary text-primary-foreground flex justify-center border rounded-lg shadow-lg font-semibold">
 					Med-lemmer
 				</p>
 
@@ -45,7 +45,7 @@ const Iq96Tab = () => {
 							initial="hidden"
 							animate="visible"
 							transition={{ duration: 0.5, delay: index * 0.3 + 0.1 }}
-							className="m-1 flex flex-col items-center overflow-x-hidden whitespace-nowrap rounded-xl p-4 shadow-xl ring-2 hover:cursor-pointer sm:m-4"
+							className="m-1 bg-secondary text-secondary-foreground flex flex-col items-center overflow-x-hidden whitespace-nowrap rounded-xl p-4 shadow-xl ring-2 hover:cursor-pointer sm:m-4"
 							onClick={() => setShowProfile(o.name)}
 						>
 							<div className="justify-left flex flex-col items-center gap-3 overflow-hidden">

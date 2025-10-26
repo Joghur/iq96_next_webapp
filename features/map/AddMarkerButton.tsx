@@ -1,7 +1,7 @@
 import type { NotificationDbType } from "@components/BottomNav";
 import Modal from "@components/Modal";
 import { Button } from "@components/ui/button";
-
+import { Textarea } from "@components/ui/textarea";
 import { useFirestore } from "@lib/hooks/useFirestore";
 import L from "leaflet";
 import { type ChangeEvent, useState } from "react";
@@ -117,7 +117,7 @@ export const NewMarkerForm = ({
 					>
 						Årstal
 					</label>
-					<textarea
+					<Textarea
 						id="year"
 						value={changedMarker.description}
 						onChange={handleChange}

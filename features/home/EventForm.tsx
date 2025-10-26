@@ -4,6 +4,7 @@ import CloseButton from "@components/buttons/CloseButton";
 import { CopyButton } from "@components/buttons/CopyButton";
 import { SimpleDateTimePicker } from "@components/dates/SimpleDateTimePicker";
 import { Button } from "@components/ui/button";
+import { Textarea } from "@components/ui/textarea";
 import { confirmAction } from "@lib/utils";
 import { type ChangeEvent, useState } from "react";
 import DayEventsForm from "./DayEventForm";
@@ -247,7 +248,7 @@ const EventForm = ({
 					>
 						By
 					</label>
-					<textarea
+					<Textarea
 						id="city"
 						value={changedEvent.city}
 						onChange={handleChange}
@@ -354,7 +355,7 @@ const EventForm = ({
 					>
 						OBS!
 					</label>
-					<textarea
+					<Textarea
 						id="notes"
 						value={changedEvent.notes}
 						onChange={handleChange}
@@ -386,7 +387,7 @@ const EventForm = ({
 					>
 						OBS. Aktiviteter
 					</label>
-					<textarea
+					<Textarea
 						id="notesActivities"
 						value={changedEvent.notesActivities}
 						onChange={handleChange}

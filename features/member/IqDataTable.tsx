@@ -310,26 +310,15 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 						}
 						text="DOWNLOAD"
 					>
-						<Button>CSV</Button>
+						<Button variant="secondary">CSV</Button>
 					</CsvDownloader>
-					<Button>
+					<Button variant="secondary">
 						<MdOutlineAdd size={32} onClick={() => setFormOverlay(true)} />
 					</Button>
-					{/* <Button>
-            <MdOutlineDelete size={32} onClick={onDelete} />
-          </Button> */}
 				</div>
-				{/* <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('email')?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        /> */}
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button variant="outline" className="ml-auto">
+						<Button variant="secondary" className="ml-auto">
 							Kolonner <ChevronDownIcon className="ml-2 h-4 w-4" />
 						</Button>
 					</DropdownMenuTrigger>
@@ -354,9 +343,9 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 					</DropdownMenuContent>
 				</DropdownMenu>
 			</div>
-			<div className="rounded-md border hover:cursor-pointer">
+			<div className="rounded-md border hover:cursor-pointer overflow-hidden">
 				<Table>
-					<TableHeader>
+					<TableHeader className="bg-secondary text-secondary-foreground">
 						{table.getHeaderGroups().map((headerGroup) => (
 							<TableRow key={headerGroup.id}>
 								{headerGroup.headers.map((header) => {
