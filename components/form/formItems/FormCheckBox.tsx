@@ -23,8 +23,7 @@ const FormCheckBox = ({
         id={propertyKey}
         checked={isChecked}
         disabled={disabled}
-        // Shadcn’s onCheckedChange returnerer boolean | "indeterminate"
-        onCheckedChange={(checked) => {
+        onCheckedChange={(checked: boolean | 'indeterminate') => {
           const synthetic = {
             target: { checked: !!checked },
           } as unknown as ChangeEvent<HTMLInputElement>;
