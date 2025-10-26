@@ -52,13 +52,7 @@ interface InfoModalProps {
 
 const InfoModal = ({ open, onClose, documentUser }: InfoModalProps) => {
 	return (
-		<Modal open={open}>
-			<div className="dynamic_text flex justify-between gap-2">
-				<h3 className="text-lg font-bold">Sådan bruges kortet</h3>
-				<Button onClick={onClose} color={"error"} variant="destructive">
-					Luk
-				</Button>
-			</div>
+		<Modal open={open} onOpenChange={onClose} title="Sådan bruges kortet">
 			<div className="dynamic_text pt-15 justify-between">
 				<div className="flex flex-col gap-2">
 					<div className="flex flex-col gap-2">
