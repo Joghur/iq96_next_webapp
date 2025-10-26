@@ -1,7 +1,7 @@
-import LoadingSpinner from '@components/LoadingSpinner';
+import LoadingSpinner from "@components/LoadingSpinner";
 
 const Loading = () => {
-  return <LoadingSpinner text={'Henter chat...'} />;
+	return <LoadingSpinner text={"Henter chat..."} />;
 };
 
 export default Loading;

@@ -1,31 +1,31 @@
 {
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "http://www.iq96.dk"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "http://iq96.dk"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "http://app.iq96.dk"
-        }
-      ]
-    }
-  ]
+	"headers": [
+		{
+			"source": "/(.*)",
+			"headers": [
+				{
+					"key": "Access-Control-Allow-Origin",
+					"value": "http://www.iq96.dk"
+				}
+			]
+		},
+		{
+			"source": "/(.*)",
+			"headers": [
+				{
+					"key": "Access-Control-Allow-Origin",
+					"value": "http://iq96.dk"
+				}
+			]
+		},
+		{
+			"source": "/(.*)",
+			"headers": [
+				{
+					"key": "Access-Control-Allow-Origin",
+					"value": "http://app.iq96.dk"
+				}
+			]
+		}
+	]
 }

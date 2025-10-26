@@ -1,11 +1,11 @@
-'use client';
+/** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
+"use client";
 
-import { CldImage } from 'next-cloudinary';
+import { CldImage } from "next-cloudinary";
 
 //TODO: fix any
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CloudinaryImage = (props: any) => {
-  return <CldImage {...props} />;
+	return <CldImage {...props} />;
 };
 
 export default CloudinaryImage;

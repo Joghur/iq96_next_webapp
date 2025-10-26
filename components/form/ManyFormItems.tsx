@@ -1,8 +1,11 @@
-'use client';
+"use client";
 
-import { SelectLabelType } from '@lib/form';
-import OneFormItem, { FormItemEventTarget, HoverInfo } from './OneFormItem';
-import { ListGroupFormKeys } from './formItems/FormListGroup';
+import type { SelectLabelType } from "@lib/form";
+import type { ListGroupFormKeys } from "./formItems/FormListGroup";
+import OneFormItem, {
+	type FormItemEventTarget,
+	type HoverInfo,
+} from "./OneFormItem";
 
 /**
  * Use the FormBuilder type as guide to make forms. Each FormBuilder item in an array
@@ -23,55 +26,55 @@ import { ListGroupFormKeys } from './formItems/FormListGroup';
  *
  */
 export type FormBuilder<T> = {
-  label: string;
-  propertyKey: keyof T;
-  showAs?: 'textarea' | 'radiobutton' | 'listgroup' | 'date' | undefined;
-  selection?: SelectLabelType<unknown, unknown>[];
-  selectLabelMapping?: unknown;
-  listGroupFormKeys?: ListGroupFormKeys;
-  hoverInfo?: HoverInfo;
-  disabled?: boolean;
+	label: string;
+	propertyKey: keyof T;
+	showAs?: "textarea" | "radiobutton" | "listgroup" | "date" | undefined;
+	selection?: SelectLabelType<unknown, unknown>[];
+	selectLabelMapping?: unknown;
+	listGroupFormKeys?: ListGroupFormKeys;
+	hoverInfo?: HoverInfo;
+	disabled?: boolean;
 };
 
 type Props<T> = {
-  builderArray: FormBuilder<T>[];
-  data: T | null;
-  asRow?: boolean;
-  onChange: (eventTarget: FormItemEventTarget) => void;
+	builderArray: FormBuilder<T>[];
+	data: T | null;
+	asRow?: boolean;
+	onChange: (eventTarget: FormItemEventTarget) => void;
 };
 
 function ManyFormItems<T>({
-  builderArray,
-  data,
-  asRow = false,
-  onChange,
+	builderArray,
+	data,
+	asRow = false,
+	onChange,
 }: Props<T>) {
-  if (!data) {
-    return null;
-  }
+	if (!data) {
+		return null;
+	}
 
-  return (
-    <div className={asRow ? 'flex flex-row' : undefined}>
-      {builderArray.map((builderItem) => (
-        <OneFormItem
-          key={builderItem.propertyKey.toString()}
-          as={builderItem?.showAs === 'textarea' ? 'textarea' : undefined}
-          type={
-            builderItem?.showAs !== 'textarea' ? builderItem?.showAs : undefined
-          }
-          label={builderItem.label}
-          propertyKey={builderItem.propertyKey.toString()}
-          value={data[builderItem.propertyKey] as string}
-          selection={builderItem.selection}
-          listGroupFormKeys={builderItem.listGroupFormKeys}
-          hoverInfo={builderItem.hoverInfo}
-          vertical={asRow}
-          disabled={builderItem.disabled}
-          onChange={onChange}
-        />
-      ))}
-    </div>
-  );
+	return (
+		<div className={asRow ? "flex flex-row" : undefined}>
+			{builderArray.map((builderItem) => (
+				<OneFormItem
+					key={builderItem.propertyKey.toString()}
+					as={builderItem?.showAs === "textarea" ? "textarea" : undefined}
+					type={
+						builderItem?.showAs !== "textarea" ? builderItem?.showAs : undefined
+					}
+					label={builderItem.label}
+					propertyKey={builderItem.propertyKey.toString()}
+					value={data[builderItem.propertyKey] as string}
+					selection={builderItem.selection}
+					listGroupFormKeys={builderItem.listGroupFormKeys}
+					hoverInfo={builderItem.hoverInfo}
+					vertical={asRow}
+					disabled={builderItem.disabled}
+					onChange={onChange}
+				/>
+			))}
+		</div>
+	);
 }
 
 export default ManyFormItems;

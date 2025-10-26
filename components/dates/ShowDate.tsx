@@ -1,33 +1,33 @@
-import { useTailwindBreakpoint } from '@lib/hooks/useTailwindBreakpoint';
-import { format, parseISO } from '@node_modules/date-fns';
-import { da } from '@node_modules/date-fns/locale';
+import { useTailwindBreakpoint } from "@lib/hooks/useTailwindBreakpoint";
+import { format, parseISO } from "@node_modules/date-fns";
+import { da } from "@node_modules/date-fns/locale";
 
 type Props = {
-  dateString: string;
-  formatLargeScreen?: string;
-  formatSmallScreen?: string;
+	dateString: string;
+	formatLargeScreen?: string;
+	formatSmallScreen?: string;
 };
 
 const ShowDate = ({
-  dateString,
-  formatLargeScreen = 'EEEE - dd. MMMM',
-  formatSmallScreen = 'EEEE',
+	dateString,
+	formatLargeScreen = "EEEE - dd. MMMM",
+	formatSmallScreen = "EEEE",
 }: Props) => {
-  const isLargeScreen = useTailwindBreakpoint('md');
+	const isLargeScreen = useTailwindBreakpoint("md");
 
-  if (!dateString) return null;
+	if (!dateString) return null;
 
-  return (
-    <>
-      {format(
-        parseISO(dateString),
-        isLargeScreen ? formatLargeScreen : formatSmallScreen,
-        {
-          locale: da,
-        }
-      )}
-    </>
-  );
+	return (
+		<>
+			{format(
+				parseISO(dateString),
+				isLargeScreen ? formatLargeScreen : formatSmallScreen,
+				{
+					locale: da,
+				},
+			)}
+		</>
+	);
 };
 
 export default ShowDate;

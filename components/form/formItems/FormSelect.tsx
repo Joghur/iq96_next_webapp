@@ -1,44 +1,81 @@
-import { SelectLabelType, getLabelOrType } from '@lib/form';
-import { ChangeEvent, useState } from 'react';
-import Form from 'react-bootstrap/Form';
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <TODO> */
+/** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
+"use client";
+
+import { getLabelOrType, type SelectLabelType } from "@lib/form";
+import { useEffect, useMemo, useState } from "react";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 
 type Props = {
-  label: string;
-  value?: string;
-  selection: SelectLabelType<any, any>[];
-  disabled: boolean;
-  onChange: (value: string) => void;
+	label: string; // (ikke brugt i selve select'en – beholdes for kompatibilitet)
+	value?: string; // "type" (din nuværende værdi)
+	selection: SelectLabelType<any, any>[];
+	disabled: boolean;
+	onChange: (value: string) => void; // sender "type" tilbage
 };
 
-const FormSelect = ({ value, selection, disabled, onChange }: Props) => {
-  const [selectedValue, setSelectedValue] = useState(
-    getLabelOrType(
-      value?.toString() || 'THIS SHOULD NOT SHOW',
-      'toLabel',
-      selection
-    )
-  );
+const FormSelect: React.FC<Props> = ({
+	value,
+	selection,
+	disabled,
+	onChange,
+}) => {
+	// find label for nuværende type (samme logik som før)
+	const initialLabel = useMemo(
+		() =>
+			getLabelOrType(
+				(value ?? "THIS SHOULD NOT SHOW").toString(),
+				"toLabel",
+				selection,
+			) ?? "",
+		[value, selection],
+	);
 
-  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    setSelectedValue(value);
+	const [selectedLabel, setSelectedLabel] = useState<string>(initialLabel);
 
-    onChange(getLabelOrType(value, 'toType', selection).toString());
-  };
+	// Hold lokal label i sync, hvis parent ændrer value-prop
+	useEffect(() => {
+		setSelectedLabel(initialLabel);
+	}, [initialLabel]);
 
-  return (
-    <Form.Select
-      onChange={handleSelectChange}
-      value={selectedValue}
-      disabled={disabled}
-      className="bg-light"
-    >
-      <option key="empty-option"></option>
-      {selection?.map((valueItem, index: number) => (
-        <option key={index}>{valueItem.label.toString()}</option>
-      ))}
-    </Form.Select>
-  );
+	const handleChange = (nextLabel: string) => {
+		setSelectedLabel(nextLabel);
+		const asType = getLabelOrType(nextLabel, "toType", selection);
+		onChange((asType ?? "").toString());
+	};
+
+	return (
+		<Select
+			disabled={disabled}
+			value={selectedLabel}
+			onValueChange={handleChange}
+		>
+			<SelectTrigger className="bg-muted">
+				{" "}
+				{/* erstatter 'bg-light' */}
+				<SelectValue placeholder="" />
+			</SelectTrigger>
+
+			<SelectContent>
+				<SelectItem value={initialLabel}>{""}</SelectItem>
+
+				{selection?.map((item, idx) => {
+					const labelText = item.label?.toString() ?? "";
+					return (
+						<SelectItem key={idx} value={labelText}>
+							{labelText}
+						</SelectItem>
+					);
+				})}
+			</SelectContent>
+		</Select>
+	);
 };
 
 export default FormSelect;

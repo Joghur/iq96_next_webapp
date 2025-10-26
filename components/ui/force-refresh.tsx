@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export function ForceRefresh() {
-  const router = useRouter();
+	const router = useRouter();
 
-  useEffect(() => {
-    router.refresh();
-  }, [router]);
+	useEffect(() => {
+		router.refresh();
+	}, [router]);
 
-  return <></>;
+	return null;
 }

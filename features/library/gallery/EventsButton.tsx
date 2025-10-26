@@ -1,24 +1,16 @@
-import Link from 'next/link';
-import { Fragment } from 'react';
-
-import { Button } from '@components/ui/button';
+import { Button } from "@components/ui/button";
+import Link from "next/link";
 
 interface Props {
-  label: string;
+	label: string;
 }
 
 const EventsButton = ({ label }: Props) => {
-  return (
-    <Fragment>
-      <Button
-        asChild
-        variant="ghost"
-        className="w-full justify-start flex gap-2"
-      >
-        <Link href={`/bibliothek/galleri/${label.toLowerCase()}`}>{label}</Link>
-      </Button>
-    </Fragment>
-  );
+	return (
+		<Button asChild variant="ghost" className="w-full justify-start flex gap-2">
+			<Link href={`/bibliothek/galleri/${label.toLowerCase()}`}>{label}</Link>
+		</Button>
+	);
 };
 
 export default EventsButton;
