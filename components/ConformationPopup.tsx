@@ -1,3 +1,5 @@
+import { Button } from "./ui/button";
+
 type Props = {
 	message: string;
 	onCancel: () => void;
@@ -17,18 +19,18 @@ const ConfirmationPopup: React.FC<Props> = ({
 			<div className="bg-white rounded shadow-lg p-6 m-4 max-w-md">
 				<div className="mb-4">{message}</div>
 				<div className="flex justify-end">
-					<button
+					<Button
 						onClick={onCancel}
 						className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2 focus:outline-none focus:shadow-outline"
 					>
 						Fortryd
-					</button>
-					<button
+					</Button>
+					<Button
 						onClick={onConfirm}
 						className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 					>
 						OK
-					</button>
+					</Button>
 				</div>
 			</div>
 		</div>

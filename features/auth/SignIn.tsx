@@ -165,7 +165,7 @@ function SignIn() {
 								)}
 							</div>
 						)}
-						<button
+						<Button
 							type="submit"
 							disabled={isSubmitting}
 							className="mx-auto mt-6 flex items-center gap-2 rounded-lg bg-gray-700 p-4 font-medium text-white"
@@ -187,20 +187,20 @@ function SignIn() {
 							{resetStep === 1 && "Send Reset mail"}
 							{resetStep === 2 &&
 								"Tryk når du har checket din email og skiftet kodeord"}
-						</button>
+						</Button>
 					</form>
 				</div>
 			</div>
 			{resetStep === 0 && (
 				<div className="flex flex-col items-center pl-2 pt-4 text-lg">
-					<button
+					<Button
 						onClick={async () => {
 							setResetStep(() => 1);
 						}}
 						className="orange_gradient"
 					>
 						Reset kodeord
-					</button>
+					</Button>
 				</div>
 			)}
 			{resetStep === 1 && (

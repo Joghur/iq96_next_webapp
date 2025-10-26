@@ -119,7 +119,7 @@ const ChatPage = () => {
 						placeholder="Skriv en besked"
 						onChange={(event) => setInput(event.target.value)}
 					/>
-					<button
+					<Button
 						onClick={handleSubmit}
 						className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500 text-white"
 					>
@@ -136,7 +136,7 @@ const ChatPage = () => {
 								d="M12 6v6m0 0v6m0-6h6m-6 0H6"
 							></path>
 						</svg>
-					</button>
+					</Button>
 				</div>
 				<div className="p-4">
 					{chats &&

@@ -61,8 +61,8 @@ function Calendar({
 					onPreviousClick,
 				}: NavProps) => (
 					<div className="space-x-1 flex items-center">
-						<button
-							type="button"
+						<Button
+							type="Button"
 							onClick={onPreviousClick}
 							disabled={!previousMonth}
 							className={cn(
@@ -71,9 +71,9 @@ function Calendar({
 							)}
 						>
 							<ChevronLeft className="h-4 w-4" />
-						</button>
-						<button
-							type="button"
+						</Button>
+						<Button
+							type="Button"
 							onClick={onNextClick}
 							disabled={!nextMonth}
 							className={cn(
@@ -82,7 +82,7 @@ function Calendar({
 							)}
 						>
 							<ChevronRight className="h-4 w-4" />
-						</button>
+						</Button>
 					</div>
 				),
 			}}

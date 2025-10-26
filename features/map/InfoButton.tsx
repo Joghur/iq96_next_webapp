@@ -24,12 +24,12 @@ const InfoButton = ({ documentUser }: Props) => {
 
 	return (
 		<>
-			<button
+			<Button
 				className="btn rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6"
 				onClick={toogleAddModal}
 			>
 				<MdInfo fontSize="large" />
-			</button>
+			</Button>
 			{open && (
 				<InfoModal
 					open={open}
@@ -57,7 +57,7 @@ const InfoModal = ({ open, onClose, documentUser }: InfoModalProps) => {
 				<Button
 					onClick={onClose}
 					color={"error"}
-					className="modal-button btn-outline"
+					className="modal-Button btn-outline"
 					variant="destructive"
 				>
 					Luk

@@ -7,11 +7,12 @@ interface Props {
 const LoadingButton = ({ text = "Henter..." }: Props) => {
 	return (
 		<div>
-			<button
-				type="button"
+			<Button
+				type="Button"
 				className="inline-flex w-auto cursor-pointer select-none appearance-none items-center justify-center space-x-2 rounded border border-blue-700 bg-blue-700 px-3 py-2 text-sm font-medium text-white transition hover:border-blue-800 hover:bg-blue-800 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 disabled:pointer-events-none disabled:opacity-75"
 			>
 				<svg className="h-4 w-4 animate-spin" viewBox="3 3 18 18">
+					<title>Loading Button</title>
 					<path
 						className="fill-blue-800"
 						d="M12 5C8.13401 5 5 8.13401 5 12c0 3.866 3.13401 7 7 7 3.866.0 7-3.134 7-7 0-3.86599-3.134-7-7-7zM3 12c0-4.97056 4.02944-9 9-9 4.9706.0 9 4.02944 9 9 0 4.9706-4.0294 9-9 9-4.97056.0-9-4.0294-9-9z"
@@ -22,7 +23,7 @@ const LoadingButton = ({ text = "Henter..." }: Props) => {
 					></path>
 				</svg>
 				<span className="dynamic_text">{text}</span>
-			</button>
+			</Button>
 		</div>
 	);
 };

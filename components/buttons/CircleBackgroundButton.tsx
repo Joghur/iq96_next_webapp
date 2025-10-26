@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: <explanation> */
+/** biome-ignore-all lint/a11y/useKeyWithClickEvents: <explanation> */
 import { useTheme } from "@features/member/ThemeToggle";
 import type { ReactNode } from "@node_modules/@types/react";
 

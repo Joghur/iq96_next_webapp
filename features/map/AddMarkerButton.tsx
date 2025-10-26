@@ -126,16 +126,16 @@ export const NewMarkerForm = ({
 					/>
 				</div>
 				<div className="flex justify-between pt-5">
-					<button
+					<Button
 						onClick={onClose}
 						color={"error"}
 						className="btn-error btn-outline btn-sm btn"
 					>
 						Fortryd
-					</button>
-					<button onClick={handleSubmit} className="btn-info btn-sm btn">
+					</Button>
+					<Button onClick={handleSubmit} className="btn-info btn-sm btn">
 						Opret
-					</button>
+					</Button>
 				</div>
 			</div>
 		</Modal>

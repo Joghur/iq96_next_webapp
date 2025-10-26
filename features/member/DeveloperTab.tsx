@@ -164,21 +164,21 @@ const DeveloperTab = () => {
 					<Separator className="my-5 bg-gray-500" />
 				</div>
 				<div className="mx-5 flex min-h-screen flex-col gap-3">
-					<button
+					<Button
 						disabled
 						// onClick={() => copyDocument("oldmap", "2023-Edinbourgh", "map")}
 						onClick={async () => await copyDocumentsToNestedCollection()}
 						className="dynamic_text btn-accent btn inline-block"
 					>
 						Kopier gamle kort-markører
-					</button>
-					<button
+					</Button>
+					<Button
 						disabled
 						onClick={deleteMapMarkers}
 						className="dynamic_text btn-accent btn inline-block"
 					>
 						Slet gamle kort-markører
-					</button>
+					</Button>
 				</div>
 			</div>
 		</div>

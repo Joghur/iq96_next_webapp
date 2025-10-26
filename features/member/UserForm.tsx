@@ -98,7 +98,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
 						Gem
 					</Button>
 					<Button
-						type="button"
+						type="Button"
 						variant="secondary"
 						onClick={onCancel}
 						className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -308,45 +308,45 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
           </label>
         </div>
         <div className="flex items-center justify-between gap-3">
-          <button
+          <Button
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
             Gem
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            type="Button"
             onClick={onCancel}
             className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
             Fortryd
-          </button>
+          </Button>
           {formData.id && (
-            <button
+            <Button
               type="submit"
               onClick={handleDelete}
               disabled={showConfirmation}
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Fjern
-            </button>
+            </Button>
           )}
           {showConfirmation && (
             <>
-              <button
+              <Button
                 type="submit"
                 onClick={confirmDelete}
                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 Helt sikker!
-              </button>
-              <button
+              </Button>
+              <Button
                 type="submit"
                 onClick={cancelDelete}
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 Fortryd
-              </button>
+              </Button>
             </>
           )} */}
 			{/* </div> */}

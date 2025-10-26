@@ -17,7 +17,7 @@ export function CopyButton({ text }: Props) {
 
 	return (
 		<div>
-			<button onClick={copyToClipboard}>{isCopied ? "Copied!" : text}</button>
+			<Button onClick={copyToClipboard}>{isCopied ? "Copied!" : text}</Button>
 		</div>
 	);
 }

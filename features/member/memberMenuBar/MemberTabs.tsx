@@ -33,44 +33,44 @@ const MemberTabsPage = ({ value, onChange }: Props) => {
 	return (
 		<div className="pl-8 sm:pl-0 mb-5 mt-2 sm:mt-10 sm:mb-10 flex w-full justify-center">
 			<div className="flex flex-wrap justify-center gap-0.5 sm:gap-2">
-				<button
+				<Button
 					id="member"
 					onClick={onChange}
 					className={getButtonClasses("member")}
 				>
 					{documentUser.nick}
-				</button>
-				<button
+				</Button>
+				<Button
 					id="iq96"
 					onClick={onChange}
 					className={getButtonClasses("iq96")}
 				>
 					IQ96
-				</button>
-				<button
+				</Button>
+				<Button
 					id="about"
 					onClick={onChange}
 					className={getButtonClasses("about")}
 				>
 					Om
-				</button>
+				</Button>
 				{(documentUser.isSuperAdmin || documentUser.isBoard) && (
-					<button
+					<Button
 						id="admin"
 						onClick={onChange}
 						className={getButtonClasses("admin")}
 					>
 						Admin
-					</button>
+					</Button>
 				)}
 				{documentUser.isSuperAdmin && (
-					<button
+					<Button
 						id="developer"
 						onClick={onChange}
 						className={getButtonClasses("developer")}
 					>
 						Developer
-					</button>
+					</Button>
 				)}
 			</div>
 		</div>
