@@ -3,7 +3,7 @@
 import { buttonVariants } from "@components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type * as React from "react";
-import { DayPicker } from "react-day-picker";
+import { DayPicker, type NavProps } from "react-day-picker";
 import { cn } from "@/lib/utils";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
@@ -54,11 +54,36 @@ function Calendar({
 				...classNames,
 			}}
 			components={{
-				IconLeft: ({ className, ...props }) => (
-					<ChevronLeft className={cn("h-4 w-4", className)} {...props} />
-				),
-				IconRight: ({ className, ...props }) => (
-					<ChevronRight className={cn("h-4 w-4", className)} {...props} />
+				Nav: ({
+					nextMonth,
+					previousMonth,
+					onNextClick,
+					onPreviousClick,
+				}: NavProps) => (
+					<div className="space-x-1 flex items-center">
+						<button
+							type="button"
+							onClick={onPreviousClick}
+							disabled={!previousMonth}
+							className={cn(
+								buttonVariants({ variant: "outline" }),
+								"h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+							)}
+						>
+							<ChevronLeft className="h-4 w-4" />
+						</button>
+						<button
+							type="button"
+							onClick={onNextClick}
+							disabled={!nextMonth}
+							className={cn(
+								buttonVariants({ variant: "outline" }),
+								"h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+							)}
+						>
+							<ChevronRight className="h-4 w-4" />
+						</button>
+					</div>
 				),
 			}}
 			{...props}

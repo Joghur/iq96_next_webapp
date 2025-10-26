@@ -15,7 +15,8 @@
 		"test:verboseWatch": "jest --verbose",
 		"check": "npx tsc --noEmit",
 		"clean": "rm -rf .next && rm -rf node_modules && npm install && npm run dev",
-		"clean:tailwind": "rm -rf .next node_modules/.cache && npm run dev"
+		"clean:tailwind": "rm -rf .next node_modules/.cache && npm run dev",
+		"vercel-build": "biome check . && next build"
 	},
 	"dependencies": {
 		"@google-cloud/local-auth": "3.0.1",
