@@ -98,7 +98,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
 						Gem
 					</Button>
 					<Button
-						type="Button"
+						type="button"
 						variant="secondary"
 						onClick={onCancel}
 						className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -315,7 +315,7 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
             Gem
           </Button>
           <Button
-            type="Button"
+            type="button"
             onClick={onCancel}
             className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
