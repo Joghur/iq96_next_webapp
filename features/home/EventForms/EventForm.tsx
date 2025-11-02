@@ -1,14 +1,17 @@
 "use client";
 
-import CloseButton from "@components/buttons/CloseButton";
 import { CopyButton } from "@components/buttons/CopyButton";
 import { SimpleDateTimePicker } from "@components/dates/SimpleDateTimePicker";
+import CustomForm from "@components/form/CustomForm";
 import { Button } from "@components/ui/button";
+import { Label } from "@components/ui/label";
 import { Textarea } from "@components/ui/textarea";
 import { confirmAction } from "@lib/utils";
 import { type ChangeEvent, useState } from "react";
-import DayEventsForm from "./DayEventForm";
-import type { DayEvent, EventType } from "./EventsPage";
+import DayEventsForm from "../DayEventForm";
+import type { DayEvent, EventType } from "../EventsPage";
+import { StatusSelect } from "../event-selects/StatusSelect";
+import { TypeSelect } from "../event-selects/TypeSelect";
 
 const initialEvent: EventType = {
 	type: "tour",
@@ -121,79 +124,45 @@ const EventForm = ({
 		}
 	};
 
+	const actionButtons = [
+		<Button
+			onClick={() => handleDelete(event?.id)}
+			color={"error"}
+			disabled={!event?.id}
+			variant="destructive"
+			size="sm"
+			key="delete-button"
+		>
+			Slet
+		</Button>,
+		<Button
+			onClick={onClose}
+			color={"error"}
+			variant="secondary"
+			size="sm"
+			key="cancel-button"
+		>
+			Fortryd
+		</Button>,
+		<Button
+			variant="default"
+			onClick={handleSubmit}
+			size="sm"
+			key="submit-button"
+		>
+			{isNew ? "Opret" : "Opdatér"}
+		</Button>,
+	];
+
 	return (
-		<div className="w-full px-4 sm:px-6 mt-8">
-			<div className="fixed top-0 left-0 w-full h-32 p-4 bg-primary shadow-md z-50">
-				<h3 className="text-lg font-bold">
-					<div className="flex flex-row items-center justify-between">
-						{isNew ? "Opret ny begivenhed" : "Opdatér begivenhed"}
-						<CloseButton onClick={onClose} />
-					</div>
-				</h3>
-				<div className="flex justify-between py-10">
-					<Button
-						onClick={() => handleDelete(event?.id)}
-						color={"error"}
-						disabled={!event?.id}
-						variant="destructive"
-						size="sm"
-					>
-						Slet
-					</Button>
-					<div className="flex gap-7">
-						<Button
-							onClick={onClose}
-							color={"error"}
-							variant="secondary"
-							size="sm"
-						>
-							Fortryd
-						</Button>
-						<Button variant="default" onClick={handleSubmit} size="sm">
-							{isNew ? "Opret" : "Opdatér"}
-						</Button>
-					</div>
-				</div>
-			</div>
+		<CustomForm
+			title={isNew ? "Opret ny begivenhed" : "Opdatér begivenhed"}
+			actionButtons={actionButtons}
+			onClose={onClose}
+		>
 			<div className="pt-24">
-				<div className="pt-5">
-					<label
-						htmlFor="role"
-						className="dynamic_text green_gradient mb-2 block font-medium"
-					>
-						Status:
-					</label>
-					<select
-						id="status"
-						value={changedEvent.status}
-						onChange={handleChange}
-						className="mt-1 p-2 block w-full border-gray-300 dark:border-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-					>
-						<option value="done">Færdig</option>
-						<option value="next">Næste</option>
-						<option value="pending">Senere</option>
-					</select>
-				</div>
-				<div className="pt-5">
-					<label
-						htmlFor="role"
-						className="dynamic_text green_gradient mb-2 block font-medium"
-					>
-						Event type:
-					</label>
-					<select
-						id="type"
-						value={changedEvent.type}
-						onChange={handleChange}
-						className="mt-1 p-2 block w-full border-gray-300 dark:border-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-					>
-						<option value="tour">Tour</option>
-						<option value="gf">Generalforsamling</option>
-						<option value="oel">ØL</option>
-						<option value="golf">Golf</option>
-						<option value="other">Andet</option>
-					</select>
-				</div>
+				<StatusSelect event={changedEvent} onChange={handleChange} />
+				<TypeSelect event={changedEvent} onChange={handleChange} />
 				<div className="flex flex-row justify-between">
 					<div className="flex items-center mt-4">
 						<input
@@ -420,7 +389,7 @@ const EventForm = ({
 					</div>
 				</div>
 			</div>
-		</div>
+		</CustomForm>
 	);
 };
 

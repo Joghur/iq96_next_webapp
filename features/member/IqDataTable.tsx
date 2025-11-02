@@ -33,7 +33,7 @@ import {
 import * as React from "react";
 import CsvDownloader from "react-csv-downloader";
 import { MdOutlineAdd } from "react-icons/md";
-import UserForm from "./UserForm";
+// import UserForm from "./UserForm";
 
 export const columns: ColumnDef<DocumentUser>[] = [
 	{
@@ -366,7 +366,8 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 						)}
 					</TableBody>
 				</Table>
-				{formOverlay && activeUser && (
+				{/* TODO lave reusable form side og brug den her */}
+				{/* {formOverlay && activeUser && (
 					<div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center overflow-y-auto">
 						<div className="bg-white p-4 rounded-lg">
 							<UserForm
@@ -377,7 +378,7 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 							/>
 						</div>
 					</div>
-				)}
+				)} */}
 			</div>
 			<div className="flex items-center justify-end space-x-2 py-4">
 				<div className="flex-1 text-sm text-muted-foreground">

@@ -4,7 +4,7 @@ import { eventTransitionVariants } from "@lib/animations";
 import { type DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import EventForm from "./EventForm";
+import EventForm from "./EventForms/EventForm";
 import FutureEvents from "./events/FutureEvents";
 import NextEvents from "./events/NextEvents";
 import PreviousEvents from "./events/PreviousEvents";

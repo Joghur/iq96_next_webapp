@@ -56,7 +56,6 @@ const AdminTab = () => {
 						onUpdate={handleUpdateUser}
 						onDelete={handleDeleteUser}
 					/>
-					{/* <IqMemberTable iqUsers={sortedIqUsers} isEditable={false} showAll /> */}
 				</div>
 			</div>
 		</div>
