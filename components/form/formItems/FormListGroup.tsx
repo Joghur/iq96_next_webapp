@@ -66,6 +66,10 @@ const handleListgroupIs = (
 };
 
 /**
+ * TODO: NEEDS FIXING
+ */
+
+/**
  * Shows a list group with a modal for adding and removing items
  * Can be a string array, object with string keys and values
  * or a select box
@@ -167,7 +171,6 @@ const FormListGroup = ({
 
 	return (
 		<>
-			{/* Erstatning for <ListGroup> */}
 			<div className={styles.listGroup}>
 				<div
 					className={cn(
@@ -255,73 +258,64 @@ const FormListGroup = ({
 				</div>
 			</div>
 
-			{/* Modal = din shadcn-wrapper (kompatibel med <Modal.Header/Title/Body/Footer>) */}
-			<Modal show={showModal} onHide={handleCloseModal}>
-				<Modal.Header closeButton>
-					<Modal.Title>
-						{`${listgroupIs === "array" || listgroupIs === "object" ? "Indtast" : "Vælg"} ${label}`}
-					</Modal.Title>
-				</Modal.Header>
+			<Modal
+				open={showModal}
+				onOpenChange={handleCloseModal}
+				title={`${listgroupIs === "array" || listgroupIs === "object" ? "Indtast" : "Vælg"} ${label}`}
+			>
+				{listgroupIs === "array" && (
+					<Input
+						type="text"
+						placeholder="Indtast"
+						value={newItemText}
+						onChange={(e) => setNewItemText(e.target.value)}
+					/>
+				)}
 
-				<Modal.Body>
-					{listgroupIs === "array" && (
-						<Input
-							type="text"
-							placeholder="Indtast"
-							value={newItemText}
-							onChange={(e) => setNewItemText(e.target.value)}
-						/>
+				{listgroupIs === "object" &&
+					listGroupFormKeys &&
+					listGroupFormKeys.length > 0 && (
+						<div>
+							{listGroupFormKeys[0] && (
+								<div>
+									<Input
+										type="text"
+										placeholder={listGroupFormKeys[0].label}
+										value={newItemObjectKey}
+										onChange={(e) =>
+											handleFormControlInputChange(e.target.value)
+										}
+									/>
+								</div>
+							)}
+							{listGroupFormKeys[1] && (
+								<div className={styles.listGroupBottomFormControl}>
+									<Input
+										type="text"
+										placeholder={listGroupFormKeys[1].label}
+										value={newItemObjectValue}
+										onChange={(e) => setNewItemTextObjectValue(e.target.value)}
+									/>
+								</div>
+							)}
+						</div>
 					)}
 
-					{listgroupIs === "object" &&
-						listGroupFormKeys &&
-						listGroupFormKeys.length > 0 && (
-							<div>
-								{listGroupFormKeys[0] && (
-									<div>
-										<Input
-											type="text"
-											placeholder={listGroupFormKeys[0].label}
-											value={newItemObjectKey}
-											onChange={(e) =>
-												handleFormControlInputChange(e.target.value)
-											}
-										/>
-									</div>
-								)}
-								{listGroupFormKeys[1] && (
-									<div className={styles.listGroupBottomFormControl}>
-										<Input
-											type="text"
-											placeholder={listGroupFormKeys[1].label}
-											value={newItemObjectValue}
-											onChange={(e) =>
-												setNewItemTextObjectValue(e.target.value)
-											}
-										/>
-									</div>
-								)}
-							</div>
-						)}
+				{listgroupIs === "select" && (
+					<FormSelect
+						label="listgroup-select"
+						selection={selection as SelectLabelType<string, string>[]}
+						disabled={disabled}
+						onChange={(eventValue: string) =>
+							handleFormSelectInputChange(eventValue)
+						}
+					/>
+				)}
 
-					{listgroupIs === "select" && (
-						<FormSelect
-							label="listgroup-select"
-							selection={selection as SelectLabelType<string, string>[]}
-							disabled={disabled}
-							onChange={(eventValue: string) =>
-								handleFormSelectInputChange(eventValue)
-							}
-						/>
-					)}
-				</Modal.Body>
-
-				<Modal.Footer>
-					<Button onClick={() => handleListGroupChange("add")}>OK</Button>
-					<Button variant="destructive" onClick={handleCloseModal}>
-						Fortryd
-					</Button>
-				</Modal.Footer>
+				<Button onClick={() => handleListGroupChange("add")}>OK</Button>
+				<Button variant="destructive" onClick={handleCloseModal}>
+					Fortryd
+				</Button>
 			</Modal>
 		</>
 	);

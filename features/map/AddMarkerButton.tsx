@@ -1,10 +1,9 @@
 import type { NotificationDbType } from "@components/BottomNav";
 import Modal from "@components/Modal";
 import { Button } from "@components/ui/button";
-
 import { useFirestore } from "@lib/hooks/useFirestore";
 import L from "leaflet";
-import { type ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { MdAdd } from "react-icons/md";
 import type { MarkerData } from "./Map";
 
@@ -37,7 +36,7 @@ const AddMarkerButton = ({ addingMarker, userPosition }: Props) => {
 	return (
 		<>
 			<Button
-				className="z-50 rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6 "
+				className="z-50 rounded-full shadow-xl ring-2"
 				onClick={toogleAddModal}
 			>
 				<MdAdd fontSize="large" />
@@ -67,24 +66,12 @@ export const NewMarkerForm = ({
 	addingMarker,
 	userPosition,
 }: NewMarkerFormProps) => {
-	const [changedMarker, setChangingMarker] =
-		useState<MarkerData>(initialMarker);
+	const [changedMarker] = useState<MarkerData>(initialMarker);
 
 	const { addingDoc: addingMapBadge } = useFirestore<NotificationDbType>(
 		"notification",
 		"updatedAt",
 	);
-
-	const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-		if (event) {
-			const { id, value } = event.target;
-
-			setChangingMarker((oldMarker) => ({
-				...oldMarker,
-				[id]: value,
-			}));
-		}
-	};
 
 	const handleSubmit = async () => {
 		const latLng = L.latLng(userPosition);
@@ -107,33 +94,17 @@ export const NewMarkerForm = ({
 	};
 
 	return (
-		<Modal open={open}>
-			<h3 className="text-lg font-bold">Opret ny Tour by</h3>
+		<Modal
+			open={open}
+			onOpenChange={onClose}
+			title="Opret ny kort markør på din position"
+		>
 			<div>
-				<div className="pt-5">
-					<label
-						htmlFor="text"
-						className="dynamic_text green_gradient mb-2 block font-medium"
-					>
-						Årstal
-					</label>
-					<textarea
-						id="year"
-						value={changedMarker.description}
-						onChange={handleChange}
-						placeholder={changedMarker?.description || "Beskrivelse"}
-						className="dynamic_text textarea-bordered textarea"
-					/>
-				</div>
 				<div className="flex justify-between pt-5">
-					<Button
-						onClick={onClose}
-						color={"error"}
-						className="btn-error btn-outline btn-sm btn"
-					>
+					<Button onClick={onClose} color={"error"} variant="destructive">
 						Fortryd
 					</Button>
-					<Button onClick={handleSubmit} className="btn-info btn-sm btn">
+					<Button onClick={handleSubmit} variant="outline">
 						Opret
 					</Button>
 				</div>

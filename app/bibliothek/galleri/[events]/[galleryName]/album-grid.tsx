@@ -2,7 +2,6 @@
 "use client";
 
 import { ImageGrid } from "@features/library/gallery/ImageGrid";
-import { handleStartTheme } from "@features/member/ThemeToggle";
 import { authContext } from "@lib/store/auth-context";
 import { buildUrl } from "cloudinary-build-url";
 import { useContext, useEffect } from "react";
@@ -21,9 +20,7 @@ export default function AlbumGrid({
 	const { authUser } = useContext(authContext);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <TODO>
-	useEffect(() => {
-		handleStartTheme();
-	}, [event, year]);
+	useEffect(() => {}, [event, year]);
 
 	if (!authUser) {
 		return null;

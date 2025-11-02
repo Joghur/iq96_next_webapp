@@ -4,17 +4,14 @@ import PageLayout from "@components/PageLayout";
 
 import AboutTab from "@features/member/AboutTab";
 import AdminTab from "@features/member/AdminTab";
-import DeveloperTab from "@features/member/DeveloperTab";
 import Iq96Tab from "@features/member/Iq96Tab";
 import MemberTab from "@features/member/memberMenuBar/MemberTab";
 import MemberTabsPage, {
 	isTab,
 	type MemberTabs,
 } from "@features/member/memberMenuBar/MemberTabs";
-import { handleStartTheme } from "@features/member/ThemeToggle";
 import { authContext } from "@lib/store/auth-context";
-import { SessionProvider } from "next-auth/react";
-import { type MouseEvent, use, useContext, useEffect, useState } from "react";
+import { type MouseEvent, use, useContext, useState } from "react";
 
 const MemberPage = (props: {
 	searchParams: Promise<{ [key: string]: string | undefined }>;
@@ -25,10 +22,6 @@ const MemberPage = (props: {
 
 	const { authUser, documentUser } = useContext(authContext);
 	const [value, setValue] = useState<MemberTabs>(isTab(tab) ? tab : "member");
-
-	useEffect(() => {
-		handleStartTheme();
-	}, []);
 
 	if (!authUser || !documentUser) {
 		return null;
@@ -44,16 +37,13 @@ const MemberPage = (props: {
 
 	return (
 		<PageLayout>
-			<SessionProvider>
-				<MemberTabsPage value={value} onChange={handleChange} />
-				<div className="flex items-center justify-center pt-6">
-					{value === "member" && <MemberTab />}
-					{value === "iq96" && <Iq96Tab />}
-					{value === "about" && <AboutTab />}
-					{value === "admin" && (isSuperAdmin || isBoard) && <AdminTab />}
-					{value === "developer" && isSuperAdmin && <DeveloperTab />}
-				</div>
-			</SessionProvider>
+			<MemberTabsPage value={value} onChange={handleChange} />
+			<div className="flex items-center justify-center pt-6">
+				{value === "member" && <MemberTab />}
+				{value === "iq96" && <Iq96Tab />}
+				{value === "about" && <AboutTab />}
+				{value === "admin" && (isSuperAdmin || isBoard) && <AdminTab />}
+			</div>
 		</PageLayout>
 	);
 };

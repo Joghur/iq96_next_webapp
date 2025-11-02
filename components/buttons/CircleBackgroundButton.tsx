@@ -1,6 +1,5 @@
 /** biome-ignore-all lint/a11y/noStaticElementInteractions: <TODO> */
 /** biome-ignore-all lint/a11y/useKeyWithClickEvents: <TODO> */
-import { useTheme } from "@features/member/ThemeToggle";
 import type { ReactNode } from "@node_modules/@types/react";
 
 type Props = {
@@ -10,12 +9,13 @@ type Props = {
 };
 
 const CircleBackground = ({ children, onClick, onDoubleClick }: Props) => {
-	const { theme } = useTheme();
 	return (
 		<div
 			onClick={onClick}
 			onDoubleClick={onDoubleClick}
-			className={`p-1 flex items-center justify-center rounded-full border-2 shadow-lg ${theme === "dark" ? "bg-gray-500 border-slate-300 " : "bg-slate-50 border-gray-500"}`}
+			className={
+				"p-1 flex items-center justify-center rounded-full border shadow-lg bg-secondary text-secondary-foreground"
+			}
 		>
 			{children}
 		</div>

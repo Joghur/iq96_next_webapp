@@ -25,26 +25,27 @@
 
 @layer base {
 	:root {
-		--background: white;
-		--foreground: #111111;
+		--background: #e6eef6;
+		--foreground: #212529;
 		--radius: 0.5rem;
 
-		--primary: #6366f1;
-		--primary-foreground: white;
+		--primary: #ccd8e3;
+		--primary-foreground: #212529;
 
-		--secondary: #f3f4f6;
-		--secondary-foreground: #1f2937;
+		--secondary: #aebac7;
+		--secondary-foreground: #212529;
 	}
 
-	.dark {
-		--background: #0c0c0c;
+	[data-theme="dark"] {
+		--background: #334155;
 		--foreground: white;
+		--radius: 0.5rem;
 
-		--primary: #8b5cf6;
+		--primary: #475569;
 		--primary-foreground: white;
 
-		--secondary: #1f2937;
-		--secondary-foreground: #f3f4f6;
+		--secondary: #6b7280;
+		--secondary-foreground: white;
 	}
 
 	body {
@@ -58,6 +59,14 @@
 
 .dynamic_text {
 	@apply text-xs subpixel-antialiased sm:text-sm md:text-base lg:text-lg xl:text-xl;
+}
+
+.dynamic_text_lg {
+	@apply text-sm subpixel-antialiased sm:text-base md:text-lg lg:text-xl xl:text-2xl;
+}
+
+.dynamic_text_xl {
+	@apply text-base subpixel-antialiased sm:text-lg md:text-xl lg:text-2xl xl:text-3xl;
 }
 
 .orange_gradient {

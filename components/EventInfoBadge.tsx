@@ -9,7 +9,9 @@ const EventInfoBadge = ({ children }: Props) => {
 	return (
 		<Badge
 			variant="outline"
-			className={"dynamic_text p-1 m-0.5 border border-red-500 shadow-lg"}
+			className={
+				"dynamic_text bg-secondary text-secondary-foreground p-1 m-0.5 border border-red-500 shadow-lg"
+			}
 		>
 			{children}
 		</Badge>

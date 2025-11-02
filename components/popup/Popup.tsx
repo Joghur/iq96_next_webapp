@@ -8,10 +8,12 @@ type Props = {
 	popupLabel: string;
 	values?: string[];
 	open: boolean;
-	onModalClose?: () => void;
+	onModalClose: () => void;
 	children?: ReactNode;
 	size?: "sm" | "lg" | "xl";
 };
+
+// TODO needs FIX
 
 const Popup = ({
 	popupLabel,
@@ -19,22 +21,15 @@ const Popup = ({
 	open,
 	onModalClose,
 	children,
-	size = "lg",
+	// size = "lg",
 }: Props) => {
 	return (
-		<Modal show={open} onHide={onModalClose} size={size} scrollable>
-			<Modal.Header closeButton>
-				<Modal.Title>{popupLabel}</Modal.Title>
-			</Modal.Header>
-			<Modal.Body className="text-nowrap">
-				{values?.map((value, index) => (
-					<div key={`modal-body-${index}`}>{value}</div>
-				))}
-				{children && children}
-			</Modal.Body>
-			<Modal.Footer>
-				<Button onClick={onModalClose}>OK</Button>
-			</Modal.Footer>
+		<Modal open={open} onOpenChange={onModalClose} title={popupLabel}>
+			{values?.map((value, index) => (
+				<div key={`modal-body-${index}`}>{value}</div>
+			))}
+			{children && children}
+			<Button onClick={onModalClose}>OK</Button>
 		</Modal>
 	);
 };

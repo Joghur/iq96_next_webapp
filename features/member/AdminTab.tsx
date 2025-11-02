@@ -46,7 +46,7 @@ const AdminTab = () => {
 	return (
 		<div className="overflow-y-scroll">
 			<div className="px-1 sm:py-4 lg:px-10">
-				<p className="dynamic_text flex justify-center bg-slate-100 font-semibold">
+				<p className="dynamic_text bg-primary text-primary-foreground flex justify-center shadow-lg font-semibold">
 					Med-lemmer
 				</p>
 				<div className="items-start">

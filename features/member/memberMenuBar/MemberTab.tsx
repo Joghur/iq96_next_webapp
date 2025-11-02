@@ -34,7 +34,7 @@ const MemberTab = () => {
 		>
 			<div className="flex flex-col gap-2">
 				<div className="flex-grow">
-					<p className="dynamic_text text-[larger] font-semibold">
+					<p className="dynamic_text text-secondary-foreground text-[larger] font-semibold">
 						{documentUser?.name}
 					</p>
 					<p className="dynamic_text">{documentUser?.nick}</p>
@@ -63,9 +63,12 @@ const MemberTab = () => {
 							<p className="dynamic_text">{authUser?.email}</p>
 							<p className="dynamic_text">{documentUser?.email}</p>
 							<p className="dynamic_text">{documentUser?.address}</p>
+
 							<p className="dynamic_text">
 								{documentUser?.phones?.map((o) => o.replace("+45", ""))}
 							</p>
+							<p className="font-cursive">cursive</p>
+							<p className="font-comic">Comic Sans MS</p>
 						</div>
 					</div>
 
@@ -95,7 +98,10 @@ const MemberTab = () => {
 						)}
 					</div>
 					<div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
-						<SettingsItem label="Farve tema">
+						<SettingsItem
+							label="Farve tema"
+							tooltipText="Vælg om skærmen skal være lys eller mørk"
+						>
 							<ThemeToggle />
 						</SettingsItem>
 					</div>

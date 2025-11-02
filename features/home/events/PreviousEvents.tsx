@@ -9,17 +9,11 @@ import type { EventType } from "../EventsPage";
 
 type Props = {
 	previousEvents: EventType[];
-	theme: string;
 	canEdit: boolean;
 	onUpdate: (id: string | undefined) => Promise<void>;
 };
 
-const PreviousEvents = ({
-	previousEvents,
-	theme,
-	canEdit,
-	onUpdate,
-}: Props) => {
+const PreviousEvents = ({ previousEvents, canEdit, onUpdate }: Props) => {
 	return (
 		<div className="mx-10 my-3 gap-2">
 			<motion.div
@@ -37,8 +31,7 @@ const PreviousEvents = ({
 					return (
 						<div
 							key={index}
-							className={`paper ${theme === "dark" ? "bg-gray-800" : "bg-slate-50"} 
-    flex flex-col gap-2 rounded-xl px-6 py-4 sm:px-10 sm:py-6 w-full max-w-2xl mx-auto`}
+							className={`paper bg-primary text-primary-foreground flex flex-col gap-2 rounded-xl px-6 py-4 sm:px-10 sm:py-6 w-full max-w-2xl mx-auto`}
 						>
 							<div className="flex items-center justify-between">
 								<p className="font-semibold">

@@ -109,10 +109,15 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
 				</select>
 			</div>
 
-			<Button onClick={handleAdd}>Tilføj event</Button>
+			<Button onClick={handleAdd} variant="default">
+				Tilføj event
+			</Button>
 			<div className="space-y-4">
 				{events.map((day) => (
-					<div key={day.dateString} className="border p-4 rounded-md">
+					<div
+						key={day.dateString}
+						className="border p-4 rounded-md bg-primary"
+					>
 						<h3 className="dynamic_text font-semibold mb-2">
 							{day.dateString}
 						</h3>
@@ -120,7 +125,7 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
 							{day.entries.map((entry, index) => (
 								<li
 									key={index}
-									className="flex items-center justify-between gap-2"
+									className="bg-secondary border p-05 flex items-center justify-between gap-2"
 								>
 									{editEntry?.dateString === day.dateString &&
 									editEntry.index === index ? (

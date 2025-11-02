@@ -1,5 +1,6 @@
 import Modal from "@components/Modal";
 import { Button } from "@components/ui/button";
+import { Textarea } from "@components/ui/textarea";
 import { type ChangeEvent, useState } from "react";
 import { MdLocationCity } from "react-icons/md";
 
@@ -28,7 +29,7 @@ const AddCityButton = ({ selectedCity, addingCities }: Props) => {
 	return (
 		<>
 			<Button
-				className="z-50 rounded-full bg-white text-black shadow-xl ring-2 hover:bg-violet6"
+				className="z-50 rounded-full shadow-xl ring-2"
 				onClick={toogleAddModal}
 			>
 				<MdLocationCity fontSize="large" />
@@ -79,8 +80,7 @@ const NewCityForm = ({
 	};
 
 	return (
-		<Modal open={open}>
-			<h3 className="text-lg font-bold">Opret ny Tour by</h3>
+		<Modal open={open} onOpenChange={onClose} title="Opret ny Tour by">
 			<div>
 				<div className="pt-5">
 					<label
@@ -89,12 +89,12 @@ const NewCityForm = ({
 					>
 						Årstal
 					</label>
-					<textarea
+					<Textarea
 						id="year"
 						value={changedCity.year}
 						onChange={handleChange}
 						placeholder={changedCity?.year || "År"}
-						className="dynamic_text textarea-bordered textarea"
+						className="dynamic_text textarea"
 					/>
 				</div>
 				<div className="pt-5">
@@ -104,7 +104,7 @@ const NewCityForm = ({
 					>
 						Tour by
 					</label>
-					<textarea
+					<Textarea
 						id="city"
 						value={changedCity.city}
 						onChange={handleChange}

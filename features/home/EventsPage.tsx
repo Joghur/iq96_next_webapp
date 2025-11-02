@@ -1,6 +1,5 @@
 import AddButton from "@components/buttons/AddButton";
 import LoadingSpinner from "@components/LoadingSpinner";
-import { useTheme } from "@features/member/ThemeToggle";
 import { eventTransitionVariants } from "@lib/animations";
 import { type DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
 import { motion } from "framer-motion";
@@ -57,8 +56,6 @@ interface Props {
 }
 
 const EventsPage = ({ documentUser }: Props) => {
-	const { theme } = useTheme();
-
 	const {
 		docs: events,
 		loading,
@@ -112,26 +109,23 @@ const EventsPage = ({ documentUser }: Props) => {
 	const futureEvents = events.filter((event) => event.status === "pending");
 
 	return (
-		<div className="dynamic_text mx-auto max-w-2xl sm:mt-40 px-3">
+		<div className="dynamic_text bg text mx-auto max-w-2xl sm:mt-40 px-3">
 			{showDialog === "events" && (
 				<>
 					<PreviousEvents
 						previousEvents={previousEvents}
-						theme={theme}
 						canEdit={canEdit}
 						onUpdate={handleUpdate}
 					/>
 
 					<NextEvents
 						nextEvents={nextEvents}
-						theme={theme}
 						canEdit={canEdit}
 						onUpdate={handleUpdate}
 					/>
 
 					<FutureEvents
 						futureEvents={futureEvents}
-						theme={theme}
 						canEdit={canEdit}
 						onUpdate={handleUpdate}
 					/>

@@ -19,7 +19,6 @@ const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
 	const router = useRouter();
 	const [userData, setUserData] = useState<DocumentUser>(user);
 	const [showConfirmation, setShowConfirmation] = useState(false);
-	// const { theme } = useTheme();
 
 	// const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 	//   const { name, value } = e.target;

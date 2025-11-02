@@ -4,6 +4,7 @@ import CloseButton from "@components/buttons/CloseButton";
 import { CopyButton } from "@components/buttons/CopyButton";
 import { SimpleDateTimePicker } from "@components/dates/SimpleDateTimePicker";
 import { Button } from "@components/ui/button";
+import { Textarea } from "@components/ui/textarea";
 import { confirmAction } from "@lib/utils";
 import { type ChangeEvent, useState } from "react";
 import DayEventsForm from "./DayEventForm";
@@ -122,7 +123,7 @@ const EventForm = ({
 
 	return (
 		<div className="w-full px-4 sm:px-6 mt-8">
-			<div className="fixed top-0 left-0 w-full h-32 p-4 bg-white shadow-md z-50">
+			<div className="fixed top-0 left-0 w-full h-32 p-4 bg-primary shadow-md z-50">
 				<h3 className="text-lg font-bold">
 					<div className="flex flex-row items-center justify-between">
 						{isNew ? "Opret ny begivenhed" : "Opdatér begivenhed"}
@@ -247,7 +248,7 @@ const EventForm = ({
 					>
 						By
 					</label>
-					<textarea
+					<Textarea
 						id="city"
 						value={changedEvent.city}
 						onChange={handleChange}
@@ -354,7 +355,7 @@ const EventForm = ({
 					>
 						OBS!
 					</label>
-					<textarea
+					<Textarea
 						id="notes"
 						value={changedEvent.notes}
 						onChange={handleChange}
@@ -386,7 +387,7 @@ const EventForm = ({
 					>
 						OBS. Aktiviteter
 					</label>
-					<textarea
+					<Textarea
 						id="notesActivities"
 						value={changedEvent.notesActivities}
 						onChange={handleChange}

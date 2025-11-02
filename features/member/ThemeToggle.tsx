@@ -1,11 +1,13 @@
 "use client";
 
-import Switch from "@components/Switch";
+import { Switch } from "@components/Switch";
+import { Label } from "@components/ui/label";
 import {
 	getLocalStorage,
 	LOCALSTORAGE_PREFIX,
 	setLocalStorage,
 } from "@lib/localStorage";
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 export const LOCALSTORAGE_THEME = `${LOCALSTORAGE_PREFIX}-theme`;
@@ -14,50 +16,29 @@ const themes = ["light", "dark"] as const;
 
 export type Themes = (typeof themes)[number];
 
-export const handleStartTheme = () => {
-	const savedTheme: Themes | null = getLocalStorage(LOCALSTORAGE_THEME);
-	if (savedTheme) {
-		document.querySelector("html")?.setAttribute("data-theme", savedTheme);
-	}
-};
-
 interface Props {
 	showLabel?: boolean;
 }
 
-export const useTheme = () => {
-	const initialTheme = document.documentElement.getAttribute("data-theme");
-	const [theme] = useState(initialTheme || "light");
-
-	return { theme };
-};
-
 const ThemeToggle = ({ showLabel }: Props) => {
+	const { theme, setTheme } = useTheme();
 	const [isChecked, setIsChecked] = useState(false);
-	const [currentTheme, setCurrentTheme] = useState<Themes>("light");
 
-	const handleStart = async () => {
-		const savedTheme: Themes | null = await getLocalStorage(LOCALSTORAGE_THEME);
-		if (savedTheme) {
-			setCurrentTheme(savedTheme);
-			setIsChecked(savedTheme === "dark");
-			document.querySelector("html")?.setAttribute("data-theme", savedTheme);
-		}
-	};
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <handleStart changes often>
 	useEffect(() => {
-		handleStart();
-	}, []);
-
-	const handleThemeChange = () => {
-		const theme = isChecked ? "dark" : "light";
-		if (document?.querySelector("html")) {
-			setCurrentTheme(() => theme);
-			document.querySelector("html")?.setAttribute("data-theme", theme);
-			setLocalStorage(LOCALSTORAGE_THEME, theme);
-			setIsChecked(() => !isChecked);
+		const savedTheme = getLocalStorage(LOCALSTORAGE_THEME) as Themes | null;
+		if (savedTheme) {
+			setIsChecked(savedTheme === "dark");
+			setTheme(savedTheme);
+		} else {
+			setIsChecked(theme === "dark");
 		}
+	}, [theme, setTheme]);
+
+	const handleThemeChange = (checked: boolean) => {
+		const newTheme = checked ? "dark" : "light";
+		setIsChecked(checked);
+		setTheme(newTheme); // Dette gemmer cookie, som opfanges i layout.tsx ved opstart
+		setLocalStorage(LOCALSTORAGE_THEME, newTheme);
 	};
 
 	return (
@@ -68,11 +49,11 @@ const ThemeToggle = ({ showLabel }: Props) => {
 				</div>
 			)}
 			<Switch
-				preLabel="Lys"
-				postLabel="Mørk"
-				value={currentTheme === "dark"}
-				onChange={handleThemeChange}
+				id="theme-mode"
+				checked={isChecked}
+				onCheckedChange={handleThemeChange}
 			/>
+			<Label htmlFor="theme-mode">Dark Mode</Label>
 		</div>
 	);
 };

@@ -1,5 +1,5 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
-import type { Connection, ContactPhone } from "@features/member/DeveloperTab";
+import type { Connection, ContactPhone } from "@features/member/IqMemberTable";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { convertMonthNumberToName } from "./dates";

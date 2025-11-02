@@ -3,9 +3,8 @@
 
 import type { SearchResult } from "@app/bibliothek/galleri/page";
 import { Card } from "@components/ui/card";
-import { handleStartTheme } from "@features/member/ThemeToggle";
 import { authContext } from "@lib/store/auth-context";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 export const buildUrlPdf = (folderAndPublicId: string, pagenumber?: string) => {
 	return `${process.env.NEXT_PUBLIC_CLOUDINARY_DOMAIN}/${
@@ -70,10 +69,6 @@ interface Props {
 
 export default function PdfGrid({ pdfs, label = true }: Props) {
 	const { authUser } = useContext(authContext);
-
-	useEffect(() => {
-		handleStartTheme();
-	}, []);
 
 	if (!authUser || !pdfs) {
 		return null;

@@ -1,4 +1,3 @@
-// tailwind.config.js
 const { mauve, violet } = require("@radix-ui/colors");
 
 /** @type {import('tailwindcss').Config} */
@@ -24,5 +23,5 @@ module.exports = {
 		},
 	},
 	plugins: [require("@tailwindcss/typography"), require("tailwindcss-animate")],
-	darkMode: "class",
+	darkMode: ["class", '[data-theme="dark"]'],
 };

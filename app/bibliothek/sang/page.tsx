@@ -32,8 +32,8 @@ export default async function VedtagterPage() {
 					<span className="font-bold">2004</span> – Poppe
 				</p>
 				<p className="dynamic_text">
-					<span className="font-bold">2014</span> – Søsterkysser, Redacteur,
-					Æselridder og Kasseur
+					<span className="font-bold">2014</span> – Kasseur, Redacteur,
+					Søsterkysser og Æselridder
 				</p>
 				<p className="dynamic_text">
 					<span className="font-bold">1997-2000, 2008-2009, 2018</span> –
