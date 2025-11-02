@@ -1,5 +1,6 @@
 export const aboutList = [
-	["0.8.13", "Oprydning internt"],
+	["0.8.14", "Dark mode skift skulle gerne være fikset"],
+	["0.8.13", "Oprydning internt - Developer tab er fjernet"],
 	["0.8.12", "Link til GF kort markør"],
 	[
 		"0.8.11",
