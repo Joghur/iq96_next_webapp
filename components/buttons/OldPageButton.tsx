@@ -7,7 +7,7 @@ const OldPageButton = () => {
 
 	return (
 		<Button
-			className="dynamic_text px-4 py-2 backdrop-blur border bg-secondary text-secondary-foreground border-primary rounded-md hover:bg-red-500 hover:text-white transition"
+			className="dynamic_text px-4 py-2 backdrop-blur border bg text-foreground border-primary rounded-md hover:bg-secondary hover:text-secondary-foreground transition"
 			onClick={handleClick}
 		>
 			Gammel side

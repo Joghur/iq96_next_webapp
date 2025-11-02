@@ -25,15 +25,15 @@
 
 @layer base {
 	:root {
-		--background: white;
-		--foreground: #1f2937;
+		--background: #e6eef6;
+		--foreground: #212529;
 		--radius: 0.5rem;
 
-		--primary: white;
-		--primary-foreground: #1f2937;
+		--primary: #ccd8e3;
+		--primary-foreground: #212529;
 
-		--secondary: white;
-		--secondary-foreground: #1f2937;
+		--secondary: #aebac7;
+		--secondary-foreground: #212529;
 	}
 
 	[data-theme="dark"] {

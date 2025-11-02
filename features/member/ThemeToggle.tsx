@@ -37,10 +37,8 @@ const ThemeToggle = ({ showLabel }: Props) => {
 	const handleThemeChange = (checked: boolean) => {
 		const newTheme = checked ? "dark" : "light";
 		setIsChecked(checked);
-		setTheme(newTheme);
+		setTheme(newTheme); // Dette gemmer cookie, som opfanges i layout.tsx ved opstart
 		setLocalStorage(LOCALSTORAGE_THEME, newTheme);
-
-		document.querySelector("html")?.setAttribute("data-theme", newTheme);
 	};
 
 	return (

@@ -52,7 +52,7 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
 								</div>
 								{!!nextEvent?.start && (
 									<div className="flex justify-center gap-2">
-										<div className="dynamic_text orange_gradient flex text-center text-[larger]">
+										<div className="dynamic_text blue_gradient flex text-center text-[larger]">
 											<ShowDateTime
 												dateTime={nextEvent.start}
 												formatLargeScreen="EEEE - dd. MMMM"
