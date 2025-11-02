@@ -8,7 +8,7 @@ interface Props {
 
 const PageLayout: React.FC<Props> = ({ children }) => {
 	return (
-		<div className="relative bg text mx-auto flex flex-grow flex-col">
+		<div className="relative bg text flex flex-grow flex-col align-middle justify-center">
 			<HeaderNavbar />
 			{children}
 			<BottomSpacer />
