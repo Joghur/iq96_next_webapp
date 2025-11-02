@@ -11,7 +11,7 @@ import MemberTabsPage, {
 	type MemberTabs,
 } from "@features/member/memberMenuBar/MemberTabs";
 import { authContext } from "@lib/store/auth-context";
-import { type MouseEvent, use, useContext, useEffect, useState } from "react";
+import { type MouseEvent, use, useContext, useState } from "react";
 
 const MemberPage = (props: {
 	searchParams: Promise<{ [key: string]: string | undefined }>;
