@@ -14,9 +14,9 @@ type ModalProps = {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 	title: string;
-	children?: React.ReactNode; // Description / body
-	className?: string; // ekstra styling hvis du vil
-	maxHeightClassName?: string; // hvis du vil justere højde senere
+	children?: React.ReactNode;
+	className?: string;
+	maxHeightClassName?: string;
 };
 
 const Modal: React.FC<ModalProps> = ({
@@ -31,9 +31,7 @@ const Modal: React.FC<ModalProps> = ({
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent
 				className={cn(
-					// centreret, pæn størrelse, og sikrer at indhold ikke løber ud af bunden
 					"sm:max-w-lg rounded-xl overflow-hidden",
-					// max-h så vi altid kan se hele modalen; indhold scroller
 					maxHeightClassName ?? "max-h-[85vh] sm:max-h-[85vh]",
 					className,
 				)}
@@ -41,10 +39,7 @@ const Modal: React.FC<ModalProps> = ({
 				<DialogHeader>
 					<DialogTitle>{title}</DialogTitle>
 					{children && (
-						<DialogDescription
-							// gør kun selve beskrivelsen scrollable, så titel (og evt. footer) står fast
-							className="mt-2 max-h-[65vh] overflow-y-auto"
-						>
+						<DialogDescription className="mt-2 max-h-[65vh] overflow-y-auto">
 							{children}
 						</DialogDescription>
 					)}
