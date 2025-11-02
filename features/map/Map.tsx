@@ -3,7 +3,6 @@
 
 import { SavingBadgeStatusToLocalStorage } from "@components/BottomNav";
 import LoadingSpinner from "@components/LoadingSpinner";
-import { handleStartTheme } from "@features/member/ThemeToggle";
 import { useCityData, useMapData } from "@lib/hooks/useFirestore";
 import { authContext } from "@lib/store/auth-context";
 import { compareNick } from "@lib/utils";
@@ -85,7 +84,6 @@ const MapPage = () => {
 	}, [cities]);
 
 	useEffect(() => {
-		handleStartTheme();
 		SavingBadgeStatusToLocalStorage("kort");
 	}, []);
 

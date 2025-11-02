@@ -6,7 +6,6 @@ import LoadingSpinner from "@components/LoadingSpinner";
 import PageLayout from "@components/PageLayout";
 import SignIn from "@features/auth/SignIn";
 import EventsPage from "@features/home/EventsPage";
-import { handleStartTheme } from "@features/member/ThemeToggle";
 import {
 	getLocalStorage,
 	LOCALSTORAGE_PREFIX,
@@ -27,7 +26,6 @@ export default function Home() {
 		setIsCookieAccepted(() =>
 			getLocalStorage<string>(COOKIE_LOCALSTORAGE_ACCEPTED),
 		);
-		handleStartTheme();
 	}, []);
 
 	useEffect(() => {

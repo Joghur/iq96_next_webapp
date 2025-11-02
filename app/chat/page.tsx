@@ -8,7 +8,6 @@ import {
 } from "@components/BottomNav";
 import PageLayout from "@components/PageLayout";
 import { Button } from "@components/ui/button";
-import { handleStartTheme } from "@features/member/ThemeToggle";
 import { eventTransitionVariants } from "@lib/animations";
 import { convertEpochSecondsToDateString } from "@lib/dates";
 import { useFirestore } from "@lib/hooks/useFirestore";
@@ -52,7 +51,6 @@ const ChatPage = () => {
 	);
 
 	useEffect(() => {
-		handleStartTheme();
 		SavingBadgeStatusToLocalStorage("chat-gen");
 	}, []);
 

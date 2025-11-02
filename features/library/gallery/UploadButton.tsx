@@ -5,7 +5,6 @@ import {
 	SavingBadgeStatusToLocalStorage,
 } from "@components/BottomNav";
 import { Button } from "@components/ui/button";
-import { handleStartTheme } from "@features/member/ThemeToggle";
 import { useFirestore } from "@lib/hooks/useFirestore";
 import { usePathname, useRouter } from "next/navigation";
 import { CldUploadButton } from "next-cloudinary";
@@ -48,7 +47,6 @@ const UploadButton = ({ folder }: Props) => {
 	);
 
 	useEffect(() => {
-		handleStartTheme();
 		const badgeString = getBadgeString(folder, currentPage);
 		if (badgeString !== "") {
 			SavingBadgeStatusToLocalStorage(badgeString);

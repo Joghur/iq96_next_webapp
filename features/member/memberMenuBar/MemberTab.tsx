@@ -63,9 +63,12 @@ const MemberTab = () => {
 							<p className="dynamic_text">{authUser?.email}</p>
 							<p className="dynamic_text">{documentUser?.email}</p>
 							<p className="dynamic_text">{documentUser?.address}</p>
+
 							<p className="dynamic_text">
 								{documentUser?.phones?.map((o) => o.replace("+45", ""))}
 							</p>
+							<p className="font-cursive">cursive</p>
+							<p className="font-comic">Comic Sans MS</p>
 						</div>
 					</div>
 

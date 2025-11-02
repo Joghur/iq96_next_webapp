@@ -1,6 +1,7 @@
 "use client";
 
-import Switch from "@components/Switch";
+import { Switch } from "@components/Switch";
+import { Label } from "@components/ui/label";
 import {
 	getLocalStorage,
 	LOCALSTORAGE_PREFIX,
@@ -15,44 +16,31 @@ const themes = ["light", "dark"] as const;
 
 export type Themes = (typeof themes)[number];
 
-export const handleStartTheme = () => {
-	const savedTheme: Themes | null = getLocalStorage(LOCALSTORAGE_THEME);
-	if (savedTheme) {
-		document.querySelector("html")?.setAttribute("data-theme", savedTheme);
-	}
-};
-
 interface Props {
 	showLabel?: boolean;
 }
 
 const ThemeToggle = ({ showLabel }: Props) => {
-	const { setTheme } = useTheme();
+	const { theme, setTheme } = useTheme();
 	const [isChecked, setIsChecked] = useState(false);
-	const [currentTheme, setCurrentTheme] = useState<Themes>("light");
 
-	console.log("currentTheme", currentTheme);
-	console.log("isChecked", isChecked);
-
-	const handleStart = async () => {
-		const savedTheme: Themes | null = await getLocalStorage(LOCALSTORAGE_THEME);
+	useEffect(() => {
+		const savedTheme = getLocalStorage(LOCALSTORAGE_THEME) as Themes | null;
 		if (savedTheme) {
-			setCurrentTheme(savedTheme);
 			setIsChecked(savedTheme === "dark");
 			setTheme(savedTheme);
+		} else {
+			setIsChecked(theme === "dark");
 		}
-	};
+	}, [theme, setTheme]);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <handleStart changes often>
-	useEffect(() => {
-		handleStart();
-	}, []);
+	const handleThemeChange = (checked: boolean) => {
+		const newTheme = checked ? "dark" : "light";
+		setIsChecked(checked);
+		setTheme(newTheme);
+		setLocalStorage(LOCALSTORAGE_THEME, newTheme);
 
-	const handleThemeChange = () => {
-		const toggled = !isChecked ? "light" : "dark";
-		setCurrentTheme(() => toggled);
-		setTheme(toggled);
-		setLocalStorage(LOCALSTORAGE_THEME, toggled);
+		document.querySelector("html")?.setAttribute("data-theme", newTheme);
 	};
 
 	return (
@@ -63,11 +51,11 @@ const ThemeToggle = ({ showLabel }: Props) => {
 				</div>
 			)}
 			<Switch
-				preLabel="Lys"
-				postLabel="Mørk"
-				value={currentTheme === "dark"}
-				onChange={handleThemeChange}
+				id="theme-mode"
+				checked={isChecked}
+				onCheckedChange={handleThemeChange}
 			/>
+			<Label htmlFor="theme-mode">Dark Mode</Label>
 		</div>
 	);
 };

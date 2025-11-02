@@ -10,7 +10,6 @@ import MemberTabsPage, {
 	isTab,
 	type MemberTabs,
 } from "@features/member/memberMenuBar/MemberTabs";
-import { handleStartTheme } from "@features/member/ThemeToggle";
 import { authContext } from "@lib/store/auth-context";
 import { type MouseEvent, use, useContext, useEffect, useState } from "react";
 
@@ -23,10 +22,6 @@ const MemberPage = (props: {
 
 	const { authUser, documentUser } = useContext(authContext);
 	const [value, setValue] = useState<MemberTabs>(isTab(tab) ? tab : "member");
-
-	useEffect(() => {
-		handleStartTheme();
-	}, []);
 
 	if (!authUser || !documentUser) {
 		return null;
