@@ -23,11 +23,10 @@ export const metadata: Metadata = {
 export const RootLayout = async ({ children }: Props) => {
 	const cookieStore = cookies();
 	const theme = (await cookieStore).get("next-theme")?.value || "system";
-	console.log("theme", theme);
 
 	return (
 		<html lang="en" suppressHydrationWarning data-theme={theme}>
-			<body>
+			<body className={`antialiased`}>
 				<AuthContextProvider>
 					<ThemeProvider
 						attribute="data-theme"
