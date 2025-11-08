@@ -1,46 +1,172 @@
+import ActionHeader from "@components/ActionHeader";
+import { FormCheckbox, FormInput } from "@components/form";
+import { Button } from "@components/ui/button";
+import {
+	FieldDescription,
+	FieldGroup,
+	FieldLegend,
+	FieldSeparator,
+	FieldSet,
+} from "@components/ui/field";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { defaultMember, type Member, memberSchema } from "schemas/member";
 
 type Props = {
-	user: Member;
+	member: Member;
 	onSubmit: (userData: Member) => void;
 	onDelete: (id: string) => void;
 	onCancel: () => void;
 };
 
-const UserForm = ({ user, onSubmit, onDelete, onCancel }: Props) => {
+const UserForm = ({ member, onSubmit, onDelete, onCancel }: Props) => {
 	const form = useForm({
 		resolver: zodResolver(memberSchema),
-		defaultValues: user || defaultMember,
+		defaultValues: member || defaultMember,
 	});
 
-	return <div>UserForm</div>;
+	const isNew = !member?.id;
+
+	// async function onSubmit(data: z.infer<typeof memberSchema>) {
+	// 	const res = await checkMember(data);
+
+	// 	if (!res) {
+	// 		toast.error(`Projekt kunne ikke ${isNew ? "oprettes" : "ændres"}`);
+	// 	}
+
+	// 	if (isNew) {
+	// 		await onAdding?.(data);
+	// 	}
+	// 	if (!isNew && data.id) {
+	// 		await onUpdate?.(data.id, data);
+	// 	} else {
+	// 		toast.error(`ID mangler. Er begivenhed oprettet?`);
+	// 	}
+
+	// 	form.reset();
+	// 	toast.success(`Projekt er ${isNew ? "oprettet" : "ændret"}`);
+	// 	onCancel();
+	// }
+
+	const handleDelete = (id: string | undefined) => {
+		if (!id) return;
+
+		onDelete(id);
+	};
+	const actionButtons = [
+		<Button
+			onClick={() => handleDelete(member.id)}
+			color={"error"}
+			disabled={!member?.id}
+			variant="destructive"
+			size="sm"
+			key="delete-button"
+		>
+			Slet
+		</Button>,
+		<Button
+			onClick={onCancel}
+			color={"error"}
+			variant="secondary"
+			size="sm"
+			key="cancel-button"
+		>
+			Fortryd
+		</Button>,
+	];
+
+	return (
+		<ActionHeader
+			title={isNew ? "Opret nyt med-lem" : "Opdatér med-lem"}
+			actionButtons={actionButtons}
+			onClose={onCancel}
+		>
+			<div className="container px-4 mx-auto my-6">
+				<form onSubmit={form.handleSubmit(onSubmit)}>
+					<div className="flex justify-end">
+						<Button
+							key="submit-button"
+							variant="default"
+							size="sm"
+							type="submit"
+						>
+							{isNew ? "Opret" : "Opdatér"}
+						</Button>
+					</div>
+					<FieldGroup>
+						<FormInput control={form.control} name="name" label="Navn" />
+						<FormInput control={form.control} name="nick" label="Øgenavn" />
+						<FormInput control={form.control} name="title" label="Titel" />
+						<FormInput control={form.control} name="address" label="Adresse" />
+						<FormInput
+							control={form.control}
+							name="birthday"
+							label="Fødselsdag"
+						/>
+						<FormInput control={form.control} name="email" label="Email" />
+						<FormInput
+							control={form.control}
+							name="phones"
+							label="Telefonnummer"
+						/>
+						<FieldSeparator />
+						<FieldSet>
+							<FieldLegend>Knapper</FieldLegend>
+							<FieldDescription>
+								Vælg hvilke knapper der skal være synlige
+							</FieldDescription>
+							<FieldGroup data-slot="checkbox-group">
+								<div className="flex flex-col sm:flex-row gap-2">
+									<FormCheckbox
+										name="isBoard"
+										label="isBoard"
+										control={form.control}
+									/>
+									<FormCheckbox
+										name="isAdmin"
+										label="isAdmin"
+										control={form.control}
+									/>
+									<FormCheckbox
+										name="isSuperAdmin"
+										label="isSuperAdmin"
+										control={form.control}
+									/>
+								</div>
+							</FieldGroup>
+						</FieldSet>
+						<FieldSeparator />
+						<FormInput
+							control={form.control}
+							name="tshirt"
+							label="Tshirt størrelse"
+						/>
+						<FieldSeparator />
+						<FormInput
+							control={form.control}
+							name="avatar"
+							label="Billednavn"
+						/>
+						<FormInput control={form.control} name="id" label="ID" />
+						<FormInput control={form.control} name="uid" label="Database ID" />
+					</FieldGroup>
+					<div className="flex justify-end mt-4">
+						<Button
+							key="submit-button"
+							variant="default"
+							size="sm"
+							type="submit"
+						>
+							{isNew ? "Opret" : "Opdatér"}
+						</Button>
+					</div>
+				</form>
+			</div>
+		</ActionHeader>
+	);
 };
 
 export default UserForm;
-
-// import ManyFormItems from "@components/form/ManyFormItems";
-// import type { FormItemEventTarget } from "@components/form/OneFormItem";
-// import { Button } from "@components/ui/button";
-// import { hasId } from "@components/ui/typing";
-// import { formHandleOnChange } from "@lib/form";
-// import type { Member } from "@lib/hooks/useFirestore";
-// import { useRouter } from "next/navigation";
-// import { type FormEvent, useState } from "react";
-// import { basicUserFormBuilder } from "./UserFormNewHelper";
-
-// type Props = {
-// 	user: Member;
-// 	onSubmit: (updatedUser: Member) => void;
-// 	onDelete: (id: string) => void;
-// 	onCancel: () => void;
-// };
-// /*  */
-// const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
-// 	const router = useRouter();
-// 	const [userData, setUserData] = useState<Member>(user);
-// 	const [showConfirmation, setShowConfirmation] = useState(false);
 
 // 	// const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 // 	//   const { name, value } = e.target;
@@ -101,279 +227,3 @@ export default UserForm;
 // 	const cancelDelete = () => {
 // 		setShowConfirmation(false);
 // 	};
-
-// 	return (
-// 		<>
-// 			<form onSubmit={handleSubmit} className="rounded px-8 pt-6 pb-8 mb-4">
-// 				<ManyFormItems<Member>
-// 					builderArray={basicUserFormBuilder}
-// 					data={userData}
-// 					onChange={handleOnChange}
-// 				/>
-// 				<div className="flex flew-row gap-4 py-4">
-// 					<Button
-// 						type="submit"
-// 						size="lg"
-// 						className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-// 					>
-// 						Gem
-// 					</Button>
-// 					<Button
-// 						type="button"
-// 						variant="secondary"
-// 						onClick={onCancel}
-// 						className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-// 					>
-// 						Fortryd
-// 					</Button>
-// 					{userData.id && (
-// 						<Button
-// 							type="submit"
-// 							variant="destructive"
-// 							onClick={handleDelete}
-// 							disabled={showConfirmation}
-// 							className="dynamic_text font-bold py-2 px-4 mx-8 rounded focus:outline-none focus:shadow-outline"
-// 						>
-// 							Fjern bruger
-// 						</Button>
-// 					)}
-// 					{showConfirmation && (
-// 						<>
-// 							<Button
-// 								type="submit"
-// 								variant="destructive"
-// 								onClick={confirmDelete}
-// 								className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-// 							>
-// 								Helt sikker!
-// 							</Button>
-// 							<Button
-// 								type="submit"
-// 								variant="default"
-// 								onClick={cancelDelete}
-// 								className="dynamic_text font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-// 							>
-// 								Fortryd
-// 							</Button>
-// 						</>
-// 					)}
-// 				</div>
-// 			</form>
-// 			{/* <form
-//         onSubmit={handleSubmit}
-//         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-//       >
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             Navn:
-//             <input
-//               type="text"
-//               name="name"
-//               value={formData.name}
-//               disabled={!!user.id}
-//               onChange={handleChange}
-//               required
-//               className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             Login Email:
-//             <input
-//               type="email"
-//               name="email"
-//               value={formData.email}
-//               onChange={handleChange}
-//               required
-//               className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             Øgenavn:
-//             <input
-//               type="text"
-//               name="nick"
-//               value={formData.nick}
-//               onChange={handleChange}
-//               required
-//               className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             Billednavn:
-//             <input
-//               type="text"
-//               name="avatar"
-//               value={formData.avatar}
-//               onChange={handleChange}
-//               required
-//               className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             Titel:
-//             <input
-//               type="text"
-//               name="title"
-//               value={formData.title}
-//               onChange={handleChange}
-//               required
-//               className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             T-Shirt størrelse:
-//             <input
-//               type="text"
-//               name="tshirt"
-//               value={formData.tshirt || ''}
-//               onChange={handleChange}
-//               required
-//               className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             Adresse:
-//             <input
-//               type="text"
-//               name="address"
-//               value={formData.address || ''}
-//               onChange={handleChange}
-//               required
-//               className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             Telefon:
-//             <input
-//               type="text"
-//               name="phones"
-//               value={formData.phones}
-//               onChange={handleChange}
-//               className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             Fødseldag:
-//             <input
-//               type="text"
-//               name="birthday"
-//               value={formData.birthday || ''}
-//               onChange={handleChange}
-//               required
-//               className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             ID:
-//             <input
-//               type="text"
-//               name="id"
-//               value={formData.id}
-//               onChange={handleChange}
-//               className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             UID:
-//             <input
-//               type="text"
-//               name="uid"
-//               value={formData.uid}
-//               onChange={handleChange}
-//               className={`shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'} leading-tight focus:outline-none focus:shadow-outline`}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             isAdmin:
-//             <input
-//               type="checkbox"
-//               name="isAdmin"
-//               checked={formData.isAdmin}
-//               onChange={handleToggle}
-//               className="ml-2 leading-tight"
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2 gap-2">
-//             isBoard:
-//             <input
-//               type="checkbox"
-//               name="isBoard"
-//               checked={formData.isBoard}
-//               onChange={handleToggle}
-//               className="ml-2 leading-tight"
-//             />
-//           </label>
-//         </div>
-//         <div className="flex items-center justify-between gap-3">
-//           <Button
-//             type="submit"
-//             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-//           >
-//             Gem
-//           </Button>
-//           <Button
-//             type="button"
-//             onClick={onCancel}
-//             className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-//           >
-//             Fortryd
-//           </Button>
-//           {formData.id && (
-//             <Button
-//               type="submit"
-//               onClick={handleDelete}
-//               disabled={showConfirmation}
-//               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-//             >
-//               Fjern
-//             </Button>
-//           )}
-//           {showConfirmation && (
-//             <>
-//               <Button
-//                 type="submit"
-//                 onClick={confirmDelete}
-//                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-//               >
-//                 Helt sikker!
-//               </Button>
-//               <Button
-//                 type="submit"
-//                 onClick={cancelDelete}
-//                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-//               >
-//                 Fortryd
-//               </Button>
-//             </>
-//           )} */}
-// 			{/* </div> */}
-// 			{/* </form> */}
-// 		</>
-// 	);
-// };
-
-// export default UserForm;

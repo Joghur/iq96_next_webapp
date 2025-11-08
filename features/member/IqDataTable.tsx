@@ -172,7 +172,7 @@ type Props = {
 export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [showDialog, setShowDialog] = useState<"table" | "user-form">("table");
-	const [activeUser, setActiveUser] = useState<Member>({
+	const [activeMember, setActiveMember] = useState<Member>({
 		...defaultMember,
 	});
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -197,17 +197,17 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 		},
 	});
 
-	const handleSubmit = (userData: Member) => {
-		if (!userData) {
+	const handleSubmit = (member: Member) => {
+		if (!member) {
 			return;
 		}
-		if (userData?.id) {
-			onUpdate({ ...userData });
+		if (member?.id) {
+			onUpdate({ ...member });
 		} else {
-			onCreate({ ...userData });
+			onCreate({ ...member });
 		}
 		setShowDialog("table");
-		setActiveUser({ ...defaultMember });
+		setActiveMember({ ...defaultMember });
 	};
 
 	// biome-ignore lint/suspicious/noExplicitAny: <TODO>
@@ -215,8 +215,9 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 		if (column.id === "select") {
 			return;
 		}
-		const user = row.original;
-		setActiveUser(() => user);
+		const _member = row.original;
+		console.log("member", _member);
+		setActiveMember(_member);
 		setShowDialog("user-form");
 	};
 
@@ -364,7 +365,7 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 			)}
 			{showDialog === "user-form" && (
 				<UserForm
-					user={activeUser}
+					member={activeMember}
 					onSubmit={handleSubmit}
 					onDelete={onDelete}
 					onCancel={() => setShowDialog("table")}
