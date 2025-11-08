@@ -1,5 +1,5 @@
 import ActionHeader from "@components/ActionHeader";
-import { FormCheckbox, FormInput } from "@components/form";
+import { FormCheckbox, FormInput, FormSelect } from "@components/form";
 import { Button } from "@components/ui/button";
 import {
 	FieldDescription,
@@ -8,9 +8,16 @@ import {
 	FieldSeparator,
 	FieldSet,
 } from "@components/ui/field";
+import { SelectItem } from "@components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { defaultMember, type Member, memberSchema } from "schemas/member";
+import {
+	defaultMember,
+	type Member,
+	memberSchema,
+	T_SHIRT_SIZES,
+	TITLES,
+} from "schemas/member";
 
 type Props = {
 	member: Member;
@@ -19,7 +26,7 @@ type Props = {
 	onCancel: () => void;
 };
 
-const UserForm = ({ member, onSubmit, onDelete, onCancel }: Props) => {
+const MemberForm = ({ member, onSubmit, onDelete, onCancel }: Props) => {
 	const form = useForm({
 		resolver: zodResolver(memberSchema),
 		defaultValues: member || defaultMember,
@@ -96,7 +103,13 @@ const UserForm = ({ member, onSubmit, onDelete, onCancel }: Props) => {
 					<FieldGroup>
 						<FormInput control={form.control} name="name" label="Navn" />
 						<FormInput control={form.control} name="nick" label="Øgenavn" />
-						<FormInput control={form.control} name="title" label="Titel" />
+						<FormSelect control={form.control} name="title" label="Titel">
+							{TITLES.map((status) => (
+								<SelectItem key={status} value={status}>
+									{status}
+								</SelectItem>
+							))}
+						</FormSelect>
 						<FormInput control={form.control} name="address" label="Adresse" />
 						<FormInput
 							control={form.control}
@@ -136,11 +149,17 @@ const UserForm = ({ member, onSubmit, onDelete, onCancel }: Props) => {
 							</FieldGroup>
 						</FieldSet>
 						<FieldSeparator />
-						<FormInput
+						<FormSelect
 							control={form.control}
 							name="tshirt"
 							label="Tshirt størrelse"
-						/>
+						>
+							{T_SHIRT_SIZES.map((status) => (
+								<SelectItem key={status} value={status}>
+									{status}
+								</SelectItem>
+							))}
+						</FormSelect>
 						<FieldSeparator />
 						<FormInput
 							control={form.control}
@@ -166,7 +185,7 @@ const UserForm = ({ member, onSubmit, onDelete, onCancel }: Props) => {
 	);
 };
 
-export default UserForm;
+export default MemberForm;
 
 // 	// const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 // 	//   const { name, value } = e.target;

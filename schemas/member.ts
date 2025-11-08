@@ -3,8 +3,21 @@ import { z } from "zod";
 // Typer
 export type Member = z.infer<typeof memberSchema>;
 export type TshirtSizes = (typeof T_SHIRT_SIZES)[number];
+export type Titles = (typeof TITLES)[number];
 
 export const T_SHIRT_SIZES = ["M", "L", "XL", "XXL", "XXXL", "XXXXL"] as const;
+export const TITLES = [
+	"Med-lem",
+	"Kasserer",
+	"Formand",
+	"Næstformand",
+	"Bestyrelsesmed-lem",
+	"Inkassateur",
+	"Bestyrelsesmed-lemssuppleant",
+	"Revisor",
+	"Revisorsuppleant",
+	"Redacteur",
+] as const;
 
 // Schemas
 export const memberSchema = z.object({

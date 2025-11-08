@@ -33,7 +33,7 @@ import { useState } from "react";
 import CsvDownloader from "react-csv-downloader";
 import { MdOutlineAdd } from "react-icons/md";
 import { defaultMember, type Member } from "schemas/member";
-import UserForm from "./UserForm";
+import MemberForm from "./MemberForm";
 
 export const columns: ColumnDef<Member>[] = [
 	{
@@ -216,7 +216,6 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 			return;
 		}
 		const _member = row.original;
-		console.log("member", _member);
 		setActiveMember(_member);
 		setShowDialog("user-form");
 	};
@@ -364,7 +363,7 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 				</>
 			)}
 			{showDialog === "user-form" && (
-				<UserForm
+				<MemberForm
 					member={activeMember}
 					onSubmit={handleSubmit}
 					onDelete={onDelete}
