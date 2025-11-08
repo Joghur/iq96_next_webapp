@@ -79,3 +79,14 @@ export const isHorizontal = () => {
 export const confirmAction = async (message: string): Promise<boolean> => {
 	return window.confirm(message);
 };
+
+// TODO fix any
+export function compareNick(a: any, b: any) {
+	if (a.nick < b.nick) {
+		return -1;
+	}
+	if (a.nick > b.nick) {
+		return 1;
+	}
+	return 0;
+}

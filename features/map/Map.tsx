@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/correctness/useExhaustiveDependencies: <TODO> */
 "use client";
 
 import { SavingBadgeStatusToLocalStorage } from "@components/BottomNav";
@@ -69,6 +68,7 @@ const MapPage = () => {
 		LatLngExpression | undefined
 	>(undefined);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <TODO>
 	useEffect(() => {
 		if (cities && cities?.length > 0 && cities[0].includes("-")) {
 			const yearCityParam = searchParams.get("aar-by");

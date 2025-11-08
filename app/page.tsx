@@ -11,8 +11,8 @@ import {
 	LOCALSTORAGE_PREFIX,
 	setLocalStorage,
 } from "@lib/localStorage";
+import { authContext } from "@lib/store/auth-context";
 import { useCallback, useContext, useEffect, useState } from "react";
-import { authContext } from "@/lib/store/auth-context";
 
 const COOKIE_LOCALSTORAGE_ACCEPTED = `${LOCALSTORAGE_PREFIX}-cookieAccepted`;
 

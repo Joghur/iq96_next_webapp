@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/a11y/noSvgWithoutTitle: <TODO> */
 "use client";
 
 interface Props {

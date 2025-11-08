@@ -1,6 +1,6 @@
 import ShowDate from "@components/dates/ShowDate";
-import { FaBolt } from "@node_modules/react-icons/fa";
 import { Fragment } from "react";
+import { FaBolt } from "react-icons/fa";
 import {
 	MdGroups,
 	MdHotel,

@@ -8,7 +8,7 @@ type Props = {
 	onClose: () => void;
 };
 
-const CustomForm = ({ children, title, actionButtons, onClose }: Props) => {
+const ActionHeader = ({ children, title, actionButtons, onClose }: Props) => {
 	return (
 		<div className="w-full px-4 sm:px-6 mt-8">
 			<div className="fixed top-0 left-0 w-full h-32 p-4 bg-primary shadow-md z-50">
@@ -27,4 +27,4 @@ const CustomForm = ({ children, title, actionButtons, onClose }: Props) => {
 	);
 };
 
-export default CustomForm;
+export default ActionHeader;

@@ -1,5 +1,4 @@
 /** biome-ignore-all lint/style/noNonNullAssertion: <TODO> */
-import type { HoverObject } from "@components/form/OneFormItem";
 import { isArray } from "./array";
 
 /**
@@ -63,15 +62,6 @@ export const isString = (value: unknown): value is string => {
 };
 export const isStringInteger = (value: string): boolean => {
 	return /^\d+$/.test(value);
-};
-
-export const isHoverObject = (obj: unknown): obj is HoverObject => {
-	return !!(
-		obj &&
-		typeof obj === "object" &&
-		!isArray(obj) &&
-		"hoverText" in obj
-	);
 };
 
 export const parseNumeric = (value: string) => {

@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@lib/utils";
 import {
 	Dialog,
 	DialogClose,
@@ -8,8 +9,7 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@/components/ui/dialog";
-import { cn } from "@/lib/utils";
+} from "./ui/dialog";
 
 type ModalProps = {
 	open: boolean;

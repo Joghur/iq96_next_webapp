@@ -33,7 +33,6 @@ import {
 import * as React from "react";
 import CsvDownloader from "react-csv-downloader";
 import { MdOutlineAdd } from "react-icons/md";
-// import UserForm from "./UserForm";
 
 export const columns: ColumnDef<DocumentUser>[] = [
 	{

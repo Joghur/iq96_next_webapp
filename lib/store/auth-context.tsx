@@ -1,5 +1,6 @@
 "use client";
 
+import { auth } from "@lib/firebase";
 import { type DocumentUser, useDocumentUser } from "@lib/hooks/useFirestore";
 import {
 	sendPasswordResetEmail,
@@ -9,7 +10,6 @@ import {
 } from "firebase/auth";
 import type { DocumentData } from "firebase/firestore";
 import { createContext, type ReactNode } from "react";
-import { auth } from "@/lib/firebase";
 
 interface AuthContextValues {
 	authUser: User | null | undefined;

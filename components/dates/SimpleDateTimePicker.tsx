@@ -1,7 +1,7 @@
+import { cn } from "@lib/utils";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import { Input } from "../ui/input";

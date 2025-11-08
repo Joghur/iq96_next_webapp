@@ -1,4 +1,4 @@
-import type { ChangeEvent } from "@node_modules/@types/react";
+import type { ChangeEvent } from "react";
 import type { EventType } from "../EventsPage";
 
 type Props = {
