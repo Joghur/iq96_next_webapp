@@ -1,6 +1,7 @@
 "use client";
 
 import ActionHeader from "@components/ActionHeader";
+import { CopyButton } from "@components/buttons/CopyButton";
 import {
 	FormCheckbox,
 	FormInput,
@@ -17,6 +18,7 @@ import {
 } from "@components/ui/field";
 import { SelectItem } from "@components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { confirmAction } from "@lib/utils";
 import { checkEvent } from "actions/event";
 import { useFieldArray, useForm } from "react-hook-form";
 import {
@@ -29,6 +31,7 @@ import {
 } from "schemas/event";
 import { toast } from "sonner";
 import type { z } from "zod";
+import ActivitiesForm from "../ActivitiesForm";
 
 interface Props {
 	event?: Event;
@@ -91,17 +94,27 @@ const EventForm = ({
 		onClose();
 	}
 
+	const handleDelete = async (id: string | undefined) => {
+		if (!id) return;
+
+		const confirmed = await confirmAction("Er du sikker på, at du vil slette?");
+		if (confirmed) {
+			await onDelete(id);
+			onClose();
+		}
+	};
+
 	const actionButtons = [
-		// <Button
-		// 	onClick={() => handleDelete(event?.id)}
-		// 	color={"error"}
-		// 	disabled={!event?.id}
-		// 	variant="destructive"
-		// 	size="sm"
-		// 	key="delete-button"
-		// >
-		// 	Slet
-		// </Button>,
+		<Button
+			onClick={() => handleDelete(event?.id)}
+			color={"error"}
+			disabled={!event?.id}
+			variant="destructive"
+			size="sm"
+			key="delete-button"
+		>
+			Slet
+		</Button>,
 		<Button
 			onClick={onClose}
 			color={"error"}
@@ -121,9 +134,16 @@ const EventForm = ({
 		>
 			<div className="container px-4 pt-28 mx-auto my-6">
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<Button key="submit-button" variant="default" size="sm" type="submit">
-						{isNew ? "Opret" : "Opdatér"}
-					</Button>
+					<div className="flex justify-end">
+						<Button
+							key="submit-button"
+							variant="default"
+							size="sm"
+							type="submit"
+						>
+							{isNew ? "Opret" : "Opdatér"}
+						</Button>
+					</div>
 					<FieldGroup>
 						<FieldSet>
 							<FieldLegend>Begivenhed</FieldLegend>
@@ -156,7 +176,6 @@ const EventForm = ({
 								</div>
 							</FieldGroup>
 						</FieldSet>
-						<FieldSeparator />
 						<FieldSet>
 							<FieldLegend>Knapper</FieldLegend>
 							<FieldDescription>
@@ -218,6 +237,7 @@ const EventForm = ({
 							</FieldGroup>
 						</FieldSet>
 						<FieldSeparator />
+						{/* <ActivitiesForm activities={event} onChange={() => {}} /> */}
 						<FormTextarea control={form.control} name="notes" label="Noter" />
 						<FormTextarea
 							control={form.control}
@@ -225,7 +245,40 @@ const EventForm = ({
 							label="Noter Aktiviteter"
 						/>
 					</FieldGroup>
+					<div className="flex justify-end mt-4">
+						<Button
+							key="submit-button"
+							variant="default"
+							size="sm"
+							type="submit"
+						>
+							{isNew ? "Opret" : "Opdatér"}
+						</Button>
+					</div>
 				</form>
+				<div className="flex flex-col gap-2 mt-5">
+					<div className="dynamic_text">
+						Brug &quot;--&quot; til at separere emner
+					</div>
+					<div className="dynamic_text">
+						<CopyButton text="<link:hotel>" />
+					</div>
+					<div className="dynamic_text">
+						<CopyButton text="<link:middag>" />
+					</div>
+					<div className="dynamic_text">
+						<CopyButton text="<link:frokost>" />
+					</div>
+					<div className="dynamic_text">
+						<CopyButton text="<link:tour>" />
+					</div>
+					<div className="dynamic_text">
+						<CopyButton text="<link:gf>" />
+					</div>
+					<div className="dynamic_text">
+						<CopyButton text="<link:extra:Depeche Mode:bar>" />
+					</div>
+				</div>
 			</div>
 		</ActionHeader>
 	);
