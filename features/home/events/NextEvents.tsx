@@ -3,15 +3,15 @@ import ShowDateTime from "@components/dates/ShowDateTime";
 import EventInfoBadge from "@components/EventInfoBadge";
 import { handleType } from "@lib/convert";
 import { ImageIcon, InfoCircledIcon } from "@radix-ui/react-icons";
+import type { Event } from "@schemas/event";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { MdOutlineHotel } from "react-icons/md";
 import EventBulletPoints from "../EventBulletPoints";
-import type { EventType } from "../EventsPage";
 import TourCard from "../TourCard";
 
 type Props = {
-	nextEvents: EventType[];
+	nextEvents: Event[];
 	canEdit: boolean;
 	onUpdate: (id: string | undefined) => Promise<void>;
 };

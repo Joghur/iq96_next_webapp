@@ -3,6 +3,7 @@ import "./globals.css";
 import "./leaflet-override.css";
 
 import BottomNav from "@components/BottomNav";
+import { Toaster } from "@components/ui/sonner";
 import AuthContextProvider from "@lib/store/auth-context";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
@@ -35,6 +36,7 @@ export const RootLayout = async ({ children }: Props) => {
 						disableTransitionOnChange
 					>
 						{children}
+						<Toaster position="bottom-right" />
 						<div className="z-40">
 							<BottomNav />
 						</div>

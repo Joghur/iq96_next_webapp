@@ -1,4 +1,4 @@
-import type { DateTimeValue } from "@features/home/EventsPage";
+import type { DateTimeValue } from "@schemas/event";
 import ShowDate from "./ShowDate";
 
 type Props = {

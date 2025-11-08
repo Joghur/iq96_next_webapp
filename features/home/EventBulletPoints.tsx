@@ -1,4 +1,5 @@
 import EventInfoBadge from "@components/EventInfoBadge";
+import type { Event } from "@schemas/event";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import {
@@ -16,9 +17,8 @@ import {
 	MdOutlineWineBar,
 	MdWineBar,
 } from "react-icons/md";
-import type { EventType } from "./EventsPage";
 
-type Props = { pointsString: string; event: EventType };
+type Props = { pointsString: string; event: Event };
 
 const EventBulletPoints = ({ pointsString, event }: Props) => {
 	const points = pointsString.split("--");

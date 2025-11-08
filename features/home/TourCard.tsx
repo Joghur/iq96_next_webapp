@@ -1,4 +1,5 @@
 import ShowDate from "@components/dates/ShowDate";
+import type { ActivityType, Event } from "@schemas/event";
 import { Fragment } from "react";
 import { FaBolt } from "react-icons/fa";
 import {
@@ -10,13 +11,12 @@ import {
 	MdWineBar,
 } from "react-icons/md";
 import EventBulletPoints from "./EventBulletPoints";
-import type { DayEventType, EventType } from "./EventsPage";
 
 type Props = {
-	event: EventType;
+	event: Event;
 };
 
-const selectIcon = (type: DayEventType) => {
+const selectIcon = (type: ActivityType) => {
 	switch (type) {
 		case "activity":
 			return <FaBolt />;

@@ -1,52 +1,41 @@
 "use client";
 
 import ActionHeader from "@components/ActionHeader";
-import { FormInput } from "@components/form";
+import {
+	FormCheckbox,
+	FormInput,
+	FormSelect,
+	FormTextarea,
+} from "@components/form";
+import { Button } from "@components/ui/button";
+import {
+	FieldDescription,
+	FieldGroup,
+	FieldLegend,
+	FieldSeparator,
+	FieldSet,
+} from "@components/ui/field";
+import { SelectItem } from "@components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createEvent } from "actions/event";
+import { checkEvent } from "actions/event";
 import { useFieldArray, useForm } from "react-hook-form";
-import { eventSchema } from "schemas/event";
+import {
+	type Activity,
+	EVENT_STATUS_VALUES,
+	EVENT_TYPE_VALUES,
+	type Event,
+	eventSchema,
+	initialEvent,
+} from "schemas/event";
 import { toast } from "sonner";
 import type { z } from "zod";
-import type { DayEvent, EventType } from "../EventsPage";
-
-const initialEvent: EventType = {
-	type: "tour",
-	status: "pending",
-	city: "Kokkedal",
-	start: { date: "", time: "" },
-	end: { date: "", time: "" },
-	year: new Date().getFullYear(),
-	dayEvents: [
-		{
-			dateString: "2025-09-28",
-			entries: [
-				{
-					time: "11:00",
-					label: "Mødes under uret, Hovedbanegården",
-					type: "meetingPoint",
-				},
-				{ time: "12:30", label: "Hotel", type: "hotel" },
-				{ time: "13:30", label: "Aktivitet", type: "activity" },
-				{ time: "14:30", label: "Guided tour", type: "guidedTour" },
-			],
-		},
-		{
-			dateString: "2025-09-29",
-			entries: [
-				{ time: "16:30", label: "GF mødestart", type: "meeting" },
-				{ time: "19:30", label: "Cantinos & Centerpubben", type: "bar" },
-			],
-		},
-	],
-};
 
 interface Props {
-	event?: EventType;
+	event?: Event;
 	editable?: boolean;
 	onClose: () => void;
-	onUpdate: (id: string, document: EventType) => Promise<void>;
-	onAdding: (document: EventType) => Promise<void>;
+	onUpdate: (id: string, document: Event) => Promise<void>;
+	onAdding: (document: Event) => Promise<void>;
 	onDelete: (id: string) => Promise<void>;
 }
 
@@ -60,7 +49,7 @@ const EventForm = ({
 }: Props) => {
 	const form = useForm({
 		resolver: zodResolver(eventSchema),
-		defaultValues: initialEvent,
+		defaultValues: event || initialEvent,
 	});
 
 	const {
@@ -69,37 +58,173 @@ const EventForm = ({
 		remove: removeDayEvents,
 	} = useFieldArray({
 		control: form.control,
-		name: "dayEvents",
+		name: "activities",
 	});
 
-	async function onSubmit(data: z.infer<typeof eventSchema>) {
-		const res = await createEvent(data);
+	const isNew = !event?.id;
 
-		if (res.success) {
+	async function onSubmit(data: z.infer<typeof eventSchema>) {
+		if (!editable) {
 			form.reset();
-			toast.success("Project created successfully!", {
-				description: JSON.stringify(data, null, 2),
-				className: "whitespace-pre-wrap font-mono",
-			});
-		} else {
-			toast.error("Failed to create project.");
+			toast.error("Projekt er sat til ikke at kunne ændres");
+			return;
 		}
+		console.log("data", data);
+		console.log("event", event);
+		const res = await checkEvent(data);
+
+		if (!res) {
+			toast.error(`Projekt kunne ikke ${isNew ? "oprettes" : "ændres"}`);
+		}
+
+		if (isNew) {
+			await onAdding?.(data);
+		}
+		if (!isNew && data.id) {
+			await onUpdate?.(data.id, data);
+		} else {
+			toast.error(`ID mangler. Er begivenhed oprettet?`);
+		}
+
+		form.reset();
+		toast.success(`Projekt er ${isNew ? "oprettet" : "ændret"}`);
+		onClose();
 	}
 
-	//TODO changeEvent
-
-	const isNew = !event?.id;
+	const actionButtons = [
+		// <Button
+		// 	onClick={() => handleDelete(event?.id)}
+		// 	color={"error"}
+		// 	disabled={!event?.id}
+		// 	variant="destructive"
+		// 	size="sm"
+		// 	key="delete-button"
+		// >
+		// 	Slet
+		// </Button>,
+		<Button
+			onClick={onClose}
+			color={"error"}
+			variant="secondary"
+			size="sm"
+			key="cancel-button"
+		>
+			Fortryd
+		</Button>,
+	];
 
 	return (
 		<ActionHeader
 			title={isNew ? "Opret ny begivenhed" : "Opdatér begivenhed"}
-			actionButtons={[]}
+			actionButtons={actionButtons}
 			onClose={onClose}
 		>
-			<div className="pt-24">
+			<div className="container px-4 pt-28 mx-auto my-6">
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<FormInput control={form.control} name="city" label="City" />
-					Murdur Durdur
+					<Button key="submit-button" variant="default" size="sm" type="submit">
+						{isNew ? "Opret" : "Opdatér"}
+					</Button>
+					<FieldGroup>
+						<FieldSet>
+							<FieldLegend>Begivenhed</FieldLegend>
+							<FieldDescription>Detaljer omkring begivenhed</FieldDescription>
+							<FormInput
+								control={form.control}
+								name="city"
+								label="Destination"
+							/>
+							<FieldGroup>
+								<div className="flex flex-col sm:flex-row gap-2">
+									<FormSelect
+										control={form.control}
+										name="status"
+										label="Status"
+									>
+										{EVENT_STATUS_VALUES.map((status) => (
+											<SelectItem key={status} value={status}>
+												{status}
+											</SelectItem>
+										))}
+									</FormSelect>
+									<FormSelect control={form.control} name="type" label="Type">
+										{EVENT_TYPE_VALUES.map((type) => (
+											<SelectItem key={type} value={type}>
+												{type}
+											</SelectItem>
+										))}
+									</FormSelect>
+								</div>
+							</FieldGroup>
+						</FieldSet>
+						<FieldSeparator />
+						<FieldSet>
+							<FieldLegend>Knapper</FieldLegend>
+							<FieldDescription>
+								Vælg hvilke knapper der skal være synlige
+							</FieldDescription>
+							<FieldGroup data-slot="checkbox-group">
+								<div className="flex flex-col sm:flex-row gap-2">
+									<FormCheckbox
+										name="showInfoLink"
+										label="Show Info link"
+										control={form.control}
+									/>
+									<FormCheckbox
+										name="showMapLink"
+										label="Show Map link"
+										control={form.control}
+									/>
+									<FormCheckbox
+										name="showUploadButton"
+										label="Show Upload button"
+										control={form.control}
+									/>
+								</div>
+							</FieldGroup>
+						</FieldSet>
+						<FieldSeparator />
+						<FieldSet>
+							<FieldLegend>Dato og Tid</FieldLegend>
+							<FieldDescription>
+								Start og slut dato og tidspunkter for begivenhed
+							</FieldDescription>
+							<FieldGroup data-slot="checkbox-group">
+								<div className="flex flex-col sm:flex-row gap-2">
+									<FormInput
+										control={form.control}
+										name="start.date"
+										label="Start dato"
+									/>
+									<FormInput
+										control={form.control}
+										name="start.time"
+										label="Tidspunkt"
+									/>
+								</div>
+							</FieldGroup>
+							<FieldGroup>
+								<div className="flex flex-col sm:flex-row gap-2">
+									<FormInput
+										control={form.control}
+										name="end.date"
+										label="Slut Dato"
+									/>
+									<FormInput
+										control={form.control}
+										name="end.time"
+										label="Tidspunkt"
+									/>
+								</div>
+							</FieldGroup>
+						</FieldSet>
+						<FieldSeparator />
+						<FormTextarea control={form.control} name="notes" label="Noter" />
+						<FormTextarea
+							control={form.control}
+							name="notesActivities"
+							label="Noter Aktiviteter"
+						/>
+					</FieldGroup>
 				</form>
 			</div>
 		</ActionHeader>
@@ -108,7 +233,7 @@ const EventForm = ({
 
 export default EventForm;
 
-export function sortDayEvents(dayEvents: DayEvent[]): DayEvent[] {
+export function sortDayEvents(dayEvents: Activity[]): Activity[] {
 	return [...dayEvents]
 		.sort((a, b) => a.dateString.localeCompare(b.dateString))
 		.map((day) => ({

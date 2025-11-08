@@ -4,29 +4,29 @@
 import { SimpleDateTimePicker } from "@components/dates/SimpleDateTimePicker";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
+import type { Activity, ActivityElement, ActivityType } from "@schemas/event";
 import { TrashIcon } from "lucide-react";
 import { type ChangeEvent, useState } from "react";
-import type { DayEvent, DayEventElement, DayEventType } from "./EventsPage";
 
 interface Props {
-	dayEvents: DayEvent[];
-	onChange: (updated: DayEvent[]) => void;
+	dayEvents: Activity[];
+	onChange: (updated: Activity[]) => void;
 }
 
 export default function DayEventsForm({ dayEvents, onChange }: Props) {
-	const [events, setEvents] = useState<DayEvent[]>(dayEvents);
+	const [events, setEvents] = useState<Activity[]>(dayEvents);
 	const [newDate, setNewDate] = useState<string>(""); // "2025-09-28"
 	const [newTime, setNewTime] = useState<string>(""); // "21:30"
 	const [newLabel, setNewLabel] = useState("");
-	const [newType, setNewType] = useState<DayEventType>("meetingPoint");
+	const [newType, setNewType] = useState<ActivityType>("meetingPoint");
 
 	const [editEntry, setEditEntry] = useState<{
 		dateString: string;
 		index: number;
 	} | null>(null);
-	const [editValue, setEditValue] = useState<DayEventElement | null>(null);
+	const [editValue, setEditValue] = useState<ActivityElement | null>(null);
 
-	const updateParent = (updated: DayEvent[]) => {
+	const updateParent = (updated: Activity[]) => {
 		setEvents(updated);
 		onChange(updated);
 	};
@@ -37,7 +37,7 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
 		const updated = [...events];
 		const day = updated.find((d) => d.dateString === newDate);
 
-		const newEntry: DayEventElement = {
+		const newEntry: ActivityElement = {
 			time: newTime,
 			label: newLabel,
 			type: newType,
@@ -69,7 +69,7 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
 	};
 
 	const handleChangeType = (val: ChangeEvent<HTMLSelectElement>) => {
-		setNewType(val.target.value as DayEventType);
+		setNewType(val.target.value as ActivityType);
 	};
 
 	// TODO refactor this
@@ -158,7 +158,7 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
 														onChange={(e) =>
 															setEditValue((prev) => ({
 																...prev!,
-																type: e.target.value as DayEventType,
+																type: e.target.value as ActivityType,
 															}))
 														}
 														className="p-2 rounded-md border border-gray-300 md:w-[150px]"

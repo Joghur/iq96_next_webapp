@@ -3,12 +3,12 @@ import EventInfoBadge from "@components/EventInfoBadge";
 import { eventTransitionVariants } from "@lib/animations";
 import { handleType } from "@lib/convert";
 import { ImageIcon } from "@radix-ui/react-icons";
+import type { Event } from "@schemas/event";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import type { EventType } from "../EventsPage";
 
 type Props = {
-	previousEvents: EventType[];
+	previousEvents: Event[];
 	canEdit: boolean;
 	onUpdate: (id: string | undefined) => Promise<void>;
 };
