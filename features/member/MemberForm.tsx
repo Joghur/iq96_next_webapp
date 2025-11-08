@@ -10,6 +10,8 @@ import {
 } from "@components/ui/field";
 import { SelectItem } from "@components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { confirmAction } from "@lib/utils";
+import { checkMember } from "actions/member";
 import { useForm } from "react-hook-form";
 import {
 	defaultMember,
@@ -18,15 +20,17 @@ import {
 	T_SHIRT_SIZES,
 	TITLES,
 } from "schemas/member";
+import { toast } from "sonner";
+import type { z } from "zod";
 
 type Props = {
 	member: Member;
 	onSubmit: (userData: Member) => void;
 	onDelete: (id: string) => void;
-	onCancel: () => void;
+	onClose: () => void;
 };
 
-const MemberForm = ({ member, onSubmit, onDelete, onCancel }: Props) => {
+const MemberForm = ({ member, onSubmit, onDelete, onClose }: Props) => {
 	const form = useForm({
 		resolver: zodResolver(memberSchema),
 		defaultValues: member || defaultMember,
@@ -34,32 +38,29 @@ const MemberForm = ({ member, onSubmit, onDelete, onCancel }: Props) => {
 
 	const isNew = !member?.id;
 
-	// async function onSubmit(data: z.infer<typeof memberSchema>) {
-	// 	const res = await checkMember(data);
+	const handleSubmit = async (data: z.infer<typeof memberSchema>) => {
+		const res = await checkMember(data);
 
-	// 	if (!res) {
-	// 		toast.error(`Projekt kunne ikke ${isNew ? "oprettes" : "ændres"}`);
-	// 	}
+		if (!res) {
+			toast.error(`Projekt kunne ikke ${isNew ? "oprettes" : "ændres"}`);
+			return;
+		}
 
-	// 	if (isNew) {
-	// 		await onAdding?.(data);
-	// 	}
-	// 	if (!isNew && data.id) {
-	// 		await onUpdate?.(data.id, data);
-	// 	} else {
-	// 		toast.error(`ID mangler. Er begivenhed oprettet?`);
-	// 	}
+		onSubmit(data);
+		form.reset();
+		toast.success(`Projekt er ${isNew ? "oprettet" : "ændret"}`);
+		onClose();
+	};
 
-	// 	form.reset();
-	// 	toast.success(`Projekt er ${isNew ? "oprettet" : "ændret"}`);
-	// 	onCancel();
-	// }
-
-	const handleDelete = (id: string | undefined) => {
+	const handleDelete = async (id: string | undefined) => {
 		if (!id) return;
 
-		onDelete(id);
+		const confirmed = await confirmAction("Er du sikker på, at du vil slette?");
+		if (confirmed) {
+			onDelete(id);
+		}
 	};
+
 	const actionButtons = [
 		<Button
 			onClick={() => handleDelete(member.id)}
@@ -72,7 +73,7 @@ const MemberForm = ({ member, onSubmit, onDelete, onCancel }: Props) => {
 			Slet
 		</Button>,
 		<Button
-			onClick={onCancel}
+			onClick={onClose}
 			color={"error"}
 			variant="secondary"
 			size="sm"
@@ -86,10 +87,10 @@ const MemberForm = ({ member, onSubmit, onDelete, onCancel }: Props) => {
 		<ActionHeader
 			title={isNew ? "Opret nyt med-lem" : "Opdatér med-lem"}
 			actionButtons={actionButtons}
-			onClose={onCancel}
+			onClose={onClose}
 		>
 			<div className="container px-4 mx-auto my-6">
-				<form onSubmit={form.handleSubmit(onSubmit)}>
+				<form onSubmit={form.handleSubmit(handleSubmit)}>
 					<div className="flex justify-end">
 						<Button
 							key="submit-button"

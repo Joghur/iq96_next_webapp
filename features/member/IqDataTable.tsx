@@ -367,7 +367,7 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 					member={activeMember}
 					onSubmit={handleSubmit}
 					onDelete={onDelete}
-					onCancel={() => setShowDialog("table")}
+					onClose={() => setShowDialog("table")}
 				/>
 			)}
 		</div>
