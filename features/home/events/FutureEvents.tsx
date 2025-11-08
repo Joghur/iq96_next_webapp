@@ -3,10 +3,10 @@ import ShowDateTime from "@components/dates/ShowDateTime";
 import { eventTransitionVariants } from "@lib/animations";
 import { handleType } from "@lib/convert";
 import { motion } from "framer-motion";
-import type { EventType } from "../EventsPage";
+import type { Event } from "schemas/event";
 
 type Props = {
-	futureEvents: EventType[];
+	futureEvents: Event[];
 	canEdit: boolean;
 	onUpdate: (id: string | undefined) => Promise<void>;
 };

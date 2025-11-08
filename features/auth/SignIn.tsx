@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/performance/noImgElement: <TODO> */
 "use client";
 
 import BottomSpacer from "@components/BottomSpacer";
@@ -12,11 +11,11 @@ import {
 	LOCALSTORAGE_PREFIX,
 	setLocalStorage,
 } from "@lib/localStorage";
+import { authContext } from "@lib/store/auth-context";
 import { useContext, useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { MdInfo } from "react-icons/md";
 import { z as zod } from "zod";
-import { authContext } from "@/lib/store/auth-context";
 
 export const LOCALSTORAGE_EMAIL = `${LOCALSTORAGE_PREFIX}-email`;
 

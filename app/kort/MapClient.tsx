@@ -1,7 +1,7 @@
 "use client";
 
+import LoadingSpinner from "@components/LoadingSpinner";
 import dynamic from "next/dynamic";
-import LoadingSpinner from "@/components/LoadingSpinner";
 
 // https://stackoverflow.com/questions/57704196/leaflet-with-next-js
 // Update 2025-10-26

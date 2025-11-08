@@ -1,7 +1,6 @@
 import Modal from "@components/Modal";
 import { Button } from "@components/ui/button";
 import { Separator } from "@components/ui/separator";
-import type { DocumentUser } from "@lib/hooks/useFirestore";
 import { useState } from "react";
 import {
 	MdAdd,
@@ -10,9 +9,10 @@ import {
 	MdMyLocation,
 	MdWarning,
 } from "react-icons/md";
+import type { Member } from "schemas/member";
 
 interface Props {
-	documentUser: DocumentUser;
+	documentUser: Member;
 }
 
 const InfoButton = ({ documentUser }: Props) => {
@@ -47,7 +47,7 @@ export default InfoButton;
 interface InfoModalProps {
 	open: boolean;
 	onClose: () => void;
-	documentUser: DocumentUser;
+	documentUser: Member;
 }
 
 const InfoModal = ({ open, onClose, documentUser }: InfoModalProps) => {

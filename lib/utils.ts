@@ -1,112 +1,9 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
-import type { Connection, ContactPhone } from "@features/member/IqMemberTable";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { convertMonthNumberToName } from "./dates";
-import type { DocumentUser } from "./hooks/useFirestore";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
-}
-
-export interface EvaluatePerson {
-	name: string;
-	email?: string;
-	phones: string[];
-	address: string;
-	birthday: string;
-}
-
-const addNameToArray = (textValue: string, list: string[]): string[] => {
-	if (list[0] !== textValue) {
-		return [textValue, ...list];
-	}
-	return list;
-};
-
-export function compareObjects(
-	contact: Connection | undefined,
-	docUser: DocumentUser,
-): string[] {
-	if (!contact || !docUser) {
-		return [];
-	}
-
-	const mismatchedProperties: string[] = [];
-
-	if (contact?.names?.[0]?.displayName?.trim() !== docUser.name) {
-		mismatchedProperties.push("name");
-	}
-
-	if (contact?.nicknames?.[0]?.value?.trim() !== docUser.nick) {
-		mismatchedProperties.push("nick");
-	}
-
-	if (contact?.emailAddresses?.[0]?.value?.trim() !== docUser.email) {
-		mismatchedProperties.push("email");
-	}
-
-	if (
-		!arraysAreEqual(
-			contact?.phoneNumbers?.map(
-				(o: ContactPhone) => `${o.canonicalForm?.trim()}`,
-			),
-			docUser.phones,
-		)
-	) {
-		mismatchedProperties.push("phones");
-	}
-
-	if (
-		contact?.addresses?.[0]?.formattedValue?.replace("DK", "").trim() !==
-		docUser.address
-	) {
-		mismatchedProperties.push("address");
-	}
-
-	const birthdate = contact?.birthdays?.[0].date;
-	const birthday =
-		`${birthdate?.day}. ${convertMonthNumberToName(birthdate?.month)} ${birthdate?.year}` ||
-		"";
-
-	if (birthday.trim() !== docUser.birthday) {
-		mismatchedProperties.push("birthday");
-	}
-
-	if (contact?.organizations?.[0].title?.trim() !== docUser.title) {
-		mismatchedProperties.push("title");
-	}
-
-	return addNameToArray(docUser.name, mismatchedProperties);
-}
-
-// TODO better way to compare phone number arrays
-function arraysAreEqual(
-	arr1: string[] | undefined,
-	arr2: string[] | undefined,
-): boolean {
-	if (!arr1 || !arr2 || arr1?.length !== arr2?.length) {
-		return false;
-	}
-
-	for (let i = 0; i < arr1.length; i++) {
-		if (arr1[i] !== arr2[i]) {
-			return false;
-		}
-	}
-
-	return true;
-}
-
-// TODO fix any
-export function compareNick(a: any, b: any) {
-	if (a.nick < b.nick) {
-		return -1;
-	}
-	if (a.nick > b.nick) {
-		return 1;
-	}
-	return 0;
 }
 
 const capitalizeFirstLetter = (str: string) =>
@@ -182,3 +79,14 @@ export const isHorizontal = () => {
 export const confirmAction = async (message: string): Promise<boolean> => {
 	return window.confirm(message);
 };
+
+// TODO fix any
+export function compareNick(a: any, b: any) {
+	if (a.nick < b.nick) {
+		return -1;
+	}
+	if (a.nick > b.nick) {
+		return 1;
+	}
+	return 0;
+}

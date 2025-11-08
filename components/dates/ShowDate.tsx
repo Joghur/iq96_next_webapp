@@ -1,6 +1,6 @@
 import { useTailwindBreakpoint } from "@lib/hooks/useTailwindBreakpoint";
-import { format, parseISO } from "@node_modules/date-fns";
-import { da } from "@node_modules/date-fns/locale";
+import { format, parseISO } from "date-fns";
+import { da } from "date-fns/locale";
 
 type Props = {
 	dateString: string;

@@ -1,30 +1,26 @@
 "use client";
 
 import Select from "@components/Select";
-import type { DocumentUser } from "@lib/hooks/useFirestore";
 import type { DocumentData } from "firebase/firestore";
 import { useEffect, useState } from "react";
-
-export const tshirtSizes = ["M", "L", "XL", "XXL", "XXXL", "XXXXL"] as const;
-
-export type TshirtSizes = (typeof tshirtSizes)[number];
+import { type Member, T_SHIRT_SIZES, type TshirtSizes } from "schemas/member";
 
 interface Props {
-	documentUser: DocumentUser;
+	member: Member;
 	updatingDoc: (id: string, document: DocumentData) => Promise<void>;
 }
-const TshirtSelect = ({ documentUser, updatingDoc }: Props) => {
+const TshirtSelect = ({ member, updatingDoc }: Props) => {
 	const [currentSize, setCurrentSize] = useState<TshirtSizes>(
-		() => documentUser.tshirt as TshirtSizes,
+		() => member.tshirt as TshirtSizes,
 	);
 
 	useEffect(() => {
-		setCurrentSize(documentUser?.tshirt as TshirtSizes);
-	}, [documentUser?.tshirt]);
+		setCurrentSize(member?.tshirt as TshirtSizes);
+	}, [member?.tshirt]);
 
 	const handleThemeChange = async (size: TshirtSizes) => {
 		setCurrentSize(() => size);
-		await updatingDoc(documentUser.id, { tshirt: size });
+		await updatingDoc(member.id, { tshirt: size });
 	};
 
 	return (
@@ -33,7 +29,7 @@ const TshirtSelect = ({ documentUser, updatingDoc }: Props) => {
 				value={currentSize}
 				placeholder={currentSize}
 				onChange={(e) => handleThemeChange(e as TshirtSizes)}
-				groups={[{ groupItems: tshirtSizes }]}
+				groups={[{ groupItems: T_SHIRT_SIZES }]}
 			/>
 		</div>
 	);

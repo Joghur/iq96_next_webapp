@@ -24,23 +24,24 @@ import {
 	where,
 } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
+import type { Member } from "schemas/member";
 
-export interface DocumentUser {
-	id: string;
-	uid: string;
-	email: string;
-	avatar: string;
-	isAdmin: boolean;
-	isBoard: boolean;
-	isSuperAdmin: boolean;
-	name: string;
-	nick: string;
-	title: string;
-	tshirt?: string;
-	address?: string;
-	phones?: string[];
-	birthday?: string;
-}
+// export interface Member {
+// 	id: string;
+// 	uid: string;
+// 	email: string;
+// 	avatar: string;
+// 	isAdmin: boolean;
+// 	isBoard: boolean;
+// 	isSuperAdmin: boolean;
+// 	name: string;
+// 	nick: string;
+// 	title: string;
+// 	tshirt?: string;
+// 	address?: string;
+// 	phones?: string[];
+// 	birthday?: string;
+// }
 
 export type CollectionName =
 	| "users"
@@ -425,12 +426,12 @@ export const deleteMapMarkers = () => {
 
 export const useDocumentUser = (): [
 	User | null,
-	DocumentUser | null,
+	Member | null,
 	boolean,
 	(id: string, document: DocumentData) => Promise<void>,
 ] => {
 	const [authUser, setFirebaseUser] = useState<User | null>(null);
-	const [documentUser, setDocumentUser] = useState<DocumentUser | null>(null);
+	const [documentUser, setDocumentUser] = useState<Member | null>(null);
 	const [loading, setLoading] = useState(true);
 	const db = getFirestore(app);
 	const { authUser: _authUser, loading: _loading } = useAuth();
@@ -449,7 +450,7 @@ export const useDocumentUser = (): [
 			getDocs(q)
 				.then((querySnapshot) => {
 					if (!querySnapshot.empty) {
-						const docData = querySnapshot.docs[0].data() as DocumentUser;
+						const docData = querySnapshot.docs[0].data() as Member;
 						setDocumentUser(() => ({
 							...docData,
 							id: querySnapshot.docs[0].id,

@@ -3,11 +3,12 @@ import "./globals.css";
 import "./leaflet-override.css";
 
 import BottomNav from "@components/BottomNav";
+import { Toaster } from "@components/ui/sonner";
+import AuthContextProvider from "@lib/store/auth-context";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { ThemeProvider } from "next-themes";
 import type { ReactNode } from "react";
-import AuthContextProvider from "@/lib/store/auth-context";
 
 export const revalidate = false;
 
@@ -23,11 +24,10 @@ export const metadata: Metadata = {
 export const RootLayout = async ({ children }: Props) => {
 	const cookieStore = cookies();
 	const theme = (await cookieStore).get("next-theme")?.value || "system";
-	console.log("theme", theme);
 
 	return (
 		<html lang="en" suppressHydrationWarning data-theme={theme}>
-			<body>
+			<body className={`antialiased`}>
 				<AuthContextProvider>
 					<ThemeProvider
 						attribute="data-theme"
@@ -36,6 +36,7 @@ export const RootLayout = async ({ children }: Props) => {
 						disableTransitionOnChange
 					>
 						{children}
+						<Toaster position="bottom-right" />
 						<div className="z-40">
 							<BottomNav />
 						</div>

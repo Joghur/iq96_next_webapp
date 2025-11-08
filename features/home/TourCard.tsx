@@ -1,6 +1,6 @@
 import ShowDate from "@components/dates/ShowDate";
-import { FaBolt } from "@node_modules/react-icons/fa";
 import { Fragment } from "react";
+import { FaBolt } from "react-icons/fa";
 import {
 	MdGroups,
 	MdHotel,
@@ -9,14 +9,14 @@ import {
 	MdOutlineTour,
 	MdWineBar,
 } from "react-icons/md";
+import type { ActivityType, Event } from "schemas/event";
 import EventBulletPoints from "./EventBulletPoints";
-import type { DayEventType, EventType } from "./EventsPage";
 
 type Props = {
-	event: EventType;
+	event: Event;
 };
 
-const selectIcon = (type: DayEventType) => {
+const selectIcon = (type: ActivityType) => {
 	switch (type) {
 		case "activity":
 			return <FaBolt />;
@@ -47,7 +47,7 @@ const selectIcon = (type: DayEventType) => {
 const TourCard = ({ event }: Props) => {
 	return (
 		<div className="text-white">
-			{event.dayEvents.map((day, index) => (
+			{event.activities.map((day, index) => (
 				<Fragment key={day.dateString}>
 					<div
 						className={`rounded-md p-1 sm:p-3 ${

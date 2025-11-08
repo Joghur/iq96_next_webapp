@@ -1,14 +1,15 @@
 "use client";
 
-import type * as React from "react";
+import { cn } from "@lib/utils";
 import {
 	Dialog,
+	DialogClose,
 	DialogContent,
 	DialogDescription,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@/components/ui/dialog";
-import { cn } from "@/lib/utils";
+} from "./ui/dialog";
 
 type ModalProps = {
 	open: boolean;
@@ -17,6 +18,7 @@ type ModalProps = {
 	children?: React.ReactNode;
 	className?: string;
 	maxHeightClassName?: string;
+	footer?: React.ReactNode;
 };
 
 const Modal: React.FC<ModalProps> = ({
@@ -26,9 +28,11 @@ const Modal: React.FC<ModalProps> = ({
 	children,
 	className,
 	maxHeightClassName, // valgfrit override
+	footer,
 }) => {
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
+			<DialogClose />
 			<DialogContent
 				className={cn(
 					"sm:max-w-lg rounded-xl overflow-hidden",
@@ -44,6 +48,7 @@ const Modal: React.FC<ModalProps> = ({
 						</DialogDescription>
 					)}
 				</DialogHeader>
+				<DialogFooter>{footer}</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	);

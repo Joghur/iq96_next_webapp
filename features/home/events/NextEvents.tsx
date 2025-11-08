@@ -2,21 +2,31 @@ import EditButton from "@components/buttons/EditButton";
 import ShowDateTime from "@components/dates/ShowDateTime";
 import EventInfoBadge from "@components/EventInfoBadge";
 import { handleType } from "@lib/convert";
+import { cn } from "@lib/utils";
 import { ImageIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 import { MdOutlineHotel } from "react-icons/md";
+import type { Event } from "schemas/event";
 import EventBulletPoints from "../EventBulletPoints";
-import type { EventType } from "../EventsPage";
 import TourCard from "../TourCard";
 
 type Props = {
-	nextEvents: EventType[];
+	nextEvents: Event[];
 	canEdit: boolean;
 	onUpdate: (id: string | undefined) => Promise<void>;
 };
 
 const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
+	const { resolvedTheme } = useTheme();
+
+	const gradientClasses = cn(
+		"dynamic_text text-gradient hover:text-gradient-hover flex text-center text-[larger]",
+		resolvedTheme === "dark"
+			? "orange_gradient hover:orange_gradient_hover"
+			: "blue_gradient hover:blue_gradient_hover",
+	);
 	return (
 		<>
 			{nextEvents.length > 0 && (
@@ -52,7 +62,7 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
 								</div>
 								{!!nextEvent?.start && (
 									<div className="flex justify-center gap-2">
-										<div className="dynamic_text blue_gradient flex text-center text-[larger]">
+										<div className={gradientClasses}>
 											<ShowDateTime
 												dateTime={nextEvent.start}
 												formatLargeScreen="EEEE - dd. MMMM"
@@ -172,7 +182,7 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
 										</div>
 									</div>
 								)}
-								{nextEvent.dayEvents.length > 0 && (
+								{nextEvent.activities.length > 0 && (
 									<>
 										{nextEvent.end.date !== "" && (
 											<div className="dynamic_text mt-2">Aktiviteter</div>

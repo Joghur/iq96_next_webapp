@@ -1,58 +1,18 @@
 import AddButton from "@components/buttons/AddButton";
 import LoadingSpinner from "@components/LoadingSpinner";
 import { eventTransitionVariants } from "@lib/animations";
-import { type DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
+import { useFirestore } from "@lib/hooks/useFirestore";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import EventForm from "./EventForm";
+import type { Event } from "schemas/event";
+import type { Member } from "schemas/member";
+import EventForm from "./EventForms/EventForm";
 import FutureEvents from "./events/FutureEvents";
 import NextEvents from "./events/NextEvents";
 import PreviousEvents from "./events/PreviousEvents";
 
-export type Type = "tour" | "gf" | "oel" | "golf" | "other" | "";
-export type EventStatus = "done" | "next" | "pending";
-export type DayEventType =
-	| "meetingPoint"
-	| "activity"
-	| "restaurant"
-	| "bar"
-	| "guidedTour"
-	| "meeting"
-	| "hotel";
-
-export type DayEventElement = {
-	time: string;
-	label: string;
-	type: DayEventType;
-};
-
-export type DayEvent = {
-	dateString: string;
-	entries: DayEventElement[];
-};
-
-export type DateTimeValue = {
-	date: string;
-	time: string;
-};
-export type EventType = {
-	id?: string;
-	city: string;
-	end: DateTimeValue;
-	start: DateTimeValue;
-	type: Type;
-	year: number;
-	dayEvents: DayEvent[];
-	notes?: string;
-	notesActivities?: string;
-	status?: EventStatus;
-	showUploadButton?: boolean;
-	showInfoLink?: boolean;
-	showMapLink?: boolean;
-};
-
 interface Props {
-	documentUser: DocumentUser | null | undefined;
+	documentUser: Member | null | undefined;
 }
 
 const EventsPage = ({ documentUser }: Props) => {
@@ -62,9 +22,9 @@ const EventsPage = ({ documentUser }: Props) => {
 		updatingDoc,
 		addingDoc,
 		deletingDoc,
-	} = useFirestore<EventType>("events", "start");
+	} = useFirestore<Event>("events", "start");
 
-	const [currentEvent, setCurrentEvent] = useState<EventType | null>(null);
+	const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
 	const [showDialog, setShowDialog] = useState<"events" | "event-form">(
 		"events",
 	);
@@ -84,8 +44,7 @@ const EventsPage = ({ documentUser }: Props) => {
 	const handleUpdate = async (id: string | undefined) => {
 		if (id) {
 			setCurrentEvent(
-				() =>
-					events?.filter((event) => event.id === id)[0] as unknown as EventType,
+				() => events?.filter((event) => event.id === id)[0] as unknown as Event,
 			);
 		} else {
 			setCurrentEvent(null); // cleaning up possible older event
@@ -107,6 +66,8 @@ const EventsPage = ({ documentUser }: Props) => {
 	const previousEvents = events.filter((event) => event.status === "done");
 	const nextEvents = events.filter((event) => event.status === "next");
 	const futureEvents = events.filter((event) => event.status === "pending");
+
+	console.log("currentEvent", currentEvent);
 
 	return (
 		<div className="dynamic_text bg text mx-auto max-w-2xl sm:mt-40 px-3">

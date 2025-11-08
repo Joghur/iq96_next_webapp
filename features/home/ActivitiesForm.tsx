@@ -1,32 +1,34 @@
 /** biome-ignore-all lint/style/noNonNullAssertion: <TODO> */
 "use client";
 
-import { SimpleDateTimePicker } from "@components/dates/SimpleDateTimePicker";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { TrashIcon } from "lucide-react";
 import { type ChangeEvent, useState } from "react";
-import type { DayEvent, DayEventElement, DayEventType } from "./EventsPage";
+import type { Activity, ActivityElement, ActivityType } from "schemas/event";
 
 interface Props {
-	dayEvents: DayEvent[];
-	onChange: (updated: DayEvent[]) => void;
+	activities: Activity[];
+	onChange: (updated: Activity[]) => void;
 }
 
-export default function DayEventsForm({ dayEvents, onChange }: Props) {
-	const [events, setEvents] = useState<DayEvent[]>(dayEvents);
+export default function ActivitiesForm({
+	activities: dayEvents,
+	onChange,
+}: Props) {
+	const [events, setEvents] = useState<Activity[]>(dayEvents);
 	const [newDate, setNewDate] = useState<string>(""); // "2025-09-28"
 	const [newTime, setNewTime] = useState<string>(""); // "21:30"
 	const [newLabel, setNewLabel] = useState("");
-	const [newType, setNewType] = useState<DayEventType>("meetingPoint");
+	const [newType, setNewType] = useState<ActivityType>("meetingPoint");
 
 	const [editEntry, setEditEntry] = useState<{
 		dateString: string;
 		index: number;
 	} | null>(null);
-	const [editValue, setEditValue] = useState<DayEventElement | null>(null);
+	const [editValue, setEditValue] = useState<ActivityElement | null>(null);
 
-	const updateParent = (updated: DayEvent[]) => {
+	const updateParent = (updated: Activity[]) => {
 		setEvents(updated);
 		onChange(updated);
 	};
@@ -37,7 +39,7 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
 		const updated = [...events];
 		const day = updated.find((d) => d.dateString === newDate);
 
-		const newEntry: DayEventElement = {
+		const newEntry: ActivityElement = {
 			time: newTime,
 			label: newLabel,
 			type: newType,
@@ -69,23 +71,13 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
 	};
 
 	const handleChangeType = (val: ChangeEvent<HTMLSelectElement>) => {
-		setNewType(val.target.value as DayEventType);
+		setNewType(val.target.value as ActivityType);
 	};
 
 	// TODO refactor this
 	return (
 		<div className="space-y-6">
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-				<SimpleDateTimePicker
-					value={{ date: newDate, time: newTime }}
-					onChange={({ date, time }) => {
-						setNewDate(date);
-						setNewTime(time);
-					}}
-					direction="column"
-					showPreview
-				/>
-
 				<Input
 					value={newLabel}
 					onChange={(e) => setNewLabel(e.target.value)}
@@ -130,18 +122,6 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
 									{editEntry?.dateString === day.dateString &&
 									editEntry.index === index ? (
 										<div className="flex flex-col md:flex-row md:flex-wrap items-start gap-2 bg-slate-200 p-3 rounded-md md:max-w-[700px]">
-											{" "}
-											<SimpleDateTimePicker
-												value={{
-													date: day.dateString,
-													time: editValue?.time || "",
-												}}
-												onChange={({ time }) =>
-													setEditValue((prev) => ({ ...prev!, time }))
-												}
-												direction="row"
-												showPreview
-											/>
 											<div>
 												<Input
 													value={editValue?.label || ""}
@@ -158,7 +138,7 @@ export default function DayEventsForm({ dayEvents, onChange }: Props) {
 														onChange={(e) =>
 															setEditValue((prev) => ({
 																...prev!,
-																type: e.target.value as DayEventType,
+																type: e.target.value as ActivityType,
 															}))
 														}
 														className="p-2 rounded-md border border-gray-300 md:w-[150px]"

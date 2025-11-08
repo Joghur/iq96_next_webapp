@@ -1,4 +1,4 @@
-import { MdEdit } from "@node_modules/react-icons/md";
+import { MdEdit } from "react-icons/md";
 import CircleBackground from "./CircleBackgroundButton";
 
 type Props = {

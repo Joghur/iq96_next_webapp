@@ -1,4 +1,4 @@
-import { MdAdd } from "@node_modules/react-icons/md";
+import { MdAdd } from "react-icons/md";
 import CircleBackground from "./CircleBackgroundButton";
 
 type Props = {

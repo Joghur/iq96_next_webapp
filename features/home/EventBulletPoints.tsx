@@ -16,9 +16,9 @@ import {
 	MdOutlineWineBar,
 	MdWineBar,
 } from "react-icons/md";
-import type { EventType } from "./EventsPage";
+import type { Event } from "schemas/event";
 
-type Props = { pointsString: string; event: EventType };
+type Props = { pointsString: string; event: Event };
 
 const EventBulletPoints = ({ pointsString, event }: Props) => {
 	const points = pointsString.split("--");

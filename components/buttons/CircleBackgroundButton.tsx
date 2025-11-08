@@ -1,6 +1,4 @@
-/** biome-ignore-all lint/a11y/noStaticElementInteractions: <TODO> */
-/** biome-ignore-all lint/a11y/useKeyWithClickEvents: <TODO> */
-import type { ReactNode } from "@node_modules/@types/react";
+import type { ReactNode } from "react";
 
 type Props = {
 	children: ReactNode;

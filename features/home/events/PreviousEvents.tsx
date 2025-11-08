@@ -5,10 +5,10 @@ import { handleType } from "@lib/convert";
 import { ImageIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import type { EventType } from "../EventsPage";
+import type { Event } from "schemas/event";
 
 type Props = {
-	previousEvents: EventType[];
+	previousEvents: Event[];
 	canEdit: boolean;
 	onUpdate: (id: string | undefined) => Promise<void>;
 };
@@ -31,7 +31,7 @@ const PreviousEvents = ({ previousEvents, canEdit, onUpdate }: Props) => {
 					return (
 						<div
 							key={index}
-							className={`paper bg-primary text-primary-foreground flex flex-col gap-2 rounded-xl px-6 py-4 sm:px-10 sm:py-6 w-full max-w-2xl mx-auto`}
+							className={`paper bg-primary text-primary-foreground flex flex-col rounded-xl px-6 py-4 sm:px-10 sm:py-6 w-full max-w-2xl mx-auto my-0.5`}
 						>
 							<div className="flex items-center justify-between">
 								<p className="font-semibold">
