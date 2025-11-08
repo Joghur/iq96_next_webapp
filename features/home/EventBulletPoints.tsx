@@ -1,5 +1,4 @@
 import EventInfoBadge from "@components/EventInfoBadge";
-import type { Event } from "@schemas/event";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import {
@@ -17,6 +16,7 @@ import {
 	MdOutlineWineBar,
 	MdWineBar,
 } from "react-icons/md";
+import type { Event } from "schemas/event";
 
 type Props = { pointsString: string; event: Event };
 

@@ -198,7 +198,7 @@ const MapPage = () => {
 							key={index}
 							index={index}
 							marker={marker}
-							documentUser={documentUser}
+							member={documentUser}
 							updatingDoc={updatingMarker}
 							deletingDoc={deletingMarker}
 						/>

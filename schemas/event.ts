@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 // Typer
-
 export type Event = z.infer<typeof eventSchema>;
 export type EventType = (typeof EVENT_TYPE_VALUES)[number];
 export type EventStatus = (typeof EVENT_STATUS_VALUES)[number];

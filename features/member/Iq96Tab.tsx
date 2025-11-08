@@ -2,17 +2,13 @@
 "use client";
 
 import { eventTransitionVariants } from "@lib/animations";
-import { type DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
+import { useFirestore } from "@lib/hooks/useFirestore";
 import { motion } from "framer-motion";
 import { Fragment, useState } from "react";
+import type { Member } from "schemas/member";
 
 const Iq96Tab = () => {
-	const { docs: users } = useFirestore<DocumentUser>(
-		"users",
-		"name",
-		"asc",
-		26,
-	);
+	const { docs: users } = useFirestore<Member>("users", "name", "asc", 26);
 	const [showProfile, setShowProfile] = useState("");
 
 	if (!users) {
@@ -20,10 +16,8 @@ const Iq96Tab = () => {
 	}
 
 	const sortedIqUsers = users
-		.filter(
-			(o: DocumentUser, index: number) => index < 26 && o?.name !== "IQ96",
-		)
-		.sort((a: DocumentUser, b: DocumentUser) => {
+		.filter((o: Member, index: number) => index < 26 && o?.name !== "IQ96")
+		.sort((a: Member, b: Member) => {
 			const displayNameA = a?.name ?? "";
 			const displayNameB = b?.name ?? "";
 

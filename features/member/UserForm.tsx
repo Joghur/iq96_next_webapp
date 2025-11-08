@@ -1,23 +1,45 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { defaultMember, type Member, memberSchema } from "schemas/member";
+
+type Props = {
+	user: Member;
+	onSubmit: (userData: Member) => void;
+	onDelete: (id: string) => void;
+	onCancel: () => void;
+};
+
+const UserForm = ({ user, onSubmit, onDelete, onCancel }: Props) => {
+	const form = useForm({
+		resolver: zodResolver(memberSchema),
+		defaultValues: user || defaultMember,
+	});
+
+	return <div>UserForm</div>;
+};
+
+export default UserForm;
+
 // import ManyFormItems from "@components/form/ManyFormItems";
 // import type { FormItemEventTarget } from "@components/form/OneFormItem";
 // import { Button } from "@components/ui/button";
 // import { hasId } from "@components/ui/typing";
 // import { formHandleOnChange } from "@lib/form";
-// import type { DocumentUser } from "@lib/hooks/useFirestore";
+// import type { Member } from "@lib/hooks/useFirestore";
 // import { useRouter } from "next/navigation";
 // import { type FormEvent, useState } from "react";
 // import { basicUserFormBuilder } from "./UserFormNewHelper";
 
 // type Props = {
-// 	user: DocumentUser;
-// 	onSubmit: (updatedUser: DocumentUser) => void;
+// 	user: Member;
+// 	onSubmit: (updatedUser: Member) => void;
 // 	onDelete: (id: string) => void;
 // 	onCancel: () => void;
 // };
 // /*  */
 // const UserForm: React.FC<Props> = ({ user, onSubmit, onDelete, onCancel }) => {
 // 	const router = useRouter();
-// 	const [userData, setUserData] = useState<DocumentUser>(user);
+// 	const [userData, setUserData] = useState<Member>(user);
 // 	const [showConfirmation, setShowConfirmation] = useState(false);
 
 // 	// const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,14 +51,14 @@
 // 	// };
 
 // 	const handleOnChange = (eventTarget: FormItemEventTarget) => {
-// 		formHandleOnChange<DocumentUser>(eventTarget, userData, setUserData);
+// 		formHandleOnChange<Member>(eventTarget, userData, setUserData);
 // 	};
 
 // 	// const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
 // 	//   const { name } = e.target;
 // 	//   setFormData((prevData) => ({
 // 	//     ...prevData,
-// 	//     [name]: prevData[name as keyof DocumentUser] === false ? true : false,
+// 	//     [name]: prevData[name as keyof Member] === false ? true : false,
 // 	//   }));
 // 	// };
 
@@ -83,7 +105,7 @@
 // 	return (
 // 		<>
 // 			<form onSubmit={handleSubmit} className="rounded px-8 pt-6 pb-8 mb-4">
-// 				<ManyFormItems<DocumentUser>
+// 				<ManyFormItems<Member>
 // 					builderArray={basicUserFormBuilder}
 // 					data={userData}
 // 					onChange={handleOnChange}

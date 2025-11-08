@@ -3,9 +3,9 @@
 
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
-import type { Activity, ActivityElement, ActivityType } from "@schemas/event";
 import { TrashIcon } from "lucide-react";
 import { type ChangeEvent, useState } from "react";
+import type { Activity, ActivityElement, ActivityType } from "schemas/event";
 
 interface Props {
 	activities: Activity[];

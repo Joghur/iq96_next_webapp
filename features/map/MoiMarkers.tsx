@@ -4,11 +4,12 @@ import type { NotificationDbType } from "@components/BottomNav";
 import Select from "@components/Select";
 import { Button } from "@components/ui/button";
 import { Textarea } from "@components/ui/textarea";
-import { type DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
+import { useFirestore } from "@lib/hooks/useFirestore";
 import { Icon } from "leaflet";
 import { type ChangeEvent, useState } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { Tooltip as MapToolip, Marker, Popup } from "react-leaflet";
+import type { Member } from "schemas/member";
 import type { MarkerData } from "./Map";
 
 const markerTypes = [
@@ -48,7 +49,7 @@ const handleDocType = (docType: MarkerType, madeBy: MadeByType) => {
 interface Props {
 	index: number;
 	marker: MarkerData;
-	documentUser: DocumentUser;
+	member: Member;
 	updatingDoc: (id: string, document: MarkerData) => Promise<void>;
 	deletingDoc: (id: string) => Promise<void>;
 }
@@ -56,7 +57,7 @@ interface Props {
 const MoiMarkers = ({
 	index,
 	marker,
-	documentUser,
+	member,
 	updatingDoc,
 	deletingDoc,
 }: Props) => {
@@ -94,7 +95,7 @@ const MoiMarkers = ({
 		if (currentMarker?.id) {
 			await updatingDoc(currentMarker.id, {
 				...currentMarker,
-				madeBy: !documentUser.isSuperAdmin ? "user" : currentMarker.madeBy,
+				madeBy: !member.isSuperAdmin ? "user" : currentMarker.madeBy,
 				nick:
 					currentMarker.nick ||
 					`Kort label er påkrævet - ${Math.floor(Math.random() * 10000)}`,
@@ -148,8 +149,7 @@ const MoiMarkers = ({
 	};
 
 	const canEdit = true;
-	const canDelete =
-		documentUser.isAdmin || documentUser.isBoard || documentUser.isSuperAdmin;
+	const canDelete = member.isAdmin || member.isBoard || member.isSuperAdmin;
 
 	return (
 		<div key={`first${index}`} className="ring-3">
@@ -191,7 +191,7 @@ const MoiMarkers = ({
 										</Button>
 									)}
 									{canEdit &&
-										(documentUser.isSuperAdmin || marker.madeBy !== "app") && (
+										(member.isSuperAdmin || marker.madeBy !== "app") && (
 											<Button
 												onClick={() => handleOpenEditMarker(marker)}
 												variant="default"
@@ -271,7 +271,7 @@ const MoiMarkers = ({
 										className="dynamic_text textarea-bordered textarea bg-white"
 									/>
 								</div>
-								{documentUser.isSuperAdmin && (
+								{member.isSuperAdmin && (
 									<div className="pt-5">
 										<label
 											htmlFor="password"

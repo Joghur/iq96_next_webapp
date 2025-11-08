@@ -1,7 +1,8 @@
 "use client";
 
 import LoadingSpinner from "@components/LoadingSpinner";
-import { type DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
+import { useFirestore } from "@lib/hooks/useFirestore";
+import type { Member } from "schemas/member";
 import { IqDataTable } from "./IqDataTable";
 
 const AdminTab = () => {
@@ -11,7 +12,7 @@ const AdminTab = () => {
 		addingDoc,
 		deletingDoc,
 		updatingDoc,
-	} = useFirestore<DocumentUser>("users", "name", "asc", 26);
+	} = useFirestore<Member>("users", "name", "asc", 26);
 
 	if (loading) {
 		return <LoadingSpinner text={"Henter med-lemmer..."} />;
@@ -20,11 +21,11 @@ const AdminTab = () => {
 		return null;
 	}
 
-	const handleCreateUser = async (user: DocumentUser) => {
+	const handleCreateUser = async (user: Member) => {
 		await addingDoc(user);
 	};
 
-	const handleUpdateUser = async (user: DocumentUser) => {
+	const handleUpdateUser = async (user: Member) => {
 		await updatingDoc(user.id, user);
 	};
 
@@ -33,10 +34,8 @@ const AdminTab = () => {
 	};
 
 	const sortedIqUsers = users
-		.filter(
-			(o: DocumentUser, index: number) => index < 26 && o?.name !== "IQ96",
-		)
-		.sort((a: DocumentUser, b: DocumentUser) => {
+		.filter((o: Member, index: number) => index < 26 && o?.name !== "IQ96")
+		.sort((a: Member, b: Member) => {
 			const displayNameA = a?.name ?? "";
 			const displayNameB = b?.name ?? "";
 

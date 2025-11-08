@@ -1,9 +1,9 @@
-import type { DocumentUser } from "@lib/hooks/useFirestore";
 import { Icon } from "leaflet";
 import { Tooltip as MapToolip, Marker } from "react-leaflet";
+import type { Member } from "schemas/member";
 
 interface Props {
-	documentUser: DocumentUser;
+	documentUser: Member;
 	userPosition: L.LatLngExpression;
 }
 

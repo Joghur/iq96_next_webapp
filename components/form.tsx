@@ -1,4 +1,3 @@
-import ActivitiesForm from "@features/home/ActivitiesForm";
 import type { ReactNode } from "react";
 import {
 	Controller,
@@ -6,7 +5,6 @@ import {
 	type FieldPath,
 	type FieldValues,
 } from "react-hook-form";
-import { SimpleDateTimePicker } from "./dates/SimpleDateTimePicker";
 import { Checkbox } from "./ui/checkbox";
 import {
 	Field,
@@ -123,12 +121,6 @@ export const FormInput: FormControlFunc = (props) => {
 
 export const FormTextarea: FormControlFunc = (props) => {
 	return <FormBase {...props}>{(field) => <Textarea {...field} />}</FormBase>;
-};
-
-export const FormActivities: FormControlFunc = (props) => {
-	return (
-		<FormBase {...props}>{(field) => <ActivitiesForm {...field} />}</FormBase>
-	);
 };
 
 export const FormSelect: FormControlFunc<{ children: ReactNode }> = ({

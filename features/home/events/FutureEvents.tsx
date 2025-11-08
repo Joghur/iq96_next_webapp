@@ -2,8 +2,8 @@ import EditButton from "@components/buttons/EditButton";
 import ShowDateTime from "@components/dates/ShowDateTime";
 import { eventTransitionVariants } from "@lib/animations";
 import { handleType } from "@lib/convert";
-import type { Event } from "@schemas/event";
 import { motion } from "framer-motion";
+import type { Event } from "schemas/event";
 
 type Props = {
 	futureEvents: Event[];

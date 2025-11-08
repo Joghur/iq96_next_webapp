@@ -1,7 +1,7 @@
 "use client";
 
 import { auth } from "@lib/firebase";
-import { type DocumentUser, useDocumentUser } from "@lib/hooks/useFirestore";
+import { useDocumentUser } from "@lib/hooks/useFirestore";
 import {
 	sendPasswordResetEmail,
 	signInWithEmailAndPassword,
@@ -10,10 +10,11 @@ import {
 } from "firebase/auth";
 import type { DocumentData } from "firebase/firestore";
 import { createContext, type ReactNode } from "react";
+import type { Member } from "schemas/member";
 
 interface AuthContextValues {
 	authUser: User | null | undefined;
-	documentUser: DocumentUser | null | undefined;
+	documentUser: Member | null | undefined;
 	loading: boolean;
 	emailLoginHandler: (
 		email: string | undefined,

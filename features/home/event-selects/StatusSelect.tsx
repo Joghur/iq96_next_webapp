@@ -1,6 +1,6 @@
 import { Label } from "@components/ui/label";
-import type { Event } from "@schemas/event";
 import type { ChangeEvent } from "react";
+import type { Event } from "schemas/event";
 
 type Props = {
 	event: Event;

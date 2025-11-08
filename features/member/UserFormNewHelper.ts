@@ -1,7 +1,7 @@
-// import type { DocumentUser } from "@lib/hooks/useFirestore";
+// import type { Member } from "@lib/hooks/useFirestore";
 // import { tshirtSizes } from "./TshirtSelect";
 
-// export const basicUserFormBuilder: FormBuilder<DocumentUser>[] = [
+// export const basicUserFormBuilder: FormBuilder<Member>[] = [
 // 	{ label: "Navn", propertyKey: "name" },
 // 	{ label: "Email", propertyKey: "email" },
 // 	{ label: "Title", propertyKey: "title" },

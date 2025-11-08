@@ -20,7 +20,7 @@ import { SelectItem } from "@components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { confirmAction } from "@lib/utils";
 import { checkEvent } from "actions/event";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
 	type Activity,
 	EVENT_STATUS_VALUES,
@@ -31,7 +31,6 @@ import {
 } from "schemas/event";
 import { toast } from "sonner";
 import type { z } from "zod";
-import ActivitiesForm from "../ActivitiesForm";
 
 interface Props {
 	event?: Event;
@@ -55,14 +54,14 @@ const EventForm = ({
 		defaultValues: event || initialEvent,
 	});
 
-	const {
-		fields: dayEvents,
-		append: addDayEvents,
-		remove: removeDayEvents,
-	} = useFieldArray({
-		control: form.control,
-		name: "activities",
-	});
+	// const {
+	// 	fields: dayEvents,
+	// 	append: addDayEvents,
+	// 	remove: removeDayEvents,
+	// } = useFieldArray({
+	// 	control: form.control,
+	// 	name: "activities",
+	// });
 
 	const isNew = !event?.id;
 

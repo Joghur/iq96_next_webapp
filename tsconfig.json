@@ -25,9 +25,9 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@*": [
-        "./*"
-      ], // Nødvendigt for shadcn/ui CLI
+      // "@*": [
+      //   "./*"
+      // ], // Nødvendigt for shadcn/ui CLI
       "@components/*": [
         "./components/*"
       ],

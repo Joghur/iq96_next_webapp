@@ -1,17 +1,18 @@
 import AddButton from "@components/buttons/AddButton";
 import LoadingSpinner from "@components/LoadingSpinner";
 import { eventTransitionVariants } from "@lib/animations";
-import { type DocumentUser, useFirestore } from "@lib/hooks/useFirestore";
-import type { Event } from "@schemas/event";
+import { useFirestore } from "@lib/hooks/useFirestore";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import type { Event } from "schemas/event";
+import type { Member } from "schemas/member";
 import EventForm from "./EventForms/EventForm";
 import FutureEvents from "./events/FutureEvents";
 import NextEvents from "./events/NextEvents";
 import PreviousEvents from "./events/PreviousEvents";
 
 interface Props {
-	documentUser: DocumentUser | null | undefined;
+	documentUser: Member | null | undefined;
 }
 
 const EventsPage = ({ documentUser }: Props) => {
