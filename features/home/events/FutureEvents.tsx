@@ -37,7 +37,7 @@ const FutureEvents = ({ futureEvents, canEdit, onUpdate }: Props) => {
 										? `${handleType(futureEvent?.type)} de ${futureEvent.city}`
 										: handleType(futureEvent?.type)}
 								</p>
-								<ShowDateTime dateTime={futureEvent.start} showTime={false} />
+								<ShowDateTime date={futureEvent.start} showTime={false} />
 								{canEdit && futureEvent.id && (
 									<EditButton onClick={() => onUpdate(futureEvent.id)} />
 								)}

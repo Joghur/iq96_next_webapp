@@ -1,27 +1,24 @@
-import type { DateTimeValue } from "schemas/event";
 import ShowDate from "./ShowDate";
 
 type Props = {
-	dateTime: DateTimeValue;
+	date: string;
 	showTime?: boolean;
 	formatLargeScreen?: string;
 	formatSmallScreen?: string;
 };
 
 const ShowDateTime = ({
-	dateTime,
-	showTime = false,
+	date,
 	formatLargeScreen = "EEEE - dd. MMMM",
 	formatSmallScreen = "EEEE",
 }: Props) => {
 	return (
 		<div className="flex gap-2">
 			<ShowDate
-				dateString={dateTime.date}
+				dateString={date}
 				formatLargeScreen={formatLargeScreen}
 				formatSmallScreen={formatSmallScreen}
 			/>
-			{showTime && <div>{dateTime.time}</div>}
 		</div>
 	);
 };

@@ -208,13 +208,8 @@ const EventForm = ({
 								<div className="flex flex-col sm:flex-row gap-2">
 									<FormInput
 										control={form.control}
-										name="start.date"
+										name="start"
 										label="Start dato"
-									/>
-									<FormInput
-										control={form.control}
-										name="start.time"
-										label="Tidspunkt"
 									/>
 								</div>
 							</FieldGroup>
@@ -222,13 +217,8 @@ const EventForm = ({
 								<div className="flex flex-col sm:flex-row gap-2">
 									<FormInput
 										control={form.control}
-										name="end.date"
+										name="end"
 										label="Slut Dato"
-									/>
-									<FormInput
-										control={form.control}
-										name="end.time"
-										label="Tidspunkt"
 									/>
 								</div>
 							</FieldGroup>

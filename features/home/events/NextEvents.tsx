@@ -65,18 +65,17 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
 									<div className="flex justify-center gap-2">
 										<div className={gradientClasses}>
 											<ShowDateTime
-												dateTime={nextEvent.start}
+												date={nextEvent.start}
 												formatLargeScreen="EEEE - dd. MMMM"
 												formatSmallScreen="EEEE - dd. MMM"
 											/>
 										</div>
-										{!!nextEvent?.end?.date.trim() && (
+										{!!nextEvent?.end?.trim() && (
 											<>
 												<div className="dynamic_text">til</div>
 												<div className="flex">
 													<ShowDateTime
-														dateTime={nextEvent.end}
-														showTime={false}
+														date={nextEvent.end}
 														formatLargeScreen="EEEE - dd. MMMM"
 														formatSmallScreen="EEEE - dd. MMM"
 													/>
@@ -185,7 +184,7 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
 								)}
 								{nextEvent.activities.length > 0 && (
 									<>
-										{nextEvent.end.date !== "" && (
+										{nextEvent.end !== "" && (
 											<div className="dynamic_text mt-2">Aktiviteter</div>
 										)}
 										<div className="w-full">
