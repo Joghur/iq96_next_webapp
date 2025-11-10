@@ -26,23 +26,6 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import type { Member } from "schemas/member";
 
-// export interface Member {
-// 	id: string;
-// 	uid: string;
-// 	email: string;
-// 	avatar: string;
-// 	isAdmin: boolean;
-// 	isBoard: boolean;
-// 	isSuperAdmin: boolean;
-// 	name: string;
-// 	nick: string;
-// 	title: string;
-// 	tshirt?: string;
-// 	address?: string;
-// 	phones?: string[];
-// 	birthday?: string;
-// }
-
 export type CollectionName =
 	| "users"
 	| "events"
@@ -320,20 +303,21 @@ export const useFirestoreMax4Days = (
 	return { docs, loading, addingDoc, updatingDoc, deletingDoc };
 };
 
-export const useAuth = () => {
-	const [authUser, setAuthUser] = useState<User | null>(null);
-	const [loading, setLoading] = useState(true);
+// export const useAuth = () => {
+// 	const [authUser, setAuthUser] = useState<User | null>(null);
+// 	const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, (authUser) => {
-			setAuthUser(authUser);
-			setLoading(false);
-		});
-		return unsubscribe;
-	}, []);
+// 	useEffect(() => {
+// 		const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+// 			console.log("useAuth: Auth state changed, user:", authUser);
+// 			setAuthUser(authUser);
+// 			setLoading(false);
+// 		});
+// 		return unsubscribe;
+// 	}, []);
 
-	return { authUser, loading };
-};
+// 	return { authUser, loading };
+// };
 
 export type CopyCollection = "oldmap" | "map";
 
@@ -424,6 +408,67 @@ export const deleteMapMarkers = () => {
 		});
 };
 
+// export const useDocumentUser = (): [
+// 	User | null,
+// 	Member | null,
+// 	boolean,
+// 	(id: string, document: DocumentData) => Promise<void>,
+// ] => {
+// 	const [authUser, setFirebaseUser] = useState<User | null>(null);
+// 	const [documentUser, setDocumentUser] = useState<Member | null>(null);
+// 	const [loading, setLoading] = useState(true);
+// 	const db = getFirestore(app);
+// 	const { authUser: _authUser, loading: _loading } = useAuth();
+
+// 	const updatingDoc = async (id: string, document: DocumentData) => {
+// 		const userCollectionRef = collection(db, "users");
+// 		const docRef = doc(userCollectionRef, id);
+// 		await updateDoc(docRef, { ...document });
+// 	};
+
+// 	useEffect(() => {
+// 		console.log(
+// 			"useDocumentUser: _loading:",
+// 			_loading,
+// 			"_authUser:",
+// 			_authUser,
+// 		);
+// 		if (_loading) {
+// 			setLoading(true);
+// 			return;
+// 		}
+
+// 		if (!_authUser) {
+// 			setFirebaseUser(null);
+// 			setDocumentUser(null);
+// 			setLoading(false);
+// 			return;
+// 		}
+
+// 		setFirebaseUser(() => _authUser);
+// 		const userCollectionRef = collection(db, "users");
+// 		const q = query(userCollectionRef, where("uid", "==", _authUser.uid));
+// 		getDocs(q)
+// 			.then((querySnapshot) => {
+// 				if (!querySnapshot.empty) {
+// 					const docData = querySnapshot.docs[0].data() as Member;
+// 					setDocumentUser(() => ({
+// 						...docData,
+// 						id: querySnapshot.docs[0].id,
+// 					}));
+// 					setLoading(() => false);
+// 				}
+// 			})
+// 			.catch((error) => {
+// 				console.error("Error getting document user:", error);
+// 			})
+// 			.finally(() => {
+// 				setLoading(false);
+// 			});
+// 	}, [db, _authUser, _loading]);
+
+// 	return [authUser, documentUser, loading, updatingDoc];
+// };
 export const useDocumentUser = (): [
 	User | null,
 	Member | null,
@@ -434,7 +479,6 @@ export const useDocumentUser = (): [
 	const [documentUser, setDocumentUser] = useState<Member | null>(null);
 	const [loading, setLoading] = useState(true);
 	const db = getFirestore(app);
-	const { authUser: _authUser, loading: _loading } = useAuth();
 
 	const updatingDoc = async (id: string, document: DocumentData) => {
 		const userCollectionRef = collection(db, "users");
@@ -443,35 +487,43 @@ export const useDocumentUser = (): [
 	};
 
 	useEffect(() => {
-		if (!_loading && _authUser) {
-			setFirebaseUser(() => _authUser);
+		// Vent på, at auth.currentUser er klar
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			if (!user) {
+				setFirebaseUser(null);
+				setDocumentUser(null);
+				setLoading(false);
+				return;
+			}
+
+			setFirebaseUser(user);
+			setLoading(true);
 			const userCollectionRef = collection(db, "users");
-			const q = query(userCollectionRef, where("uid", "==", _authUser.uid));
+			const q = query(userCollectionRef, where("uid", "==", user.uid));
+
 			getDocs(q)
 				.then((querySnapshot) => {
 					if (!querySnapshot.empty) {
 						const docData = querySnapshot.docs[0].data() as Member;
-						setDocumentUser(() => ({
+						setDocumentUser({
 							...docData,
 							id: querySnapshot.docs[0].id,
-						}));
-						setLoading(() => false);
+						});
+					} else {
+						setDocumentUser(null);
 					}
 				})
 				.catch((error) => {
 					console.error("Error getting document user:", error);
+					setDocumentUser(null);
+				})
+				.finally(() => {
+					setLoading(false);
 				});
-		} else {
-			setFirebaseUser(() => null);
-			setDocumentUser(() => null);
-			setLoading(() => false);
-		}
-		return () => {
-			setLoading(() => false);
-			setFirebaseUser(() => null);
-			setDocumentUser(() => null);
-		};
-	}, [db, _authUser, _loading]);
+		});
+
+		return unsubscribe;
+	}, [db]); // Kun afhængig af db
 
 	return [authUser, documentUser, loading, updatingDoc];
 };
