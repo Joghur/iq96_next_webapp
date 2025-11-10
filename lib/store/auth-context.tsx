@@ -9,7 +9,7 @@ import {
 	type User,
 } from "firebase/auth";
 import type { DocumentData } from "firebase/firestore";
-import { createContext, type ReactNode } from "react";
+import { createContext, type ReactNode, useEffect } from "react";
 import type { Member } from "schemas/member";
 
 interface AuthContextValues {
@@ -29,10 +29,10 @@ export const authContext = createContext<AuthContextValues>({
 	authUser: null,
 	documentUser: null,
 	loading: false,
-	emailLoginHandler: async () => {},
-	logout: () => {},
-	resetPassword: async () => {},
-	updatingDoc: async () => {},
+	emailLoginHandler: async () => { },
+	logout: () => { },
+	resetPassword: async () => { },
+	updatingDoc: async () => { },
 });
 
 interface AuthContextProviderProps {
@@ -43,6 +43,17 @@ export default function AuthContextProvider({
 	children,
 }: AuthContextProviderProps) {
 	const [authUser, documentUser, loading, updatingDoc] = useDocumentUser();
+
+	useEffect(() => {
+		const timeoutId = setTimeout(() => {
+			if (loading) {
+				console.warn("AuthContextProvider: Timeout - tvinger mount");
+				window.location.reload();
+			}
+		}, 2000);
+
+		return () => clearTimeout(timeoutId);
+	}, [loading]);
 
 	const emailLoginHandler = async (email?: string, password?: string) => {
 		if (!email || !password) {

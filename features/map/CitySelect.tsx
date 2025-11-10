@@ -1,4 +1,14 @@
-import Select from "@components/Select";
+"use client";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from "@components/ui/select";
+import { cn } from "@lib/utils";
 import type { FC } from "react";
 import type { MapCityType } from "./AddCityButton";
 
@@ -15,22 +25,34 @@ export const CitySelect: FC<Props> = ({
 	selected,
 	onChange,
 }) => {
+	const triggerClasses = cn(
+		"bg-secondary text-secondary-foreground border-primary hover:bg-primary",
+		"dark:bg-primary dark:text-primary-foreground dark:border-secondary dark:hover:bg-secondary"
+	)
+
 	const handleSelectChange = (event: string) => {
 		const [year, city] = event.split("-");
 		onChange({ year, city });
 	};
 
-	const selectGroup = { label, groupItems: cities };
 	const selectedString = `${selected.year}-${selected.city}`;
 
 	return (
-		<Select
-			value={selectedString}
-			defaultValue="Vælg by"
-			placeholder="Vælg by"
-			groups={[selectGroup]}
-			onChange={handleSelectChange}
-		/>
+		<Select value={selectedString} onValueChange={handleSelectChange}>
+			<SelectTrigger className={triggerClasses}>
+				<SelectValue placeholder="Vælg by" />
+			</SelectTrigger>
+			<SelectContent>
+				<SelectGroup>
+					<SelectLabel>{label}</SelectLabel>
+					{cities.map((city) => (
+						<SelectItem key={city} value={city}>
+							{city}
+						</SelectItem>
+					))}
+				</SelectGroup>
+			</SelectContent>
+		</Select>
 	);
 };
 

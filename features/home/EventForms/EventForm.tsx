@@ -71,8 +71,6 @@ const EventForm = ({
 			toast.error("Projekt er sat til ikke at kunne ændres");
 			return;
 		}
-		console.log("data", data);
-		console.log("event", event);
 		const res = await checkEvent(data);
 
 		if (!res) {

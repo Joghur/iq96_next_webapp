@@ -7,14 +7,12 @@ interface Props {
 
 const CookieWarning: FC<Props> = ({ acceptCookies }) => {
 	return (
-		<div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
-			<div className="dynamic_text max-w-sm rounded-lg bg-white p-6 text-center shadow-md">
+		<div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-primary bg-opacity-50">
+			<div className="dynamic_text max-w-sm rounded-lg bg-secondary p-6 text-center shadow-md">
 				<div className="mb-4 flex justify-center gap-2">
-					<p className="">
-						Ved at bruge siden accepterer du brugen af cookies!
-					</p>
+					<p>Ved at bruge siden accepterer du brugen af cookies!</p>
 				</div>
-				<Button className="dynamic_text btn" onClick={acceptCookies}>
+				<Button className="dynamic_text border" onClick={acceptCookies}>
 					Acceptér
 				</Button>
 			</div>

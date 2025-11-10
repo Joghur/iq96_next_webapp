@@ -1,15 +1,23 @@
 "use client";
 
 import type { NotificationDbType } from "@components/BottomNav";
-import Select from "@components/Select";
 import { Button } from "@components/ui/button";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@components/ui/select";
 import { Textarea } from "@components/ui/textarea";
 import { useFirestore } from "@lib/hooks/useFirestore";
+import { cn } from "@lib/utils";
 import { Icon } from "leaflet";
 import { type ChangeEvent, useState } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { Tooltip as MapToolip, Marker, Popup } from "react-leaflet";
-import type { Member } from "schemas/member";
+import { type Member, T_SHIRT_SIZES } from "schemas/member";
 import type { MarkerData } from "./Map";
 
 const markerTypes = [
@@ -151,6 +159,11 @@ const MoiMarkers = ({
 	const canEdit = true;
 	const canDelete = member.isAdmin || member.isBoard || member.isSuperAdmin;
 
+	const triggerClasses = cn(
+		"bg-secondary text-secondary-foreground border-primary hover:bg-primary",
+		"dark:bg-primary dark:text-primary-foreground dark:border-secondary dark:hover:bg-secondary",
+	);
+
 	return (
 		<div key={`first${index}`} className="ring-3">
 			<Marker
@@ -236,7 +249,7 @@ const MoiMarkers = ({
 											currentMarker?.title ||
 											"Lang titel - Ses når man trykker på markør"
 										}
-										className="dynamic_text textarea-bordered textarea bg-white"
+										className="dynamic_text textarea-bordered textarea bg-primary text-primary-foreground dark:bg-secondary dark:text-secondary-foreground"
 									/>
 								</div>
 								<div className="pt-5">
@@ -253,7 +266,7 @@ const MoiMarkers = ({
 										placeholder={
 											currentMarker?.title || "Kort titel - Til dropdown menu"
 										}
-										className="dynamic_text textarea-bordered textarea bg-white"
+										className="dynamic_text textarea-bordered textarea bg-primary text-primary-foreground dark:bg-secondary dark:text-secondary-foreground"
 									/>
 								</div>
 								<div className="pt-5">
@@ -268,7 +281,7 @@ const MoiMarkers = ({
 										value={currentMarker?.description}
 										onChange={handleChangeMarker}
 										placeholder={currentMarker?.description || "Beskrivelse"}
-										className="dynamic_text textarea-bordered textarea bg-white"
+										className="dynamic_text textarea-bordered textarea bg-primary text-primary-foreground dark:bg-secondary dark:text-secondary-foreground"
 									/>
 								</div>
 								{member.isSuperAdmin && (
@@ -281,10 +294,21 @@ const MoiMarkers = ({
 										</label>
 										<Select
 											value={currentMarker?.madeBy}
-											placeholder={currentMarker?.madeBy}
-											onChange={(e) => handleChangeMadeBy(e as MadeByType)}
-											groups={[{ groupItems: madeBys }]}
-										/>
+											onValueChange={handleChangeMadeBy}
+										>
+											<SelectTrigger className={triggerClasses}>
+												<SelectValue placeholder="Vælg kreatør" />
+											</SelectTrigger>
+											<SelectContent>
+												<SelectGroup>
+													{madeBys.map((size) => (
+														<SelectItem key={size} value={size}>
+															{size}
+														</SelectItem>
+													))}
+												</SelectGroup>
+											</SelectContent>
+										</Select>
 									</div>
 								)}
 								<div className="pt-5">
@@ -296,18 +320,27 @@ const MoiMarkers = ({
 									</label>
 									<Select
 										value={currentMarker?.type}
-										placeholder={currentMarker?.type}
-										onChange={(e) =>
-											handleChangeMarkerIconType(e as MarkerType)
-										}
-										groups={[{ groupItems: markerTypes }]}
-									/>
+										onValueChange={handleChangeMarkerIconType}
+									>
+										<SelectTrigger className={triggerClasses}>
+											<SelectValue placeholder="Vælg type" />
+										</SelectTrigger>
+										<SelectContent>
+											<SelectGroup>
+												{markerTypes.map((size) => (
+													<SelectItem key={size} value={size}>
+														{size}
+													</SelectItem>
+												))}
+											</SelectGroup>
+										</SelectContent>
+									</Select>
 								</div>
 								<div className="flex justify-between pt-5">
-									<Button onClick={() => setShowEdit(false)} variant="outline">
+									<Button onClick={() => setShowEdit(false)} variant="destructive">
 										Fortryd
 									</Button>
-									<Button onClick={handleSubmitMarker} variant="destructive">
+									<Button onClick={handleSubmitMarker} variant="default">
 										Ændr
 									</Button>
 								</div>

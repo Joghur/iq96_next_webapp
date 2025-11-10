@@ -22,14 +22,13 @@ const FutureEvents = ({ futureEvents, canEdit, onUpdate }: Props) => {
 			>
 				{futureEvents.length > 0 && (
 					<div className="mb-4 pt-6 sm:pt-16">
-						<p className="text-center text-[larger] font-bold">Fremtidig</p>
+						<p className="dynamic_text_lg text-center font-bold">Fremtidig</p>
 					</div>
 				)}
 				{futureEvents.map((futureEvent, index) => {
 					return (
 						<div
 							key={index}
-							// className={`sm:px-15 paper ${theme === "dark" ? "bg-gray-800" : "bg-slate-50"} flex flex-col gap-2 overflow-hidden rounded-xl px-10`}
 							className={`sm:px-15 paper text-secondary-foreground"bg-gray-800" : "bg-slate-50"} flex flex-col gap-2 overflow-hidden rounded-xl px-10`}
 						>
 							<div className="flex items-center justify-between gap-2">
