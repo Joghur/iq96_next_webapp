@@ -50,13 +50,12 @@ const TourCard = ({ event }: Props) => {
 			{event.activities.map((day, index) => (
 				<Fragment key={day.dateString}>
 					<div
-						className={`rounded-md p-1 sm:p-3 ${
-							index === 0
+						className={`rounded-md p-1 sm:p-3 ${index === 0
 								? "bg-slate-400 border-2 rounded-lg shadow-lg border-orange-400 mb-6"
 								: "bg-slate-400 mb-2"
-						}`}
+							}`}
 					>
-						{event.end.date !== "" && event.end.time && (
+						{event.end !== "" && (
 							<h3
 								className={`${index === 0 ? "font-extrabold" : "font-small"} mb-2 tracking-tight`}
 							>
@@ -76,15 +75,14 @@ const TourCard = ({ event }: Props) => {
 									</span>
 									{selectIcon(entry.type)}
 									<span
-										className={`dynamic_text px-2 sm:px-3 py-0.5 rounded-full leading-tight ${index === 0 ? "font-medium" : "font-normal"} ${
-											entry.type === "hotel" ||
-											entry.type === "restaurant" ||
-											entry.type === "meeting"
+										className={`dynamic_text px-2 sm:px-3 py-0.5 rounded-full leading-tight ${index === 0 ? "font-medium" : "font-normal"} ${entry.type === "hotel" ||
+												entry.type === "restaurant" ||
+												entry.type === "meeting"
 												? "bg-green-300 text-white"
 												: entry.type === "meetingPoint"
 													? "bg-red-300 text-white"
 													: "bg-blue-300 text-slate-600"
-										}`}
+											}`}
 									>
 										{entry.label}
 									</span>

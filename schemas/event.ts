@@ -9,8 +9,6 @@ export type Activity = z.infer<typeof activitiesSchema>;
 export type ActivityType = (typeof ACTIVITY_TYPE_VALUES)[number];
 export type ActivityElement = z.infer<typeof activitiesElementSchema>;
 
-export type DateTimeValue = z.infer<typeof dateTimeValueSchema>;
-
 export const EVENT_TYPE_VALUES = [
 	"tour",
 	"gf",
@@ -30,27 +28,30 @@ export const ACTIVITY_TYPE_VALUES = [
 ] as const;
 
 // Schemas
-export const dateTimeValueSchema = z.object({
-	date: z.string().min(1),
-	time: z.string().min(1),
-});
-
 export const activitiesElementSchema = z.object({
-	time: z.string().min(1),
+	time: z.string().regex(/^\d{2}:\d{2}$/, {
+		message: "Tid skal være i formatet hh:mm",
+	}),
 	label: z.string().min(1),
 	type: z.enum(ACTIVITY_TYPE_VALUES),
 });
 
 export const activitiesSchema = z.object({
-	dateString: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), // YYYY-MM-DD
+	dateString: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
+		message: "Datoen skal være i formatet YYYY-MM-DD",
+	}),
 	entries: z.array(activitiesElementSchema),
 });
 
 export const eventSchema = z.object({
 	id: z.string().optional(),
 	city: z.string().min(1),
-	start: dateTimeValueSchema,
-	end: dateTimeValueSchema,
+	start: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
+		message: "Datoen skal være i formatet YYYY-MM-DD",
+	}),
+	end: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
+		message: "Datoen skal være i formatet YYYY-MM-DD",
+	}),
 	type: z.enum(EVENT_TYPE_VALUES),
 	year: z.number().int(),
 	activities: z.array(activitiesSchema).default([]),
@@ -66,8 +67,8 @@ export const initialEvent: Event = {
 	type: "tour",
 	status: "pending",
 	city: "Kokkedal",
-	start: { date: "", time: "" },
-	end: { date: "", time: "" },
+	start: "",
+	end: "",
 	year: new Date().getFullYear(),
 	activities: [
 		{
