@@ -81,45 +81,43 @@ const NewCityForm = ({
 
 	return (
 		<Modal open={open} onOpenChange={onClose} title="Opret ny Tour by">
-			<div>
-				<div className="pt-5">
-					<label
-						htmlFor="text"
-						className="dynamic_text green_gradient mb-2 block font-medium"
-					>
-						Årstal
-					</label>
-					<Textarea
-						id="year"
-						value={changedCity.year}
-						onChange={handleChange}
-						placeholder={changedCity?.year || "År"}
-						className="dynamic_text textarea"
-					/>
-				</div>
-				<div className="pt-5">
-					<label
-						htmlFor="text"
-						className="dynamic_text green_gradient mb-2 block font-medium"
-					>
-						Tour by
-					</label>
-					<Textarea
-						id="city"
-						value={changedCity.city}
-						onChange={handleChange}
-						placeholder={changedCity?.city || "Bynavn"}
-						className="dynamic_text textarea-bordered textarea"
-					/>
-				</div>
-				<div className="flex justify-between pt-5">
-					<Button onClick={onClose} variant="destructive">
-						Fortryd
-					</Button>
-					<Button onClick={handleSubmit} variant="default">
-						Opret
-					</Button>
-				</div>
+			<div className="pt-5">
+				<label
+					htmlFor="text"
+					className="dynamic_text green_gradient mb-2 block font-medium"
+				>
+					Årstal
+				</label>
+				<Textarea
+					id="year"
+					value={changedCity.year}
+					onChange={handleChange}
+					placeholder={changedCity?.year || "År"}
+					className="dynamic_text textarea"
+				/>
+			</div>
+			<div className="pt-5">
+				<label
+					htmlFor="text"
+					className="dynamic_text green_gradient mb-2 block font-medium"
+				>
+					Tour by
+				</label>
+				<Textarea
+					id="city"
+					value={changedCity.city}
+					onChange={handleChange}
+					placeholder={changedCity?.city || "Bynavn"}
+					className="dynamic_text textarea-bordered textarea"
+				/>
+			</div>
+			<div className="flex justify-between pt-5">
+				<Button onClick={onClose} variant="destructive">
+					Fortryd
+				</Button>
+				<Button onClick={handleSubmit} variant="default">
+					Opret
+				</Button>
 			</div>
 		</Modal>
 	);
