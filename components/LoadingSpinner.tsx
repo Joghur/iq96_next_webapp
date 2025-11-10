@@ -4,9 +4,9 @@ interface Props {
 	text?: string;
 }
 
-const LoadingSpinner = ({ text = "Henter..." }: Props) => {
+const LoadingSpinner = ({ text = "Henter (hænger denne så genopfrisk siden) ..." }: Props) => {
 	return (
-		<div className="mt-23 flex items-center justify-center">
+		<div className="mt-23 h-screen flex items-center justify-center">
 			<div
 				aria-label="Henter..."
 				role="status"

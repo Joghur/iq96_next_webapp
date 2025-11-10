@@ -39,13 +39,14 @@ const AddMarkerButton = ({ addingMarker, userPosition }: Props) => {
 				onClick={toogleAddModal}
 			>
 				<MdAdd fontSize="large" />
-			</Button>
-			<NewMarkerForm
+			</Button >
+			{open && <NewMarkerForm
 				open={open}
 				onClose={() => setOpen(() => false)}
 				addingMarker={addingMarker}
 				userPosition={userPosition}
 			/>
+			}
 		</>
 	);
 };
@@ -98,15 +99,13 @@ export const NewMarkerForm = ({
 			onOpenChange={onClose}
 			title="Opret ny kort markør på din position"
 		>
-			<div>
-				<div className="flex justify-between pt-5">
-					<Button onClick={onClose} color={"error"} variant="destructive">
-						Fortryd
-					</Button>
-					<Button onClick={handleSubmit} variant="outline">
-						Opret
-					</Button>
-				</div>
+			<div className="flex justify-between pt-5">
+				<Button onClick={onClose} color={"error"} variant="destructive">
+					Fortryd
+				</Button>
+				<Button onClick={handleSubmit} variant="outline">
+					Opret
+				</Button>
 			</div>
 		</Modal>
 	);

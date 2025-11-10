@@ -26,7 +26,6 @@ const InfoButton = ({ documentUser }: Props) => {
 		<>
 			<Button
 				className="btn rounded-full shadow-xl ring-2"
-				variant="default"
 				onClick={toogleAddModal}
 			>
 				<MdInfo fontSize="large" />

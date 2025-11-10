@@ -125,9 +125,9 @@ const MemberForm = ({ member, onSubmit, onDelete, onClose }: Props) => {
 						/>
 						<FieldSeparator />
 						<FieldSet>
-							<FieldLegend>Knapper</FieldLegend>
+							<FieldLegend>Rettigheder</FieldLegend>
 							<FieldDescription>
-								Vælg hvilke knapper der skal være synlige
+								Vælg adgang til diverse sider
 							</FieldDescription>
 							<FieldGroup data-slot="checkbox-group">
 								<div className="flex flex-col sm:flex-row gap-2">
