@@ -12,6 +12,8 @@ import {
 	setLocalStorage,
 } from "@lib/localStorage";
 import { authContext } from "@lib/store/auth-context";
+import { cn } from "@lib/utils";
+import { useTheme } from "next-themes";
 import { useContext, useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { MdInfo } from "react-icons/md";
@@ -20,6 +22,8 @@ import { z as zod } from "zod";
 export const LOCALSTORAGE_EMAIL = `${LOCALSTORAGE_PREFIX}-email`;
 
 function SignIn() {
+	const { resolvedTheme } = useTheme();
+
 	const formSchema = zod.object({
 		email: zod
 			.string()
@@ -75,12 +79,21 @@ function SignIn() {
 		}
 	};
 
+	const gradientClasses = cn(
+		"dynamic_text_xl",
+		resolvedTheme === "dark"
+			? "orange_gradient hover:orange_gradient_hover"
+			: "blue_gradient hover:blue_gradient_hover",
+	);
+
 	return (
 		<main className="dynamic_text container mx-auto max-w-2xl px-6">
 			<div className="fixed right-4 top-4 z-50 flex flex-row items-center justify-center opacity-100">
 				<ThemeToggle />
 			</div>
-			<p className="blue_gradient mb-3 pt-16 text-center font-bold sm:text-xl">
+			<p
+				className={`${gradientClasses} mb-3 pt-16 text-center font-bold sm:text-xl`}
+			>
 				Velkommen til IQ96&apos;s webapp
 			</p>
 			<div className="mb-6 mt-5 flex items-center justify-center gap-2">
@@ -95,15 +108,8 @@ function SignIn() {
 				</div>
 			</div>
 			<div className="flex flex-col overflow-hidden rounded-2xl bg-slate-800 shadow-md shadow-slate-500">
-				<div className="h-42">
-					<img
-						src="/images/iq_all_third.jpg"
-						width="650"
-						height="100"
-						alt="iq_all"
-						className="text-2xl"
-					/>
-				</div>
+				{/** biome-ignore lint/performance/noImgElement: <Ignore> */}
+				<img src="/images/iq_all_4th.webp" alt="iq_all" className="text-2xl" />
 				<div className="px-4 py-4">
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<div className="mb-4 flex flex-col">
@@ -164,6 +170,7 @@ function SignIn() {
 							disabled={isSubmitting}
 							className="mx-auto mt-6 flex items-center gap-2 rounded-lg bg-gray-700 p-4 font-medium text-white"
 						>
+							{/** biome-ignore lint/performance/noImgElement: <Ignore> */}
 							<img
 								src="/images/logo/iqlogo_180.png"
 								width="37"
@@ -180,12 +187,15 @@ function SignIn() {
 				</div>
 			</div>
 			{resetStep === 0 && (
-				<div className="flex flex-col items-center pl-2 pt-4 text-lg">
+				<div
+					className={`${gradientClasses} flex flex-col items-center pl-2 pt-4 text-lg`}
+				>
 					<Button
 						onClick={async () => {
 							setResetStep(() => 1);
 						}}
-						className="orange_gradient"
+						className={`${gradientClasses} border`}
+						variant="ghost"
 					>
 						Reset kodeord
 					</Button>

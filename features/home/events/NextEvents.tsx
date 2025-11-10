@@ -27,6 +27,7 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
 			? "orange_gradient hover:orange_gradient_hover"
 			: "blue_gradient hover:blue_gradient_hover",
 	);
+
 	return (
 		<>
 			{nextEvents.length > 0 && (
