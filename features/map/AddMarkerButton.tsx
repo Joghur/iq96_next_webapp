@@ -29,7 +29,6 @@ const AddMarkerButton = ({ addingMarker, userPosition }: Props) => {
 	const [open, setOpen] = useState(false);
 
 	const toogleAddModal = async () => {
-		console.log("Addbutton");
 		setOpen((old) => !old);
 	};
 

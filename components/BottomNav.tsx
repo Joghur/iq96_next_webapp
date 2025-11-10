@@ -42,9 +42,23 @@ export const SavingBadgeStatusToLocalStorage = (notifString: string) => {
 	});
 };
 
+
 const BottomNav = () => {
-	const pathname = usePathname();
 	const { authUser, loading } = useContext(authContext);
+
+	if (!authUser) {
+		return null;
+	}
+
+	if (loading) {
+		return <LoadingSpinner text="Henter menu..." />;
+	}
+	return <BottomNavData />
+};
+
+
+const BottomNavData = () => {
+	const pathname = usePathname();
 	const [newContentMap, setNewContentMap] = useState<string[]>([]);
 	const [newContentLib, setNewContentLib] = useState<string[]>([]);
 	const [newContentChat, setNewContentChat] = useState<string[]>([]);
@@ -77,8 +91,8 @@ const BottomNav = () => {
 
 				const showBadge = lastSeen?.date
 					? moment(cloudBadgeNotif.updatedAt.seconds * 1000).isAfter(
-							new Date(lastSeen.date),
-						)
+						new Date(lastSeen.date),
+					)
 					: true;
 
 				if (showBadge) {
@@ -100,14 +114,6 @@ const BottomNav = () => {
 	useEffect(() => {
 		handleBadgeNotifications();
 	}, [streamLinedBadges]);
-
-	if (loading) {
-		return <LoadingSpinner />;
-	}
-
-	if (!authUser) {
-		return null;
-	}
 
 	const menuItems = [
 		{
@@ -154,11 +160,10 @@ const BottomNav = () => {
 							pathname: item.href,
 							query: { badge: JSON.stringify(item.badge) },
 						}}
-						className={`dynamic_text ${
-							basePathname === item.href
-								? "bottom_nav_link_selected"
-								: "bottom_nav_link_container"
-						}`}
+						className={`dynamic_text ${basePathname === item.href
+							? "bottom_nav_link_selected"
+							: "bottom_nav_link_container"
+							}`}
 					>
 						{item?.notification && item.notification}
 						{item.icon}
