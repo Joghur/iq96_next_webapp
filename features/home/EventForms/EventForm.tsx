@@ -200,9 +200,9 @@ const EventForm = ({
 						</FieldSet>
 						<FieldSeparator />
 						<FieldSet>
-							<FieldLegend>Dato og Tid</FieldLegend>
+							<FieldLegend>Dato</FieldLegend>
 							<FieldDescription>
-								Start og slut dato og tidspunkter for begivenhed
+								Start og slut datoer for begivenhed
 							</FieldDescription>
 							<FieldGroup data-slot="checkbox-group">
 								<div className="flex flex-col sm:flex-row gap-2">
@@ -210,15 +210,13 @@ const EventForm = ({
 										control={form.control}
 										name="start"
 										label="Start dato"
+										description="YYYY-MM-DD"
 									/>
-								</div>
-							</FieldGroup>
-							<FieldGroup>
-								<div className="flex flex-col sm:flex-row gap-2">
 									<FormInput
 										control={form.control}
 										name="end"
 										label="Slut Dato"
+										description="YYYY-MM-DD"
 									/>
 								</div>
 							</FieldGroup>

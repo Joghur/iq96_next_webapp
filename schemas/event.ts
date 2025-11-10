@@ -29,8 +29,8 @@ export const ACTIVITY_TYPE_VALUES = [
 
 // Schemas
 export const activitiesElementSchema = z.object({
-	time: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
-		message: "Datoen skal være i formatet YYYY-MM-DD",
+	time: z.string().regex(/^\d{2}:\d{2}$/, {
+		message: "Tid skal være i formatet hh:mm",
 	}),
 	label: z.string().min(1),
 	type: z.enum(ACTIVITY_TYPE_VALUES),
@@ -53,7 +53,7 @@ export const eventSchema = z.object({
 		message: "Datoen skal være i formatet YYYY-MM-DD",
 	}),
 	type: z.enum(EVENT_TYPE_VALUES),
-	year: z.number().int().min(4).max(4),
+	year: z.number().int(),
 	activities: z.array(activitiesSchema).default([]),
 	notes: z.string().optional().default(""),
 	notesActivities: z.string().optional().default(""),
