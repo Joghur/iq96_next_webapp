@@ -1,6 +1,6 @@
 "use client";
 
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@components/ui/select";
 import { cn } from "@lib/utils";
 import type { DocumentData } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -28,14 +28,9 @@ const TshirtSelect = ({ member, updatingDoc }: Props) => {
 		"bg-secondary text-secondary-foreground border-primary hover:bg-primary",
 		"dark:bg-primary dark:text-primary-foreground dark:border-secondary dark:hover:bg-secondary"
 	)
+
 	return (
 		<div className="inline-block">
-			{/* <Select
-				value={currentSize}
-				placeholder={currentSize}
-				onChange={(e) => handleThemeChange(e as TshirtSizes)}
-				groups={[{ groupItems: T_SHIRT_SIZES }]}
-			/> */}
 			<Select value={currentSize} onValueChange={handleThemeChange}>
 				<SelectTrigger className={triggerClasses}>
 					<SelectValue placeholder="Vælg by" />
