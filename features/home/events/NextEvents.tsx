@@ -22,7 +22,7 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
 	const { resolvedTheme } = useTheme();
 
 	const gradientClasses = cn(
-		"dynamic_text text-gradient hover:text-gradient-hover flex text-center text-[larger]",
+		"flex text-center text-[larger]",
 		resolvedTheme === "dark"
 			? "orange_gradient hover:orange_gradient_hover"
 			: "blue_gradient hover:blue_gradient_hover",
@@ -32,7 +32,7 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
 		<>
 			{nextEvents.length > 0 && (
 				<div className="mb-4 mt-16 items-center justify-center">
-					<p className="text-center text-[larger] font-bold">Næste</p>
+					<p className="dynamic_text_xl text-center font-bold">Næste</p>
 				</div>
 			)}
 			{nextEvents.map((nextEvent, index) => {

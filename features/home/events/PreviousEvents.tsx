@@ -24,7 +24,7 @@ const PreviousEvents = ({ previousEvents, canEdit, onUpdate }: Props) => {
 			>
 				{previousEvents.length > 0 && (
 					<div className="mb-4 mt-16 items-center justify-center">
-						<p className="text-center text-[larger] font-bold">Tidligere</p>
+						<p className="dynamic_text_lg text-center font-bold">Tidligere</p>
 					</div>
 				)}
 				{previousEvents.map((previousEvent, index) => {
