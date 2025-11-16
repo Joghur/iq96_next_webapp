@@ -30,7 +30,6 @@ import {
 	initialEvent,
 } from "schemas/event";
 import { toast } from "sonner";
-import type { z } from "zod";
 
 interface Props {
 	event?: Event;
@@ -65,7 +64,7 @@ const EventForm = ({
 
 	const isNew = !event?.id;
 
-	async function onSubmit(data: z.infer<typeof eventSchema>) {
+	async function onSubmit(data: Event) {
 		if (!editable) {
 			form.reset();
 			toast.error("Projekt er sat til ikke at kunne ændres");

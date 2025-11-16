@@ -5,7 +5,7 @@ import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { TrashIcon } from "lucide-react";
 import { type ChangeEvent, useState } from "react";
-import type { Activity, ActivityElement, ActivityType } from "schemas/event";
+import type { Activity, ActivityItem, ActivityItemType } from "schemas/event";
 
 interface Props {
 	activities: Activity[];
@@ -20,13 +20,13 @@ export default function ActivitiesForm({
 	const [newDate, setNewDate] = useState<string>(""); // "2025-09-28"
 	const [newTime, setNewTime] = useState<string>(""); // "21:30"
 	const [newLabel, setNewLabel] = useState("");
-	const [newType, setNewType] = useState<ActivityType>("meetingPoint");
+	const [newType, setNewType] = useState<ActivityItemType>("meetingPoint");
 
 	const [editEntry, setEditEntry] = useState<{
 		dateString: string;
 		index: number;
 	} | null>(null);
-	const [editValue, setEditValue] = useState<ActivityElement | null>(null);
+	const [editValue, setEditValue] = useState<ActivityItem | null>(null);
 
 	const updateParent = (updated: Activity[]) => {
 		setEvents(updated);
@@ -39,7 +39,7 @@ export default function ActivitiesForm({
 		const updated = [...events];
 		const day = updated.find((d) => d.dateString === newDate);
 
-		const newEntry: ActivityElement = {
+		const newEntry: ActivityItem = {
 			time: newTime,
 			label: newLabel,
 			type: newType,
@@ -71,7 +71,7 @@ export default function ActivitiesForm({
 	};
 
 	const handleChangeType = (val: ChangeEvent<HTMLSelectElement>) => {
-		setNewType(val.target.value as ActivityType);
+		setNewType(val.target.value as ActivityItemType);
 	};
 
 	// TODO refactor this
@@ -120,7 +120,7 @@ export default function ActivitiesForm({
 									className="bg-secondary border p-05 flex items-center justify-between gap-2"
 								>
 									{editEntry?.dateString === day.dateString &&
-									editEntry.index === index ? (
+										editEntry.index === index ? (
 										<div className="flex flex-col md:flex-row md:flex-wrap items-start gap-2 bg-slate-200 p-3 rounded-md md:max-w-[700px]">
 											<div>
 												<Input
@@ -138,7 +138,7 @@ export default function ActivitiesForm({
 														onChange={(e) =>
 															setEditValue((prev) => ({
 																...prev!,
-																type: e.target.value as ActivityType,
+																type: e.target.value as ActivityItemType,
 															}))
 														}
 														className="p-2 rounded-md border border-gray-300 md:w-[150px]"

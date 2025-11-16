@@ -9,14 +9,14 @@ import {
 	MdOutlineTour,
 	MdWineBar,
 } from "react-icons/md";
-import type { ActivityType, Event } from "schemas/event";
+import type { ActivityItemType, Event } from "schemas/event";
 import EventBulletPoints from "./EventBulletPoints";
 
 type Props = {
 	event: Event;
 };
 
-const selectIcon = (type: ActivityType) => {
+const selectIcon = (type: ActivityItemType) => {
 	switch (type) {
 		case "activity":
 			return <FaBolt />;
@@ -51,8 +51,8 @@ const TourCard = ({ event }: Props) => {
 				<Fragment key={day.dateString}>
 					<div
 						className={`rounded-md p-1 sm:p-3 ${index === 0
-								? "bg-slate-400 border-2 rounded-lg shadow-lg border-orange-400 mb-6"
-								: "bg-slate-400 mb-2"
+							? "bg-slate-400 border-2 rounded-lg shadow-lg border-orange-400 mb-6"
+							: "bg-slate-400 mb-2"
 							}`}
 					>
 						{event.end !== "" && (
@@ -76,12 +76,12 @@ const TourCard = ({ event }: Props) => {
 									{selectIcon(entry.type)}
 									<span
 										className={`dynamic_text px-2 sm:px-3 py-0.5 rounded-full leading-tight ${index === 0 ? "font-medium" : "font-normal"} ${entry.type === "hotel" ||
-												entry.type === "restaurant" ||
-												entry.type === "meeting"
-												? "bg-green-300 text-white"
-												: entry.type === "meetingPoint"
-													? "bg-red-300 text-white"
-													: "bg-blue-300 text-slate-600"
+											entry.type === "restaurant" ||
+											entry.type === "meeting"
+											? "bg-green-300 text-white"
+											: entry.type === "meetingPoint"
+												? "bg-red-300 text-white"
+												: "bg-blue-300 text-slate-600"
 											}`}
 									>
 										{entry.label}

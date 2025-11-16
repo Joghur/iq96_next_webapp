@@ -2,12 +2,12 @@ import { z } from "zod";
 
 // Typer
 export type Event = z.infer<typeof eventSchema>;
-export type EventType = (typeof EVENT_TYPE_VALUES)[number];
-export type EventStatus = (typeof EVENT_STATUS_VALUES)[number];
+export type EventType = Event["type"]
+export type EventStatus = Event["status"];
 
 export type Activity = z.infer<typeof activitiesSchema>;
-export type ActivityType = (typeof ACTIVITY_TYPE_VALUES)[number];
-export type ActivityElement = z.infer<typeof activitiesElementSchema>;
+export type ActivityItem = z.infer<typeof activitiesItemSchema>;
+export type ActivityItemType = ActivityItem["type"];
 
 export const EVENT_TYPE_VALUES = [
 	"tour",
@@ -28,39 +28,49 @@ export const ACTIVITY_TYPE_VALUES = [
 ] as const;
 
 // Schemas
-export const activitiesElementSchema = z.object({
-	time: z.string().regex(/^\d{2}:\d{2}$/, {
+export const activitiesItemSchema = z.object({
+	time: z.union([z.string().regex(/^\d{2}:\d{2}$/, {
 		message: "Tid skal være i formatet hh:mm",
 	}),
+	z.literal(""),
+	]),
 	label: z.string().min(1),
 	type: z.enum(ACTIVITY_TYPE_VALUES),
 });
 
 export const activitiesSchema = z.object({
-	dateString: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
+	dateString: z.union([z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
 		message: "Datoen skal være i formatet YYYY-MM-DD",
 	}),
-	entries: z.array(activitiesElementSchema),
+	z.literal(""),
+	]),
+	entries: z.array(activitiesItemSchema),
 });
 
 export const eventSchema = z.object({
 	id: z.string().optional(),
 	city: z.string().min(1),
-	start: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
-		message: "Datoen skal være i formatet YYYY-MM-DD",
-	}),
-	end: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
-		message: "Datoen skal være i formatet YYYY-MM-DD",
-	}),
+	start: z.union([
+		z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
+			message: "Datoen skal være i formatet YYYY-MM-DD",
+		}),
+		z.literal(""),
+	]),
+	end: z.union([
+		z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
+			message: "Datoen skal være i formatet YYYY-MM-DD",
+		}),
+		z.literal(""),
+	]),
 	type: z.enum(EVENT_TYPE_VALUES),
 	year: z.number().int(),
-	activities: z.array(activitiesSchema).default([]),
-	notes: z.string().optional().default(""),
-	notesActivities: z.string().optional().default(""),
-	status: z.enum(EVENT_STATUS_VALUES).default("pending"),
-	showUploadButton: z.boolean().optional().default(false),
-	showInfoLink: z.boolean().optional().default(false),
-	showMapLink: z.boolean().optional().default(false),
+	activities: z.array(activitiesSchema),
+	notes: z.string().optional(),
+	notesActivities: z.string().optional(),
+	status: z.enum(EVENT_STATUS_VALUES),
+	showUploadButton: z.boolean().optional(),
+	showInfoLink: z.boolean().optional(),
+	showMapLink: z.boolean().optional(),
 });
 
 export const initialEvent: Event = {
