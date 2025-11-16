@@ -20,7 +20,7 @@ import { SelectItem } from "@components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { confirmAction } from "@lib/utils";
 import { checkEvent } from "actions/event";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import {
 	type Activity,
 	EVENT_STATUS_VALUES,
@@ -30,6 +30,7 @@ import {
 	initialEvent,
 } from "schemas/event";
 import { toast } from "sonner";
+import ActivitiesForm from "../ActivitiesForm";
 
 interface Props {
 	event?: Event;
@@ -53,14 +54,15 @@ const EventForm = ({
 		defaultValues: event || initialEvent,
 	});
 
-	// const {
-	// 	fields: dayEvents,
-	// 	append: addDayEvents,
-	// 	remove: removeDayEvents,
-	// } = useFieldArray({
-	// 	control: form.control,
-	// 	name: "activities",
-	// });
+	const {
+		fields: dayActivities,
+		append: addDayActivity,
+		remove: removeDayActivity,
+		update: updateDayActivity
+	} = useFieldArray({
+		control: form.control,
+		name: "activities",
+	});
 
 	const isNew = !event?.id;
 
@@ -221,7 +223,11 @@ const EventForm = ({
 							</FieldGroup>
 						</FieldSet>
 						<FieldSeparator />
-						{/* <ActivitiesForm activities={event} onChange={() => {}} /> */}
+						<ActivitiesForm
+							activities={dayActivities}
+							onAddActivity={addDayActivity}
+							onRemoveActivity={removeDayActivity}
+							onUpdateActivity={updateDayActivity} />
 						<FormTextarea control={form.control} name="notes" label="Noter" />
 						<FormTextarea
 							control={form.control}
