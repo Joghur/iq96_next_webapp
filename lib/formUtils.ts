@@ -17,6 +17,7 @@ export const checkFormData = <T>(
             "Ugyldige event-data:",
             JSON.stringify(
                 {
+                    data: unsafeData,
                     errors: data.error.format(),
                 },
                 null,
