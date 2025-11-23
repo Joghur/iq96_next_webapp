@@ -22,7 +22,6 @@ import { confirmAction } from "@lib/utils";
 import { checkEvent } from "actions/event";
 import { useFieldArray, useForm } from "react-hook-form";
 import {
-	type Activity,
 	EVENT_STATUS_VALUES,
 	EVENT_TYPE_VALUES,
 	type Event,
@@ -54,17 +53,18 @@ const EventForm = ({
 		defaultValues: event || initialEvent,
 	});
 
+
 	const {
 		fields: dayActivities,
 		append: addDayActivity,
 		remove: removeDayActivity,
-		update: updateDayActivity
 	} = useFieldArray({
 		control: form.control,
 		name: "activities",
 	});
 
 	const isNew = !event?.id;
+	console.log('isNew', isNew)
 
 	async function onSubmit(data: Event) {
 		if (!editable) {
@@ -73,11 +73,13 @@ const EventForm = ({
 			return;
 		}
 		const res = await checkEvent(data);
-
+		console.log('res', res)
 		if (!res) {
 			toast.error(`Projekt kunne ikke ${isNew ? "oprettes" : "ændres"}`);
 		}
 
+		console.log('isNew', isNew)
+		console.log('data.id', data.id)
 		if (isNew) {
 			await onAdding?.(data);
 		}
@@ -174,6 +176,7 @@ const EventForm = ({
 								</div>
 							</FieldGroup>
 						</FieldSet>
+						<FieldSeparator />
 						<FieldSet>
 							<FieldLegend>Knapper</FieldLegend>
 							<FieldDescription>
@@ -223,12 +226,15 @@ const EventForm = ({
 							</FieldGroup>
 						</FieldSet>
 						<FieldSeparator />
+						<FormTextarea control={form.control} name="notes" label="Noter" />
+						<FieldSeparator />
 						<ActivitiesForm
 							activities={dayActivities}
 							onAddActivity={addDayActivity}
 							onRemoveActivity={removeDayActivity}
-							onUpdateActivity={updateDayActivity} />
-						<FormTextarea control={form.control} name="notes" label="Noter" />
+						// onUpdateActivity={updateDayActivity}
+						/>
+						<FieldSeparator />
 						<FormTextarea
 							control={form.control}
 							name="notesActivities"
@@ -276,11 +282,11 @@ const EventForm = ({
 
 export default EventForm;
 
-export function sortDayEvents(dayEvents: Activity[]): Activity[] {
-	return [...dayEvents]
-		.sort((a, b) => a.dateString.localeCompare(b.dateString))
-		.map((day) => ({
-			...day,
-			entries: [...day.entries].sort((a, b) => a.time.localeCompare(b.time)),
-		}));
-}
+// export function sortDayEvents(dayEvents: Activity[]): Activity[] {
+// 	return [...dayEvents]
+// 		.sort((a, b) => a.dateString.localeCompare(b.dateString))
+// 		.map((day) => ({
+// 			...day,
+// 			entries: [...day.entries].sort((a, b) => a.time.localeCompare(b.time)),
+// 		}));
+// }

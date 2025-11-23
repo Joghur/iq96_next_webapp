@@ -6,8 +6,7 @@ export type EventType = Event["type"]
 export type EventStatus = Event["status"];
 
 export type Activity = z.infer<typeof activitiesSchema>;
-export type ActivityItem = z.infer<typeof activitiesItemSchema>;
-export type ActivityItemType = ActivityItem["type"];
+export type ActivityType = Activity["activityType"]
 
 export const EVENT_TYPE_VALUES = [
 	"tour",
@@ -28,23 +27,19 @@ export const ACTIVITY_TYPE_VALUES = [
 ] as const;
 
 // Schemas
-export const activitiesItemSchema = z.object({
-	time: z.union([z.string().regex(/^\d{2}:\d{2}$/, {
-		message: "Tid skal være i formatet hh:mm",
-	}),
-	z.literal(""),
-	]),
-	label: z.string().min(1),
-	type: z.enum(ACTIVITY_TYPE_VALUES),
-});
-
 export const activitiesSchema = z.object({
 	dateString: z.union([z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
 		message: "Datoen skal være i formatet YYYY-MM-DD",
 	}),
 	z.literal(""),
 	]),
-	entries: z.array(activitiesItemSchema),
+	time: z.union([z.string().regex(/^\d{2}:\d{2}$/, {
+		message: "Tid skal være i formatet hh:mm",
+	}),
+	z.literal(""),
+	]),
+	label: z.string().min(1),
+	activityType: z.enum(ACTIVITY_TYPE_VALUES),
 });
 
 export const eventSchema = z.object({
@@ -83,24 +78,25 @@ export const initialEvent: Event = {
 	activities: [
 		{
 			dateString: "2025-09-28",
-			entries: [
-				{
-					time: "11:00",
-					label: "Mødes under uret, Hovedbanegården",
-					type: "meetingPoint",
-				},
-				{ time: "12:30", label: "Hotel", type: "hotel" },
-				{ time: "13:30", label: "Aktivitet", type: "activity" },
-				{ time: "14:30", label: "Guided tour", type: "guidedTour" },
-			],
+			time: "11:00",
+			label: "Mødes under uret, Hovedbanegården",
+			activityType: "meetingPoint",
 		},
+		{ dateString: "2025-09-28", time: "12:30", label: "Hotel", activityType: "hotel" },
+		{ dateString: "2025-09-28", time: "13:30", label: "Aktivitet", activityType: "activity" },
+		{ dateString: "2025-09-28", time: "14:30", label: "Guided tour", activityType: "guidedTour" },
 		{
-			dateString: "2025-09-29",
-			entries: [
-				{ time: "16:30", label: "GF mødestart", type: "meeting" },
-				{ time: "19:30", label: "Cantinos & Centerpubben", type: "bar" },
-			],
+			dateString: "2025-09-28",
+			time: "11:00",
+			label: "Mødes under uret, Hovedbanegården",
+			activityType: "meetingPoint",
 		},
+		{ dateString: "2025-09-28", time: "12:30", label: "Hotel", activityType: "hotel" },
+		{ dateString: "2025-09-28", time: "13:30", label: "Aktivitet", activityType: "activity" },
+		{ dateString: "2025-09-28", time: "14:30", label: "Guided tour", activityType: "guidedTour" },
+
+		{ dateString: "2025-09-29", time: "16:30", label: "GF mødestart", activityType: "meeting" },
+		{ dateString: "2025-09-29", time: "19:30", label: "Cantinos & Centerpubben", activityType: "bar" },
 	],
 	notes: "",
 	notesActivities: "",

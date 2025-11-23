@@ -44,10 +44,14 @@ const selectIcon = (type: ActivityItemType) => {
 	}
 };
 
+
 const TourCard = ({ event }: Props) => {
+	console.log('event.activities', event.activities)
+
+	const activities = []
 	return (
 		<div className="text-white">
-			{event.activities.map((day, index) => (
+			{activities.map((day, index) => (
 				<Fragment key={day.dateString}>
 					<div
 						className={`rounded-md p-1 sm:p-3 ${index === 0
