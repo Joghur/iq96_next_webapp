@@ -3,6 +3,7 @@ import LoadingSpinner from "@components/LoadingSpinner";
 import { eventTransitionVariants } from "@lib/animations";
 import { checkFormData } from "@lib/formUtils";
 import { useFirestore } from "@lib/hooks/useFirestore";
+import { checkEvent } from "actions/event";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { type Event, eventSchema } from "schemas/event";
@@ -69,7 +70,7 @@ const EventsPage = ({ documentUser }: Props) => {
 	const futureEvents = events.filter((event) => event.status === "pending");
 
 	// Test DB data. Will print console.error
-	checkFormData<Event>(currentEvent, eventSchema);
+	// checkFormData<Event>(currentEvent, eventSchema);
 
 	return (
 		<div className="dynamic_text bg text mx-auto max-w-2xl sm:mt-40 px-3">

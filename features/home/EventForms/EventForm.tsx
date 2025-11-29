@@ -126,6 +126,8 @@ const EventForm = ({
 		</Button>,
 	];
 
+	// console.log('event', event)
+
 	return (
 		<ActionHeader
 			title={isNew ? "Opret ny begivenhed" : "Opdatér begivenhed"}
@@ -232,7 +234,6 @@ const EventForm = ({
 							activities={dayActivities}
 							onAddActivity={addDayActivity}
 							onRemoveActivity={removeDayActivity}
-						// onUpdateActivity={updateDayActivity}
 						/>
 						<FieldSeparator />
 						<FormTextarea

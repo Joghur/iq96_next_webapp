@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { MdOutlineHotel } from "react-icons/md";
 import type { Event } from "schemas/event";
+import Activities from "../Activities";
 import EventBulletPoints from "../EventBulletPoints";
 import TourCard from "../TourCard";
 
