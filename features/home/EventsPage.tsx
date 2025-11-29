@@ -1,12 +1,10 @@
 import AddButton from "@components/buttons/AddButton";
 import LoadingSpinner from "@components/LoadingSpinner";
 import { eventTransitionVariants } from "@lib/animations";
-import { checkFormData } from "@lib/formUtils";
 import { useFirestore } from "@lib/hooks/useFirestore";
-import { checkEvent } from "actions/event";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { type Event, eventSchema } from "schemas/event";
+import type { Event } from "schemas/event";
 import type { Member } from "schemas/member";
 import EventForm from "./EventForms/EventForm";
 import FutureEvents from "./events/FutureEvents";

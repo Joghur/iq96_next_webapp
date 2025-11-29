@@ -149,7 +149,12 @@ export default function ActivitiesForm({
 								<p className="text-sm text-red-500">{newLabelError}</p>
 							)}
 						</div>
-						<ActivityTypeSelect value={newType} onChange={handleChangeType} />
+						<div className="space-y-1">
+							<ActivityTypeSelect value={newType} onChange={handleChangeType} />
+							{newTypeError && (
+								<p className="text-sm text-red-500">{newTypeError}</p>
+							)}
+						</div>
 					</div>
 					<FieldGroup>
 						<Activities
