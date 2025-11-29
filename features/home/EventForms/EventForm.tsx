@@ -18,6 +18,7 @@ import {
 } from "@components/ui/field";
 import { SelectItem } from "@components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { getDateRange } from "@lib/dates";
 import { confirmAction } from "@lib/utils";
 import { checkEvent } from "actions/event";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -53,7 +54,6 @@ const EventForm = ({
 		defaultValues: event || initialEvent,
 	});
 
-
 	const {
 		fields: dayActivities,
 		append: addDayActivity,
@@ -64,7 +64,6 @@ const EventForm = ({
 	});
 
 	const isNew = !event?.id;
-	console.log('isNew', isNew)
 
 	async function onSubmit(data: Event) {
 		if (!editable) {
@@ -73,13 +72,10 @@ const EventForm = ({
 			return;
 		}
 		const res = await checkEvent(data);
-		console.log('res', res)
 		if (!res) {
 			toast.error(`Projekt kunne ikke ${isNew ? "oprettes" : "ændres"}`);
 		}
 
-		console.log('isNew', isNew)
-		console.log('data.id', data.id)
 		if (isNew) {
 			await onAdding?.(data);
 		}
@@ -126,7 +122,7 @@ const EventForm = ({
 		</Button>,
 	];
 
-	// console.log('event', event)
+	const dateRange = getDateRange(event?.start, event?.end);
 
 	return (
 		<ActionHeader
@@ -232,6 +228,7 @@ const EventForm = ({
 						<FieldSeparator />
 						<ActivitiesForm
 							activities={dayActivities}
+							dateRange={dateRange}
 							onAddActivity={addDayActivity}
 							onRemoveActivity={removeDayActivity}
 						/>

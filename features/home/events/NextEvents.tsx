@@ -173,7 +173,7 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
 								</div>
 								{nextEvent?.notes && (
 									<div className="flex flex-col">
-										<div className="mt-4">OBS:</div>
+										<p className="mt-4">OBS:</p>
 										<div>
 											<EventBulletPoints
 												pointsString={nextEvent.notes.trim()}

@@ -48,3 +48,26 @@ export const convertMonthNumberToName = (monthNumber?: number) => {
 
 	return months[monthNumber - 1];
 };
+
+export function getDateRange(startDate: string | undefined, endDate: string | undefined): string[] {
+	if (!startDate || !endDate) {
+		return []
+	}
+
+	const start = new Date(startDate);
+	const end = new Date(endDate);
+	const dateArray: string[] = [];
+
+	if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+		throw new Error("Ugyldige datoer. Brug formatet YYYY-MM-DD.");
+	}
+
+	const currentDate = new Date(start);
+
+	while (currentDate <= end) {
+		dateArray.push(currentDate.toISOString().split('T')[0]);
+		currentDate.setDate(currentDate.getDate() + 1);
+	}
+
+	return dateArray;
+}

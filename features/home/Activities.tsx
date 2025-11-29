@@ -9,6 +9,7 @@ type Props = {
 };
 
 const Activities = ({ activities, onRemoveActivity }: Props) => {
+
     return (
         <div className="border p-4 rounded-md bg-primary">
             <ul className="space-y-2">

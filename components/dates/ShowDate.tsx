@@ -21,7 +21,6 @@ const ShowDate = ({
 		? `${dateString}T00:00:00`
 		: dateString;
 
-	console.log('isoDateString', isoDateString)
 	const date = parseISO(isoDateString);
 	if (!isValid(date)) {
 		return <span>Ugyldig dato</span>;

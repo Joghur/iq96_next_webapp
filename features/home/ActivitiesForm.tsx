@@ -18,10 +18,14 @@ import {
 	activitiesSchema,
 } from "schemas/event";
 import Activities from "./Activities";
-import { ActivityTypeSelect } from "./event-selects/ActivityTypeSelect";
+import {
+	ActivityDateSelect,
+	ActivityTypeSelect,
+} from "./event-selects/ActivityTypeSelect";
 
 interface Props {
 	activities: Activity[];
+	dateRange: string[]
 	// biome-ignore lint/suspicious/noExplicitAny: <TODO>
 	onAddActivity: any; // UseFieldArrayAppend<Activity>; TODO
 	onRemoveActivity: UseFieldArrayRemove;
@@ -29,6 +33,7 @@ interface Props {
 
 export default function ActivitiesForm({
 	activities,
+	dateRange,
 	onRemoveActivity,
 	onAddActivity,
 }: Props) {
@@ -63,7 +68,6 @@ export default function ActivitiesForm({
 			setNewLabelError(label?._errors.join(", ") || "");
 			setNewTypeError(activityType?._errors.join(", ") || "");
 		} else {
-			// Nulstil fejl, hvis validering lykkes
 			setNewDateError("");
 			setNewTimeError("");
 			setNewLabelError("");
@@ -106,16 +110,11 @@ export default function ActivitiesForm({
 
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div className="space-y-1">
-							<Input
+							<ActivityDateSelect
+								dateRange={dateRange}
 								value={newDate}
-								onChange={(e) => setNewDate(e.target.value)}
-								placeholder="Dato"
-								className={
-									newDateError
-										? "border-red-500 focus-visible:ring-red-500 md:w-[200px]"
-										: "md:w-[200px]"
-								}
-							/>{" "}
+								onChange={(e) => setNewDate(e)}
+							/>
 							{newDateError && (
 								<p className="text-sm text-red-500">{newDateError}</p>
 							)}
