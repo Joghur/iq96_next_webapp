@@ -1,4 +1,5 @@
 import ShowDate from "@components/dates/ShowDate";
+import { groupActivitiesByDate } from "@lib/utils";
 import { Fragment } from "react";
 import { FaBolt } from "react-icons/fa";
 import {
@@ -44,92 +45,13 @@ const selectIcon = (type: ActivityType) => {
 	}
 };
 
-// <div className="border p-4 rounded-md bg-primary">
-// 	<ul className="space-y-2">
-// 		{activities.map((activity, index) => (
-// 			<li
-// 				key={index}
-// 				className="dynamic_text bg-secondary border p-05 flex place-items-center justify-between p-1"
-// 			>
-// 				<div className="flex gap-1">
-// 					<span className="font-semibold">{activity.dateString}</span>
-// 					<span>-</span>
-// 					<span>{activity.time}</span>
-// 				</div>
-// 				<div className="flex gap-3">
-// 					<span>{activity.label}</span>
-// 					<span>{activity.activityType}</span>
-// 					<Button
-// 						variant="ghost"
-// 						size="icon"
-// 						onClick={() => onRemoveActivity(index)}
-// 					>
-// 						<TrashIcon className="w-4 h-4 text-red-500" />
-// 					</Button>
-// 				</div>
-// 			</li>
-// 		))}
-// 	</ul>
-// </div>
-
-type ActivitiesByDate = {
-	dateString: string;
-	entries: Omit<Activity, "dateString">[];
-};
-
-function groupActivitiesByDate(activities: Activity[] | undefined): ActivitiesByDate[] | undefined {
-	if (!activities || activities.length === 0) {
-		return undefined
-	}
-	const grouped = activities.reduce<
-		Record<string, Omit<Activity, "dateString">[]>
-	>((acc, activity) => {
-		const { dateString, ...rest } = activity;
-		if (!acc[dateString]) {
-			acc[dateString] = [];
-		}
-		acc[dateString].push(rest);
-		return acc;
-	}, {});
-
-	// Konverter objektet til et array
-	return Object.entries(grouped).map(([dateString, entries]) => ({
-		dateString,
-		entries,
-	}));
-}
-
 const TourCard = ({ event }: Props) => {
-	console.log("event", event);
-	const accumulatedActivities = groupActivitiesByDate(event?.activities)
+	const accumulatedActivities = groupActivitiesByDate(event?.activities);
 
 	if (!accumulatedActivities) {
-		return null
+		return null;
 	}
-	console.log("accumulatedActivities", accumulatedActivities);
 
-	/**
-	 {
-  "dateString": "1254-25-25",
-  "entries": [
-	{
-	  "time": "10:10",
-	  "label": "ff",
-	  "activityType": "meetingPoint"
-	},
-	{
-	  "time": "11:00",
-	  "label": "3",
-	  "activityType": "meetingPoint"
-	},
-	{
-	  "time": "10:10",
-	  "label": "dfdf",
-	  "activityType": "meetingPoint"
-	}
-  ]
-}
-	 */
 	return (
 		<div className="text-white">
 			{accumulatedActivities.map((accActivity, index) => (
@@ -176,7 +98,7 @@ const TourCard = ({ event }: Props) => {
 						</ul>
 					</div>
 					{event.notesActivities && index === 0 && (
-						<p
+						<div
 							key={`notes-activity-${accActivity.dateString}`}
 							className="text-md text-slate-400 mt-0 mb-6"
 						>
@@ -184,7 +106,7 @@ const TourCard = ({ event }: Props) => {
 								pointsString={event.notesActivities.trim()}
 								event={event}
 							/>
-						</p>
+						</div>
 					)}
 				</Fragment>
 			))}

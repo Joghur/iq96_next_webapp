@@ -21,6 +21,11 @@ import type { Event } from "schemas/event";
 type Props = { pointsString: string; event: Event };
 
 const EventBulletPoints = ({ pointsString, event }: Props) => {
+
+	if (pointsString === "") {
+		return null
+	}
+
 	const points = pointsString.split("--");
 
 	const yearCity = `${event.year}-${event.city}`;

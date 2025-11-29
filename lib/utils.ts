@@ -1,5 +1,6 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 import { type ClassValue, clsx } from "clsx";
+import type { Activity } from "schemas/event";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -89,4 +90,52 @@ export function compareNick(a: any, b: any) {
 		return 1;
 	}
 	return 0;
+}
+
+export type ActivitiesByDate = {
+	dateString: string;
+	entries: Omit<Activity, "dateString">[];
+};
+
+export function groupActivitiesByDate(
+	activities: Activity[] | undefined,
+): ActivitiesByDate[] | undefined {
+	if (!activities || activities.length === 0) {
+		return undefined;
+	}
+	const grouped = activities.reduce<
+		Record<string, Omit<Activity, "dateString">[]>
+	>((acc, activity) => {
+		const { dateString, ...rest } = activity;
+		if (!acc[dateString]) {
+			acc[dateString] = [];
+		}
+		acc[dateString].push(rest);
+		return acc;
+	}, {});
+
+
+	Object.keys(grouped).forEach((dateString) => {
+		grouped[dateString].sort((a, b) => a.time.localeCompare(b.time));
+	});
+
+	return Object.entries(grouped)
+		.sort(([dateA], [dateB]) => dateA.localeCompare(dateB))
+		.map(([dateString, entries]) => ({
+			dateString,
+			entries,
+		}));
+
+}
+
+export function sortActivities(activities: Activity[]): Activity[] {
+  return [...activities].sort((a, b) => {
+    // Sorter først efter dateString
+    const dateComparison = a.dateString.localeCompare(b.dateString);
+    if (dateComparison !== 0) {
+      return dateComparison;
+    }
+    // Hvis dateString er ens, sorter efter time
+    return a.time.localeCompare(b.time);
+  });
 }
