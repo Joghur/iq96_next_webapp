@@ -1,5 +1,4 @@
 /** biome-ignore-all lint/style/noNonNullAssertion: <TODO> */
-import { isArray } from "./array";
 
 /**
  * Convert a value to a specific type depending on

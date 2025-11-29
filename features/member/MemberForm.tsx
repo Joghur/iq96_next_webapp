@@ -24,7 +24,7 @@ import { toast } from "sonner";
 import type { z } from "zod";
 
 type Props = {
-	member: Member;
+	member: Member | undefined;
 	onSubmit: (userData: Member) => void;
 	onDelete: (id: string) => void;
 	onClose: () => void;
@@ -35,6 +35,10 @@ const MemberForm = ({ member, onSubmit, onDelete, onClose }: Props) => {
 		resolver: zodResolver(memberSchema),
 		defaultValues: member || defaultMember,
 	});
+
+	if (!member) {
+		return null
+	}
 
 	const isNew = !member?.id;
 

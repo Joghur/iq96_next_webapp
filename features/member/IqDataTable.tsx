@@ -16,6 +16,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@components/ui/table";
+import { checkFormData } from "@lib/formUtils";
 import { CaretSortIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import {
 	type ColumnDef,
@@ -32,7 +33,7 @@ import {
 import { useState } from "react";
 import CsvDownloader from "react-csv-downloader";
 import { MdOutlineAdd } from "react-icons/md";
-import { defaultMember, type Member } from "schemas/member";
+import { defaultMember, type Member, memberSchema } from "schemas/member";
 import MemberForm from "./MemberForm";
 
 export const columns: ColumnDef<Member>[] = [
@@ -172,9 +173,8 @@ type Props = {
 export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [showDialog, setShowDialog] = useState<"table" | "user-form">("table");
-	const [activeMember, setActiveMember] = useState<Member>({
-		...defaultMember,
-	});
+	const [activeMember, setActiveMember] = useState<Member | undefined>(
+		undefined);
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 	const [rowSelection, setRowSelection] = useState({});
@@ -220,6 +220,9 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 		setShowDialog("user-form");
 	};
 
+	// Print console.error if DB data is faulty
+	checkFormData<Member>(activeMember, memberSchema);
+
 	// TODO optimize this
 	return (
 		<div className="w-full">
@@ -239,29 +242,29 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 								datas={
 									table.getFilteredSelectedRowModel().rows.length > 0
 										? table.getFilteredSelectedRowModel().rows.map((row) =>
-												row
-													.getVisibleCells()
-													.filter((cell) => cell.getValue())
-													.map((cell) =>
-														Array.isArray(cell.getValue())
-															? (cell.getValue() as string[]).join(" ")
-															: (cell.getValue() as string)
-																	.replace("\n", " ")
-																	.replace(",", ""),
-													),
-											)
+											row
+												.getVisibleCells()
+												.filter((cell) => cell.getValue())
+												.map((cell) =>
+													Array.isArray(cell.getValue())
+														? (cell.getValue() as string[]).join(" ")
+														: (cell.getValue() as string)
+															.replace("\n", " ")
+															.replace(",", ""),
+												),
+										)
 										: table.getFilteredRowModel().rows.map((row) =>
-												row
-													.getVisibleCells()
-													.filter((cell) => cell.getValue())
-													.map((cell) =>
-														Array.isArray(cell.getValue())
-															? (cell.getValue() as string[]).join(" ")
-															: (cell.getValue() as string)
-																	.replace("\n", " ")
-																	.replace(",", ""),
-													),
-											)
+											row
+												.getVisibleCells()
+												.filter((cell) => cell.getValue())
+												.map((cell) =>
+													Array.isArray(cell.getValue())
+														? (cell.getValue() as string[]).join(" ")
+														: (cell.getValue() as string)
+															.replace("\n", " ")
+															.replace(",", ""),
+												),
+										)
 								}
 								text="DOWNLOAD"
 							>
@@ -312,9 +315,9 @@ export function IqDataTable({ data, onCreate, onDelete, onUpdate }: Props) {
 													{header.isPlaceholder
 														? null
 														: flexRender(
-																header.column.columnDef.header,
-																header.getContext(),
-															)}
+															header.column.columnDef.header,
+															header.getContext(),
+														)}
 												</TableHead>
 											);
 										})}

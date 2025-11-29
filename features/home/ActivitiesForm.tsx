@@ -2,215 +2,169 @@
 "use client";
 
 import { Button } from "@components/ui/button";
+import {
+	FieldContent,
+	FieldDescription,
+	FieldGroup,
+	FieldLegend,
+	FieldSet,
+} from "@components/ui/field";
 import { Input } from "@components/ui/input";
-import { TrashIcon } from "lucide-react";
-import { type ChangeEvent, useState } from "react";
-import type { Activity, ActivityElement, ActivityType } from "schemas/event";
+import { useEffect, useState } from "react";
+import type { UseFieldArrayRemove } from "react-hook-form";
+import {
+	type Activity,
+	type ActivityType,
+	activitiesSchema,
+} from "schemas/event";
+import Activities from "./Activities";
+import { ActivityTypeSelect } from "./event-selects/ActivityTypeSelect";
 
 interface Props {
 	activities: Activity[];
-	onChange: (updated: Activity[]) => void;
+	// biome-ignore lint/suspicious/noExplicitAny: <TODO>
+	onAddActivity: any; // UseFieldArrayAppend<Activity>; TODO
+	onRemoveActivity: UseFieldArrayRemove;
 }
 
 export default function ActivitiesForm({
-	activities: dayEvents,
-	onChange,
+	activities,
+	onRemoveActivity,
+	onAddActivity,
 }: Props) {
-	const [events, setEvents] = useState<Activity[]>(dayEvents);
 	const [newDate, setNewDate] = useState<string>(""); // "2025-09-28"
+	const [newDateError, setNewDateError] = useState<string>(""); // dateString._errors: [""]
+
 	const [newTime, setNewTime] = useState<string>(""); // "21:30"
+	const [newTimeError, setNewTimeError] = useState<string>(""); // time._errors:: [""]
+
 	const [newLabel, setNewLabel] = useState("");
+	const [newLabelError, setNewLabelError] = useState(""); // label._errors: [""]
+
 	const [newType, setNewType] = useState<ActivityType>("meetingPoint");
+	const [newTypeError, setNewTypeError] = useState(""); // activityType._errors: [""]
 
-	const [editEntry, setEditEntry] = useState<{
-		dateString: string;
-		index: number;
-	} | null>(null);
-	const [editValue, setEditValue] = useState<ActivityElement | null>(null);
-
-	const updateParent = (updated: Activity[]) => {
-		setEvents(updated);
-		onChange(updated);
+	const handleChangeType = (value: string) => {
+		setNewType(value as ActivityType);
 	};
 
-	const handleAdd = () => {
-		if (!newDate || !newTime || !newLabel) return;
-
-		const updated = [...events];
-		const day = updated.find((d) => d.dateString === newDate);
-
-		const newEntry: ActivityElement = {
+	useEffect(() => {
+		const newEntry = {
+			dateString: newDate,
 			time: newTime,
 			label: newLabel,
-			type: newType,
+			activityType: newType,
 		};
-
-		if (day) {
-			day.entries.push(newEntry);
+		const result = activitiesSchema.safeParse(newEntry);
+		if (!result.success) {
+			const { dateString, label, time, activityType } = result.error.format();
+			setNewDateError(dateString?._errors.join(", ") || "");
+			setNewTimeError(time?._errors.join(", ") || "");
+			setNewLabelError(label?._errors.join(", ") || "");
+			setNewTypeError(activityType?._errors.join(", ") || "");
 		} else {
-			updated.push({ dateString: newDate, entries: [newEntry] });
+			// Nulstil fejl, hvis validering lykkes
+			setNewDateError("");
+			setNewTimeError("");
+			setNewLabelError("");
+			setNewTypeError("");
 		}
+	}, [newDate, newTime, newLabel, newType]);
 
-		updateParent(updated);
-		setNewDate("");
-		setNewTime("");
-		setNewLabel("");
-		setNewType("meetingPoint");
+	const handleAdd = () => {
+		const newEntry = {
+			dateString: newDate,
+			time: newTime,
+			label: newLabel,
+			activityType: newType,
+		};
+		const result = activitiesSchema.safeParse(newEntry);
+		if (result.success) {
+			setNewDate("");
+			setNewTime("");
+			setNewLabel("");
+			setNewType("meetingPoint");
+			onAddActivity(newEntry);
+		}
 	};
 
-	const handleDelete = (dateString: string, index: number) => {
-		const updated = events
-			.map((day) =>
-				day.dateString === dateString
-					? { ...day, entries: day.entries.filter((_, i) => i !== index) }
-					: day,
-			)
-			.filter((day) => day.entries.length !== 0);
-
-		updateParent(updated);
-	};
-
-	const handleChangeType = (val: ChangeEvent<HTMLSelectElement>) => {
-		setNewType(val.target.value as ActivityType);
-	};
-
-	// TODO refactor this
 	return (
 		<div className="space-y-6">
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-				<Input
-					value={newLabel}
-					onChange={(e) => setNewLabel(e.target.value)}
-					placeholder="Beskrivelse"
-					className="md:w-[200px]"
-				/>
-
-				<select
-					value={newType}
-					onChange={handleChangeType}
-					className="mt-1 p-2 block w-full border-gray-300 dark:border-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-				>
-					<option value="meetingPoint">Mødested</option>
-					<option value="dinner">Middag</option>
-					<option value="guidedTour">Guidet tur</option>
-					<option value="action">Aktivitet</option>
-					<option value="bar">Bar</option>
-					<option value="hotel">Hotel</option>
-					<option value="meeting">Møde</option>
-					<option value="restaurant">Restaurant</option>
-				</select>
-			</div>
-
-			<Button onClick={handleAdd} variant="default">
-				Tilføj event
-			</Button>
-			<div className="space-y-4">
-				{events.map((day) => (
-					<div
-						key={day.dateString}
-						className="border p-4 rounded-md bg-primary"
-					>
-						<h3 className="dynamic_text font-semibold mb-2">
-							{day.dateString}
-						</h3>
-						<ul className="space-y-2">
-							{day.entries.map((entry, index) => (
-								<li
-									key={index}
-									className="bg-secondary border p-05 flex items-center justify-between gap-2"
-								>
-									{editEntry?.dateString === day.dateString &&
-									editEntry.index === index ? (
-										<div className="flex flex-col md:flex-row md:flex-wrap items-start gap-2 bg-slate-200 p-3 rounded-md md:max-w-[700px]">
-											<div>
-												<Input
-													value={editValue?.label || ""}
-													onChange={(e) =>
-														setEditValue((prev) => ({
-															...prev!,
-															label: e.target.value,
-														}))
-													}
-												/>
-												<div className="flex justify-between gap-2 mt-2">
-													<select
-														value={editValue?.type}
-														onChange={(e) =>
-															setEditValue((prev) => ({
-																...prev!,
-																type: e.target.value as ActivityType,
-															}))
-														}
-														className="p-2 rounded-md border border-gray-300 md:w-[150px]"
-													>
-														<option value="meetingPoint">Mødested</option>
-														<option value="dinner">Middag</option>
-														<option value="guidedTour">Guidet tur</option>
-														<option value="action">Aktivitet</option>
-														<option value="bar">Bar</option>
-														<option value="hotel">Hotel</option>
-														<option value="meeting">Møde</option>
-														<option value="restaurant">Restaurant</option>
-													</select>
-													<div className="flex gap-2">
-														<Button
-															size="sm"
-															onClick={() => {
-																const updated = [...events];
-																updated.forEach((d) => {
-																	if (d.dateString === day.dateString) {
-																		d.entries[index] = editValue!;
-																	}
-																});
-																updateParent(updated);
-																setEditEntry(null);
-															}}
-														>
-															Gem
-														</Button>
-														<Button
-															variant="outline"
-															size="sm"
-															onClick={() => setEditEntry(null)}
-														>
-															Fortryd
-														</Button>
-													</div>
-												</div>
-											</div>
-										</div>
-									) : (
-										<>
-											<span className="flex-1">
-												{entry.time} – {entry.label} ({entry.type})
-											</span>
-											<div className="flex gap-2">
-												<Button
-													variant="ghost"
-													size="icon"
-													onClick={() => {
-														setEditEntry({ dateString: day.dateString, index });
-														setEditValue(entry);
-													}}
-												>
-													✏️
-												</Button>
-												<Button
-													variant="ghost"
-													size="icon"
-													onClick={() => handleDelete(day.dateString, index)}
-												>
-													<TrashIcon className="w-4 h-4 text-red-500" />
-												</Button>
-											</div>
-										</>
-									)}
-								</li>
-							))}
-						</ul>
+			<FieldGroup>
+				<FieldSet>
+					<div className="flex justify-between gap-2 items-center">
+						<FieldContent>
+							<FieldLegend variant="label" className="mb-0">
+								Aktiviteter
+							</FieldLegend>
+							<FieldDescription>Daglige aktiviteter</FieldDescription>
+						</FieldContent>
+						<Button onClick={handleAdd} variant="default">
+							Tilføj aktivitet
+						</Button>
 					</div>
-				))}
-			</div>
+
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+						<div className="space-y-1">
+							<Input
+								value={newDate}
+								onChange={(e) => setNewDate(e.target.value)}
+								placeholder="Dato"
+								className={
+									newDateError
+										? "border-red-500 focus-visible:ring-red-500 md:w-[200px]"
+										: "md:w-[200px]"
+								}
+							/>{" "}
+							{newDateError && (
+								<p className="text-sm text-red-500">{newDateError}</p>
+							)}
+						</div>
+						<div className="space-y-1">
+							<Input
+								value={newTime}
+								onChange={(e) => setNewTime(e.target.value)}
+								placeholder="Tidspunkt"
+								className={
+									newTimeError
+										? "border-red-500 focus-visible:ring-red-500 md:w-[200px]"
+										: "md:w-[200px]"
+								}
+							/>
+							{newTimeError && (
+								<p className="text-sm text-red-500">{newTimeError}</p>
+							)}
+						</div>
+						<div className="space-y-1">
+							<Input
+								value={newLabel}
+								onChange={(e) => setNewLabel(e.target.value)}
+								placeholder="Beskrivelse"
+								className={
+									newLabelError
+										? "border-red-500 focus-visible:ring-red-500 md:w-[200px]"
+										: "md:w-[200px]"
+								}
+							/>
+							{newLabelError && (
+								<p className="text-sm text-red-500">{newLabelError}</p>
+							)}
+						</div>
+						<div className="space-y-1">
+							<ActivityTypeSelect value={newType} onChange={handleChangeType} />
+							{newTypeError && (
+								<p className="text-sm text-red-500">{newTypeError}</p>
+							)}
+						</div>
+					</div>
+					<FieldGroup>
+						<Activities
+							activities={activities}
+							onRemoveActivity={onRemoveActivity}
+						/>
+					</FieldGroup>
+				</FieldSet>
+			</FieldGroup>
 		</div>
 	);
 }

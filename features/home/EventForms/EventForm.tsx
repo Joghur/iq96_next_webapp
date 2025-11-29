@@ -20,9 +20,8 @@ import { SelectItem } from "@components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { confirmAction } from "@lib/utils";
 import { checkEvent } from "actions/event";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import {
-	type Activity,
 	EVENT_STATUS_VALUES,
 	EVENT_TYPE_VALUES,
 	type Event,
@@ -30,7 +29,7 @@ import {
 	initialEvent,
 } from "schemas/event";
 import { toast } from "sonner";
-import type { z } from "zod";
+import ActivitiesForm from "../ActivitiesForm";
 
 interface Props {
 	event?: Event;
@@ -54,29 +53,33 @@ const EventForm = ({
 		defaultValues: event || initialEvent,
 	});
 
-	// const {
-	// 	fields: dayEvents,
-	// 	append: addDayEvents,
-	// 	remove: removeDayEvents,
-	// } = useFieldArray({
-	// 	control: form.control,
-	// 	name: "activities",
-	// });
+
+	const {
+		fields: dayActivities,
+		append: addDayActivity,
+		remove: removeDayActivity,
+	} = useFieldArray({
+		control: form.control,
+		name: "activities",
+	});
 
 	const isNew = !event?.id;
+	console.log('isNew', isNew)
 
-	async function onSubmit(data: z.infer<typeof eventSchema>) {
+	async function onSubmit(data: Event) {
 		if (!editable) {
 			form.reset();
 			toast.error("Projekt er sat til ikke at kunne ændres");
 			return;
 		}
 		const res = await checkEvent(data);
-
+		console.log('res', res)
 		if (!res) {
 			toast.error(`Projekt kunne ikke ${isNew ? "oprettes" : "ændres"}`);
 		}
 
+		console.log('isNew', isNew)
+		console.log('data.id', data.id)
 		if (isNew) {
 			await onAdding?.(data);
 		}
@@ -122,6 +125,8 @@ const EventForm = ({
 			Fortryd
 		</Button>,
 	];
+
+	// console.log('event', event)
 
 	return (
 		<ActionHeader
@@ -173,6 +178,7 @@ const EventForm = ({
 								</div>
 							</FieldGroup>
 						</FieldSet>
+						<FieldSeparator />
 						<FieldSet>
 							<FieldLegend>Knapper</FieldLegend>
 							<FieldDescription>
@@ -222,8 +228,14 @@ const EventForm = ({
 							</FieldGroup>
 						</FieldSet>
 						<FieldSeparator />
-						{/* <ActivitiesForm activities={event} onChange={() => {}} /> */}
 						<FormTextarea control={form.control} name="notes" label="Noter" />
+						<FieldSeparator />
+						<ActivitiesForm
+							activities={dayActivities}
+							onAddActivity={addDayActivity}
+							onRemoveActivity={removeDayActivity}
+						/>
+						<FieldSeparator />
 						<FormTextarea
 							control={form.control}
 							name="notesActivities"
@@ -271,11 +283,11 @@ const EventForm = ({
 
 export default EventForm;
 
-export function sortDayEvents(dayEvents: Activity[]): Activity[] {
-	return [...dayEvents]
-		.sort((a, b) => a.dateString.localeCompare(b.dateString))
-		.map((day) => ({
-			...day,
-			entries: [...day.entries].sort((a, b) => a.time.localeCompare(b.time)),
-		}));
-}
+// export function sortDayEvents(dayEvents: Activity[]): Activity[] {
+// 	return [...dayEvents]
+// 		.sort((a, b) => a.dateString.localeCompare(b.dateString))
+// 		.map((day) => ({
+// 			...day,
+// 			entries: [...day.entries].sort((a, b) => a.time.localeCompare(b.time)),
+// 		}));
+// }

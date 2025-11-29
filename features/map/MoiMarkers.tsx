@@ -17,7 +17,7 @@ import { Icon } from "leaflet";
 import { type ChangeEvent, useState } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { Tooltip as MapToolip, Marker, Popup } from "react-leaflet";
-import { type Member, T_SHIRT_SIZES } from "schemas/member";
+import type { Member } from "schemas/member";
 import type { MarkerData } from "./Map";
 
 const markerTypes = [
@@ -337,7 +337,10 @@ const MoiMarkers = ({
 									</Select>
 								</div>
 								<div className="flex justify-between pt-5">
-									<Button onClick={() => setShowEdit(false)} variant="destructive">
+									<Button
+										onClick={() => setShowEdit(false)}
+										variant="destructive"
+									>
 										Fortryd
 									</Button>
 									<Button onClick={handleSubmitMarker} variant="default">

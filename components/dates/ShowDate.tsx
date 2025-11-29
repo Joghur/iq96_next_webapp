@@ -1,5 +1,5 @@
 import { useTailwindBreakpoint } from "@lib/hooks/useTailwindBreakpoint";
-import { format, parseISO } from "date-fns";
+import { format, isValid, parseISO } from "date-fns";
 import { da } from "date-fns/locale";
 
 type Props = {
@@ -17,15 +17,20 @@ const ShowDate = ({
 
 	if (!dateString) return null;
 
+	const isoDateString = /^\d{4}-\d{2}-\d{2}$/.test(dateString)
+		? `${dateString}T00:00:00`
+		: dateString;
+
+	console.log('isoDateString', isoDateString)
+	const date = parseISO(isoDateString);
+	if (!isValid(date)) {
+		return <span>Ugyldig dato</span>;
+	}
 	return (
 		<>
-			{format(
-				parseISO(dateString),
-				isLargeScreen ? formatLargeScreen : formatSmallScreen,
-				{
-					locale: da,
-				},
-			)}
+			{format(date, isLargeScreen ? formatLargeScreen : formatSmallScreen, {
+				locale: da,
+			})}
 		</>
 	);
 };

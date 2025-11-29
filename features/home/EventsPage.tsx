@@ -67,6 +67,9 @@ const EventsPage = ({ documentUser }: Props) => {
 	const nextEvents = events.filter((event) => event.status === "next");
 	const futureEvents = events.filter((event) => event.status === "pending");
 
+	// Test DB data. Will print console.error
+	// checkFormData<Event>(currentEvent, eventSchema);
+
 	return (
 		<div className="dynamic_text bg text mx-auto max-w-2xl sm:mt-40 px-3">
 			{showDialog === "events" && (
@@ -117,78 +120,3 @@ const EventsPage = ({ documentUser }: Props) => {
 };
 
 export default EventsPage;
-
-/**
- const data: TourCardData = {
-  id: "p5wqqaPR5SRHDRtDb3AP",
-  title: "Generalforsamling",
-  start: "Lørdag, 27/sep-2025, 16:30",
-  end: "Søndag, 29/sep-2025, 13:10",
-  dayEvents: [
-    {
-      date: "2025-09-28",
-      entries: [
-        { time: "12:00", label: "Middag", type: "activity" },
-        { time: "12:30", label: "Hotel", type: "meeting" },
-        { time: "18:00", label: "Middag", type: "meeting" },
-      ],
-    },
-    {
-      date: "2025-09-29",
-      entries: [
-        { time: "11:00", label: "Hotel", type: "meeting" },
-        { time: "11:30", label: "Guidet rundtur", type: "activity" },
-      ],
-    },
-  ],
-  city: "Nyborg",
-  status: "done",
-};
-
-[
-  {
-    "entries": [
-      {
-        "label": "Middag",
-        "type": "meetingPoint",
-        "time": "10:30"
-      }
-    ],
-    "dateString": "2025-04-08"
-  },
-  {
-    "dateString": "2025-04-09",
-    "entries": [
-      {
-        "time": "10:10",
-        "label": "fdf",
-        "type": "meetingPoint"
-      }
-    ]
-  }
-]
-
-[
-  {
-    "entries": [
-      {
-        "label": "Middag",
-        "type": "meetingPoint",
-        "time": "10:30"
-      }
-    ],
-    "dateString": "2025-04-08"
-  },
-  {
-    "dateString": "2025-04-09",
-    "entries": [
-      {
-        "time": "10:10",
-        "label": "fdf",
-        "type": "meetingPoint"
-      }
-    ]
-  }
-]
-
- */
