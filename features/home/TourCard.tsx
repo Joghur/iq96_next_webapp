@@ -100,36 +100,12 @@ function groupActivitiesByDate(activities: Activity[] | undefined): ActivitiesBy
 }
 
 const TourCard = ({ event }: Props) => {
-	console.log("event", event);
 	const accumulatedActivities = groupActivitiesByDate(event?.activities)
 
 	if (!accumulatedActivities) {
 		return null
 	}
-	console.log("accumulatedActivities", accumulatedActivities);
 
-	/**
-	 {
-  "dateString": "1254-25-25",
-  "entries": [
-	{
-	  "time": "10:10",
-	  "label": "ff",
-	  "activityType": "meetingPoint"
-	},
-	{
-	  "time": "11:00",
-	  "label": "3",
-	  "activityType": "meetingPoint"
-	},
-	{
-	  "time": "10:10",
-	  "label": "dfdf",
-	  "activityType": "meetingPoint"
-	}
-  ]
-}
-	 */
 	return (
 		<div className="text-white">
 			{accumulatedActivities.map((accActivity, index) => (
