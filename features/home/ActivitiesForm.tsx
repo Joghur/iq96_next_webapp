@@ -22,6 +22,7 @@ import { ActivityTypeSelect } from "./event-selects/ActivityTypeSelect";
 
 interface Props {
 	activities: Activity[];
+	// biome-ignore lint/suspicious/noExplicitAny: <TODO>
 	onAddActivity: any; // UseFieldArrayAppend<Activity>; TODO
 	onRemoveActivity: UseFieldArrayRemove;
 }
