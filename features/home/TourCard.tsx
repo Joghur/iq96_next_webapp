@@ -51,7 +51,7 @@ const TourCard = ({ event }: Props) => {
 	if (!accumulatedActivities) {
 		return null;
 	}
-	console.log('event.notesActivities', event.notesActivities)
+
 	return (
 		<div className="text-white">
 			{accumulatedActivities.map((accActivity, index) => (
