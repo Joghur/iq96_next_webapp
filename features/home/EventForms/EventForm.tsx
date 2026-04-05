@@ -31,6 +31,7 @@ import {
 } from "schemas/event";
 import { toast } from "sonner";
 import ActivitiesForm from "../ActivitiesForm";
+import { useRef } from "react";
 
 interface Props {
   event?: Event;
@@ -132,16 +133,7 @@ const EventForm = ({
     >
       <div className="container px-4 pt-28 mx-auto my-6">
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="flex justify-end">
-            <Button
-              key="submit-button"
-              variant="default"
-              size="sm"
-              type="submit"
-            >
-              {isNew ? "Opret" : "Opdatér"}
-            </Button>
-          </div>
+          <UpdateButton isNew={isNew} />
           <FieldGroup>
             <FieldSet>
               <FieldLegend>Begivenhed</FieldLegend>
@@ -246,16 +238,8 @@ const EventForm = ({
               label="Noter Aktiviteter"
             />
           </FieldGroup>
-          <div className="flex justify-end mt-4">
-            <Button
-              key="submit-button"
-              variant="default"
-              size="sm"
-              type="submit"
-            >
-              {isNew ? "Opret" : "Opdatér"}
-            </Button>
-          </div>
+          <div className="pb-6" />
+          <FieldSeparator />
         </form>
         <div className="flex flex-col gap-2 mt-5">
           <div className="dynamic_text">
@@ -287,11 +271,41 @@ const EventForm = ({
 
 export default EventForm;
 
-// export function sortDayEvents(dayEvents: Activity[]): Activity[] {
-// 	return [...dayEvents]
-// 		.sort((a, b) => a.dateString.localeCompare(b.dateString))
-// 		.map((day) => ({
-// 			...day,
-// 			entries: [...day.entries].sort((a, b) => a.time.localeCompare(b.time)),
-// 		}));
-// }
+type UpdateButtonProps = {
+  isNew: boolean;
+};
+
+const UpdateButton = ({ isNew }: UpdateButtonProps) => {
+  return (
+    <div
+      className={`
+            fixed z-50 shadow-lg
+            md:left-14 md:top-1/2 md:transform md:-translate-y-1/2 md:w-auto
+            bottom-4 left-1/2 transform -translate-x-1/2 w-full px-4 md:px-0
+          `}
+    >
+      <Button
+        key="submit-button"
+        variant="secondary"
+        size="lg"
+        type="submit"
+        className="w-full md:w-24"
+      >
+        {isNew ? "Opret" : "Opdatér"}
+      </Button>
+    </div>
+  );
+};
+
+// type UpdateButtonProps = {
+//   isNew: boolean;
+// };
+// const UpdateButton = ({ isNew }: UpdateButtonProps) => {
+//   return (
+//     <div className="flex justify-center mt-4">
+//       <Button key="submit-button" variant="secondary" size="lg" type="submit">
+//         {isNew ? "Opret" : "Opdatér"}
+//       </Button>
+//     </div>
+//   );
+// };
