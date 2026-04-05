@@ -3,167 +3,184 @@
 
 import { Button } from "@components/ui/button";
 import {
-	FieldContent,
-	FieldDescription,
-	FieldGroup,
-	FieldLegend,
-	FieldSet,
+  FieldContent,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
 } from "@components/ui/field";
 import { Input } from "@components/ui/input";
-import { useEffect, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import type { UseFieldArrayRemove } from "react-hook-form";
 import {
-	type Activity,
-	type ActivityType,
-	activitiesSchema,
+  type Activity,
+  type ActivityType,
+  activitiesSchema,
 } from "schemas/event";
 import Activities from "./Activities";
 import {
-	ActivityDateSelect,
-	ActivityTypeSelect,
+  ActivityDateSelect,
+  ActivityTypeSelect,
 } from "./event-selects/ActivityTypeSelect";
 
 interface Props {
-	activities: Activity[];
-	dateRange: string[]
-	// biome-ignore lint/suspicious/noExplicitAny: <TODO>
-	onAddActivity: any; // UseFieldArrayAppend<Activity>; TODO
-	onRemoveActivity: UseFieldArrayRemove;
+  activities: Activity[];
+  dateRange: string[];
+  // biome-ignore lint/suspicious/noExplicitAny: <TODO>
+  onAddActivity: any; // UseFieldArrayAppend<Activity>; TODO
+  onRemoveActivity: UseFieldArrayRemove;
 }
 
 export default function ActivitiesForm({
-	activities,
-	dateRange,
-	onRemoveActivity,
-	onAddActivity,
+  activities,
+  dateRange,
+  onRemoveActivity,
+  onAddActivity,
 }: Props) {
-	const [newDate, setNewDate] = useState<string>(""); // "2025-09-28"
-	const [newDateError, setNewDateError] = useState<string>(""); // dateString._errors: [""]
+  const [newDate, setNewDate] = useState<string>(""); // "2025-09-28"
+  const [newDateError, setNewDateError] = useState<string>(""); // dateString._errors: [""]
 
-	const [newTime, setNewTime] = useState<string>(""); // "21:30"
-	const [newTimeError, setNewTimeError] = useState<string>(""); // time._errors:: [""]
+  const [newTime, setNewTime] = useState<string>(""); // "21:30"
+  const [newTimeError, setNewTimeError] = useState<string>(""); // time._errors:: [""]
 
-	const [newLabel, setNewLabel] = useState("");
-	const [newLabelError, setNewLabelError] = useState(""); // label._errors: [""]
+  const [newLabel, setNewLabel] = useState("");
+  const [newLabelError, setNewLabelError] = useState(""); // label._errors: [""]
 
-	const [newType, setNewType] = useState<ActivityType>("meetingPoint");
-	const [newTypeError, setNewTypeError] = useState(""); // activityType._errors: [""]
+  const [newType, setNewType] = useState<ActivityType>("meetingPoint");
+  const [newTypeError, setNewTypeError] = useState(""); // activityType._errors: [""]
 
-	const handleChangeType = (value: string) => {
-		setNewType(value as ActivityType);
-	};
+  const handleChangeType = (value: string) => {
+    setNewType(value as ActivityType);
+  };
 
-	useEffect(() => {
-		const newEntry = {
-			dateString: newDate,
-			time: newTime,
-			label: newLabel,
-			activityType: newType,
-		};
-		const result = activitiesSchema.safeParse(newEntry);
-		if (!result.success) {
-			const { dateString, label, time, activityType } = result.error.format();
-			setNewDateError(dateString?._errors.join(", ") || "");
-			setNewTimeError(time?._errors.join(", ") || "");
-			setNewLabelError(label?._errors.join(", ") || "");
-			setNewTypeError(activityType?._errors.join(", ") || "");
-		} else {
-			setNewDateError("");
-			setNewTimeError("");
-			setNewLabelError("");
-			setNewTypeError("");
-		}
-	}, [newDate, newTime, newLabel, newType]);
+  useEffect(() => {
+    const newEntry = {
+      dateString: newDate,
+      time: newTime,
+      label: newLabel,
+      activityType: newType,
+    };
+    const result = activitiesSchema.safeParse(newEntry);
+    if (!result.success) {
+      const { dateString, label, time, activityType } = result.error.format();
+      setNewDateError(dateString?._errors.join(", ") || "");
+      setNewTimeError(time?._errors.join(", ") || "");
+      setNewLabelError(label?._errors.join(", ") || "");
+      setNewTypeError(activityType?._errors.join(", ") || "");
+    } else {
+      setNewDateError("");
+      setNewTimeError("");
+      setNewLabelError("");
+      setNewTypeError("");
+    }
+  }, [newDate, newTime, newLabel, newType]);
 
-	const handleAdd = () => {
-		const newEntry = {
-			dateString: newDate,
-			time: newTime,
-			label: newLabel,
-			activityType: newType,
-		};
-		const result = activitiesSchema.safeParse(newEntry);
-		if (result.success) {
-			setNewDate("");
-			setNewTime("");
-			setNewLabel("");
-			setNewType("meetingPoint");
-			onAddActivity(newEntry);
-		}
-	};
+  const handleAdd = (event: React.MouseEvent) => {
+    event.preventDefault();
+    const newEntry = {
+      dateString: newDate,
+      time: newTime,
+      label: newLabel,
+      activityType: newType,
+    };
+    const result = activitiesSchema.safeParse(newEntry);
+    if (result.success) {
+      setNewDate("");
+      setNewTime("");
+      setNewLabel("");
+      setNewType("meetingPoint");
+      onAddActivity(newEntry);
+    }
+  };
 
-	return (
-		<div className="space-y-6">
-			<FieldGroup>
-				<FieldSet>
-					<div className="flex justify-between gap-2 items-center">
-						<FieldContent>
-							<FieldLegend variant="label" className="mb-0">
-								Aktiviteter
-							</FieldLegend>
-							<FieldDescription>Daglige aktiviteter</FieldDescription>
-						</FieldContent>
-						<Button onClick={handleAdd} variant="default">
-							Tilføj aktivitet
-						</Button>
-					</div>
+  /**
+   * Update sætter bare acticity state til den gamle så man hurtig
+   * kan lave en ny og slette den gamle
+   * Sætter states før den gamle bliver slettet. Derefter
+   * Skal der laves en ny
+   */
+  const handleUpdate = (event: React.MouseEvent, index: number) => {
+    event.preventDefault();
+    setNewDate(activities[index].dateString);
+    setNewTime(activities[index].time);
+    setNewLabel(activities[index].label);
+    setNewType(activities[index].activityType);
+    onRemoveActivity(index);
+  };
 
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-						<div className="space-y-1">
-							<ActivityDateSelect
-								dateRange={dateRange}
-								value={newDate}
-								onChange={(e) => setNewDate(e)}
-							/>
-							{newDateError && (
-								<p className="text-sm text-red-500">{newDateError}</p>
-							)}
-						</div>
-						<div className="space-y-1">
-							<Input
-								value={newTime}
-								onChange={(e) => setNewTime(e.target.value)}
-								placeholder="Tidspunkt"
-								className={
-									newTimeError
-										? "border-red-500 focus-visible:ring-red-500 md:w-[200px]"
-										: "md:w-[200px]"
-								}
-							/>
-							{newTimeError && (
-								<p className="text-sm text-red-500">{newTimeError}</p>
-							)}
-						</div>
-						<div className="space-y-1">
-							<Input
-								value={newLabel}
-								onChange={(e) => setNewLabel(e.target.value)}
-								placeholder="Beskrivelse"
-								className={
-									newLabelError
-										? "border-red-500 focus-visible:ring-red-500 md:w-[200px]"
-										: "md:w-[200px]"
-								}
-							/>
-							{newLabelError && (
-								<p className="text-sm text-red-500">{newLabelError}</p>
-							)}
-						</div>
-						<div className="space-y-1">
-							<ActivityTypeSelect value={newType} onChange={handleChangeType} />
-							{newTypeError && (
-								<p className="text-sm text-red-500">{newTypeError}</p>
-							)}
-						</div>
-					</div>
-					<FieldGroup>
-						<Activities
-							activities={activities}
-							onRemoveActivity={onRemoveActivity}
-						/>
-					</FieldGroup>
-				</FieldSet>
-			</FieldGroup>
-		</div>
-	);
+  return (
+    <div className="space-y-6">
+      <FieldGroup>
+        <FieldSet>
+          <div className="flex justify-between gap-2 items-center">
+            <FieldContent>
+              <FieldLegend variant="label" className="mb-0">
+                Aktiviteter
+              </FieldLegend>
+              <FieldDescription>Daglige aktiviteter</FieldDescription>
+            </FieldContent>
+            <Button onClick={(event) => handleAdd(event)} variant="default">
+              Tilføj aktivitet
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <ActivityDateSelect
+                dateRange={dateRange}
+                value={newDate}
+                onChange={(e) => setNewDate(e)}
+              />
+              {newDateError && (
+                <p className="text-sm text-red-500">{newDateError}</p>
+              )}
+            </div>
+            <div className="space-y-1">
+              <Input
+                value={newTime}
+                onChange={(e) => setNewTime(e.target.value)}
+                placeholder="Tidspunkt"
+                className={
+                  newTimeError
+                    ? "border-red-500 focus-visible:ring-red-500 md:w-[200px]"
+                    : "md:w-[200px]"
+                }
+              />
+              {newTimeError && (
+                <p className="text-sm text-red-500">{newTimeError}</p>
+              )}
+            </div>
+            <div className="space-y-1">
+              <Input
+                value={newLabel}
+                onChange={(e) => setNewLabel(e.target.value)}
+                placeholder="Beskrivelse"
+                className={
+                  newLabelError
+                    ? "border-red-500 focus-visible:ring-red-500 md:w-[200px]"
+                    : "md:w-[200px]"
+                }
+              />
+              {newLabelError && (
+                <p className="text-sm text-red-500">{newLabelError}</p>
+              )}
+            </div>
+            <div className="space-y-1">
+              <ActivityTypeSelect value={newType} onChange={handleChangeType} />
+              {newTypeError && (
+                <p className="text-sm text-red-500">{newTypeError}</p>
+              )}
+            </div>
+          </div>
+          <FieldGroup>
+            <Activities
+              activities={activities}
+              onUpdate={handleUpdate}
+              onRemoveActivity={onRemoveActivity}
+            />
+          </FieldGroup>
+        </FieldSet>
+      </FieldGroup>
+    </div>
+  );
 }
