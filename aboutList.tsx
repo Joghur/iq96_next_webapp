@@ -1,5 +1,8 @@
 export const aboutList = [
-  ["0.8.16", "Lettere at opdatere en dags-aktivitet"],
+  [
+    "0.8.16",
+    "Lettere at opdatere en dags-aktivitet. Bedre syntaks i begivenhedsnoter - bold, italics mm.",
+  ],
   ["0.8.15", "Flere farver og Dropwdown menuer fikset"],
   ["0.8.14", "Dark mode skift skulle gerne være fikset"],
   ["0.8.13", "Oprydning internt - Developer tab er fjernet"],
