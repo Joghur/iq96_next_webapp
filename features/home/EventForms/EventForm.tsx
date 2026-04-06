@@ -263,6 +263,22 @@ const EventForm = ({
           <div className="dynamic_text">
             <CopyButton text="<link:extra:Depeche Mode:bar>" />
           </div>
+          <div className="dynamic_text flex items-center">
+            <CopyButton text="<space>" />
+            {"- Laver mellemrun i mellem linjerne"}
+          </div>
+          <div className="dynamic_text flex items-center">
+            <CopyButton text="<b>" />
+            {"- Hele linje er bold"}
+          </div>
+          <div className="dynamic_text flex items-center">
+            <CopyButton text="<i>" />
+            {"- Hele linje er italic"}
+          </div>
+          <div className="dynamic_text flex items-center">
+            <CopyButton text="<no-bullet>" />
+            {"- Fjerner bulletpoints fra liste"}
+          </div>
         </div>
       </div>
     </ActionHeader>
