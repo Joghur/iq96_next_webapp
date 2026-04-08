@@ -1,23 +1,6 @@
-import EventInfoBadge from "@components/EventInfoBadge";
 import { cn } from "@lib/utils";
-import Link from "next/link";
-import type { ReactNode } from "react";
-import {
-  MdOutlineBusAlert,
-  MdOutlineCoffee,
-  MdOutlineDining,
-  MdOutlineHotel,
-  MdOutlineLocalSee,
-  MdOutlineLunchDining,
-  MdOutlineMuseum,
-  MdOutlineMusicNote,
-  MdOutlineQuestionMark,
-  MdOutlineRestaurant,
-  MdOutlineTrain,
-  MdOutlineWineBar,
-  MdWineBar,
-} from "react-icons/md";
 import type { Event } from "schemas/event";
+import { handleLinks } from "./Links/Links";
 
 type Props = { pointsString: string; event: Event };
 
@@ -41,7 +24,7 @@ const EventBulletPoints = ({ pointsString, event }: Props) => {
             <div key={index} className="ml-4">
               <li>
                 {`${parts[0]} `}
-                {handleBulletPoint(yearCity, "hotel")}
+                {handleLinks(yearCity, "hotel")}
                 {` ${parts.length > 1 && parts[1]}`}
               </li>
             </div>
@@ -49,11 +32,12 @@ const EventBulletPoints = ({ pointsString, event }: Props) => {
         }
         if (point.includes("<link:middag>")) {
           const parts = point.split("<link:middag>");
+          console.log("parts", parts);
           return (
             <div key={index} className="ml-4">
               <li>
                 {`${parts[0]} `}
-                {handleBulletPoint(yearCity, "middag")}
+                {handleLinks(yearCity, "middag")}
                 {` ${parts.length > 1 && parts[1]}`}
               </li>
             </div>
@@ -65,7 +49,7 @@ const EventBulletPoints = ({ pointsString, event }: Props) => {
             <div key={index} className="ml-4">
               <li>
                 {`${parts[0]} `}
-                {handleBulletPoint(yearCity, "frokost")}
+                {handleLinks(yearCity, "frokost")}
                 {` ${parts.length > 1 && parts[1]}`}
               </li>
             </div>
@@ -77,7 +61,7 @@ const EventBulletPoints = ({ pointsString, event }: Props) => {
             <div key={index} className="ml-4">
               <li>
                 {`${parts[0]} `}
-                {handleBulletPoint(yearCity, "tour")}
+                {handleLinks(yearCity, "tour")}
                 {` ${parts.length > 1 && parts[1]}`}
               </li>
             </div>
@@ -89,7 +73,7 @@ const EventBulletPoints = ({ pointsString, event }: Props) => {
             <div key={index} className="ml-4">
               <li>
                 {`${parts[0]} `}
-                {handleBulletPoint("0-Generalforsamling", "gf")}
+                {handleLinks("0-Generalforsamling", "gf")}
                 {` ${parts.length > 1 && parts[1]}`}
               </li>
             </div>
@@ -107,7 +91,7 @@ const EventBulletPoints = ({ pointsString, event }: Props) => {
             <div key={index} className="ml-4">
               <li>
                 {firstText}
-                {handleBulletPoint(
+                {handleLinks(
                   yearCity,
                   markerType as BulletPointLinkTypes,
                   markerNick,
@@ -137,7 +121,7 @@ const EventBulletPoints = ({ pointsString, event }: Props) => {
                 haveSeparatingSpace ? "invisible" : "",
               )}
             >
-              {handleBulletPoint(removedStylingKeywords.trim())}
+              {handleLinks(removedStylingKeywords.trim())}
             </li>
           </div>
         );
@@ -167,135 +151,3 @@ const bulletPointLinkTypes = [
 ] as const;
 
 export type BulletPointLinkTypes = (typeof bulletPointLinkTypes)[number];
-
-const handleBulletPoint = (
-  yearCity: string | undefined,
-  type?: BulletPointLinkTypes,
-  place?: string,
-): ReactNode => {
-  switch (type) {
-    case "hotel":
-      return (
-        <Link
-          href={`/kort?aar-by=${yearCity}&sted=Vores hotel`}
-          prefetch={false}
-          className="whitespace-nowrap"
-        >
-          <EventInfoBadge>
-            <MdOutlineHotel className="mr-1" />
-            Hotel
-          </EventInfoBadge>
-        </Link>
-      );
-
-    case "middag":
-      return (
-        <Link
-          href={`/kort?aar-by=${yearCity}&sted=Vores middag`}
-          prefetch={false}
-          className="whitespace-nowrap"
-        >
-          <EventInfoBadge>
-            <MdOutlineDining className="mr-1" />
-            Middag
-          </EventInfoBadge>
-        </Link>
-      );
-
-    case "frokost":
-      return (
-        <Link
-          href={`/kort?aar-by=${yearCity}&sted=Vores frokost`}
-          prefetch={false}
-          className="whitespace-nowrap"
-        >
-          <EventInfoBadge>
-            <MdOutlineLunchDining className="mr-1" />
-            Frokost
-          </EventInfoBadge>
-        </Link>
-      );
-
-    case "tour":
-      return (
-        <Link
-          href={`/kort?aar-by=${yearCity}&sted=Guided tour`}
-          prefetch={false}
-          className="whitespace-nowrap"
-        >
-          <EventInfoBadge>
-            <MdOutlineLocalSee className="mr-1" />
-            Guided tour
-          </EventInfoBadge>
-        </Link>
-      );
-
-    case "gf":
-      return (
-        <Link
-          href={"/kort?aar-by=0-Generalforsamling&sted=Generalforsamling"}
-          prefetch={false}
-          className="whitespace-nowrap"
-        >
-          <EventInfoBadge>
-            <MdWineBar className="mr-1" />
-            Generalforsamling
-          </EventInfoBadge>
-        </Link>
-      );
-
-    case "bar":
-    case "bus":
-    case "cafe":
-    case "museum":
-    case "music":
-    case "question":
-    case "restaurant":
-    case "train":
-    case "unknown":
-      return (
-        <Link
-          href={`/kort?aar-by=${yearCity}&sted=${place}`}
-          prefetch={false}
-          className="whitespace-nowrap"
-        >
-          <EventInfoBadge>
-            {iconText(type)}
-            {place}
-          </EventInfoBadge>
-        </Link>
-      );
-
-    default:
-      return yearCity;
-  }
-};
-
-const iconText = (icon: string) => {
-  switch (icon) {
-    case "bar":
-    case "gf":
-      return <MdOutlineWineBar className="mr-1" />;
-
-    case "bus":
-      return <MdOutlineBusAlert className="mr-1" />;
-
-    case "cafe":
-      return <MdOutlineCoffee className="mr-1" />;
-
-    case "museum":
-      return <MdOutlineMuseum className="mr-1" />;
-
-    case "music":
-      return <MdOutlineMusicNote className="mr-1" />;
-
-    case "restaurant":
-      return <MdOutlineRestaurant className="mr-1" />;
-
-    case "train":
-      return <MdOutlineTrain className="mr-1" />;
-
-    default:
-      return <MdOutlineQuestionMark className="mr-1" />;
-  }
-};
