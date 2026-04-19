@@ -124,7 +124,7 @@ const handleLinksInCard = (label: string, event: Event) => {
 
   if (label.includes("<link:middag>")) {
     const parts = label.split("<link:middag>");
-    console.log("parts", parts);
+
     return (
       <div className="flex items-center">
         {`${parts[0]} `}

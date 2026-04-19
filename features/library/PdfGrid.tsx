@@ -79,9 +79,6 @@ export default function PdfGrid({ pdfs, label = true }: Props) {
     return null;
   }
 
-  console.log("pdfs");
-  console.dir(pdfs, { depth: null });
-
   return (
     <div className="flex flex-col items-center">
       {pdfs.map((pdf) => (

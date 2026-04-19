@@ -26,9 +26,6 @@ export default async function EventsPage(props: {
     .max_results(10)
     .execute()) as { resources: SearchResult[] };
 
-  // console.log("results.resources");
-  // console.dir(results.resources, { depth: null });
-
   return (
     <PageLayout>
       <ForceRefresh />
