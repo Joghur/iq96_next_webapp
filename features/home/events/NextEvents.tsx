@@ -124,7 +124,7 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
                       >
                         <EventInfoBadge>
                           <ImageIcon className="mr-1" />
-                          Upload
+                          Billeder
                         </EventInfoBadge>
                       </Link>
                     )}
@@ -138,7 +138,7 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
                       >
                         <EventInfoBadge>
                           <ImageIcon className="mr-1" />
-                          Upload
+                          Billeder
                         </EventInfoBadge>
                       </Link>
                     )}
@@ -152,7 +152,7 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
                       >
                         <EventInfoBadge>
                           <ImageIcon className="mr-1" />
-                          Upload
+                          Billeder
                         </EventInfoBadge>
                       </Link>
                     )}
@@ -166,7 +166,21 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
                       >
                         <EventInfoBadge>
                           <ImageIcon className="mr-1" />
-                          Upload
+                          Billeder
+                        </EventInfoBadge>
+                      </Link>
+                    )}
+                  {nextEvent.showUploadButton &&
+                    nextEvent?.type === "other" &&
+                    nextEvent?.year && (
+                      <Link
+                        href={`/bibliothek/galleri/other/${nextEvent.year}`}
+                        prefetch={false}
+                        className="whitespace-nowrap"
+                      >
+                        <EventInfoBadge>
+                          <ImageIcon className="mr-1" />
+                          Billeder
                         </EventInfoBadge>
                       </Link>
                     )}
