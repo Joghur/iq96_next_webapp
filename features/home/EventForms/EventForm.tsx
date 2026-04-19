@@ -176,17 +176,17 @@ const EventForm = ({
                 <div className="flex flex-col sm:flex-row gap-2">
                   <FormCheckbox
                     name="showInfoLink"
-                    label="Show Info link"
+                    label="Vis Info link"
                     control={form.control}
                   />
                   <FormCheckbox
                     name="showMapLink"
-                    label="Show Map link"
+                    label="Vis Map link"
                     control={form.control}
                   />
                   <FormCheckbox
                     name="showUploadButton"
-                    label="Show Upload button"
+                    label="Vis Billeder link"
                     control={form.control}
                   />
                 </div>
