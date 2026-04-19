@@ -41,9 +41,6 @@ export default async function EventsPage(props: {
               <p>
                 <b>brev</b>ÅÅ-MM-DD_Evt. tekst
               </p>
-              <p>
-                <b>email</b>ÅÅ-MM-DD_Evt. tekst
-              </p>
             </div>
           </div>
         </div>
