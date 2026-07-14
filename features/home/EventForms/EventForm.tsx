@@ -31,7 +31,6 @@ import {
 } from "schemas/event";
 import { toast } from "sonner";
 import ActivitiesForm from "../ActivitiesForm";
-import { useRef } from "react";
 
 interface Props {
   event?: Event;

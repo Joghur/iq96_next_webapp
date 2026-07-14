@@ -3,8 +3,6 @@
 
 import type { SearchResult } from "@app/bibliothek/galleri/page";
 import { Card } from "@components/ui/card";
-import { authContext } from "@lib/store/auth-context";
-import { useContext } from "react";
 
 export const buildUrlPdf = (folderAndPublicId: string, pagenumber?: string) => {
   return `${process.env.NEXT_PUBLIC_CLOUDINARY_DOMAIN}/${
