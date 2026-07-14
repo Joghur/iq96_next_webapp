@@ -10,7 +10,7 @@ import {
   FieldSet,
 } from "@components/ui/field";
 import { Input } from "@components/ui/input";
-import { RefObject, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { UseFieldArrayRemove } from "react-hook-form";
 import {
   type Activity,

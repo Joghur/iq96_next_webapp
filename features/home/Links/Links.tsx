@@ -1,5 +1,5 @@
 import EventInfoBadge from "@components/EventInfoBadge";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import {
   MdOutlineHotel,
   MdOutlineDining,
@@ -15,7 +15,7 @@ import {
   MdOutlineTrain,
   MdOutlineQuestionMark,
 } from "react-icons/md";
-import { BulletPointLinkTypes } from "../EventBulletPoints";
+import type { BulletPointLinkTypes } from "../EventBulletPoints";
 import Link from "next/link";
 
 export const handleLinks = (
