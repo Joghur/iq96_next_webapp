@@ -1,15 +1,14 @@
 "use client";
 
-import OldPageButton from "@components/buttons/OldPageButton";
 import CookieWarning from "@components/CookieWarning";
 import LoadingSpinner from "@components/LoadingSpinner";
 import PageLayout from "@components/PageLayout";
 import SignIn from "@features/auth/SignIn";
 import EventsPage from "@features/home/EventsPage";
 import {
-	getLocalStorage,
-	LOCALSTORAGE_PREFIX,
-	setLocalStorage,
+  getLocalStorage,
+  LOCALSTORAGE_PREFIX,
+  setLocalStorage,
 } from "@lib/localStorage";
 import { authContext } from "@lib/store/auth-context";
 import { useCallback, useContext, useEffect, useState } from "react";
@@ -17,46 +16,43 @@ import { useCallback, useContext, useEffect, useState } from "react";
 const COOKIE_LOCALSTORAGE_ACCEPTED = `${LOCALSTORAGE_PREFIX}-cookieAccepted`;
 
 export default function Home() {
-	const { authUser, documentUser, loading } = useContext(authContext);
-	const [isCookieAccepted, setIsCookieAccepted] = useState<string | null>(
-		"true",
-	);
+  const { authUser, documentUser, loading } = useContext(authContext);
+  const [isCookieAccepted, setIsCookieAccepted] = useState<string | null>(
+    "true",
+  );
 
-	const handleStart = useCallback(() => {
-		setIsCookieAccepted(() =>
-			getLocalStorage<string>(COOKIE_LOCALSTORAGE_ACCEPTED),
-		);
-	}, []);
+  const handleStart = useCallback(() => {
+    setIsCookieAccepted(() =>
+      getLocalStorage<string>(COOKIE_LOCALSTORAGE_ACCEPTED),
+    );
+  }, []);
 
-	useEffect(() => {
-		handleStart();
-	}, [handleStart]);
+  useEffect(() => {
+    handleStart();
+  }, [handleStart]);
 
-	const acceptCookies = () => {
-		setLocalStorage<string>(COOKIE_LOCALSTORAGE_ACCEPTED, "true");
-		setIsCookieAccepted("true");
-	};
+  const acceptCookies = () => {
+    setLocalStorage<string>(COOKIE_LOCALSTORAGE_ACCEPTED, "true");
+    setIsCookieAccepted("true");
+  };
 
-	if (!isCookieAccepted) {
-		return <CookieWarning acceptCookies={acceptCookies} />;
-	}
+  if (!isCookieAccepted) {
+    return <CookieWarning acceptCookies={acceptCookies} />;
+  }
 
-	if (loading) {
-		return <LoadingSpinner />;
-	}
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
-	if (!authUser) {
-		return <SignIn />;
-	}
+  if (!authUser) {
+    return <SignIn />;
+  }
 
-	return (
-		<PageLayout>
-			<div className="fixed right-0 top-0 sm:right-10 sm:top-10">
-				<OldPageButton />
-			</div>
-			<div>
-				<EventsPage documentUser={documentUser} />
-			</div>
-		</PageLayout>
-	);
+  return (
+    <PageLayout>
+      <div>
+        <EventsPage documentUser={documentUser} />
+      </div>
+    </PageLayout>
+  );
 }
