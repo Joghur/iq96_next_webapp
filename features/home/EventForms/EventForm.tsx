@@ -161,7 +161,12 @@ const EventForm = ({
                         {type}
                       </SelectItem>
                     ))}
-                  </FormSelect>
+                  </FormSelect>{" "}
+                  <FormInput
+                    control={form.control}
+                    name="otherTypeLabel"
+                    label="Alternativ overskrift"
+                  />
                 </div>
               </FieldGroup>
             </FieldSet>
