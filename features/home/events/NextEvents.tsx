@@ -1,8 +1,7 @@
 import EditButton from "@components/buttons/EditButton";
 import ShowDateTime from "@components/dates/ShowDateTime";
 import EventInfoBadge from "@components/EventInfoBadge";
-import { handleType } from "@lib/convert";
-import { cn } from "@lib/utils";
+import { cn, handleTypeLabel, handleUploadButtonHref } from "@lib/utils";
 import { ImageIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -52,11 +51,7 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
                 className={`sm:px-15 bg-primary text-primary-foreground paper flex flex-col gap-2 overflow-hidden rounded-xl px-10`}
               >
                 <div className="flex justify-between align-middle">
-                  <p className="font-semibold">
-                    {nextEvent?.type === "tour"
-                      ? `${handleType(nextEvent?.type)} de ${nextEvent.city}`
-                      : handleType(nextEvent?.type)}
-                  </p>
+                  <p className="font-semibold">{handleTypeLabel(nextEvent)}</p>
                   {canEdit && nextEvent.id && (
                     <EditButton onClick={() => onUpdate(nextEvent.id)} />
                   )}
@@ -113,77 +108,18 @@ const NextEvents = ({ nextEvents, canEdit, onUpdate }: Props) => {
                         </EventInfoBadge>
                       </Link>
                     )}
-                  {nextEvent.showUploadButton &&
-                    nextEvent?.type === "tour" &&
-                    nextEvent?.year &&
-                    nextEvent?.city && (
-                      <Link
-                        href={`/bibliothek/galleri/tour/${nextEvent.year}-${nextEvent.city.toLocaleLowerCase()}`}
-                        prefetch={false}
-                        className="whitespace-nowrap"
-                      >
-                        <EventInfoBadge>
-                          <ImageIcon className="mr-1" />
-                          Billeder
-                        </EventInfoBadge>
-                      </Link>
-                    )}
-                  {nextEvent.showUploadButton &&
-                    nextEvent?.type === "gf" &&
-                    nextEvent?.year && (
-                      <Link
-                        href={`/bibliothek/galleri/gf/${nextEvent.year}`}
-                        prefetch={false}
-                        className="whitespace-nowrap"
-                      >
-                        <EventInfoBadge>
-                          <ImageIcon className="mr-1" />
-                          Billeder
-                        </EventInfoBadge>
-                      </Link>
-                    )}
-                  {nextEvent.showUploadButton &&
-                    nextEvent?.type === "oel" &&
-                    nextEvent?.year && (
-                      <Link
-                        href={`/bibliothek/galleri/events/${nextEvent.year}-øl`}
-                        prefetch={false}
-                        className="whitespace-nowrap"
-                      >
-                        <EventInfoBadge>
-                          <ImageIcon className="mr-1" />
-                          Billeder
-                        </EventInfoBadge>
-                      </Link>
-                    )}
-                  {nextEvent.showUploadButton &&
-                    nextEvent?.type === "golf" &&
-                    nextEvent?.year && (
-                      <Link
-                        href={`/bibliothek/galleri/events/${nextEvent.year}-frisbee`}
-                        prefetch={false}
-                        className="whitespace-nowrap"
-                      >
-                        <EventInfoBadge>
-                          <ImageIcon className="mr-1" />
-                          Billeder
-                        </EventInfoBadge>
-                      </Link>
-                    )}
-                  {nextEvent.showUploadButton &&
-                    nextEvent?.type === "other" &&
-                    nextEvent?.year && (
-                      <Link
-                        href={`/bibliothek/galleri/other/${nextEvent.year}`}
-                        prefetch={false}
-                        className="whitespace-nowrap"
-                      >
-                        <EventInfoBadge>
-                          <ImageIcon className="mr-1" />
-                          Billeder
-                        </EventInfoBadge>
-                      </Link>
-                    )}
+                  {nextEvent.showUploadButton && (
+                    <Link
+                      href={handleUploadButtonHref(nextEvent)}
+                      prefetch={false}
+                      className="whitespace-nowrap"
+                    >
+                      <EventInfoBadge>
+                        <ImageIcon className="mr-1" />
+                        Billeder
+                      </EventInfoBadge>
+                    </Link>
+                  )}
                 </div>
                 {nextEvent?.notes && (
                   <div className="flex flex-col">

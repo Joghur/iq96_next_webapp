@@ -1,24 +1,11 @@
 import EditButton from "@components/buttons/EditButton";
 import EventInfoBadge from "@components/EventInfoBadge";
 import { eventTransitionVariants } from "@lib/animations";
-import { handleType } from "@lib/convert";
+import { handleTypeLabel, handleUploadButtonHref } from "@lib/utils";
 import { ImageIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import type { Event } from "schemas/event";
-
-const handleTypeLabel = (event: Event) => {
-  switch (event.type) {
-    case "tour":
-      return `${handleType(event?.type)} de ${event.city}`;
-
-    case "other":
-      return `${event.otherTypeLabel ?? handleType(event.type)}`;
-
-    default:
-      return handleType(event.type);
-  }
-};
 
 type Props = {
   previousEvents: Event[];
@@ -51,63 +38,18 @@ const PreviousEvents = ({ previousEvents, canEdit, onUpdate }: Props) => {
                   {handleTypeLabel(previousEvent)}
                 </p>
                 <div className="flex justify-evenly">
-                  {previousEvent.showUploadButton &&
-                    previousEvent?.type === "tour" &&
-                    previousEvent?.year &&
-                    previousEvent?.city && (
-                      <Link
-                        href={`/bibliothek/galleri/tour/${previousEvent.year}-${previousEvent.city.toLocaleLowerCase()}`}
-                        prefetch={false}
-                        className="whitespace-nowrap"
-                      >
-                        <EventInfoBadge>
-                          <ImageIcon className="mr-1" />
-                          Billeder
-                        </EventInfoBadge>
-                      </Link>
-                    )}
-                  {previousEvent.showUploadButton &&
-                    previousEvent?.type === "gf" &&
-                    previousEvent?.year && (
-                      <Link
-                        href={`/bibliothek/galleri/gf/${previousEvent.year}`}
-                        prefetch={false}
-                        className="whitespace-nowrap"
-                      >
-                        <EventInfoBadge>
-                          <ImageIcon className="mr-1" />
-                          Billeder
-                        </EventInfoBadge>
-                      </Link>
-                    )}
-                  {previousEvent.showUploadButton &&
-                    previousEvent?.type === "oel" &&
-                    previousEvent?.year && (
-                      <Link
-                        href={`/bibliothek/galleri/events/${previousEvent.year}-øl`}
-                        prefetch={false}
-                        className="whitespace-nowrap"
-                      >
-                        <EventInfoBadge>
-                          <ImageIcon className="mr-1" />
-                          Billeder
-                        </EventInfoBadge>
-                      </Link>
-                    )}
-                  {previousEvent.showUploadButton &&
-                    previousEvent?.type === "golf" &&
-                    previousEvent?.year && (
-                      <Link
-                        href={`/bibliothek/galleri/events/${previousEvent.year}-frisbee`}
-                        prefetch={false}
-                        className="whitespace-nowrap"
-                      >
-                        <EventInfoBadge>
-                          <ImageIcon className="mr-1" />
-                          Billeder
-                        </EventInfoBadge>
-                      </Link>
-                    )}
+                  {previousEvent.showUploadButton && (
+                    <Link
+                      href={handleUploadButtonHref(previousEvent)}
+                      prefetch={false}
+                      className="whitespace-nowrap"
+                    >
+                      <EventInfoBadge>
+                        <ImageIcon className="mr-1" />
+                        Billeder
+                      </EventInfoBadge>
+                    </Link>
+                  )}
                 </div>
                 {canEdit && previousEvent.id && (
                   <EditButton onClick={() => onUpdate(previousEvent.id)} />

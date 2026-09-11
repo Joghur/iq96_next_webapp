@@ -22,6 +22,9 @@
       },
       "complexity": {
         "noImportantStyles": "off"
+      },
+      "correctness": {
+        "noSwitchDeclarations": "off"
       }
     }
   },
