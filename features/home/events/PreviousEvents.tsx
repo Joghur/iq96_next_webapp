@@ -7,6 +7,19 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import type { Event } from "schemas/event";
 
+const handleTypeLabel = (event: Event) => {
+  switch (event.type) {
+    case "tour":
+      return `${handleType(event?.type)} de ${event.city}`;
+
+    case "other":
+      return `${event.otherTypeLabel ?? handleType(event.type)}`;
+
+    default:
+      return handleType(event.type);
+  }
+};
+
 type Props = {
   previousEvents: Event[];
   canEdit: boolean;
@@ -35,9 +48,7 @@ const PreviousEvents = ({ previousEvents, canEdit, onUpdate }: Props) => {
             >
               <div className="flex items-center justify-between">
                 <p className="font-semibold">
-                  {previousEvent?.type === "tour"
-                    ? `${handleType(previousEvent?.type)} de ${previousEvent.city}`
-                    : handleType(previousEvent?.type)}
+                  {handleTypeLabel(previousEvent)}
                 </p>
                 <div className="flex justify-evenly">
                   {previousEvent.showUploadButton &&
