@@ -209,7 +209,7 @@ const EventForm = ({
                     control={form.control}
                     name="end"
                     label="Slut Dato"
-                    description="YYYY-MM-DD"
+                    description="YYYY-MM-DD - optional"
                   />
                   <FormInput
                     control={form.control}
@@ -311,16 +311,3 @@ const UpdateButton = ({ isNew }: UpdateButtonProps) => {
     </div>
   );
 };
-
-// type UpdateButtonProps = {
-//   isNew: boolean;
-// };
-// const UpdateButton = ({ isNew }: UpdateButtonProps) => {
-//   return (
-//     <div className="flex justify-center mt-4">
-//       <Button key="submit-button" variant="secondary" size="lg" type="submit">
-//         {isNew ? "Opret" : "Opdatér"}
-//       </Button>
-//     </div>
-//   );
-// };
