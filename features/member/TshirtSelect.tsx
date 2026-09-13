@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { cn } from "@lib/utils";
 import type { DocumentData } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { type Member, T_SHIRT_SIZES, type TshirtSizes } from "schemas/member";
+import { type Member, T_SHIRT_SIZES, type TshirtSizes } from"@schemas/member";
 
 interface Props {
 	member: Member;

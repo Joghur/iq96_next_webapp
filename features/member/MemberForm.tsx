@@ -11,7 +11,6 @@ import {
 import { SelectItem } from "@components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { confirmAction } from "@lib/utils";
-import { checkMember } from "actions/member";
 import { useForm } from "react-hook-form";
 import {
 	defaultMember,
@@ -19,9 +18,10 @@ import {
 	memberSchema,
 	T_SHIRT_SIZES,
 	TITLES,
-} from "schemas/member";
+} from"@schemas/member";
 import { toast } from "sonner";
 import type { z } from "zod";
+import { checkMember } from "@actions/member";
 
 type Props = {
 	member: Member | undefined;

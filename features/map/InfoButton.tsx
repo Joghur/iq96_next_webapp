@@ -9,7 +9,7 @@ import {
 	MdMyLocation,
 	MdWarning,
 } from "react-icons/md";
-import type { Member } from "schemas/member";
+import type { Member } from"@schemas/member";
 
 interface Props {
 	documentUser: Member;

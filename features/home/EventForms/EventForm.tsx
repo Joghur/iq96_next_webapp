@@ -20,7 +20,6 @@ import { SelectItem } from "@components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getDateRange } from "@lib/dates";
 import { confirmAction } from "@lib/utils";
-import { checkEvent } from "actions/event";
 import { useFieldArray, useForm } from "react-hook-form";
 import {
   EVENT_STATUS_VALUES,
@@ -28,9 +27,10 @@ import {
   type Event,
   eventSchema,
   initialEvent,
-} from "schemas/event";
+} from"@schemas/event";
 import { toast } from "sonner";
 import ActivitiesForm from "../ActivitiesForm";
+import { checkEvent } from "@actions/event";
 
 interface Props {
   event?: Event;

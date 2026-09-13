@@ -24,7 +24,7 @@ import {
 	where,
 } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
-import type { Member } from "schemas/member";
+import type { Member } from"@schemas/member";
 
 export type CollectionName =
 	| "users"
