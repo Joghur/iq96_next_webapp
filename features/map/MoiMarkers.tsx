@@ -17,7 +17,7 @@ import { Icon } from "leaflet";
 import { type ChangeEvent, useState } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { Tooltip as MapToolip, Marker, Popup } from "react-leaflet";
-import type { Member } from "schemas/member";
+import type { Member } from"@schemas/member";
 import type { MarkerData } from "./Map";
 
 const markerTypes = [

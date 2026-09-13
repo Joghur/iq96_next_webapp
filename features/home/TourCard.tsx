@@ -10,7 +10,7 @@ import {
   MdOutlineTour,
   MdWineBar,
 } from "react-icons/md";
-import type { ActivityType, Event } from "schemas/event";
+import type { ActivityType, Event } from"@schemas/event";
 import EventBulletPoints from "./EventBulletPoints";
 import { handleLinks } from "./Links/Links";
 

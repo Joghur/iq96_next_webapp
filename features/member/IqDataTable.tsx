@@ -32,7 +32,7 @@ import {
 } from "@tanstack/react-table";
 import { useState } from "react";
 import CsvDownloader from "react-csv-downloader";
-import { defaultMember, type Member, memberSchema } from "schemas/member";
+import { defaultMember, type Member, memberSchema } from"@schemas/member";
 import MemberForm from "./MemberForm";
 
 export const columns: ColumnDef<Member>[] = [

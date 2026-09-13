@@ -16,7 +16,7 @@ import {
   type Activity,
   type ActivityType,
   activitiesSchema,
-} from "schemas/event";
+} from"@schemas/event";
 import Activities from "./Activities";
 import {
   ActivityDateSelect,

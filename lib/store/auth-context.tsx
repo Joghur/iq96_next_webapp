@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import type { DocumentData } from "firebase/firestore";
 import { createContext, type ReactNode, useEffect } from "react";
-import type { Member } from "schemas/member";
+import type { Member } from"@schemas/member";
 
 interface AuthContextValues {
 	authUser: User | null | undefined;

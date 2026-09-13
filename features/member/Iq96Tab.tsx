@@ -5,7 +5,7 @@ import { eventTransitionVariants } from "@lib/animations";
 import { useFirestore } from "@lib/hooks/useFirestore";
 import { motion } from "framer-motion";
 import { Fragment, useState } from "react";
-import type { Member } from "schemas/member";
+import type { Member } from"@schemas/member";
 
 const Iq96Tab = () => {
 	const { docs: users } = useFirestore<Member>("users", "name", "asc", 26);

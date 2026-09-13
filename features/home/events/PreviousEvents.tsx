@@ -5,7 +5,7 @@ import { handleTypeLabel, handleUploadButtonHref } from "@lib/utils";
 import { ImageIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import type { Event } from "schemas/event";
+import type { Event } from"@schemas/event";
 
 type Props = {
   previousEvents: Event[];

@@ -2,7 +2,7 @@
 
 import LoadingSpinner from "@components/LoadingSpinner";
 import { useFirestore } from "@lib/hooks/useFirestore";
-import type { Member } from "schemas/member";
+import type { Member } from"@schemas/member";
 import { IqDataTable } from "./IqDataTable";
 
 const AdminTab = () => {

@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 import { type ClassValue, clsx } from "clsx";
-import type { Activity, Event } from "schemas/event";
+import type { Activity, Event } from"@schemas/event";
 import { twMerge } from "tailwind-merge";
 import { handleType } from "./convert";
 

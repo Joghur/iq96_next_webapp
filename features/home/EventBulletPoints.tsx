@@ -1,5 +1,5 @@
 import { cn } from "@lib/utils";
-import type { Event } from "schemas/event";
+import type { Event } from"@schemas/event";
 import { handleLinks } from "./Links/Links";
 
 type Props = { pointsString: string; event: Event };

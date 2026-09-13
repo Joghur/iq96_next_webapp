@@ -2,7 +2,7 @@ import { Button } from "@components/ui/button";
 import { TrashIcon } from "@radix-ui/react-icons";
 import { PenIcon } from "lucide-react";
 import type { UseFieldArrayRemove } from "react-hook-form";
-import type { Activity } from "schemas/event";
+import type { Activity } from"@schemas/event";
 
 type Props = {
   activities: Activity[];

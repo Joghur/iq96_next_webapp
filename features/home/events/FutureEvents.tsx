@@ -3,7 +3,7 @@ import ShowDateTime from "@components/dates/ShowDateTime";
 import { eventTransitionVariants } from "@lib/animations";
 import { handleType } from "@lib/convert";
 import { motion } from "framer-motion";
-import type { Event } from "schemas/event";
+import type { Event } from"@schemas/event";
 
 type Props = {
 	futureEvents: Event[];

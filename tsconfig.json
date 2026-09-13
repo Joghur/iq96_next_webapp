@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
@@ -23,11 +22,10 @@
         "name": "next"
       }
     ],
-    "baseUrl": ".",
     "paths": {
-      // "@*": [
-      //   "./*"
-      // ], // Nødvendigt for shadcn/ui CLI
+      "@*": [
+        "./*"
+      ], // Nødvendigt for shadcn/ui CLI
       "@components/*": [
         "./components/*"
       ],
@@ -43,7 +41,8 @@
       "@hooks/*": [
         "./hooks/*"
       ]
-    }
+    },
+    "target": "ES2017"
   },
   "include": [
     "**/*.ts",
