@@ -1,19 +1,23 @@
 export const aboutList = [
   [
+    "0.8.17",
+    "'Anden begivenhed' har nu en passende overskrift og kan bruges ligesom de andre begivenheder til at vise billeder.",
+  ],
+  [
     "0.8.16",
     "Lettere at opdatere en dags-aktivitet. Bedre syntaks i begivenhedsnoter - bold, italics mm.",
   ],
-  ["0.8.15", "Flere farver og Dropwdown menuer fikset"],
-  ["0.8.14", "Dark mode skift skulle gerne være fikset"],
-  ["0.8.13", "Oprydning internt - Developer tab er fjernet"],
-  ["0.8.12", "Link til GF kort markør"],
+  ["0.8.15", "Flere farver og Dropwdown menuer fikset."],
+  ["0.8.14", "Dark mode skift skulle gerne være fikset."],
+  ["0.8.13", "Oprydning internt - Developer tab er fjernet."],
+  ["0.8.12", "Link til GF kort markør."],
   [
     "0.8.11",
     "Bedre styr på dark mode. Tidligere event får sin egen box, så man lettere kan finde stedet et uploade billeder. Dette kan altid gøres fra Bibliotheket, men nu er det lettere at finde",
   ],
   [
     "0.8.10",
-    "Admin: Det er blevet lettere at tilføje, ændre og slette med-lemmer",
+    "Admin: Det er blevet lettere at tilføje, ændre og slette med-lemmer.",
   ],
   [
     "0.8.9",
