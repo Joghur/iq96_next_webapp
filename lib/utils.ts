@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: <TODO> */
 import { type ClassValue, clsx } from "clsx";
-import type { Activity, Event } from"@schemas/event";
+import type { Activity, Event } from "@schemas/event";
 import { twMerge } from "tailwind-merge";
 import { handleType } from "./convert";
 
@@ -96,9 +96,6 @@ export const handleUploadButtonHref = (previousEvent: Event) => {
 };
 
 const CHAR_MAP: Record<string, string> = {
-  æ: "ae",
-  ø: "oe",
-  å: "aa",
   ä: "ae",
   ö: "oe",
   ü: "ue",
@@ -113,10 +110,10 @@ export function toUrlSafeReadableString(
 
   const slug = input
     .toLowerCase()
-    .replace(/[æøåäöüß]/g, (c) => CHAR_MAP[c] ?? c)
+    .replace(/[äöüß]/g, (c) => CHAR_MAP[c] ?? c)
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/[^a-zæøå0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, maxLength)
     .replace(/-+$/, "");
