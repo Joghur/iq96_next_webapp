@@ -40,7 +40,7 @@
     "cloudinary-build-url": "0.2.4",
     "clsx": "2.1.1",
     "date-fns": "4.4.0",
-    "firebase": "12.5.0",
+    "firebase": "12.19.0",
     "framer-motion": "13.2.0",
     "leaflet": "1.9.4",
     "lucide-react": "1.45.0",
