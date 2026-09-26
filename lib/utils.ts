@@ -84,9 +84,9 @@ export const handleUploadButtonHref = (previousEvent: Event) => {
       if (!previousEvent.otherTypeLabel) {
         return "mangler alternativt begivenhedsnavn";
       }
-      const urlSafeReadableString = toUrlSafeReadableString(
-        `${previousEvent.year}-${previousEvent.otherTypeLabel}`,
-      );
+      const urlSafeReadableString =
+        `${previousEvent.year}-${toUrlSafeReadableString(previousEvent.otherTypeLabel)}`
+      console.log("urlSafeReadableString", urlSafeReadableString);
       return `/bibliothek/galleri/other/${urlSafeReadableString}`;
 
     default:
@@ -100,6 +100,9 @@ const CHAR_MAP: Record<string, string> = {
   ö: "oe",
   ü: "ue",
   ß: "ss",
+  æ: "ae",
+  ø: "oe",
+  å: "aa",
 };
 
 export function toUrlSafeReadableString(
@@ -110,10 +113,10 @@ export function toUrlSafeReadableString(
 
   const slug = input
     .toLowerCase()
-    .replace(/[äöüß]/g, (c) => CHAR_MAP[c] ?? c)
+    .replace(/[äöüßæøå]/g, (c) => CHAR_MAP[c] ?? c)
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-zæøå0-9]+/g, "-")
+    .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, maxLength)
     .replace(/-+$/, "");
