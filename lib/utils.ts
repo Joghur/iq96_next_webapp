@@ -125,7 +125,9 @@ export function toUrlSafeReadableString(
  * Converting one instance of urlsafe to normal text
  */
 export const convertFromUrlSafe = (label: string) => {
-  const newLabel = label;
+  const newLabel = label.replace(/oe/gi, 'ø')
+  .replace(/aa/gi, 'å')
+  .replace(/ae/gi, 'æ');
   return decodeURIComponent(newLabel);
 };
 
