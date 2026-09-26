@@ -77,6 +77,7 @@ export const initialEvent: Event = {
   city: "Kokkedal",
   start: "",
   end: "",
+  otherTypeLabel:"",
   year: new Date().getFullYear(),
   activities: [
     {
