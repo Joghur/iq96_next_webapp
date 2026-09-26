@@ -86,7 +86,8 @@ export const handleUploadButtonHref = (previousEvent: Event) => {
       }
       const urlSafeReadableString =
         `${previousEvent.year}-${toUrlSafeReadableString(previousEvent.otherTypeLabel)}`
-      console.log("urlSafeReadableString", urlSafeReadableString);
+
+
       return `/bibliothek/galleri/other/${urlSafeReadableString}`;
 
     default:
