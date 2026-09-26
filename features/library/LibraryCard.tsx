@@ -6,6 +6,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@components/ui/card";
+import { convertFromUrlSafe } from "@lib/utils";
 import type { ReactNode } from "react";
 
 export function LibraryCard({
@@ -25,7 +26,7 @@ export function LibraryCard({
 		<Card className="h-36" {...props}>
 			{(cardTitle || cardDescription) && (
 				<CardHeader>
-					{cardTitle && <CardTitle>{cardTitle}</CardTitle>}
+					{cardTitle && <CardTitle>{convertFromUrlSafe(cardTitle)}</CardTitle>}
 					{cardDescription && (
 						<CardDescription>{cardDescription}</CardDescription>
 					)}

@@ -6,7 +6,7 @@ import cloudinary from "cloudinary";
 
 export default async function VedtagterPage() {
 	const results = (await cloudinary.v2.search
-		.expression("resource_type:image AND public_id:IQ_sangen_GF_2023")
+		.expression("resource_type:image AND folder:sang")
 		.sort_by("public_id", "desc")
 		.max_results(10)
 		.execute()) as { resources: SearchResult[] };
@@ -47,6 +47,9 @@ export default async function VedtagterPage() {
 				</p>
 				<p className="dynamic_text">
 					<span className="font-bold">2025</span> – Benjamin, Poppe
+				</p>
+				<p className="dynamic_text">
+					<span className="font-bold">2026</span> – Poppe
 				</p>
 			</div>
 		</PageLayout>

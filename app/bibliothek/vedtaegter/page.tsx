@@ -6,7 +6,7 @@ import cloudinary from "cloudinary";
 
 export default async function VedtagterPage() {
 	const results = (await cloudinary.v2.search
-		.expression("resource_type:image AND public_id:Vedtægter")
+		.expression("resource_type:image AND folder:vedtaegter")
 		.sort_by("public_id", "desc")
 		.max_results(10)
 		.execute()) as { resources: SearchResult[] };

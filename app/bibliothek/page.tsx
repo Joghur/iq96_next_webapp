@@ -67,6 +67,9 @@ const LibraryPage = (props: {
 					<Link href="/bibliothek/sang">
 						<LibraryCard cardTitle="Sang" />
 					</Link>
+					<Link href="/bibliothek/anden-begivenhed">
+						<LibraryCard cardTitle="Anden begivenhed" />
+					</Link>
 				</div>
 			</motion.div>
 		</PageLayout>
