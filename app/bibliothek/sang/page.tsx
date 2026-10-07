@@ -1,57 +1,33 @@
-import type { SearchResult } from "@app/bibliothek/galleri/page";
 import PageLayout from "@components/PageLayout";
 import { ForceRefresh } from "@components/ui/force-refresh";
-import PdfGrid from "@features/library/PdfGrid";
-import cloudinary from "cloudinary";
 
 export default async function VedtagterPage() {
-	const results = (await cloudinary.v2.search
-		.expression("resource_type:image AND folder:sang")
-		.sort_by("public_id", "desc")
-		.max_results(10)
-		.execute()) as { resources: SearchResult[] };
 
-	// TODO: Export  authors to PDF file
-	return (
-		<PageLayout>
-			<ForceRefresh />
-			<div className="flex flex-col">
-				<div className="flex justify-between">
-					<h1 className="text-4xl font-bold">IQ sangen</h1>
-				</div>
-				{results.resources.length > 0 ? (
-					<PdfGrid pdfs={results.resources} label={false} />
-				) : (
-					<p>Ingen sang fundet</p>
-				)}
-				<h4 className="dynamic_text font-bold mt-10">Sangskrivere</h4>
-				<p className="dynamic_text">
-					<span className="font-bold">IQ96, 2003, 2012, 2013</span> – Nestor
-				</p>
-				<p className="dynamic_text">
-					<span className="font-bold">2004</span> – Poppe
-				</p>
-				<p className="dynamic_text">
-					<span className="font-bold">2014</span> – Kasseur, Redacteur,
-					Søsterkysser og Æselridder
-				</p>
-				<p className="dynamic_text">
-					<span className="font-bold">1997-2000, 2008-2009, 2018</span> –
-					Benjamin, Redacteur
-				</p>
-				<p className="dynamic_text">
-					<span className="font-bold">
-						2001-2002, 2005-2007, 2010-2011, 2015-2017, 2019-2024
-					</span>{" "}
-					– Redacteur
-				</p>
-				<p className="dynamic_text">
-					<span className="font-bold">2025</span> – Benjamin, Poppe
-				</p>
-				<p className="dynamic_text">
-					<span className="font-bold">2026</span> – Poppe
-				</p>
-			</div>
-		</PageLayout>
-	);
+  const driveUrl = process.env.IQ_SONG;
+  console.log("driveUrl");
+  console.dir(driveUrl, {depth: null});
+
+
+  return (
+    <PageLayout>
+      <ForceRefresh />
+      <div className="flex flex-col">
+        <div className="flex justify-between">
+          <h1 className="text-4xl font-bold">IQ sangen</h1>
+        </div>
+        <div className="flex flex-col items-center mt-10 min-h-screen">
+           <p className="text-gray-600 mb-6">Sangen er hosted på Proton Drive.</p>
+
+           <a
+             href={driveUrl}
+             target="_blank"
+             rel="noopener noreferrer"
+             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+           >
+             Åben sang på ny side
+           </a>
+         </div>
+      </div>
+    </PageLayout>
+  );
 }
